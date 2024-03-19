@@ -16,9 +16,10 @@ export default function TrainingList() {
       <TrainingCard 
       key={index} 
       title={training.title}
-      description={training.description}
+      duration={training.duration}
       school={training.school}
-      dateCreated={'FictiveDate'} />
+      dateCreated={'FictiveDate'}
+      category={label.label} />
       
     ))}
     </div>
