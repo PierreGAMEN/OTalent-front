@@ -7,6 +7,9 @@ interface TrainingCardProps {
   school?: string;
   category: string; 
 }
+
+
+
 export default function TrainingCard({ title, dateCreated, duration, school, category }: TrainingCardProps) {
     return (
         <div className="card">
@@ -16,21 +19,22 @@ export default function TrainingCard({ title, dateCreated, duration, school, cat
             <div className="content">
                 <a className="header">{title}</a>
                 
-                {school && (
-                    <div className="school extra content">
-                        <i className="university icon"></i> École :
+               
+                    <div className="school school-link extra content">
+                        <i className="school university icon"></i> École :
                         <span className="right floated"> {school}</span>
                     </div>
+
+                    <div className="school school-link extra content">
+                        <i className="folder icon"></i> Catégorie :
+                        <span className="right floated"> {category}</span>
+                    </div>
                     
-                )}
                     <div className="school extra content">
                         <i className="calendar alternate icon"></i> Durée :
                         <span className="right floated"> {duration}</span>
                     </div>
-                    <div className="school extra content">
-                        <i className="folder icon"></i> Catégorie :
-                        <span className="right floated"> {category}</span>
-                    </div>
+                    
                  
                         <div className='container-star'>
                             <span className='note'>3,3</span>
@@ -41,9 +45,13 @@ export default function TrainingCard({ title, dateCreated, duration, school, cat
                             <i className="star icon"></i>
                             <span className='number-avis'>(32)</span>
                         </div>
-            
     
             </div>
         </div>
     );
 }
+
+// Je souhaite afficher mes étoile. POur cela je recois un nombre.
+// if j'ai un nombre avec je passe le className à star yellow icon
+// if not je passe a star icon
+
