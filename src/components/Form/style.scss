@@ -1,0 +1,22 @@
+.section-card-formPage {
+    display: flex;
+    gap: 5vw;
+    justify-content: center;
+    margin-top: 30vh;
+    margin-bottom: 30vh;
+
+    .section-card-formPage-card{
+        width: 30vw;
+        border: 1px solid #bbbbbb;
+        text-align: center;
+        height: 30vh;
+        padding: 2rem;
+        cursor: pointer;
+        background-color: rgb(237, 237, 238);
+
+        &:hover {
+            background-color: #e2e2e2;
+        }
+
+    }
+}

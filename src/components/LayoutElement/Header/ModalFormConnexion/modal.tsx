@@ -18,7 +18,7 @@ function ModalForm() {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button>Connexion</Button>}
+      trigger={<Button positive>Connexion</Button>}
     >
       <ModalHeader>Bienvenue sur O'Talent</ModalHeader>
       <ModalContent image>
