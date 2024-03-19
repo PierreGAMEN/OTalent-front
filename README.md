@@ -17,14 +17,16 @@ Our site is currently under development.
 
 1. **Clone the Repository:**
 
+```
 git clone git@github.com:O-clock-Kimchi/O-Talent-front.git
+```
+
 
 2. **Run the Development Server:**
 
+```
 npm run dev
+```
 
 
 Ensure you have Node.js and npm installed on your machine before running the commands.
-```
-
-```
