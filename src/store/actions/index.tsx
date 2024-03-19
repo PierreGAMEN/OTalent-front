@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
 
-const GET_VALUE = "GET_VALUE";
+const GET_VALUE_MODAL_FORM = "GET_VALUE_MODAL_FORM";
 
-export const getValue = createAction(GET_VALUE)
+export const getStateModalForm = createAction(GET_VALUE_MODAL_FORM)

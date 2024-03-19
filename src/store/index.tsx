@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import formReducer from '../store/reducer';
+import modalReducer from '../store/reducer';
 
 const store = configureStore({
-  reducer: {user: formReducer}, devTools: true
+  reducer: {modal: modalReducer}, devTools: true
 });
 
 export default store;

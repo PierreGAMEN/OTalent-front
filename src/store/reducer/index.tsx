@@ -1,18 +1,18 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import {  getValue } from "../actions";
+import {  getStateModalForm } from "../actions";
 
 interface RecipesState {
-  list: [];
+  state?: boolean;
 }
 export const initialState: RecipesState = {
-  list: [],
+  state: false,
 };
 
-const formReducer = createReducer(initialState, (builder) => {
-  builder.addCase(getValue, (state, action) => {
-    state.list = action.payload;
+const modalReducer = createReducer(initialState, (builder) => {
+  builder.addCase(getStateModalForm, (state, action) => {
+    state.state = action.payload;
   });
 });
 
-export default formReducer;
+export default modalReducer;
