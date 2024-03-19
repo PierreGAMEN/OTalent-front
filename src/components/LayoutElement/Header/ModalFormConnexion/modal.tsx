@@ -3,7 +3,6 @@ import {
   ModalHeader,
   ModalDescription,
   ModalContent,
-  ModalActions,
   Button,
   Header,
   Modal,

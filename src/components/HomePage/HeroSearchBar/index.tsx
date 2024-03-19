@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import SearchBar from "../../LayoutElement/Header/SearchBar";
 import "./style.scss";
 

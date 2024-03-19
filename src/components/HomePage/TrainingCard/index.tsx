@@ -10,7 +10,7 @@ interface TrainingCardProps {
 
 
 
-export default function TrainingCard({ title, dateCreated, duration, school, category }: TrainingCardProps) {
+export default function TrainingCard({ title, duration, school, category }: TrainingCardProps) {
     return (
         <div className="card">
             <div className="image">
