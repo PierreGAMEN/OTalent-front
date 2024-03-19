@@ -1,30 +1,30 @@
-# React + TypeScript + Vite
+# O'Talent API
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
 
-Currently, two official plugins are available:
+### What is O'Talent ?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O'Talent is a platform designed to meet the training and personal development needs of everyone. Whether you're seeking new professional skills, personal enrichment, or simply curious to explore new horizons, O'Talent offers a diverse range of courses tailored to all interests and skill levels.
 
-## Expanding the ESLint configuration
+One of O'Talent's main features is its extensive library of courses, covering a multitude of subjects ranging from foreign languages to computer programming, as well as personal development and well-being. Users have the opportunity to explore these various courses through detailed descriptions, user reviews, and ratings, helping them make decisions based on what best fits their needs and goals.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## State  
 
-- Configure the top-level `parserOptions` property like this:
+Our site is currently under development.
+## How to use
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### Locally:
+
+1. **Clone the Repository:**
+
+git clone git@github.com:O-clock-Kimchi/O-Talent-front.git
+
+2. **Run the Development Server:**
+
+npm run dev
+
+
+Ensure you have Node.js and npm installed on your machine before running the commands.
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+```
