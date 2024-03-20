@@ -11,6 +11,7 @@ import CategoryTrainingPage from './components/CategoryTrainingPage/index.tsx';
 import MemberProfilePage from './components/PageProfile/MemberProfilePage/index.tsx';
 import OrganismProfilePage from './components/PageProfile/OrganizationProfilePage/index.tsx';
 import FormPage from './components/Form/index.tsx';
+import SearchPage from './components/CategoryTrainingPage/index.tsx';
 
 
 const router = createBrowserRouter([
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "training/category/:name", element: <CategoryTrainingPage /> },
+      { path: "search/:query", element: <SearchPage /> },
       { path: "training/:title", element: <TrainingPage /> },
       { path: "member/:name", element: < MemberProfilePage/> },
       { path: "organization/:name", element: < OrganismProfilePage/> },

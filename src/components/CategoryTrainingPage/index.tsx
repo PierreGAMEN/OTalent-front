@@ -1,5 +1,5 @@
 
-export default function CategoryTrainingPage () {
+export default function SearchPage () {
     return(
         <div>
             
