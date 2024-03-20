@@ -17,17 +17,17 @@ export default function TrainingCard({ title, duration, school, category }: Trai
                 <img src="https://picsum.photos/200" alt="Training" />
             </div>
             <div className="content">
-                <a className="header">{title}</a>
+                <a href={`/training/${title}`} className="header">{title}</a>
                 
                
                     <div className="school school-link extra content">
                         <i className="school university icon"></i> École :
-                        <span className="right floated"> {school}</span>
+                        <a href={`/organization/${school}`} className="right floated"> {school}</a>
                     </div>
 
                     <div className="school school-link extra content">
                         <i className="folder icon"></i> Catégorie :
-                        <span className="right floated"> {category}</span>
+                        <a href={`/search/${category}`} className="right floated"> {category}</a>
                     </div>
                     
                     <div className="school extra content">

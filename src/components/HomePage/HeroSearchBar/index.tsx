@@ -16,9 +16,9 @@ export default function HeroSearchBar() {
     };
 
     return (
-
+            <>
             <section className={`container-Hero`}>
-                <h2>Trouvez la formation de vos rêves !</h2>
+                <h2>Trouvez votre formation</h2>
                     <div className="info-category">
                         <p className="p-info">Ou tapez le nom de votre formation</p>
                         <img src="/fleche-hero-blanche.png" alt="" />
@@ -30,10 +30,10 @@ export default function HeroSearchBar() {
                 <div className="container-Hero-searchBar">
                     <SearchBar className={`searchBarHero`} />
                 </div>
-                <div className="container-Hero-button">
-                    <button onClick={scrollDown} className="button-Hero">Explorer</button>
-                </div>
+                <img src="/image-header.svg" alt="" />
             </section>
+
+            </>
         
     );
 }
