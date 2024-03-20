@@ -8,26 +8,30 @@ import {
   Modal,
 } from 'semantic-ui-react'
 import FormConnexion from './form'
+import { useAppDispatch, useAppSelector } from '../../../../store/redux-hook/hook'
+import { getStateModalForm } from '../../../../store/actions/modalActions'
 
-function ModalForm() {
-  const [open, setOpen] = React.useState(false)
+function ModalForm() { 
+  const dispatch = useAppDispatch()
+  const isOpen = useAppSelector((state) => state.modal.state)
 
   return (
-    <Modal
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-      trigger={<Button positive>Connexion</Button>}
-    >
-      <ModalHeader>Bienvenue sur O'Talent</ModalHeader>
-      <ModalContent image>
-      
-        <ModalDescription>
-          <Header>Connexion / Inscription</Header>
-          <FormConnexion />
-        </ModalDescription>
-      </ModalContent>     
-    </Modal>
+    <>
+      <Modal
+        onClose={() => dispatch(getStateModalForm(false))}
+        onOpen={() => dispatch(getStateModalForm(true))}
+        trigger={<Button positive>Connexion</Button>}
+        open={isOpen} 
+      >
+        <ModalHeader>Bienvenue sur O'Talent</ModalHeader>
+        <ModalContent image>
+          <ModalDescription>
+            <Header>Connexion / Inscription</Header>
+            <FormConnexion />
+          </ModalDescription>
+        </ModalContent>
+      </Modal>
+    </>
   )
 }
 

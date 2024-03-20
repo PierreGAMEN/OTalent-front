@@ -9,12 +9,16 @@ import {
   Grid,
   Segment,
 } from 'semantic-ui-react'
+import { useAppDispatch } from '../../../../store/redux-hook/hook';
+import { getStateModalForm } from '../../../../store/actions/modalActions';
 
 const FormConnexion = () => {
 
     const [isLargeScreen, setIsLargeScreen] = useState(true);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const dispatch = useAppDispatch()
 
     const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
@@ -70,7 +74,7 @@ const FormConnexion = () => {
       <GridColumn verticalAlign='middle'>
       {!isLargeScreen &&<Divider horizontal>Ou</Divider>}
       <NavLink to="/signup">
-            <Button content="S'inscrire" icon='signup' size='big' />
+            <Button onClick={() => dispatch(getStateModalForm(false))} content="S'inscrire" icon='signup' size='big' />
         </NavLink>
       </GridColumn>
     </Grid>

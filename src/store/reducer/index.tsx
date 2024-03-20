@@ -1,11 +1,11 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import {  getStateModalForm } from "../actions";
+import {  getStateModalForm } from "../actions/modalActions";
 
-interface RecipesState {
+interface ModalState {
   state?: boolean;
 }
-export const initialState: RecipesState = {
+export const initialState: ModalState = {
   state: false,
 };
 
