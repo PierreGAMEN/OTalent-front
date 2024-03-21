@@ -1,5 +1,18 @@
 .container-search {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2vh;
+
+    min-height: 100vh;
+    padding-top: 3vh;
+
+    &-card {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2vh;
+        justify-content: center;
+    }
+
+    h2 {
+        margin-left: 3vh;
+    }
+
 }
+

@@ -5,34 +5,13 @@ import { queryAllTrainingCard, queryTrainingFromCategory } from "../../query";
 import { Loader } from "semantic-ui-react";
 import TrainingCard from "../HomePage/TrainingCard";
 import './style.scss'
+import {fetchData} from '../../utils'
 
 export default function SearchPage() {
 
 
     const [dataFetch, setDataFetch] = useState([])
     const [isloading, setIsloading] = useState(false)
-    
-    const fetchData = async (query: string, idCategorie = null) => {
-        try {
-            const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
-    
-            const variables = idCategorie !== null ? { categoryId: idCategorie } : {};
-
-            setIsloading(true)
-            const response = await axios.post(url, {
-                query,
-                variables
-            });
-            const data = response.data.data;
-            setDataFetch(data || []);
-            setIsloading(false)
-            console.log(data)
-            
-        } catch (error) {
-            console.error('Error:', error);
-            setIsloading(false)
-        } 
-    };
     
 
     const params: string | undefined = useParams().arg1;
@@ -43,19 +22,19 @@ export default function SearchPage() {
 
     useEffect(() => {
         if(term) {
-            fetchData(queryAllTrainingCard)
+            fetchData(queryAllTrainingCard, null, setDataFetch, setIsloading )
         } else if (categorie && !term) {
-            fetchData(queryTrainingFromCategory, idCategorie)
+            fetchData(queryTrainingFromCategory, idCategorie, setDataFetch, setIsloading)
           }
     }, [categorie, term, idCategorie])
 
     return (
-        <div>
-    {categorie && term && <p>Voici toutes les formation incluant le mot "{term}" dans la catégorie "{categorie}"</p>}
-    {categorie && !term && <p>Voici toutes les formations appartenant à la catégorie "{categorie}"</p>}
-    {term && !categorie && <p>Voici toutes les formations incluant le mot "{term}"</p>}
-
         <div className="container-search">
+    {categorie && term && <h2>Voici toutes les formation incluant le mot "{term}" dans la catégorie "{categorie}"</h2>}
+    {categorie && !term && <h2>Voici toutes les formations appartenant à la catégorie "{categorie}"</h2>}
+    {term && !categorie && <h2>Voici toutes les formations incluant le mot "{term}"</h2>}
+
+        <div className="container-search-card">
     {(categorie && !term) && dataFetch && dataFetch.category && dataFetch.category.trainings && dataFetch.category.trainings.map((training) => (
     <TrainingCard 
     key={training.id}
