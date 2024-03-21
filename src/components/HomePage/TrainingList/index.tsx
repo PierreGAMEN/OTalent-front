@@ -1,23 +1,29 @@
+import { Loader } from "semantic-ui-react";
 import TrainingCard from "../TrainingCard";
 import "./style.scss";
 
-export default function TrainingList({ data }) {
+export default function TrainingList({ data, categoryChosen }) {
     return (
         <div className="container-trainingList">
-            {data.LabelTraining.map((label) => (
-                <div className="container-section" key={label.label}>
-                    <h2>{label.label}</h2>
-                    <div className="container-card">
-                        {label.trainings.map((training, index) => (
-                            <TrainingCard 
-                                key={index} 
-                                {...training}  
-                                category={label.label} 
-                            />
-                        ))}
-                    </div>
-                </div>
-            ))}
+            <h2>{categoryChosen}</h2>
+            <div className="container-card">
+            {data && data.trainings && data.trainings
+            .filter(training => training.category.label === categoryChosen)
+            .map((training) => (
+            
+        <TrainingCard 
+            key={training.id}
+            label={training.label} 
+            dateCreated={""} 
+            duration={training.duration} 
+            category={training.category.label} 
+            image={training.image}
+            categoryId={training.category.id} 
+            organization={training.organization.name}
+        />
+        
+    ))}
+    </div>
         </div>
     );
 }
