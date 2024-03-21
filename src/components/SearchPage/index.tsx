@@ -25,7 +25,7 @@ export default function SearchPage() {
             const data = response.data.data;
             setDataFetch(data || []);
             setIsloading(false)
-            console.log(data.category)
+            console.log(data)
             
         } catch (error) {
             console.error('Error:', error);
@@ -57,6 +57,7 @@ export default function SearchPage() {
     {(categorie && !term) && dataFetch && dataFetch.category && dataFetch.category.trainings && dataFetch.category.trainings.map((training) => (
     
     <TrainingCard 
+    key={training.id}
     label={training.label} 
     dateCreated={""} 
     duration={training.duration} 
@@ -97,6 +98,12 @@ export default function SearchPage() {
             organization={training.organization.name}
         />
     ))}
+
+{term && dataFetch && dataFetch.trainings && dataFetch.trainings
+    .filter(training => training.label.includes(term))
+    .length === 0 && (
+        <p>Aucun résultat trouvé pour "{term}".</p>
+)}
 
 {isloading && <Loader active inline='centered' />}
 
