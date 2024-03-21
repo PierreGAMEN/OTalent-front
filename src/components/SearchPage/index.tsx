@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { queryAllTrainingCard, queryTrainingFromCategory } from "../../query";
 import { Loader } from "semantic-ui-react";
 import TrainingCard from "../HomePage/TrainingCard";
+import './style.scss'
 
 export default function SearchPage() {
 
@@ -54,8 +55,8 @@ export default function SearchPage() {
     {categorie && !term && <p>Voici toutes les formations appartenant à la catégorie "{categorie}"</p>}
     {term && !categorie && <p>Voici toutes les formations incluant le mot "{term}"</p>}
 
+        <div className="container-search">
     {(categorie && !term) && dataFetch && dataFetch.category && dataFetch.category.trainings && dataFetch.category.trainings.map((training) => (
-    
     <TrainingCard 
     key={training.id}
     label={training.label} 
@@ -68,9 +69,9 @@ export default function SearchPage() {
     />
 ))}
 
-{categorie && term && dataFetch && dataFetch.trainings && dataFetch.trainings
-    .filter(training => training.label.includes(term))
+{(categorie && term) && dataFetch && dataFetch.trainings && dataFetch.trainings
     .filter(training => training.category.label === categorie)
+    .filter(training => training.label.includes(term))
     .map((training) => (
         <TrainingCard 
             key={training.id}
@@ -84,7 +85,7 @@ export default function SearchPage() {
         />
     ))}
 
-{term && dataFetch && dataFetch.trainings && dataFetch.trainings
+{(term && !categorie) && dataFetch && dataFetch.trainings && dataFetch.trainings
     .filter(training => training.label.includes(term))
     .map((training) => (
         <TrainingCard 
@@ -108,6 +109,7 @@ export default function SearchPage() {
 {isloading && <Loader active inline='centered' />}
 
 
-</div>    
+</div>
+</div>
     );
 }
