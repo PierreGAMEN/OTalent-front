@@ -1,38 +1,40 @@
 import './style.scss'
 
 interface TrainingCardProps {
-  title: string;
+    label: string;
   dateCreated: string;
   duration: string;
-  school?: string;
+  organization?: string;
   category: string; 
+  image: string;
+  categoryId: number;
 }
 
 
 
-export default function TrainingCard({ title, duration, school, category }: TrainingCardProps) {
+export default function TrainingCard({ label, duration, organization, category, image, categoryId }: TrainingCardProps) {
     return (
         <div className="card">
             <div className="image">
-                <img src="https://picsum.photos/200" alt="Training" />
+                <img src={image} alt="Training" />
             </div>
             <div className="content">
-                <a href={`/training/${title}`} className="header">{title}</a>
+                <a href={`/training/${label}`} className="header">{label}</a>
                 
                
                     <div className="school school-link extra content">
                         <i className="school university icon"></i> École :
-                        <a href={`/organization/${school}`} className="right floated"> {school}</a>
+                        <a href={`/organization/${organization}`} className="right floated"> {organization}</a>
                     </div>
 
                     <div className="school school-link extra content">
                         <i className="folder icon"></i> Catégorie :
-                        <a href={`/search/${category}`} className="right floated"> {category}</a>
+                        <a href={`/search/${category}&&${categoryId}`} className="right floated"> {category}</a>
                     </div>
                     
                     <div className="school extra content">
                         <i className="calendar alternate icon"></i> Durée :
-                        <span className="right floated"> {duration}</span>
+                        <span className="right floated"> {duration} heures</span>
                     </div>
                     
                  

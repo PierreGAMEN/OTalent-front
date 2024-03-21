@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import HomePage from './components/HomePage/index.tsx';
 import store from './store/index.tsx';
 import TrainingPage from './components/TrainingPage/index.tsx';
-import CategoryTrainingPage from './components/SearchPage/index.tsx';
 import MemberProfilePage from './components/PageProfile/MemberProfilePage/index.tsx';
 import OrganismProfilePage from './components/PageProfile/OrganizationProfilePage/index.tsx';
 import FormPage from './components/Form/index.tsx';
@@ -21,7 +20,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "search", element: <SearchPage /> },
+      { path: "search/:arg1?", element: <SearchPage /> },
       { path: "training/:title", element: <TrainingPage /> },
       { path: "member/:name", element: < MemberProfilePage/> },
       { path: "organization/:name", element: < OrganismProfilePage/> },

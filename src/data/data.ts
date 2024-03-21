@@ -145,10 +145,10 @@ const data = {
                     lastUpdate: "2023-09-15"
                 },
                 {
-                    title: "Stratégie de marque",
+                    label: "Stratégie de marque",
                     description: "Apprenez à développer et à gérer une stratégie de marque efficace pour renforcer la présence et la réputation de votre entreprise.",
-                    school: "Brand Strategy School",
-                    img: "lien_image_strategie_marque.jpg",
+                    organization: "Brand Strategy School",
+                    image: "lien_image_strategie_marque.jpg",
                     duration: "8 mois",
                     lastUpdate: "2023-10-20"
                 }
