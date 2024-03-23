@@ -8,23 +8,25 @@ interface TrainingCardProps {
   category: string; 
   image: string;
   categoryId: number;
+  trainingId: number;
+  organizationId: number;
 }
 
 
 
-export default function TrainingCard({ label, duration, organization, category, image, categoryId }: TrainingCardProps) {
+export default function TrainingCard({ organizationId, trainingId, label, duration, organization, category, image, categoryId }: TrainingCardProps) {
     return (
         <div className="card">
             <div className="image">
                 <img src={image} alt="Training" />
             </div>
             <div className="content">
-                <a href={`/training/${label}`} className="header">{label}</a>
+                <a href={`/training/${trainingId}`} className="header">{label}</a>
                 
                
                     <div className="school school-link extra content">
                         <i className="school university icon"></i> École :
-                        <a href={`/organization/${organization}`} className="right floated"> {organization}</a>
+                        <a href={`/organization/${organizationId}`} className="right floated"> {organization}</a>
                     </div>
 
                     <div className="school school-link extra content">

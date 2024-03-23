@@ -20,6 +20,8 @@ export default function TrainingList({ data, categoryChosen }) {
             image={training.image}
             categoryId={training.category.id} 
             organization={training.organization.name}
+            trainingId={training.id}
+            organizationId={training.organization.id}
         />
         
     ))}

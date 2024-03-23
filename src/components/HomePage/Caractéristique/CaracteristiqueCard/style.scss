@@ -1,0 +1,20 @@
+.caracteristique-card {
+    max-width: 25vw;
+    min-width: 10vw;
+    min-height: 40vh;
+    max-height: 70vh;
+    padding: 5vh;
+    padding-top: 10vh;
+    transition: 0.5s ease-in-out;
+    background-color: rgb(20, 90, 81); 
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    position: relative;
+    
+    
+    &:hover {
+        padding: 5vh;
+    }
+
+
+}

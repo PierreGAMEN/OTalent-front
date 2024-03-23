@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "./style.scss";
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch } from '../../../../store/redux-hook/hook';
+import { getCategories } from '../../../../store/actions/categoriesActions';
 
 interface Category {
     label: string;
@@ -22,27 +24,34 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [idSelectedCategory, setIdSelectedCategory] = useState<number|null>(null);
 
+    const dispatch = useAppDispatch()
+
 
     const fetchCategories = async () => {
         try {
             const query = `
-            query Categories {
-                categories {
-                  id
-                  label
+                query Categories {
+                    categories {
+                        id
+                        label
+                    }
                 }
-              }
             `;
-
+    
             const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
-
+    
             const response = await axios.post(url, { query });
             const data = response.data.data;
-            setCategories(data.categories || []);
+            const fetchedCategories = data.categories || [];
+            
+            setCategories(fetchedCategories);
+   
+            dispatch(getCategories(fetchedCategories));
         } catch (error) {
             console.error('Error:', error);
         }
     };
+    
 
     useEffect(() => {
         fetchCategories();

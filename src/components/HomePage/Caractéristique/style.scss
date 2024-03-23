@@ -1,0 +1,21 @@
+.container-caracteristique {
+    padding: 10vh;
+    min-height: 100Vh;
+
+    &-card {
+       display: flex;
+       flex-wrap: wrap;
+       gap: 5vw;
+    }
+
+    &-title {
+        text-align: center ;
+        padding-top: 10vh;
+        padding-bottom: 8vh;
+        font-size: 4rem;
+        color: rgb(17, 80, 59);
+        text-transform: uppercase;
+    }
+
+}
+

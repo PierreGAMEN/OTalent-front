@@ -18,6 +18,8 @@ export const fetchData = async (query: string, idCategorie = null, setData: Reac
     } catch (error) {
         console.error('Error:', error);
         setLoader(false);
-    } 
+    } finally {
+        setLoader(false);
+    }
 };
 

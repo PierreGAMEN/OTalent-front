@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import modalReducer from '../store/reducer';
 import searchReducer from './reducer/searchReducer';
+import categoriesReducer from './reducer/categories';
 
 const store = configureStore({
-  reducer: {modal: modalReducer, searched: searchReducer}, devTools: true
+  reducer: {modal: modalReducer, searched: searchReducer, categories: categoriesReducer}, devTools: true
 });
 
 export default store;

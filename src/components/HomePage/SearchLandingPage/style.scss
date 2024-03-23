@@ -1,0 +1,84 @@
+.searchLandingPage {
+    background: rgb(200,132,162);
+    background: linear-gradient(0deg, rgba(200,132,162,1) 0%, rgba(255,199,222,1) 100%);
+    min-height: 100Vh;
+    padding: 5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    
+    h2{
+        color: rgb(31, 85, 102);
+    }
+
+    .container-button-typeForm{
+        display: flex;
+        height: 5vh;
+        width: 100%;
+
+        button {
+            
+            background-color: rgb(255, 235, 244);
+            color: rgb(17, 58, 68);
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            font-weight: bold;
+            width: 50%;
+        }
+
+        .active {
+            background: rgb(255, 187, 216);
+        }
+    }
+
+    &-title {
+        color: rgb(23, 81, 95);
+        font-size: 3rem;
+        text-transform: uppercase;
+        padding-bottom: 10vh;
+
+    }
+
+    &-searchSection-categorie {
+        background: rgb(255, 205, 227);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-transform: uppercase;
+        gap: 5vh;
+        align-items: center;
+        max-width: 1100px;
+        padding-bottom: 5vh;
+
+
+        &-button {
+            height: 20%;
+            width: 40%;
+            background-color: rgb(24, 80, 90);
+            padding: 1rem;
+            color: white;
+            text-align: center;
+        }
+
+        &-select {
+            height: 10vh;
+            font-size: 2rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            border: 1px solid rgb(255, 205, 227);
+        }
+    }
+
+}
+
+.container-research{
+    display: flex;
+    gap: 3vh;
+    height: 3vh;
+
+    button {
+        margin-left: 1vh;
+        text-align: center;
+        background-color: rgb(24, 80, 90);
+    }
+}

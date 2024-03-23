@@ -6,25 +6,23 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import HomePage from './components/HomePage/index.tsx';
 import store from './store/index.tsx';
-import TrainingPage from './components/TrainingPage/index.tsx';
-import MemberProfilePage from './components/PageProfile/MemberProfilePage/index.tsx';
-import OrganismProfilePage from './components/PageProfile/OrganizationProfilePage/index.tsx';
+import TrainingPage from './components/TrainingPage/index.tsx'; 
 import FormPage from './components/Form/index.tsx';
 import SearchPage from './components/SearchPage/index.tsx';
+import PageProfileOrganization from './components/PageProfileOrganization/index.tsx';
 
 
 const router = createBrowserRouter([
   
+  { index: true, element: <HomePage /> },
   {
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: "search/:arg1?", element: <SearchPage /> },
-      { path: "training/:title", element: <TrainingPage /> },
-      { path: "member/:name", element: < MemberProfilePage/> },
-      { path: "organization/:name", element: < OrganismProfilePage/> },
-      { path: "edit/organization/:name", element: < OrganismProfilePage/> },
+      { path: "search/:arg1", element: <SearchPage /> },
+      { path: "training/:id", element: <TrainingPage /> },
+      { path: "organization/:id", element: < PageProfileOrganization/> },
+      { path: "edit/organization/:id", element: <HomePage /> },
       { path: "signup", element: <FormPage />},
       
     ],
