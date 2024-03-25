@@ -1,0 +1,41 @@
+
+.reviews-section {
+    margin-top: 5vh;
+    width: 100vw;
+
+    &-title {
+        text-align: center;
+        text-transform: uppercase;
+
+    }
+
+    &-button {
+        padding: 2rem;
+        width: 30%;
+        margin: 0 auto;
+        display: block;
+        margin-bottom: 5vh;
+        margin-top: 5vh;
+    }
+
+.review {
+    display: flex;
+    gap: 3vw;
+    border-bottom: 1px solid rgba(38, 97, 89, 0.555);
+    padding: 2vh;
+
+    .review-containerImage-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        background-color: burlywood;
+        color: black;
+        font-size: 3rem;
+    }
+}
+
+.first-review {
+    border-top: 1px solid rgba(38, 97, 89, 0.555);;
+}
+
+}

@@ -1,12 +1,12 @@
 .content-trainingpage {
     background-color: rgb(255, 245, 233);
-    height: 60vh;
-    min-height: 60vh;
+    padding: 5vh;
 
     &-menu {
         height: 15%;
         display: flex;
         justify-content: space-around;
+        margin-bottom: 5vh;
 
         .active {
             border-bottom: 1px solid #154757;
@@ -37,3 +37,19 @@
     }
 }
 
+.content-trainingpage-organization {
+    display: flex;
+    gap: 2vw;
+
+    &-image {
+        width: 30vw;
+    }
+}
+
+.content-trainingpage-menu-link {
+    color: #154757;
+
+    &:hover {
+        color: #154757;
+    }
+}

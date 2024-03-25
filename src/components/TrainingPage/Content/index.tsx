@@ -1,35 +1,85 @@
 import { useState } from "react"
 import "./style.scss"
-export default function ContentTrainingPage ({data}) {
+import TrainingDataI from "../../../@Types/training"
+
+export default function ContentTrainingPage ({ data }: { data: TrainingDataI }) {
 
     const [isProgram, setIsProgram] = useState<boolean>(true)
     const [isDuration, setIsDuration] = useState<boolean>(false)
     const [isOrganization, setIsOrganization] = useState<boolean>(false)
+    const [isPrerequisite, setIsPrerequisite] = useState<boolean>(false)
 
     const handleClick = (
         setterTrue: React.Dispatch<React.SetStateAction<boolean>>,
         firstSetterFalse: React.Dispatch<React.SetStateAction<boolean>>,
-        secondSetterFalse: React.Dispatch<React.SetStateAction<boolean>>
+        secondSetterFalse: React.Dispatch<React.SetStateAction<boolean>>,
+        thirdSetterFalse: React.Dispatch<React.SetStateAction<boolean>>
     ) => {
         setterTrue(true);
         firstSetterFalse(false);
         secondSetterFalse(false);
+        thirdSetterFalse(false)
         console.log(data)
     };
 
-    return (<section className="content-trainingpage">
+    const handleDateFormate = (date : string) => {
+        let dateObj = new Date(date)
+        let options = { day: '2-digit', month: 'long', year: 'numeric' };
+        let formattedDate = dateObj.toLocaleDateString('fr-FR', options);
+        return formattedDate
+    }
+
+    
+
+    return (<section id="content-trainingpage" className="content-trainingpage">
         
         <div className="content-trainingpage-menu">
-            <button onClick={() => {handleClick(setIsProgram, setIsDuration, setIsOrganization)}} className={isProgram ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Programme</button>
-            <button onClick={() => {handleClick(setIsDuration, setIsProgram, setIsOrganization)}} className={isDuration ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Durée</button>
-            <button onClick={() => {handleClick(setIsOrganization, setIsProgram, setIsDuration)}} className={isOrganization ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Organisme</button>
+            <button onClick={() => {handleClick(setIsProgram, setIsDuration, setIsOrganization,setIsPrerequisite)}} className={isProgram ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Programme</button>
+            <button onClick={() => {handleClick(setIsDuration, setIsProgram, setIsOrganization, setIsPrerequisite)}} className={isDuration ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Durée</button>
+            <button onClick={() => {handleClick(setIsOrganization, setIsProgram, setIsDuration, setIsPrerequisite)}} className={isOrganization ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Organisme</button>
+            <button onClick={() => {handleClick(setIsPrerequisite, setIsOrganization, setIsProgram, setIsDuration)}} className={isPrerequisite ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Prérequis</button>
         </div>
 
         <div className="content-trainingpage-text">
-        {isProgram && <p className="content-trainingpage-text-p">Programme, ipsum dolor sit amet consectetur adipisicing elit. Officiis soluta reprehenderit facilis exercitationem sit, laborum quae illo architecto eligendi rem accusantium, possimus nostrum atque. Harum veniam facilis sit ab aliquam.</p>}
-        {isDuration && <p className="content-trainingpage-text-p">Prérequis, ipsum dolor sit amet consectetur adipisicing elit. Officiis soluta reprehenderit facilis exercitationem sit, laborum quae illo architecto eligendi rem accusantium, possimus nostrum atque. Harum veniam facilis sit ab aliquam.</p>}
-        {isOrganization && <p className="content-trainingpage-text-p">Organization, ipsum dolor sit amet consectetur adipisicing elit. Officiis soluta reprehenderit facilis exercitationem sit, laborum quae illo architecto eligendi rem accusantium, possimus nostrum atque. Harum veniam facilis sit ab aliquam.</p>}
+        {isProgram && 
+        <>
+        <h2>Description</h2>
+        <p className="content-trainingpage-text-p">{data.description}</p>
+        </>}
+        {isDuration && 
+        <>
+        <h2>Durée de la formation</h2>
+        <p className="content-trainingpage-text-p">Temps de formation : {data.duration} heures</p>
+        <h2>Date de la prochaine session</h2>
+        <p className="content-trainingpage-text-p">Date de début : {handleDateFormate(data.dates[0])}</p>
+        <p className="content-trainingpage-text-p">Date de fin : {handleDateFormate(data.dates[1])}</p>
+        <p></p>
+        </>}
+        {isOrganization && 
+        <div className="content-trainingpage-organization">
+        <div>
+        <img className="content-trainingpage-organization-image" src={data.organization.image} alt="" />
+        </div>
+        <div>
+        <h2>Informations de l'organisme</h2>
+        <p className="content-trainingpage-text-p">Nom de l'organisme : {data.organization.name}</p>
+        <p className="content-trainingpage-text-p">Email : {data.organization.email}</p>
+        <p className="content-trainingpage-text-p">Lien vers le site : <a href={`${data.organization.url_site}`}>{data.organization.name}</a></p>
+        </div>
+        </div>}
+        {isPrerequisite &&
+        <>
+        <h2>Prérequis</h2>
+        <ol>
+        {JSON.parse(data.prerequisites).map(element  => (
+        <li key={element} className="content-trainingpage-text-p">{element}</li>
+        ))}
+        </ol>
+         </>}
         </div>
 
     </section>)
 }
+
+
+// let elements = tableau[0].split(", "); 
