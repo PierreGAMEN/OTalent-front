@@ -8,10 +8,13 @@ query Category($categoryId: Int!) {
       label
       organization {
         name
+        id
       }
       category {
         label
         id
+      } reviews {
+        rating
       }
     }
   }
@@ -27,10 +30,14 @@ query Trainings {
       image
       organization {
         name
+        id
       }
       category {
         label
         id
+      }
+      reviews {
+        rating
       }
     }
   }`
@@ -40,36 +47,26 @@ export const queryOneOrganization =
   organization(id: $organizationId) {
     address
     city
+    description
     email
-    id
-    image
     name
+    image
+    id
     phone_number
     postal_code
+    url_site
     trainings {
+      id
+      image
+      label
+      price
       category {
         label
-      }
-      id
-      label
-      image
-      duration
-      organization {
-        name
         id
       }
     }
   }
 }`
-
-export const queryAllCategories = 
-`query Categories {
-  categories {
-    label
-    id
-  }
-}
-`
 
 export const queryOneTraining = 
 `query Training($trainingId: Int!) {
@@ -109,3 +106,12 @@ export const queryOneTraining =
     }
   }
 }`
+
+export const queryAllCategories = 
+`query Categories {
+  categories {
+    label
+    id
+  }
+}
+`

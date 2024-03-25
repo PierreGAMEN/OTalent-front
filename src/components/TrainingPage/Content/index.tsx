@@ -19,7 +19,6 @@ export default function ContentTrainingPage ({ data }: { data: TrainingDataI }) 
         firstSetterFalse(false);
         secondSetterFalse(false);
         thirdSetterFalse(false)
-        console.log(data)
     };
 
     const handleDateFormate = (date : string) => {
@@ -34,7 +33,7 @@ export default function ContentTrainingPage ({ data }: { data: TrainingDataI }) 
     return (<section id="content-trainingpage" className="content-trainingpage">
         
         <div className="content-trainingpage-menu">
-            <button onClick={() => {handleClick(setIsProgram, setIsDuration, setIsOrganization,setIsPrerequisite)}} className={isProgram ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Programme</button>
+            <button onClick={() => {handleClick(setIsProgram, setIsDuration, setIsOrganization,setIsPrerequisite)}} className={isProgram ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Description & Programme</button>
             <button onClick={() => {handleClick(setIsDuration, setIsProgram, setIsOrganization, setIsPrerequisite)}} className={isDuration ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Durée</button>
             <button onClick={() => {handleClick(setIsOrganization, setIsProgram, setIsDuration, setIsPrerequisite)}} className={isOrganization ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Organisme</button>
             <button onClick={() => {handleClick(setIsPrerequisite, setIsOrganization, setIsProgram, setIsDuration)}} className={isPrerequisite ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Prérequis</button>
@@ -45,6 +44,12 @@ export default function ContentTrainingPage ({ data }: { data: TrainingDataI }) 
         <>
         <h2>Description</h2>
         <p className="content-trainingpage-text-p">{data.description}</p>
+        <h2>Programme</h2>
+        <ul>
+            {JSON.parse(data.program).map((element, index) => (
+                <li key={index}>{element}</li>
+            ))}
+        </ul>
         </>}
         {isDuration && 
         <>
@@ -80,6 +85,3 @@ export default function ContentTrainingPage ({ data }: { data: TrainingDataI }) 
 
     </section>)
 }
-
-
-// let elements = tableau[0].split(", "); 

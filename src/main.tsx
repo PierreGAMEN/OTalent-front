@@ -9,7 +9,7 @@ import store from './store/index.tsx';
 import TrainingPage from './components/TrainingPage/index.tsx'; 
 import FormPage from './components/Form/index.tsx';
 import SearchPage from './components/SearchPage/index.tsx';
-import PageProfileOrganization from './components/PageProfileOrganization/index.tsx';
+import OrganizationPage from './components/OrganizationPage/index.tsx';
 
 
 const router = createBrowserRouter([
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       { path: "search/:arg1", element: <SearchPage /> },
       { path: "training/:id", element: <TrainingPage /> },
-      { path: "organization/:id", element: < PageProfileOrganization/> },
+      { path: "organization/:id", element: <OrganizationPage/> },
       { path: "edit/organization/:id", element: <HomePage /> },
       { path: "signup", element: <FormPage />},
       

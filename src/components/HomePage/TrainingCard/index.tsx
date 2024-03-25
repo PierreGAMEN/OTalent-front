@@ -10,11 +10,20 @@ interface TrainingCardProps {
   categoryId: number;
   trainingId: number;
   organizationId: number;
+  reviews: [];
 }
 
 
 
-export default function TrainingCard({ organizationId, trainingId, label, duration, organization, category, image, categoryId }: TrainingCardProps) {
+export default function TrainingCard({ organizationId, trainingId, label, duration, organization, category, image, categoryId, reviews }: TrainingCardProps) {
+
+    let ArrayReview = []
+    reviews.forEach(element => {
+        ArrayReview.push(element.rating)
+    });
+
+    const averageRating = parseInt(((ArrayReview.reduce((acc, curr) => acc + curr, 0))/reviews.length).toFixed(1))
+
     return (
         <div className="card">
             <div className="image">
@@ -39,23 +48,21 @@ export default function TrainingCard({ organizationId, trainingId, label, durati
                         <span className="right floated"> {duration} heures</span>
                     </div>
                     
-                 
-                        <div className='container-star'>
-                            <span className='note'>3,3</span>
-                            <i className="star yellow icon"></i>
-                            <i className="star yellow icon"></i>
-                            <i className="star yellow icon"></i>
-                            <i className="star icon"></i>
-                            <i className="star icon"></i>
-                            <span className='number-avis'>(32)</span>
-                        </div>
+                    {!isNaN(averageRating) ? (
+                    <div className='container-star'>
+                        <span className='note'>{averageRating}</span>
+                        <i className={averageRating >= 1 ? "star yellow icon" : "star icon"}></i>
+                            <i className={averageRating >= 2 ? "star yellow icon" : "star icon"}></i>
+                            <i className={averageRating >= 3 ? "star yellow icon" : "star icon"}></i>
+                            <i className={averageRating >= 4 ? "star yellow icon" : "star icon"}></i>
+                            <i className={averageRating >= 5 ? "star yellow icon" : "star icon"}></i>
+                        <span className='number-avis'>({reviews.length})</span>
+                    </div>
+                ): <p>Il n'y pas encore d'avis.</p>}
+                    
     
             </div>
         </div>
     );
 }
-
-// Je souhaite afficher mes étoile. POur cela je recois un nombre.
-// if j'ai un nombre avec je passe le className à star yellow icon
-// if not je passe a star icon
 

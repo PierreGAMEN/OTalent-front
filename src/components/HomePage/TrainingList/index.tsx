@@ -22,6 +22,7 @@ export default function TrainingList({ data, categoryChosen }) {
             organization={training.organization.name}
             trainingId={training.id}
             organizationId={training.organization.id}
+            reviews={training.reviews}
         />
         
     ))}

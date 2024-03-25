@@ -63,9 +63,9 @@ export default function HomePage () {
             {data && (
                 <>
                 <TrainingList data={data} categoryChosen='Informatique' />
-                <TrainingList data={data} categoryChosen='Philosophie' />
-                <TrainingList data={data} categoryChosen='Physique' />
-                <TrainingList data={data} categoryChosen='Sports' />
+                <TrainingList data={data} categoryChosen='Arts' />
+                <TrainingList data={data} categoryChosen='Finance' />
+                <TrainingList data={data} categoryChosen='Business' />
                 </>
             )}
             

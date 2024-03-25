@@ -7,7 +7,7 @@ export default function HeaderTrainingPage ({data}) {
         ArrayReview.push(element.rating)
     });
 
-    const averageRating = (ArrayReview.reduce((acc, curr) => acc + curr, 0))/data.reviews.length
+    const averageRating = parseInt(((ArrayReview.reduce((acc, curr) => acc + curr, 0))/data.reviews.length).toFixed(1))
 
 
     return (<header className="header-trainingpage">

@@ -51,6 +51,8 @@ export default function SearchPage() {
     categoryId={training.category.id} 
     organization ={training.organization.name}
     trainingId={training.id}
+    reviews={training.reviews}
+    organizationId={training.organization.id}
     />
 ))}
 
@@ -68,6 +70,8 @@ export default function SearchPage() {
             categoryId={training.category.id} 
             organization={training.organization.name}
             trainingId={training.id}
+            reviews={training.reviews}
+            organizationId={training.organization.id}
         />
     ))}
 
@@ -84,6 +88,8 @@ export default function SearchPage() {
             categoryId={training.category.id} 
             organization={training.organization.name}
             trainingId={training.id}
+            reviews={training.reviews}
+            organizationId={training.organization.id}
         />
     ))}
 
