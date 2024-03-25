@@ -19,7 +19,7 @@ export default function HomePage () {
     const [categories, setCategories] = useState([])
 
     useEffect( () => {
-        fetchData(queryAllTrainingCard, null, setData, setIsloading)
+        fetchData(queryAllTrainingCard, null, null, setData, setIsloading)
     }, [])
 
     const fetchCategories = async () => {

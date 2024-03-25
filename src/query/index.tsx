@@ -70,3 +70,42 @@ export const queryAllCategories =
   }
 }
 `
+
+export const queryOneTraining = 
+`query Training($trainingId: Int!) {
+  training(id: $trainingId) {
+    averageRating
+    category {
+      label
+      id
+    }
+    description
+    dates
+    duration
+    excerpt
+    id
+    image
+    label
+    prerequisites
+    price
+    program
+    organization {
+      image
+      name
+      id
+      url_site
+      email
+    }
+    reviews {
+      comment
+      id
+      member {
+        id
+        firstname
+        lastname
+        avatar
+      }
+      rating
+    }
+  }
+}`

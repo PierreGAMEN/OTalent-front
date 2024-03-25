@@ -63,9 +63,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
     };
 
     return (
+        <>
         <form className={className} onSubmit={handleSubmit}>
             <div className="container-input-category">
-            <select name="categorie" id="pet-select" value={selectedCategory} onChange={(e) => {
+            <select className='header-searchBar-select' name="categorie" id="categorie" value={selectedCategory} onChange={(e) => {
     setSelectedCategory(e.target.value);
     const selectedIndex = e.target.selectedIndex;
     const selectedOption = e.target.options[selectedIndex]; 
@@ -86,7 +87,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
                 </select>
             </div>
             <div className="container-input-text">
-                <input 
+                <input className='container-input-text-input'
                     type="text" 
                     name="searchTerm" 
                     id="searchTerm" 
@@ -95,10 +96,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
                     placeholder="Développeur web, Agent ..." 
                 />
             </div>
-            <NavLink to={`/search/${selectedCategory}&${searchTerm}&${idSelectedCategory}`}>
-            <button type="submit">Rechercher</button>
-            </NavLink>
         </form>
+        <NavLink to={`/search/${selectedCategory}&${searchTerm}&${idSelectedCategory}`}>
+        <button className="buttonSearchBar" type="submit">Rechercher</button>
+        </NavLink>
+        </>
     );
 }
 

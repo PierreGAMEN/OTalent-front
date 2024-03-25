@@ -2,10 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { queryAllTrainingCard, queryTrainingFromCategory } from "../../query";
-import { Loader } from "semantic-ui-react";
+import { Loader, Search } from "semantic-ui-react";
 import TrainingCard from "../HomePage/TrainingCard";
 import './style.scss'
 import {fetchData} from '../../utils'
+import SearchBar from "../LayoutElement/Header/SearchBar";
 
 export default function SearchPage() {
 
@@ -18,17 +19,21 @@ export default function SearchPage() {
     const splittedValues = params.split('&');
     const categorie = splittedValues[0]
     const term = splittedValues[1]
-    const idCategorie = parseInt(splittedValues[2])
+    const id = parseInt(splittedValues[2])
+
 
     useEffect(() => {
         if(term) {
-            fetchData(queryAllTrainingCard, null, setDataFetch, setIsloading )
+            fetchData(queryAllTrainingCard, null, null, setDataFetch, setIsloading )
         } else if (categorie && !term) {
-            fetchData(queryTrainingFromCategory, idCategorie, setDataFetch, setIsloading)
+            fetchData(queryTrainingFromCategory, id, "categoryId", setDataFetch, setIsloading)
           }
-    }, [categorie, term, idCategorie])
+    }, [categorie, term, id])
 
     return (
+
+        <>
+        <SearchBar id={0} />
         <div className="container-search">
     {categorie && term && <h2>Voici toutes les formation incluant le mot "{term}" dans la catégorie "{categorie}"</h2>}
     {categorie && !term && <h2>Voici toutes les formations appartenant à la catégorie "{categorie}"</h2>}
@@ -45,6 +50,7 @@ export default function SearchPage() {
     image={training.image}
     categoryId={training.category.id} 
     organization ={training.organization.name}
+    trainingId={training.id}
     />
 ))}
 
@@ -61,6 +67,7 @@ export default function SearchPage() {
             image={training.image}
             categoryId={training.category.id} 
             organization={training.organization.name}
+            trainingId={training.id}
         />
     ))}
 
@@ -76,6 +83,7 @@ export default function SearchPage() {
             image={training.image}
             categoryId={training.category.id} 
             organization={training.organization.name}
+            trainingId={training.id}
         />
     ))}
 
@@ -90,5 +98,7 @@ export default function SearchPage() {
 
 </div>
 </div>
-    );
+</>
+    )
+    ;
 }

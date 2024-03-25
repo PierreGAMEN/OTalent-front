@@ -1,5 +1,3 @@
-
-import SearchBar from "./SearchBar"
 import "./style.scss"
 
 
@@ -15,7 +13,6 @@ export default function Header () {
             <NavLink to={"/"}>
             <h1>O'Talent</h1>
             </NavLink>
-            {location.pathname !== "/" && <SearchBar className={'searchBar'} />}
             <ModalFormConnexion />
 
         </header>

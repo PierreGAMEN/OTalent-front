@@ -1,0 +1,35 @@
+.header-trainingpage {
+    display: flex;
+    margin-top: 2rem;
+    gap: 3vw;
+    padding: 10vh;
+
+    &-containerImage {
+        
+
+        &-image {
+
+            max-width: 50vw;
+        }
+    }
+
+    &-containerText {
+
+
+        &-title {
+            color: #1a626b;
+        }
+
+        &-p {
+            margin-top: 5vh;
+        }
+
+        &-button {
+            width: 100%;
+            height: 20%;
+            margin-top: 5vh;
+            text-transform: uppercase;
+            background-color: #1a626b;
+        }
+    }
+}

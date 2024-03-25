@@ -6,6 +6,7 @@ export default function SearchLandingPage () {
 const [categorieActive, setCategorieActive] = useState(true)
 const [selectedCategory, setSelectedCategory] = useState('');
 const [termSearched, setTermSearched] = useState('');
+const [selectedIdCategory, setSelectCategoryId] = useState(null)
 
 const categories = useAppSelector(state => state.categories.list);
 console.log(categories)
@@ -20,6 +21,7 @@ setCategorieActive(false);
 
 const handleCategoryChange = (event) => {
 setSelectedCategory(event.target.value);
+setSelectCategoryId(event.target.options[event.target.selectedIndex].id)
 };
 
 const handleTermChange = (event) => {
@@ -51,7 +53,7 @@ const handleTermChange = (event) => {
               >
                 <option value="">Veuillez choisir votre catégorie</option>
                 {categories.map((category) => (
-                  <option key={category.id} value={category.label}>
+                  <option id={category.id} key={category.id} value={category.label}>
                     {category.label}
                   </option>
                 ))}
@@ -63,6 +65,7 @@ const handleTermChange = (event) => {
                 placeholder="Entrez un mot clé"
                 onChange={handleTermChange}
                 value={termSearched}
+
               />
             )}
       
@@ -81,7 +84,7 @@ const handleTermChange = (event) => {
               )}
             </div>
       
-            <a href={`/search/${selectedCategory}&${termSearched}`} className='searchLandingPage-searchSection-categorie-button'>
+            <a href={`/search/${selectedCategory}&${termSearched}&${selectedIdCategory}`} className='searchLandingPage-searchSection-categorie-button'>
               Rechercher
             </a>
           </div>
