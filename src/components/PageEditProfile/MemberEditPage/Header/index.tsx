@@ -14,12 +14,9 @@ export default function HeaderEditProfilPageMember ({data}) {
     const [isAddNewCategegory, setIsAddNewCategory] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedIdCategory, setSelectCategoryId] = useState(null)
-    const [categoryToDelete, setcategoryToDelete] = useState([])
 
     const categories = useAppSelector(state => state.categories.list);
     const categoriesAvailable = categories.filter(elementPrincipal => !favoriteCategories.some(elementFiltre => elementPrincipal.label === elementFiltre.label));
-    console.log(categoriesAvailable)
-    console.log(categories)
 
     const handleChange = (e, setter) => {
         const value = e.target.value

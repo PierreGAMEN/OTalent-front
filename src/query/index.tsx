@@ -123,39 +123,43 @@ export const queryAllCategories =
 }
 `
 
-export const queryOneMember = 
-`query Member($memberId: Int!) {
-  member(id: $memberId) {
-    avatar
-    categories {
-      id
-      label
-    }
-    city
-    email
-    firstname
-    id
-    lastname
-    password
-    postal_code
-    reviews {
-      comment
-      id
-      rating
-    }
-    trainings {
-      category {
-        label
+export const queryOneMember = `
+  query Member($memberId: Int!) {
+    member(id: $memberId) {
+      avatar
+      categories {
         id
+        label
       }
-      duration
+      city
+      email
+      firstname
       id
-      label
-      image
+      lastname
+      password
+      postal_code
       reviews {
+        comment
         id
         rating
       }
+      trainings {
+        id
+        label
+        duration
+        image
+        organization {
+          name
+          id
+        }
+        category {
+          label
+          id
+        }
+        reviews {
+          rating
+        }
+      }
     }
   }
-}`
+`;
