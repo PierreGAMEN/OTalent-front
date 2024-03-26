@@ -30,6 +30,7 @@ export default function HeaderTrainingPage ({data}) {
                             <span className='number-avis'>({data.reviews.length})</span>
                         </div> : <div><p>Pas de commentaire</p></div>}
             <p className="header-trainingpage-containerText-p">{data.excerpt}</p>
+            <p className="header-trainingpage-containerText-p">Prix de la formation : <strong>{data.price} €</strong></p>
             <button className="header-trainingpage-containerText-button" >Ajouter à mes favoris</button>
         </div>
 

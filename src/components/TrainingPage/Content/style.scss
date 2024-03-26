@@ -43,6 +43,7 @@
 
     &-image {
         width: 30vw;
+        max-height: 350px;
     }
 }
 
@@ -51,5 +52,40 @@
 
     &:hover {
         color: #154757;
+    }
+}
+
+@media (max-width:680px) {
+    .content-trainingpage {
+        padding: 4vh;
+
+
+        &-text {
+
+            width: 100%;
+            margin: 0 auto;
+
+    }
+}
+.content-trainingpage-organization {
+    flex-direction: column;
+    align-items: center;
+}
+
+}
+
+@media (max-width: 420px) {
+
+    .content-trainingpage {
+
+        padding: 1vh;
+   
+        &-menu {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 5vh;
+            font-size: 0.9rem;
+    
+        }
     }
 }
