@@ -1,9 +1,53 @@
+import { useState } from "react"
+import TrainingCard from "../../HomePage/TrainingCard"
+import "./style.scss"
 
-export default function ContentOrganizationProfilPage () {
+export default function ContentOrganizationProfilPage ({data}) {
 
-    return (<main>
-        
-        <p>Je suis le contenu de la page de profil de l'organisation</p>
+    const [isTraining, setIsTraining] = useState(false)
+    const [isDescription, setIsDescription] = useState(true)
 
-    </main>)
+
+
+    const handleClick = (setter1, setter2) => {
+        setter1(true)
+        setter2(false)
+    }
+
+
+    return (<main  className="content-organizationPage">
+
+                <section className="content-organizationPage-menu">
+                    <button onClick={() => {handleClick(setIsDescription, setIsTraining,)}} className={isDescription ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Description</button>
+                    <button onClick={() => {handleClick(setIsTraining, setIsDescription,)}} className={isTraining ? "content-trainingpage-menu-button active" : "content-trainingpage-menu-button"}>Formations</button>
+                </section>
+
+                <section className="content-organizationPage-text">
+                {isDescription && <>
+                    <h2>Description de l'école</h2>
+                    <p>{data.description}</p></>}
+                </section>
+
+                {isTraining &&
+                <section className="content-organizationPage-trainings">
+                {data.trainings.map(training => (
+                    <div key={training.id}>
+                        <TrainingCard 
+                        key={training.id}
+                        label={training.label} 
+                        dateCreated={""} 
+                        duration={training.duration} 
+                        category={training.category.label} 
+                        image={training.image}
+                        categoryId={training.category.id} 
+                        organization={training.organization.name}
+                        trainingId={training.id}
+                        organizationId={training.organization.id}
+                        reviews={training.reviews}
+                        />
+                    </div>
+                ))}
+                </section>}
+
+            </main>)
 }

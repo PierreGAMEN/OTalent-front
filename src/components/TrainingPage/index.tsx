@@ -6,22 +6,15 @@ import { fetchData } from "../../utils";
 import { useEffect, useState } from "react";
 import { queryOneTraining } from "../../query";
 import { Loader } from "semantic-ui-react";
+import TrainingDataI from "../../@Types/training";
 
 
-interface TrainingData {
-    
-}
-
-interface TrainingPageProps {
-   
-}
-
-const TrainingPage: React.FC<TrainingPageProps> = () => {
+const TrainingPage = () => {
     const [loader, setLoader] = useState<boolean>(false);
-    const [dataFetch, setDataFetch] = useState<TrainingData[]>([]);
+    const [dataFetch, setDataFetch] = useState<TrainingDataI[]>([]);
     const params = useParams<{ id: string }>();
     
-    const id  = parseInt(params.id)
+    const id: number = params.id ? parseInt(params.id) : 0
 
 
     useEffect(() => {
@@ -32,7 +25,7 @@ const TrainingPage: React.FC<TrainingPageProps> = () => {
     return (
         <>
             {loader && <Loader />}
-            {dataFetch.training && (
+            {dataFetch.training  && (
                 <>
                     <HeaderTrainingPage data={dataFetch.training} />
                     <ContentTrainingPage data={dataFetch.training} />

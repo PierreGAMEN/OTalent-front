@@ -17,10 +17,15 @@ interface TrainingCardProps {
 
 export default function TrainingCard({ organizationId, trainingId, label, duration, organization, category, image, categoryId, reviews }: TrainingCardProps) {
 
-    let ArrayReview = []
-    reviews.forEach(element => {
-        ArrayReview.push(element.rating)
+    let ArrayReview: number[] = []
+
+        if (reviews) {
+        reviews.forEach((element : any) => {
+        if (element.rating !== undefined) {
+            ArrayReview.push(element.rating);
+        }
     });
+}
 
     const averageRating = parseInt(((ArrayReview.reduce((acc, curr) => acc + curr, 0))/reviews.length).toFixed(1))
 

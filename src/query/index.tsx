@@ -57,12 +57,19 @@ export const queryOneOrganization =
     url_site
     trainings {
       id
-      image
       label
-      price
+      duration
+      image
+      organization {
+        name
+        id
+      }
       category {
         label
         id
+      }
+      reviews {
+        rating
       }
     }
   }
