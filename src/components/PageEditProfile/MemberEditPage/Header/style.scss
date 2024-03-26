@@ -1,0 +1,27 @@
+.container-header-EditProfilPage {
+    display: flex;
+    gap: 5vh;
+    padding: 5vh;
+
+    img{
+        max-width: 500px;
+        min-width: 300px;
+        width: 50vw;
+    }
+
+    &-input {
+
+    }
+
+    &-p {
+        margin: 0;
+    }
+}
+
+
+@media (max-width: 700px) {
+    .container-header-EditProfilPage {
+        display: block;
+    }
+    
+}

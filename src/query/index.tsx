@@ -122,3 +122,40 @@ export const queryAllCategories =
   }
 }
 `
+
+export const queryOneMember = 
+`query Member($memberId: Int!) {
+  member(id: $memberId) {
+    avatar
+    categories {
+      id
+      label
+    }
+    city
+    email
+    firstname
+    id
+    lastname
+    password
+    postal_code
+    reviews {
+      comment
+      id
+      rating
+    }
+    trainings {
+      category {
+        label
+        id
+      }
+      duration
+      id
+      label
+      image
+      reviews {
+        id
+        rating
+      }
+    }
+  }
+}`

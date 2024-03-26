@@ -10,6 +10,7 @@ import TrainingPage from './components/TrainingPage/index.tsx';
 import FormPage from './components/Form/index.tsx';
 import SearchPage from './components/SearchPage/index.tsx';
 import OrganizationPage from './components/OrganizationPage/index.tsx';
+import MemberEditPage from './components/PageEditProfile/MemberEditPage/index.tsx';
 
 
 const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: "training/:id", element: <TrainingPage /> },
       { path: "organization/:id", element: <OrganizationPage/> },
       { path: "edit/organization/:id", element: <HomePage /> },
+      { path: "edit/member/:id", element: <MemberEditPage /> },
       { path: "signup", element: <FormPage />},
       
     ],

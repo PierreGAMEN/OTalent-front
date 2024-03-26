@@ -9,7 +9,6 @@ const [termSearched, setTermSearched] = useState('');
 const [selectedIdCategory, setSelectCategoryId] = useState(null)
 
 const categories = useAppSelector(state => state.categories.list);
-console.log(categories)
 
 const handleCategorieClick = () => {
 setCategorieActive(true);

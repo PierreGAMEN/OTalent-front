@@ -9,6 +9,7 @@ export default function TrainingList({ data, categoryChosen }) {
             <div className="container-card">
             {data && data.trainings && data.trainings
             .filter(training => training.category.label === categoryChosen)
+            .slice(0,5)
             .map((training) => (
             
         <TrainingCard 
