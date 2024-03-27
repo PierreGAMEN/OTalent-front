@@ -2,13 +2,15 @@ import HeroSearchBar from "./Hero";
 import TrainingList from "./TrainingList";
 import { useEffect, useState } from "react";
 import { fetchData } from "../../utils";
-import { queryAllCategories, queryAllTrainingCard } from "../../query";
+import { queryAllCategories, queryAllTrainingCard, queryFavoritesCategories } from "../../query";
 import { Loader } from "semantic-ui-react";
 import Caracteristique from "./Caractéristique";
 import SearchLandingPage from "./SearchLandingPage";
 import { useAppDispatch } from "../../store/redux-hook/hook";
 import { getCategories } from "../../store/actions/categoriesActions";
 import axios from "axios";
+
+// TODO : Si la personne est connecté, récupérer son ID et afficher uniquement les catégories en lien avec ses catégories préférées
 
 export default function HomePage () {
 
@@ -17,7 +19,21 @@ export default function HomePage () {
     const [data, setData] = useState([])
     const [isloading, setIsloading] = useState(false)
     const [categories, setCategories] = useState([])
+    const [isConnected, setIsConnected] = useState(false)
+    const [favoritesCategories, setFavoritesCateogries] = useState([])
+    const [loader, setLoader] = useState(false)
 
+    
+    const idMember = JSON.parse(localStorage.getItem('itemKey')).id;
+    console.log(idMember)
+
+    useEffect(() => {
+        if(idMember) {
+            setIsConnected(true)
+            fetchData(queryFavoritesCategories, idMember, "memberId", setFavoritesCateogries, setLoader)
+        }
+    }, [])
+    
     useEffect( () => {
         fetchData(queryAllTrainingCard, null, null, setData, setIsloading)
     }, [])
@@ -60,12 +76,22 @@ export default function HomePage () {
 
             
             {isloading && <Loader active inline='centered' />}
-            {data && (
+            {data && !isConnected && (
                 <>
                 <TrainingList data={data} categoryChosen='Informatique' />
                 <TrainingList data={data} categoryChosen='Arts' />
                 <TrainingList data={data} categoryChosen='Finance' />
                 <TrainingList data={data} categoryChosen='Business' />
+                </>
+            )}
+
+            {data && isConnected && favoritesCategories.member && (
+                <>
+                {loader && <Loader active inline='centered' />}
+                {favoritesCategories.member.categories.map((categorie) => (
+                    <TrainingList key={categorie.id} data={data} categoryChosen={categorie.label} />
+                ))}
+                
                 </>
             )}
             
