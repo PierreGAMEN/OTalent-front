@@ -10,7 +10,7 @@ import { useAppDispatch } from "../../store/redux-hook/hook";
 import { getCategories } from "../../store/actions/categoriesActions";
 import axios from "axios";
 
-// TODO : Si la personne est connecté, récupérer son ID et afficher uniquement les catégories en lien avec ses catégories préférées
+// TODO : Récupérer ID via le Token et récupérer les infos idMember 
 
 export default function HomePage () {
 

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { dissociateMemberToElementChosen } from "../../../../utils";
+import { deleteReview } from "../../../../utils";
 
 export default function ReviewsEditProfilPageMember ({data}) {
 
@@ -8,10 +8,10 @@ export default function ReviewsEditProfilPageMember ({data}) {
   
 
     const deleteComment = (e) => {
-        const idTraining = e.target.id;
-        const idMember = data.id 
-        console.log(idTraining)
-        console.log(idMember)
+        const idToDelete = e.target.id;
+        const newCommments = memberReviews.filter(comment => comment.id !== idToDelete);
+        setMemberReviews(newCommments);
+        deleteReview(idToDelete)
     }
 
     const handleChange = (e) => {

@@ -23,7 +23,7 @@ export default function MemberEditPage () {
             <> 
                 <HeaderEditProfilPageMember data={dataFetch.member} memberId={idMember}/>
                 <FavoritesEditProfilPageMember data={dataFetch.member} />
-                <ReviewsEditProfilPageMember data={dataFetch.member} />
+                <ReviewsEditProfilPageMember data={dataFetch.member}/>
             </>
         );
 }

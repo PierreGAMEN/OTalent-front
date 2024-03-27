@@ -131,4 +131,26 @@ export const deleteMemberCategory = async (memberId: number, categoryId: number)
   }
 };
 
+export const deleteReview = async (deleteReviewId) => {
+  try {
+    // Envoie de la requête GraphQL via Axios
+    const response = await axios.post(url, {
+      query: `
+        mutation DeleteReview($deleteReviewId: ID!) {
+          deleteReview(id: $deleteReviewId)
+        }
+      `,
+      variables: {
+        deleteReviewId: deleteReviewId
+      }
+    });
 
+    console.log('Réponse de la requête GraphQL :', response.data);
+
+    return response.data;
+  } catch (error) {
+
+    console.error('Une erreur s\'est produite lors de la requête GraphQL :', error);
+    throw error;
+  }
+};
