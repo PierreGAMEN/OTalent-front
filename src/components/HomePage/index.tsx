@@ -10,7 +10,10 @@ import { useAppDispatch } from "../../store/redux-hook/hook";
 import { getCategories } from "../../store/actions/categoriesActions";
 import axios from "axios";
 
-// TODO : Récupérer ID via le Token et récupérer les infos idMember 
+// TODO : Récupérer ID via le Token et récupérer les infos idMember
+ 
+// TODO : Gérer le fait de ne pas avoir des catégories similaire qui s'affiche 
+// (vérifier qu'une catégorie selectionnée par l'utilisateur ne puissent pas être affichés dans nos selection)
 
 export default function HomePage () {
 
@@ -74,19 +77,9 @@ export default function HomePage () {
             <Caracteristique />
             <SearchLandingPage />
 
-            
-            {isloading && <Loader active inline='centered' />}
-            {data && !isConnected && (
-                <>
-                <TrainingList data={data} categoryChosen='Informatique' />
-                <TrainingList data={data} categoryChosen='Arts' />
-                <TrainingList data={data} categoryChosen='Finance' />
-                <TrainingList data={data} categoryChosen='Business' />
-                </>
-            )}
-
             {data && isConnected && favoritesCategories.member && (
                 <>
+                <h2>Vos catégories préféres</h2>
                 {loader && <Loader active inline='centered' />}
                 {favoritesCategories.member.categories.map((categorie) => (
                     <TrainingList key={categorie.id} data={data} categoryChosen={categorie.label} />
@@ -95,6 +88,18 @@ export default function HomePage () {
                 </>
             )}
             
+            
+            {isloading && <Loader active inline='centered' />}
+            {data && (
+                <>
+                <h2>Découvrez notre selection</h2>
+                <TrainingList data={data} categoryChosen='Informatique' />
+                <TrainingList data={data} categoryChosen='Arts' />
+                <TrainingList data={data} categoryChosen='Finance' />
+                <TrainingList data={data} categoryChosen='Business' />
+                </>
+            )}
+
             
             
         </main>

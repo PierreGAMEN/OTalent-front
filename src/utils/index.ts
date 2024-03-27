@@ -154,3 +154,61 @@ export const deleteReview = async (deleteReviewId) => {
     throw error;
   }
 };
+
+export const modifyReview = async (modifyReviewId, input) => {
+  try {
+    const response = await axios.post(url, {
+      query: `
+        mutation ModifyReview($modifyReviewId: ID!, $input: ReviewInput!) {
+          modifyReview(id: $modifyReviewId, input: $input) {
+            comment
+          }
+        }
+      `,
+      variables: {
+        modifyReviewId: modifyReviewId,
+        input: input,
+      },
+    });
+
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la modification de la critique :', error);
+    throw error;
+  }
+};
+
+
+export const addReview = async (reviewInput) => {
+  try {
+    const response = await axios.post(url, {
+      query: `
+        mutation AddReview($input: ReviewInput!) {
+          addReview(input: $input) {
+            comment
+            id
+            rating
+            member {
+            avatar
+            firstname
+            id
+            lastname
+            }
+          }
+        }
+      `,
+      variables: {
+        input: reviewInput,
+      },
+    });
+
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout de la critique :', error);
+    throw error;
+  }
+};

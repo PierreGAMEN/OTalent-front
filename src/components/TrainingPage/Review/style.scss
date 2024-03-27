@@ -39,3 +39,31 @@
 }
 
 }
+
+.modal-add-comment {
+    display: block;
+    border-top: 1px solid #2a566193;
+    background-color: rgb(255, 255, 255);
+    padding: 5vh;
+
+
+    &-input {
+        display: block;
+        margin-bottom: 2vh;
+
+        &-label {
+            display: block;
+        }
+    }
+
+
+}
+
+.modal-add-comment-button {
+    display: flex;
+    gap: 2vw;
+    
+    &-button {
+        padding: 2vh;
+    }
+}
