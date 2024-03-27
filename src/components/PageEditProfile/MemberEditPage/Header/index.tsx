@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import './style.scss'
 import { useAppSelector } from '../../../../store/redux-hook/hook'
-export default function HeaderEditProfilPageMember ({data}) {
+import { associateMemberCategory, deleteMemberCategory } from '../../../../utils'
+
+// TODO : Retravailler le CSS 
+
+export default function HeaderEditProfilPageMember ({data, memberId}) {
 
     const [isEdit, setIsEdit] = useState(false)
 
@@ -30,6 +34,7 @@ export default function HeaderEditProfilPageMember ({data}) {
 
     const AddCategory = () => {
         setFavoriteCategories([...favoriteCategories, {id: selectedIdCategory, label: selectedCategory}])
+        associateMemberCategory(memberId, parseInt(selectedIdCategory))
         setSelectedCategory('')
         setIsAddNewCategory(false)
     }
@@ -38,6 +43,7 @@ export default function HeaderEditProfilPageMember ({data}) {
         const labelToDelete = e.target.id
         const newFavoriteCategories = favoriteCategories.filter(categorie => categorie.id !== labelToDelete);
         setFavoriteCategories(newFavoriteCategories);
+        deleteMemberCategory(memberId, labelToDelete)
     }
 
 

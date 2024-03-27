@@ -46,6 +46,14 @@ export default function Header () {
 
     useEffect(() => {
         fetchCategories();
+        
+        const member = {id: 1}
+        const memberJSON = JSON.stringify(member);
+        localStorage.setItem('itemKey', memberJSON);
+        const storedItemJSON = localStorage.getItem('itemKey');
+        if (storedItemJSON) {
+            const storedItem = JSON.parse(storedItemJSON);
+            console.log('Élément récupéré du localStorage :', storedItem);}
     }, []);
 
 

@@ -11,6 +11,7 @@ import FormPage from './components/Form/index.tsx';
 import SearchPage from './components/SearchPage/index.tsx';
 import OrganizationPage from './components/OrganizationPage/index.tsx';
 import MemberEditPage from './components/PageEditProfile/MemberEditPage/index.tsx';
+import OrganizationEditPage from './components/PageEditProfile/OrganizationEditPage/index.tsx';
 
 
 const router = createBrowserRouter([
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       { path: "search/:arg1", element: <SearchPage /> },
       { path: "training/:id", element: <TrainingPage /> },
       { path: "organization/:id", element: <OrganizationPage/> },
-      { path: "edit/organization/:id", element: <HomePage /> },
+      { path: "edit/organization/:id", element: <OrganizationEditPage /> },
       { path: "edit/member/:id", element: <MemberEditPage /> },
       { path: "signup", element: <FormPage />},
       

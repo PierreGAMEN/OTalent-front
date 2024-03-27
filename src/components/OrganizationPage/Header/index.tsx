@@ -7,8 +7,8 @@ interface HeaderOrganizationProfilPageProps {
 }
 
 const HeaderOrganizationProfilPage: React.FC<HeaderOrganizationProfilPageProps> = ({ data }) => {
-    const header = "O'clock";
-    console.log(data);
+
+    
 
     return (
         <header className='header-organizationPage'>

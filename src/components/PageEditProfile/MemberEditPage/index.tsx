@@ -12,16 +12,16 @@ export default function MemberEditPage () {
     const [dataFetch, setDataFetch] = useState([])
     const [isloading, setIsLoading] = useState(false)
 
-        let id = 1
+    const idMember = JSON.parse(localStorage.getItem('itemKey')).id;
 
         useEffect(() => {
-            fetchData(queryOneMember, id, "memberId", setDataFetch, setIsLoading)
+            fetchData(queryOneMember, idMember, "memberId", setDataFetch, setIsLoading)
         }, [])
 
         return (
             dataFetch.member && 
             <> 
-                <HeaderEditProfilPageMember data={dataFetch.member} />
+                <HeaderEditProfilPageMember data={dataFetch.member} memberId={idMember}/>
                 <FavoritesEditProfilPageMember data={dataFetch.member} />
                 <ReviewsEditProfilPageMember data={dataFetch.member} />
             </>

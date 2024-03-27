@@ -1,5 +1,8 @@
 import axios from "axios";
 
+
+const url = 'http://otalent.florianperi-server.eddi.cloud/graphql'
+
 export const fetchData = async (
   query: string,
   id: number | null = null,
@@ -8,7 +11,6 @@ export const fetchData = async (
   setLoader: React.Dispatch<React.SetStateAction<any>>
 ) => {
   try {
-    const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
     const variables = id !== null ? { [idName!]: id } : {};
 
     setLoader(true);
@@ -26,3 +28,107 @@ export const fetchData = async (
     setLoader(false);
   }
 };
+
+
+
+export const dissociateMemberTraining = async (memberId: number, trainingId: number) => {
+  try {
+
+    const response = await axios.post(url, {
+      query: `
+        mutation Mutation($memberId: ID!, $trainingId: ID!) {
+          dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
+        }
+      `,
+      variables: {
+        memberId: memberId,
+        trainingId: trainingId,
+      },
+    });
+
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+
+    console.error('Une erreur s\'est produite :', error);
+    throw error;
+  }
+};
+
+export const associateMemberTraining = async (memberId: number, trainingId: number) => {
+  try {
+
+    const response = await axios.post(url, {
+      query: `
+        mutation Mutation($memberId: ID!, $trainingId: ID!) {
+          associateMemberTraining(memberId: $memberId, trainingId: $trainingId)
+        }
+      `,
+      variables: {
+        memberId: memberId,
+        trainingId: trainingId,
+      },
+    });
+
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+
+    console.error('Une erreur s\'est produite :', error);
+    throw error;
+  }
+};
+
+export const associateMemberCategory = async (memberId: number, categoryId: number) => {
+  try {
+
+    const response = await axios.post(url, {
+      query: `
+        mutation Mutation($memberId: ID!, $categoryId: ID!) {
+          associateMemberCategory(memberId: $memberId, categoryId: $categoryId)
+        }
+      `,
+      variables: {
+        memberId: memberId,
+        categoryId: categoryId,
+      },
+    });
+
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+
+    console.error('Une erreur s\'est produite :', error);
+    throw error;
+  }
+};
+
+export const deleteMemberCategory = async (memberId: number, categoryId: number) => {
+  try {
+
+    const response = await axios.post(url, {
+      query: `
+        mutation Mutation($memberId: ID!, $categoryId: ID!) {
+          dissociateMemberCategory(memberId: $memberId, categoryId: $categoryId)
+        }
+      `,
+      variables: {
+        memberId: memberId,
+        categoryId: categoryId,
+      },
+    });
+
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+
+    console.error('Une erreur s\'est produite :', error);
+    throw error;
+  }
+};
+
+

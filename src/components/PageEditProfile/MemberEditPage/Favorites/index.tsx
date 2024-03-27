@@ -1,14 +1,17 @@
 import { useState } from "react";
 import TrainingCard from "../../../HomePage/TrainingCard";
+import { dissociateMemberTraining } from "../../../../utils";
 
 export default function FavoritesEditProfilPageMember({ data }) {
     
     const [favoritesTrainings, setFavoritesTrainings] = useState(data.trainings);
 
-    const deleteTraining = (e) => {
-        const idToDelete = e.target.id;
-        const newFavoriteTrainings = favoritesTrainings.filter(training => training.id !== idToDelete);
+    const deleteFavorite = (e) => {
+        const idTraining = e.target.id;
+        const idMember = data.id
+        const newFavoriteTrainings = favoritesTrainings.filter(training => training.id !== idTraining);
         setFavoritesTrainings(newFavoriteTrainings);
+        dissociateMemberTraining(idMember, idTraining)
     }
 
     return (
@@ -30,7 +33,7 @@ export default function FavoritesEditProfilPageMember({ data }) {
                             organizationId={training.organization.id}
                             reviews={training.reviews}
                         />
-                        <button onClick={deleteTraining} id={training.id}>Retirer des favoris</button>
+                        <button onClick={deleteFavorite} id={training.id}>Retirer des favoris</button>
                     </div>
                 ))}
             </section>

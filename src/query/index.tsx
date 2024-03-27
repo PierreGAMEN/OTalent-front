@@ -1,5 +1,5 @@
 export const queryTrainingFromCategory = `
-query Category($categoryId: Int!) {
+query Category($categoryId: ID!) {
   category(id: $categoryId) {
     trainings {
       duration
@@ -43,7 +43,7 @@ query Trainings {
   }`
 
 export const queryOneOrganization = 
-`query Organization($organizationId: Int!) {
+`query Organization($organizationId: ID!) {
   organization(id: $organizationId) {
     address
     city
@@ -76,7 +76,7 @@ export const queryOneOrganization =
 }`
 
 export const queryOneTraining = 
-`query Training($trainingId: Int!) {
+`query Training($trainingId: ID!) {
   training(id: $trainingId) {
     averageRating
     category {
@@ -124,7 +124,7 @@ export const queryAllCategories =
 `
 
 export const queryOneMember = `
-  query Member($memberId: Int!) {
+  query Member($memberId: ID!) {
     member(id: $memberId) {
       avatar
       categories {
@@ -142,6 +142,10 @@ export const queryOneMember = `
         comment
         id
         rating
+        training {
+          label
+          id
+        }
       }
       trainings {
         id
@@ -163,3 +167,13 @@ export const queryOneMember = `
     }
   }
 `;
+
+export const queryFavoritesCategories = 
+`query Member($memberId: ID!) {
+  member(id: $memberId) {
+    categories {
+      label
+      id
+    }
+  }
+}`
