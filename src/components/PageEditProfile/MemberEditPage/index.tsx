@@ -5,21 +5,31 @@ import FavoritesEditProfilPageMember from './Favorites'
 import HeaderEditProfilPageMember from './Header'
 import ReviewsEditProfilPageMember from './Reviews'
 import './style.scss'
+import { useAppSelector } from '../../../store/redux-hook/hook'
 
 
 export default function MemberEditPage () {
 
     const [dataFetch, setDataFetch] = useState([])
     const [isloading, setIsLoading] = useState(false)
+    const [scriptFinished, setScriptFinished] = useState(false)
 
-    const idMember = JSON.parse(localStorage.getItem('itemKey')).id;
+    const user = useAppSelector((state) => state.token.user);
+    const idMember = user.id
 
         useEffect(() => {
-            fetchData(queryOneMember, idMember, "memberId", setDataFetch, setIsLoading)
-        }, [])
+            fetchData(queryOneMember, idMember, "memberId", setDataFetch, setIsLoading).then(() => setScriptFinished(true))
+           
+        }, [idMember])
+
+        if (!dataFetch || !dataFetch.member) {
+            return null; 
+        }
+
+        
 
         return (
-            dataFetch.member && 
+            scriptFinished &&
             <> 
                 <HeaderEditProfilPageMember data={dataFetch.member} memberId={idMember}/>
                 <FavoritesEditProfilPageMember data={dataFetch.member} />

@@ -11,6 +11,7 @@ import {
 } from 'semantic-ui-react'
 import { useAppDispatch } from '../../../../store/redux-hook/hook';
 import { getStateModalForm } from '../../../../store/actions/modalActions';
+import { loginRequest } from '../../../../utils';
 
 const FormConnexion = () => {
 
@@ -28,6 +29,17 @@ const FormConnexion = () => {
     const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
         setPassword(value)
+    }
+
+    const login = () => {
+
+      const variables = {
+        email: email,
+        password: password,
+      };
+
+      loginRequest(variables)
+      
     }
 
     useEffect(() => {
@@ -66,7 +78,7 @@ const FormConnexion = () => {
             onChange={handleChangePassword}
           />
         
-          <Button content='Login' primary />
+          <Button onClick={login} content='Login' primary />
         </Form>
       </GridColumn>
         

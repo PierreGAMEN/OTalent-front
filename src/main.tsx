@@ -16,11 +16,12 @@ import OrganizationEditPage from './components/PageEditProfile/OrganizationEditP
 
 const router = createBrowserRouter([
   
-  { index: true, element: <HomePage /> },
+  
   {
     path: "/",
     element: <App />,
     children: [
+      { index: true, element: <HomePage /> },
       { path: "search/:arg1", element: <SearchPage /> },
       { path: "training/:id", element: <TrainingPage /> },
       { path: "organization/:id", element: <OrganizationPage/> },

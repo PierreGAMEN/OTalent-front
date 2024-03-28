@@ -5,7 +5,7 @@ const url = 'http://otalent.florianperi-server.eddi.cloud/graphql'
 
 export const fetchData = async (
   query: string,
-  id: number | null = null,
+  id: number | null | string = null,
   idName: string | null = null,
   setData: React.Dispatch<React.SetStateAction<any>>,
   setLoader: React.Dispatch<React.SetStateAction<any>>
@@ -210,5 +210,56 @@ export const addReview = async (reviewInput) => {
   } catch (error) {
     console.error('Erreur lors de l\'ajout de la critique :', error);
     throw error;
+  }
+};
+
+
+export const loginRequest = async (variables) => {
+  try {
+    const response = await axios.post(url, {
+      query: `
+        mutation Login($email: String!, $password: String!) {
+          login(email: $email, password: $password) {
+            token
+          }
+        }
+      `,
+      variables: variables,
+    });
+
+    if (response.data && response.data.data && response.data.data.login && response.data.data.login.token) {
+      localStorage.setItem('token', response.data.data.login.token);
+    }
+
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la requête de connexion :', error);
+    throw error;
+  }
+};
+
+export const fetchCategories = async () => {
+  try {
+      const query = `
+          query Categories {
+              categories {
+                  id
+                  label
+              }
+          }
+      `;
+
+      const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
+
+      const response = await axios.post(url, { query });
+      const data = response.data.data;
+      const fetchedCategories = data.categories || [];
+      
+      setCategories(fetchedCategories);
+
+      dispatch(getCategories(fetchedCategories));
+  } catch (error) {
+      console.error('Error:', error);
   }
 };

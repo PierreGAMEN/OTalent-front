@@ -1,14 +1,17 @@
 import "./style.scss"
-
+import { jwtDecode } from "jwt-decode";
 
 import ModalFormConnexion from "./ModalFormConnexion"
 import { NavLink, useLocation } from "react-router-dom"
 import { fetchData } from "../../../utils"
 import { useEffect, useState } from "react"
 import { queryAllTrainingCard } from "../../../query"
-import { useAppDispatch } from "../../../store/redux-hook/hook"
+import { useAppDispatch, useAppSelector } from "../../../store/redux-hook/hook"
 import { getCategories } from "../../../store/actions/categoriesActions"
 import axios from "axios"
+import { getTokenInformation } from "../../../store/actions/tokenActions";
+
+
 
 export default function Header () {
 
@@ -43,18 +46,30 @@ export default function Header () {
         }
     };
     
+    const dispatchTokenInformation = () => {
+        const token = localStorage.getItem('token')
+        if(token) {
+            const tokenValue = jwtDecode(token)
+            dispatch(getTokenInformation(tokenValue))
 
+        }
+    }
+
+
+    
+    useEffect (() => {
+        
+        dispatchTokenInformation()
+    }, [dispatch])
+
+    const user = useAppSelector((state) => state.token.user);
+    console.log(user)
+    
+    
     useEffect(() => {
         fetchCategories();
-        
-        const member = {id: 1}
-        const memberJSON = JSON.stringify(member);
-        localStorage.setItem('itemKey', memberJSON);
-        const storedItemJSON = localStorage.getItem('itemKey');
-        if (storedItemJSON) {
-            const storedItem = JSON.parse(storedItemJSON);
-            console.log('Élément récupéré du localStorage :', storedItem);}
     }, []);
+
 
 
     return(

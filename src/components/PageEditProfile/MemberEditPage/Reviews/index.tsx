@@ -5,6 +5,8 @@ export default function ReviewsEditProfilPageMember({ data }) {
   const [memberReviews, setMemberReviews] = useState(data.reviews);
   const [editModeId, setEditModeId] = useState(null);
 
+
+
   const deleteComment = (idToDelete) => {
     const newComments = memberReviews.filter((comment) => comment.id !== idToDelete);
     setMemberReviews(newComments);
@@ -50,7 +52,7 @@ export default function ReviewsEditProfilPageMember({ data }) {
 
   return (
     <section>
-      {memberReviews.map((review) => (
+      {memberReviews && memberReviews.map((review) => (
         <div key={review.id}>
           <h2>{review.training.label}</h2>
           {editModeId === review.id ? (

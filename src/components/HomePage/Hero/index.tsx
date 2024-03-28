@@ -32,6 +32,7 @@ export default function HeroSearchBar() {
                     <a href="#searchBar" className="link-landing-a">Recherchez votre formation</a>
                 </div>
                 <img className="image-landing" src="/livre.png" alt="" />
+                
             </div>
         
     );

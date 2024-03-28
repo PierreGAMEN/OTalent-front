@@ -3,6 +3,7 @@ import TrainingDataI from "../../../@Types/training"
 import './style.scss'
 import { Divider } from "semantic-ui-react"
 import { addReview } from "../../../utils"
+import { useAppSelector } from "../../../store/redux-hook/hook"
 
 // TODO : Améliorer l'interface gestion de la note 
 // TODO : l'affichage d'un nouveau commentaire, ne met pas à jour le nombre de commentaire dans le header
@@ -14,7 +15,8 @@ export default function ReviewTrainingPage ({ data }: { data: TrainingDataI }) {
     const [comment, setComment] = useState('')
     const [currentComment, setCurrentComment] = useState(data.reviews)
 
-    const idMember = JSON.parse(localStorage.getItem('itemKey')).id;
+    const user = useAppSelector((state) => state.token.user);
+
     
     const openModalAddComment = () => {
         setModalAddCommentIsOpen(true)
@@ -35,7 +37,7 @@ export default function ReviewTrainingPage ({ data }: { data: TrainingDataI }) {
         const reviewInput = {
            
               comment: comment,
-              memberId: parseInt(idMember),
+              memberId: parseInt(user.id),
               rating: selectedNote,
               trainingId: parseInt(data.id)
         }
