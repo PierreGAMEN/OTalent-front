@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const token = localStorage.getItem("token")
 
 const url = 'http://otalent.florianperi-server.eddi.cloud/graphql'
 
@@ -44,6 +45,9 @@ export const dissociateMemberTraining = async (memberId: number, trainingId: num
         memberId: memberId,
         trainingId: trainingId,
       },
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     });
 
     console.log(response.data);
@@ -256,9 +260,7 @@ export const fetchCategories = async () => {
       const data = response.data.data;
       const fetchedCategories = data.categories || [];
       
-      setCategories(fetchedCategories);
 
-      dispatch(getCategories(fetchedCategories));
   } catch (error) {
       console.error('Error:', error);
   }

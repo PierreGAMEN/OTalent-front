@@ -2,14 +2,12 @@ import "./style.scss"
 import { jwtDecode } from "jwt-decode";
 
 import ModalFormConnexion from "./ModalFormConnexion"
-import { NavLink, useLocation } from "react-router-dom"
-import { fetchData } from "../../../utils"
+import { NavLink } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { queryAllTrainingCard } from "../../../query"
 import { useAppDispatch, useAppSelector } from "../../../store/redux-hook/hook"
-import { getCategories } from "../../../store/actions/categoriesActions"
 import axios from "axios"
 import { getTokenInformation } from "../../../store/actions/tokenActions";
+import { getCategories } from "../../../store/actions/categoriesActions";
 
 
 
@@ -19,7 +17,6 @@ export default function Header () {
 
     const [data, setData] = useState([])
     const [isloading, setIsloading] = useState(false)
-    const [categories, setCategories] = useState([])
 
     const fetchCategories = async () => {
         try {
@@ -37,33 +34,31 @@ export default function Header () {
             const response = await axios.post(url, { query });
             const data = response.data.data;
             const fetchedCategories = data.categories || [];
-            
-            setCategories(fetchedCategories);
    
             dispatch(getCategories(fetchedCategories));
         } catch (error) {
             console.error('Error:', error);
         }
     };
-    
+
+    const [isConnected, setIsConnected] = useState(false)
+
     const dispatchTokenInformation = () => {
         const token = localStorage.getItem('token')
         if(token) {
             const tokenValue = jwtDecode(token)
             dispatch(getTokenInformation(tokenValue))
-
+            setIsConnected(true)
         }
     }
 
-
+    
     
     useEffect (() => {
-        
         dispatchTokenInformation()
     }, [dispatch])
 
     const user = useAppSelector((state) => state.token.user);
-    console.log(user)
     
     
     useEffect(() => {
@@ -71,17 +66,23 @@ export default function Header () {
     }, []);
 
 
+    
+    // Gestionnaire de déconnexion
+    const handleLogout = () => {
+        localStorage.clear();
+        setIsConnected(false)
+        location.reload();
+    };
 
-    return(
+    return (
         <header className="headerApp">
-            <NavLink to={"/"}>
-            <h1>O'Talent</h1>
+            <NavLink to="/">
+                <h1>O'Talent</h1>
             </NavLink>
-            <ModalFormConnexion />
+         
+            {!isConnected && <ModalFormConnexion />}
 
+            {isConnected && <button onClick={handleLogout}>Se déconnecter</button>}
         </header>
-    )
+    );
 }
-
-
-

@@ -7,12 +7,12 @@ import { getCategories } from '../../../../store/actions/categoriesActions';
 
 interface Category {
     label: string;
-   
+    id: number
 }
 
 interface SearchBarProps {
     className?: string;
-    id: number
+
 }
 
 
@@ -75,12 +75,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
 }}>
 
                     <option value="">Sélectionnez une catégorie</option>
-                    {categories.map((categorie) => (
+                    {categories.map((category) => (
                         <option 
-                            id={categorie.id} 
-                            key={categorie.id} 
-                            value={categorie.label}>
-                            {categorie.label}
+                            id={category.id} 
+                            key={category.id} 
+                            value={category.label}>
+                            {category.label}
                         </option>
                     ))}
                     
