@@ -14,8 +14,10 @@ import { getStateModalForm } from '../../../../store/actions/modalActions'
 function ModalForm() { 
   const dispatch = useAppDispatch()
   const isOpen = useAppSelector((state) => state.modal.state)
+  
 
   return (
+
     <>
       <Modal
         onClose={() => dispatch(getStateModalForm(false))}
@@ -31,6 +33,9 @@ function ModalForm() {
           </ModalDescription>
         </ModalContent>
       </Modal>
+
+
+      
     </>
   )
 }

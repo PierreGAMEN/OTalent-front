@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
-const url = 'http://localhost:3000/graphql'
-
+const token = localStorage.getItem("token")
 
 
 export const fetchData = async (
@@ -47,7 +45,7 @@ export const dissociateMemberTraining = async (memberId: number, trainingId: num
         trainingId: trainingId,
       },
       headers: {
-        "Authorization": `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
       }
     });
     console.log(token);
@@ -262,9 +260,7 @@ export const fetchCategories = async () => {
       const data = response.data.data;
       const fetchedCategories = data.categories || [];
       
-      setCategories(fetchedCategories);
 
-      dispatch(getCategories(fetchedCategories));
   } catch (error) {
       console.error('Error:', error);
   }
