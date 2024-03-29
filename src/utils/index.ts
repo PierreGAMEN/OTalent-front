@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const token = localStorage.getItem("token")
-
+const url = 'http://localhost:4000'
 
 export const fetchData = async (
   query: string,
@@ -44,9 +44,9 @@ export const dissociateMemberTraining = async (memberId: number, trainingId: num
         memberId: memberId,
         trainingId: trainingId,
       },
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+      // headers: {
+      //   'Authorization': `Bearer ${token}`
+      // }
     });
     console.log(token);
     console.log(response.data);
@@ -254,7 +254,7 @@ export const fetchCategories = async () => {
       `;
 
       // const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
-      const url = 'http://localhost:3000/graphql;'
+      const url = 'http://localhost:4000/graphql;'
 
       const response = await axios.post(url, { query });
       const data = response.data.data;

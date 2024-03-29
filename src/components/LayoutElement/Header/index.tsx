@@ -30,7 +30,7 @@ export default function Header () {
             `;
     
             // const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
-            const url = 'http://localhost:3000/graphql'
+            const url = 'http://localhost:4000/graphql'
     
             const response = await axios.post(url, { query });
             const data = response.data.data;
