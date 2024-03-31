@@ -43,7 +43,6 @@ const FormConnexion = () => {
       if(logger.errors) {
         setWrongAuthentification(true)
       } else if (logger.data) {
-        dispatch(getStateModalForm(false))
         setWrongAuthentification(false)
         location.reload();
       }
