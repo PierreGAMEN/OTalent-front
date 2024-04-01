@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { ChangeEventHandler, FormEvent, useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FormMember() {
   const [firstName, setFirstName] = useState("");
@@ -9,10 +11,54 @@ export default function FormMember() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Effectuer des actions telles que la validation et l'envoi des données
-  };
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): boolean => {
+    e.preventDefault();
+    
+    if (!validateFormData(firstName, lastName, email, password, confirmPassword)) {
+        return false;
+    }
+
+    toast.success("Le formulaire a été soumis avec succès !");
+    
+    // Envoyer les données au serveur ou au service GraphQL
+    // Code pour l'envoi des données...
+
+    // Retourner true car les données sont valides et le formulaire a été soumis avec succès
+    return true;
+};
+
+
+
+  function validateFormData(firstName: string, lastName: string, email: string, password: string, confirmPassword: string) {
+
+    if (!firstName) {
+      toast.error("Le prénom est requis");
+      return false
+    }
+    if (!lastName) {
+      toast.error("Le nom de famille est requis");
+      return false
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("L'adresse email doit respecter la forme suivant : exemple@domaine.com");
+      return false;
+    }
+    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    if(!passwordRegex.test(password)) {
+      toast.error("Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial");
+      return false
+    }
+    if (password !== confirmPassword) {
+      toast.error("Les mots de passe ne correspondent pas");
+      return false;
+    }
+  
+
+    return true;
+  }
+  
 
   return (
     <div>
