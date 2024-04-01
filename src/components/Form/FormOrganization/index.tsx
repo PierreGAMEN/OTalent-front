@@ -1,4 +1,6 @@
 import React, { useState, FormEvent, ChangeEventHandler } from "react";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 interface FormValues {
   raisonSociale: string;
@@ -32,12 +34,73 @@ export default function FormOrganization(): JSX.Element {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): boolean => {
     e.preventDefault();
+    
+    if (!validateFormData(formValues.raisonSociale, formValues.adresse, formValues.codePostal, formValues.ville, formValues.siret, formValues.email, formValues.telephone, formValues.password, formValues.confirmPassword)) {
+        return false;
+    }
 
-    // Insérer la logique de soumission du formulaire
-    console.log("Form submitted:", formValues);
-  };
+    toast.success("Le formulaire a été soumis avec succès !");
+    
+    // Envoyer les données au serveur ou au service GraphQL
+    // Code pour l'envoi des données...
+
+    // Retourner true car les données sont valides et le formulaire a été soumis avec succès
+    return true;
+};
+
+  function validateFormData(raisonSociale: string, address: string, postalCode: string, city: string, phoneNumber: string, siret: string, email: string, password: string, confirmPassword: string) {
+
+    if (!raisonSociale) {
+      toast.error("La raison sociale de l'entreprise est requise");
+      return false
+    }
+    if (!address) {
+      toast.error("L'adresse est requise");
+      return false
+    }
+
+        const postalCodeRegex = /^\d{5}$/;
+    if (!postalCodeRegex.test(postalCode)) {
+      toast.error("Le code postal doit contenir 5 chiffres");
+      return false;
+    }
+
+    if(!city) {
+      toast.error("Une ville est nécessaire");
+    }
+
+    const phoneNumberRegex = /^\d{14}$/;
+    if(!phoneNumberRegex.test(phoneNumber)) {
+      toast.error("Le numéro de téléphone doit contenir 10 chiffres");
+      return false;
+    }
+
+    const siretRegex = /^\d{14}$/;
+    if(!siretRegex.test(siret)) {
+      toast.error("Le numéro de SIRET doit contenir 14 chiffres");
+      return false;
+    }
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("L'adresse email doit respecter la forme suivant : exemple@domaine.com");
+      return false;
+    }
+    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    if(!passwordRegex.test(password)) {
+      toast.error("Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial");
+      return false
+    }
+    if (password !== confirmPassword) {
+      toast.error("Les mots de passe ne correspondent pas");
+      return false;
+    }
+  
+
+    return true;
+  }
 
   return (
     <div>
