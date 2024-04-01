@@ -37,7 +37,7 @@ export default function FormOrganization(): JSX.Element {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): boolean => {
     e.preventDefault();
     
-    if (!validateFormData(formValues.raisonSociale, formValues.adresse, formValues.codePostal, formValues.ville, formValues.siret, formValues.email, formValues.telephone, formValues.password, formValues.confirmPassword)) {
+    if (!validateFormData(formValues.raisonSociale, formValues.adresse, formValues.codePostal, formValues.ville, formValues.email,  formValues.telephone, formValues.siret, formValues.password, formValues.confirmPassword)) {
         return false;
     }
 
@@ -50,7 +50,7 @@ export default function FormOrganization(): JSX.Element {
     return true;
 };
 
-  function validateFormData(raisonSociale: string, address: string, postalCode: string, city: string, phoneNumber: string, siret: string, email: string, password: string, confirmPassword: string) {
+  function validateFormData(raisonSociale: string, address: string, postalCode: string, city: string, email: string, phoneNumber: string, siret: string, password: string, confirmPassword: string) {
 
     if (!raisonSociale) {
       toast.error("La raison sociale de l'entreprise est requise");
@@ -69,13 +69,20 @@ export default function FormOrganization(): JSX.Element {
 
     if(!city) {
       toast.error("Une ville est nécessaire");
+      return false;
     }
 
-    const phoneNumberRegex = /^\d{14}$/;
+    const phoneNumberRegex = /^\d{10}$/;
     if(!phoneNumberRegex.test(phoneNumber)) {
       toast.error("Le numéro de téléphone doit contenir 10 chiffres");
       return false;
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("L'adresse email doit respecter la forme suivant : exemple@domaine.com");
+      return false;
+    }
+
 
     const siretRegex = /^\d{14}$/;
     if(!siretRegex.test(siret)) {
@@ -83,11 +90,7 @@ export default function FormOrganization(): JSX.Element {
       return false;
     }
   
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      toast.error("L'adresse email doit respecter la forme suivant : exemple@domaine.com");
-      return false;
-    }
+    
     const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
     if(!passwordRegex.test(password)) {
       toast.error("Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial");
@@ -147,16 +150,6 @@ export default function FormOrganization(): JSX.Element {
           />
         </div>
         <div>
-          <label htmlFor="siret">N° SIRET</label>
-          <input
-            id="siret"
-            name="siret"
-            value={formValues.siret}
-            onChange={handleChange}
-            placeholder="N° SIRET"
-          />
-        </div>
-        <div>
           <label htmlFor="email">Adresse e-mail</label>
           <input
             type="email"
@@ -176,6 +169,16 @@ export default function FormOrganization(): JSX.Element {
             value={formValues.telephone}
             onChange={handleChange}
             placeholder="Téléphone"
+          />
+        </div>
+        <div>
+          <label htmlFor="siret">N° SIRET</label>
+          <input
+            id="siret"
+            name="siret"
+            value={formValues.siret}
+            onChange={handleChange}
+            placeholder="N° SIRET"
           />
         </div>
         <div>
