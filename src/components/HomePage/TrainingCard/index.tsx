@@ -56,7 +56,7 @@ export default function TrainingCard({
                 </a>
 
                 <div className="school school-link extra content">
-                    <span className="material-symbols-rounded">school</span>
+                    <i className="school university icon"></i> École :
                     <a
                         href={`/organization/${organizationId}`}
                         className="right floated"
@@ -67,7 +67,7 @@ export default function TrainingCard({
                 </div>
 
                 <div className="school school-link extra content">
-                    <span className="material-symbols-rounded">category</span>
+                    <i className="folder icon"></i> Catégorie :
                     <a
                         href={`/search/${category}&&${categoryId}`}
                         className="right floated"
@@ -78,7 +78,7 @@ export default function TrainingCard({
                 </div>
 
                 <div className="school extra content">
-                    <span className="material-symbols-rounded">timer</span>
+                    <i className="calendar alternate icon"></i> Durée :
                     <span className="right floated"> {duration} heures</span>
                 </div>
 
