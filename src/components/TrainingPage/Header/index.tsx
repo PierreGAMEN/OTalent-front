@@ -1,35 +1,35 @@
-import React, { useState } from "react";
-import { associateMemberTraining } from "../../../utils";
-import "./style.scss";
-import { useAppSelector } from "../../../store/redux-hook/hook";
+import { useEffect, useState } from 'react';
+import { associateMemberTraining } from '../../../utils';
+import './style.scss';
+import { useAppSelector } from '../../../store/redux-hook/hook';
 
 export default function HeaderTrainingPage({ data }) {
-
     const [isAssociateToFavorite, setIsAssociateToFavoris] = useState(false);
-    const [isMember, setIsMember] = useState(false)
+    const [isMember, setIsMember] = useState(false);
 
-    const user = useAppSelector((state) => state.token.user);
-    const idMember = user.id
-    
-    useState(() => {
-        setIsMember(user.member)
-    }, [])
+    const user = useAppSelector(state => state.token.user);
+    const idMember = user.id;
 
-    const addTrainingToFavorite = (e) => {
+    useEffect(() => {
+        setIsMember(user.member);
+    }, [user.member]);
+
+    const addTrainingToFavorite = e => {
         const trainingId = e.target.id;
         associateMemberTraining(idMember, trainingId);
         setIsAssociateToFavoris(true);
     };
 
-    let ArrayReview = [];
-    data.reviews.forEach((element) => {
+    const ArrayReview: number[] = [];
+    data.reviews.forEach((element: { rating: number }) => {
         ArrayReview.push(element.rating);
     });
 
     const averageRating =
         data.reviews.length > 0
             ? parseInt(
-                  (ArrayReview.reduce((acc, curr) => acc + curr, 0) /
+                  (
+                      ArrayReview.reduce((acc, curr) => acc + curr, 0) /
                       data.reviews.length
                   ).toFixed(1)
               )
@@ -40,8 +40,12 @@ export default function HeaderTrainingPage({ data }) {
             <div className="header-trainingpage-containerImage">
                 <img
                     className="header-trainingpage-containerImage-image"
-                    src={data.image}
-                    alt=""
+                    src={`https://res.cloudinary.com/${
+                        import.meta.env.VITE_CDNY_CLOUDNAME
+                    }/image/upload/c_scale,w_780,h_520/v1/otalent/${
+                        data.image
+                    }`}
+                    alt="Training"
                 />
             </div>
             <div className="header-trainingpage-containerText">
@@ -51,13 +55,13 @@ export default function HeaderTrainingPage({ data }) {
                 {data.reviews.length > 0 ? (
                     <div className="container-star">
                         <span className="note">{averageRating} </span>
-                        {[1, 2, 3, 4, 5].map((index) => (
+                        {[1, 2, 3, 4, 5].map(index => (
                             <i
                                 key={index}
                                 className={
                                     averageRating >= index
-                                        ? "star yellow icon"
-                                        : "star icon"
+                                        ? 'star yellow icon'
+                                        : 'star icon'
                                 }
                             ></i>
                         ))}
@@ -78,7 +82,7 @@ export default function HeaderTrainingPage({ data }) {
                 </p>
                 {isMember && (
                     <button
-                        onClick={(e) => addTrainingToFavorite(e)}
+                        onClick={e => addTrainingToFavorite(e)}
                         className="header-trainingpage-containerText-button"
                         id={data.id}
                     >
@@ -89,8 +93,7 @@ export default function HeaderTrainingPage({ data }) {
                     <div>
                         L'enregistrement de cette formation a bien été
                         enregistré dans vos favoris. Vous pouvez gérer vos
-                        favoris{" "}
-                        <a href={`/edit/member/${idMember}`}>ici</a>
+                        favoris <a href={`/edit/member/${idMember}`}>ici</a>
                     </div>
                 )}
             </div>
