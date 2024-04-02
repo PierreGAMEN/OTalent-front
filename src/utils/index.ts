@@ -1,10 +1,29 @@
 import axios from "axios";
 
-// const token = localStorage.getItem("token")
-const url = 'http://localhost:4000/graphql'
 const getJWT = () => {
-  return localStorage.getItem('token');
+  return localStorage.getItem('jwtToken');
 };
+
+const url = 'http://otalent.florianperi-server.eddi.cloud/graphql'
+
+const authorizedRequest = async (url, requestData) => {
+  try {
+    const jwtToken = getJWT();
+
+    // Inclusion du JWT dans les en-têtes de la requête Axios
+    const response = await axios.post(url, requestData, {
+      headers: {
+        'Authorization': `Bearer ${jwtToken}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Une erreur s\'est produite :', error);
+    throw error;
+  }
+};
+
 
 export const fetchData = async (
   query: string,
@@ -34,29 +53,13 @@ export const fetchData = async (
 
 
 
+
+
 export const dissociateMemberTraining = async (memberId: number, trainingId: number) => {
   try {
-    const authorizedRequest = async (url, requestData) => {
-      try {
-        const jwtToken = getJWT();
-    
-        // Inclusion du JWT dans les en-têtes de la requête Axios
-        const response = await axios.post(url, requestData, {
-          headers: {
-            'Authorization': `Bearer ${jwtToken}`
-          }
-        });
-    
-        return response.data;
-      } catch (error) {
-        console.error("Une erreur s'est produite :", error);
-        throw error;
-      }
-    };
-
     const response = await authorizedRequest(url, {
-      query: 
-        `mutation Mutation($memberId: ID!, $trainingId: ID!) {
+      query: `
+        mutation Mutation($memberId: ID!, $trainingId: ID!) {
           dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
         }`
       ,
@@ -70,7 +73,7 @@ export const dissociateMemberTraining = async (memberId: number, trainingId: num
 
     return response;
   } catch (error) {
-    console.error("Une erreur s'est produite :", error);
+    console.error('Une erreur s\'est produite :', error);
     throw error;
   }
 };
@@ -78,7 +81,7 @@ export const dissociateMemberTraining = async (memberId: number, trainingId: num
 export const associateMemberTraining = async (memberId: number, trainingId: number) => {
   try {
 
-    const response = await axios.post(url, {
+    const response = await authorizedRequest(url, {
       query: `
         mutation Mutation($memberId: ID!, $trainingId: ID!) {
           associateMemberTraining(memberId: $memberId, trainingId: $trainingId)

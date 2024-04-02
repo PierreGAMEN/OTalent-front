@@ -44,6 +44,7 @@ export default function Header () {
 
     const [isConnected, setIsConnected] = useState(false)
 
+    // Fonction 
     const dispatchTokenInformation = () => {
         const token = localStorage.getItem('token')
         if(token) {
@@ -52,16 +53,14 @@ export default function Header () {
             setIsConnected(true)
         }
     }
-
     
-    
+    //Récupération des informations contenu dans le token a chaque dispatch
     useEffect (() => {
         dispatchTokenInformation()
     }, [dispatch])
 
-    const user = useAppSelector((state) => state.token.user);
-    
-    
+
+    // Récupération des catégories
     useEffect(() => {
         fetchCategories();
     }, []);

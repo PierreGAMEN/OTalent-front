@@ -23,7 +23,8 @@ function ModalForm() {
         onClose={() => dispatch(getStateModalForm(false))}
         onOpen={() => dispatch(getStateModalForm(true))}
         trigger={<Button positive>Connexion</Button>}
-        open={isOpen} 
+        open={isOpen}
+        close={!isOpen}
       >
         <ModalHeader>Bienvenue sur O'Talent</ModalHeader>
         <ModalContent image>
