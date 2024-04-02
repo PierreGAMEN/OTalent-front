@@ -96,7 +96,7 @@ export default function HeaderTrainingPage({ data }) {
                     <div>
                         L'enregistrement de cette formation a bien été
                         enregistré dans vos favoris. Vous pouvez gérer vos
-                        favoris <a href={`/edit/member/${idMember}`}>ici</a>
+                        favoris <a href={`/edit/member`}>ici</a>
                     </div>
                 )}
             </div>

@@ -13,6 +13,7 @@ import { requestWithoutVariable } from "../../../utils";
 import { queryCategories } from "../../../query";
 import { Icon } from "semantic-ui-react";
 import Navbar from "./ModalProfile";
+import NewModalConnexion from "./ModalFormConnexion/newModal";
 
 
 
@@ -83,12 +84,11 @@ export default function Header () {
                 <h1>O'Talent</h1>
             </NavLink>
          
-            {!isConnected && <ModalFormConnexion />}
+            {!isConnected && <NewModalConnexion />}
 
-            {isConnected && <button onClick={handleLogout}>Se déconnecter</button>}
-            
+            {isConnected && <Navbar />}
         </header>
-        <Navbar />
+        
         </>
     );
 }
