@@ -1,3 +1,5 @@
+@import '../../../style/variables.scss';
+
 .headerApp {
     display: flex;
     align-items: center;
@@ -6,7 +8,7 @@
     padding: 1vh;
     position: sticky;
     top: 0;
-    background-color: rgb(10, 71, 56);
+    background-color: $background-primary-color;
     justify-content: space-between;
     flex-wrap: wrap;
     z-index: 1;
@@ -14,7 +16,7 @@
     h1 {
         flex-grow: 1;
         margin: auto;
-        color: white;
+        color: $text-color-with-primary-background;
     }
    
  
@@ -23,9 +25,9 @@
 
     button {
         margin: 1rem;
-        background-color: rgb(20, 72, 82);
+        background-color: $button-color;
         border: none;
-        color: rgb(255, 255, 255);
+        color:$text-color-with-primary-background;
         cursor: pointer;
     }
 
