@@ -1,7 +1,10 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token")
-const url = 'http://localhost:4000'
+// const token = localStorage.getItem("token")
+const url = 'http://localhost:4000/graphql'
+const getJWT = () => {
+  return localStorage.getItem('token');
+};
 
 export const fetchData = async (
   query: string,
@@ -33,28 +36,41 @@ export const fetchData = async (
 
 export const dissociateMemberTraining = async (memberId: number, trainingId: number) => {
   try {
+    const authorizedRequest = async (url, requestData) => {
+      try {
+        const jwtToken = getJWT();
+    
+        // Inclusion du JWT dans les en-têtes de la requête Axios
+        const response = await axios.post(url, requestData, {
+          headers: {
+            'Authorization': `Bearer ${jwtToken}`
+          }
+        });
+    
+        return response.data;
+      } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
+      }
+    };
 
-    const response = await axios.post(url, {
-      query: `
-        mutation Mutation($memberId: ID!, $trainingId: ID!) {
+    const response = await authorizedRequest(url, {
+      query: 
+        `mutation Mutation($memberId: ID!, $trainingId: ID!) {
           dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
-        }
-      `,
+        }`
+      ,
       variables: {
         memberId: memberId,
         trainingId: trainingId,
       },
-      // headers: {
-      //   'Authorization': `Bearer ${token}`
-      // }
     });
-    console.log(token);
-    console.log(response.data);
 
-    return response.data;
+    console.log(response);
+
+    return response;
   } catch (error) {
-
-    console.error('Une erreur s\'est produite :', error);
+    console.error("Une erreur s'est produite :", error);
     throw error;
   }
 };
