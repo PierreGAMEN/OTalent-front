@@ -1,3 +1,5 @@
+@import '../../../../style/variables.scss';
+
 .caracteristique-card {
     max-width: 25vw;
     min-width: 20vw;
@@ -5,7 +7,7 @@
     padding: 5vh;
     padding-top: 10vh;
     transition: 0.5s ease-in-out;
-    background-color: rgb(20, 90, 81); 
+    background-color: $background-primary-color; 
     color: rgb(255, 255, 255);
     cursor: pointer;
     position: relative;

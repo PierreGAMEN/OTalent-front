@@ -3,9 +3,10 @@ import modalReducer from '../store/reducer';
 
 import categoriesReducer from './reducer/categories';
 import tokenReducer from './reducer/tokenReducer';
+import connexionReducer from './reducer/connexionReducer';
 
 const store = configureStore({
-  reducer: {modal: modalReducer, categories: categoriesReducer, token: tokenReducer}, devTools: true
+  reducer: {modal: modalReducer, categories: categoriesReducer, token: tokenReducer, connexion: connexionReducer}, devTools: true
 });
 
 export default store;

@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
-import { associateMemberTraining } from '../../../utils';
-import './style.scss';
-import { useAppSelector } from '../../../store/redux-hook/hook';
+import React, { useEffect, useState } from "react";
+import { associateMemberTraining } from "../../../utils";
+import "./style.scss";
+import { useAppSelector } from "../../../store/redux-hook/hook";
+
 
 export default function HeaderTrainingPage({ data }) {
     const [isAssociateToFavorite, setIsAssociateToFavoris] = useState(false);
@@ -10,9 +11,13 @@ export default function HeaderTrainingPage({ data }) {
     const user = useAppSelector(state => state.token.user);
     const idMember = user.id;
 
+
+    const user = useAppSelector((state) => state.token.user);
+    const idMember = user.id
+    
     useEffect(() => {
-        setIsMember(user.member);
-    }, [user.member]);
+        setIsMember(user.member)
+    }, [user.member])
 
     const addTrainingToFavorite = e => {
         const trainingId = e.target.id;
@@ -20,8 +25,9 @@ export default function HeaderTrainingPage({ data }) {
         setIsAssociateToFavoris(true);
     };
 
-    const ArrayReview: number[] = [];
-    data.reviews.forEach((element: { rating: number }) => {
+
+    let ArrayReview: [] = [];
+    data.reviews.forEach((element) => {
         ArrayReview.push(element.rating);
     });
 

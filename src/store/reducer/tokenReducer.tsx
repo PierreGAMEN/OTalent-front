@@ -21,7 +21,7 @@ export const initialState: SearchProps = {
 
 const tokenReducer = createReducer(initialState, (builder) => {
   builder.addCase(getTokenInformation, (state, action) => {
-    const { member, id, iat } = action.payload;
+    const { member, id, iat } = action.payload as unknown as UserData;
     state.user = { member, id, iat };
   });
 });

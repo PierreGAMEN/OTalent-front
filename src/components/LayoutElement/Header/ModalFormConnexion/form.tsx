@@ -18,6 +18,7 @@ const FormConnexion = () => {
     const [isLargeScreen, setIsLargeScreen] = useState(true);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [wrongAuthentification, setWrongAuthentification] = useState(false)
 
     const dispatch = useAppDispatch()
 
@@ -31,15 +32,20 @@ const FormConnexion = () => {
         setPassword(value)
     }
 
-    const login = () => {
+    const login = async () => {
 
       const variables = {
         email: email,
         password: password,
       };
 
-      loginRequest(variables)
-      
+      const logger = await loginRequest(variables)
+      if(logger.errors) {
+        setWrongAuthentification(true)
+      } else if (logger.data) {
+        setWrongAuthentification(false)
+        location.reload();
+      }
     }
 
     useEffect(() => {
@@ -79,6 +85,7 @@ const FormConnexion = () => {
           />
         
           <Button onClick={login} content='Login' primary />
+          {wrongAuthentification && <div>L'identifiant est incorrect</div>}
         </Form>
       </GridColumn>
         
