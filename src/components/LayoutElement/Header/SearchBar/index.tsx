@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import "./style.scss";
+import './style.scss';
 import { NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../../../store/redux-hook/hook';
 import { getCategories } from '../../../../store/actions/categoriesActions';
@@ -14,19 +14,31 @@ interface Category {
 
 interface SearchBarProps {
     className?: string;
+    id: number;
 
 }
 
-
-
 const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
-
     const [categories, setCategories] = useState<Category[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [idSelectedCategory, setIdSelectedCategory] = useState<number|null>(null);
+    const [idSelectedCategory, setIdSelectedCategory] = useState<number | null>(
+        null
+    );
 
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const query = `
+            query Categories {
+              categories {
+                id
+                label
+              }
+            }
+          `;
 
 
     const fetchCategories = async () => {
@@ -40,7 +52,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
                 }
             `;
     
-            const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
+            const url = import.meta.env.VITE_GRAPHQL_API;
     
             const response = await axios.post(url, { query });
             const data = response.data.data;
@@ -68,17 +80,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
 
     
 
-    useEffect(() => {
         fetchCategories();
-    }, []);
+    }, [dispatch]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); 
-  
+        event.preventDefault();
     };
 
     return (
         <>
+
         <form className={className} onSubmit={handleSubmit}>
             <div className="container-input-category">
             <select className='header-searchBar-select' name="categorie" id="categorie" value={selectedCategory} onChange={(e) => {
@@ -117,6 +128,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
         </NavLink>
         </>
     );
-}
+};
 
 export default SearchBar;

@@ -1,3 +1,4 @@
+
 import "./style.scss"
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
@@ -28,18 +29,18 @@ export default function Header () {
                     }
                 }
             `;
-    
-            const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
-    
+
+            const url = import.meta.env.VITE_GRAPHQL_API;
+
             const response = await axios.post(url, { query });
             const data = response.data.data;
             const fetchedCategories = data.categories || [];
-   
             dispatch(getCategories(fetchedCategories));
         } catch (error) {
             console.error('Error:', error);
         }
     };
+
 
     // const fetchCategories = async () => {
         
@@ -55,6 +56,7 @@ export default function Header () {
     const dispatchTokenInformation = () => {
         const token = localStorage.getItem('token');
         if (token) {
+
             const tokenValue: {member: string, id: string, iat: number} = jwtDecode(token);
             dispatch(getTokenInformation(tokenValue));
             setIsConnected(true);
@@ -71,6 +73,7 @@ export default function Header () {
     useEffect(() => {
         fetchCategories();
     }, []);
+
 
 
     
