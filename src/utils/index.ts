@@ -1,20 +1,24 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const getJWT = () => {
-  return localStorage.getItem('jwtToken');
+  return localStorage.getItem('token');
 };
 
 const url = 'http://otalent.florianperi-server.eddi.cloud/graphql'
 
-const authorizedRequest = async (url, requestData) => {
+const authorizedRequest = async (url: string, requestData: any) => {
   try {
     const jwtToken = getJWT();
 
-    // Inclusion du JWT dans les en-têtes de la requête Axios
+    // Création des en-têtes de la requête
+    const headers: { [key: string]: string } = {};
+    if (jwtToken) {
+      headers['Authorization'] = `Bearer ${jwtToken}`;
+    }
+
+    // Envoi de la requête avec les en-têtes appropriés
     const response = await axios.post(url, requestData, {
-      headers: {
-        'Authorization': `Bearer ${jwtToken}`
-      }
+      headers: headers
     });
 
     return response.data;
@@ -36,13 +40,13 @@ export const fetchData = async (
     const variables = id !== null ? { [idName!]: id } : {};
 
     setLoader(true);
-    const response = await axios.post(url, {
+    const response = await authorizedRequest(url, {
       query,
       variables
     });
 
-    const data = response.data.data;
-    console.log(data)
+    const data = response.data;
+    console.log(data);
     setData(data || []);
   } catch (error) {
     console.error('Error:', error);
@@ -153,7 +157,7 @@ export const deleteMemberCategory = async (memberId: number, categoryId: number)
   }
 };
 
-export const deleteReview = async (deleteReviewId) => {
+export const deleteReview = async (deleteReviewId: string) => {
   try {
     // Envoie de la requête GraphQL via Axios
     const response = await axios.post(url, {
@@ -177,7 +181,7 @@ export const deleteReview = async (deleteReviewId) => {
   }
 };
 
-export const modifyReview = async (modifyReviewId, input) => {
+export const modifyReview = async (modifyReviewId: string, input: string) => {
   try {
     const response = await axios.post(url, {
       query: `
@@ -203,7 +207,7 @@ export const modifyReview = async (modifyReviewId, input) => {
 };
 
 
-export const addReview = async (reviewInput) => {
+export const addReview = async (reviewInput : {}) => {
   try {
     const response = await axios.post(url, {
       query: `
@@ -236,7 +240,7 @@ export const addReview = async (reviewInput) => {
 };
 
 
-export const loginRequest = async (variables) => {
+export const loginRequest = async (variables: {}) => {
   try {
     const response = await axios.post(url, {
       query: `
@@ -283,3 +287,34 @@ export const fetchCategories = async () => {
       console.error('Error:', error);
   }
 };
+
+interface Variables {
+  [key: string]: any;
+}
+
+export const requestWithVariable = async (query: string, variables: Variables ) : Promise<void> => {
+  try {
+    const response: AxiosResponse<any> = await authorizedRequest(url, {
+      query,
+      variables
+    });
+
+    console.log('Réponse de l\'API:', response.data);
+    return response.data
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi des données:', error);
+  }
+}
+
+export const requestWithoutVariable = async (query: string) : Promise<void> => {
+  try {
+    const response: AxiosResponse<any> = await authorizedRequest(url, {
+      query
+    });
+
+    console.log('Réponse de l\'API:', response.data);
+    return response.data
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi des données:', error);
+  }
+}

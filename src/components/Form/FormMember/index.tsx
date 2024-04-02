@@ -1,6 +1,9 @@
 import React, { ChangeEventHandler, FormEvent, useState } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { requestWithVariable } from "../../../utils";
+import { queryAddMember } from "../../../query";
+import MemberDataInputI from "../../../@Types/memberDataInputI";
 
 export default function FormMember() {
   const [firstName, setFirstName] = useState("");
@@ -11,20 +14,33 @@ export default function FormMember() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): boolean => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<boolean> => {
     e.preventDefault();
     
     if (!validateFormData(firstName, lastName, email, password, confirmPassword)) {
         return false;
     }
 
-    toast.success("Le formulaire a été soumis avec succès !");
-    
-    // Envoyer les données au serveur ou au service GraphQL
-    // Code pour l'envoi des données...
+    const variables = {
+        input: {
+            firstname: firstName,
+            lastname: lastName,
+            email: email,
+            password: password,
+            city: city,
+            postalCode: postalCode,
+            avatar: null // Vous pouvez laisser null si vous n'envoyez pas d'avatar
+        }
+    };
 
-    // Retourner true car les données sont valides et le formulaire a été soumis avec succès
-    return true;
+    try {
+        await requestWithVariable(queryAddMember, variables);
+        toast.success("Le formulaire a été soumis avec succès !");
+        return true;
+    } catch (error) {
+        console.error('Erreur lors de la soumission du formulaire:', error);
+        return false;
+    }
 };
 
 
@@ -45,7 +61,7 @@ export default function FormMember() {
       toast.error("L'adresse email doit respecter la forme suivant : exemple@domaine.com");
       return false;
     }
-    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     if(!passwordRegex.test(password)) {
       toast.error("Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial");
       return false
