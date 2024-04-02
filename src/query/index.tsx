@@ -235,9 +235,10 @@ export const queryCategories =
 
   export const queryAddOrganization = 
   `
-  mutation SubmitFormData($input: FormDataInput!) {
-    submitFormData(input: $input) {
-      raisonSociale
+  mutation Mutation($input: OrganizationInput!) {
+    addOrganization(input: $input) {
+      name
+      id
     }
   }
 `
