@@ -1,3 +1,5 @@
+@import '../../style/variables.scss';
+
 .section-card-formPage {
     display: flex;
     gap: 5vw;
@@ -12,10 +14,10 @@
         height: 30vh;
         padding: 2rem;
         cursor: pointer;
-        background-color: rgb(237, 237, 238);
+        background-color: $background-secondary-color;
 
         &:hover {
-            background-color: #e2e2e2;
+            background-color: #ffdd9f;
         }
 
     }

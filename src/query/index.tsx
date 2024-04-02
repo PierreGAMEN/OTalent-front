@@ -232,3 +232,23 @@ export const queryCategories =
     id
     label
   }`
+
+  export const queryAddOrganization = 
+  `
+  mutation SubmitFormData($input: FormDataInput!) {
+    submitFormData(input: $input) {
+      raisonSociale
+    }
+  }
+`
+
+export const  queryAddMember = `
+mutation Mutation($input: MemberInput!) {
+  addMember(input: $input) {
+    firstname
+    id
+    email
+    lastname
+  }
+}
+`

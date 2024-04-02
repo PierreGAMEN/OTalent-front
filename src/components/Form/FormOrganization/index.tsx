@@ -1,6 +1,8 @@
 import React, { useState, FormEvent, ChangeEventHandler } from "react";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { requestWithVariable } from "../../../utils";
+import { queryAddOrganization } from "../../../query";
 
 interface FormValues {
   raisonSociale: string;
@@ -43,10 +45,8 @@ export default function FormOrganization(): JSX.Element {
 
     toast.success("Le formulaire a été soumis avec succès !");
     
-    // Envoyer les données au serveur ou au service GraphQL
-    // Code pour l'envoi des données...
+    requestWithVariable(queryAddOrganization, formValues)
 
-    // Retourner true car les données sont valides et le formulaire a été soumis avec succès
     return true;
 };
 

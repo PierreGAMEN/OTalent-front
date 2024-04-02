@@ -21,7 +21,7 @@ export default function HeaderTrainingPage({ data }) {
         setIsAssociateToFavoris(true);
     };
 
-    let ArrayReview = [];
+    let ArrayReview: [] = [];
     data.reviews.forEach((element) => {
         ArrayReview.push(element.rating);
     });

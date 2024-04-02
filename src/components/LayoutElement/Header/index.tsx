@@ -1,5 +1,5 @@
 import "./style.scss"
-import { jwtDecode } from "jwt-decode";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 
 import ModalFormConnexion from "./ModalFormConnexion"
 import { NavLink } from "react-router-dom"
@@ -8,15 +8,15 @@ import { useAppDispatch, useAppSelector } from "../../../store/redux-hook/hook"
 import axios from "axios"
 import { getTokenInformation } from "../../../store/actions/tokenActions";
 import { getCategories } from "../../../store/actions/categoriesActions";
+import { requestWithoutVariable } from "../../../utils";
+import { queryCategories } from "../../../query";
 
 
 
 export default function Header () {
 
     const dispatch = useAppDispatch()
-
-    const [data, setData] = useState([])
-    const [isloading, setIsloading] = useState(false)
+    const [isConnected, setIsConnected] = useState(false)
 
     const fetchCategories = async () => {
         try {
@@ -42,15 +42,23 @@ export default function Header () {
         }
     };
 
-    const [isConnected, setIsConnected] = useState(false)
+    // const fetchCategories = async () => {
+        
+    //     const data = await requestWithoutVariable(queryCategories)
 
-    // Fonction 
+    //         const fetchedCategories = data.categories || [];
+   
+    //         dispatch(getCategories(fetchedCategories));
+    // };
+
+    
+
     const dispatchTokenInformation = () => {
-        const token = localStorage.getItem('token')
-        if(token) {
-            const tokenValue = jwtDecode(token)
-            dispatch(getTokenInformation(tokenValue))
-            setIsConnected(true)
+        const token = localStorage.getItem('token');
+        if (token) {
+            const tokenValue: {member: string, id: string, iat: number} = jwtDecode(token);
+            dispatch(getTokenInformation(tokenValue));
+            setIsConnected(true);
         }
     }
     

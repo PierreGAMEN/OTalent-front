@@ -1,3 +1,5 @@
+@import '../../../style/variables.scss';
+
 .container-caracteristique {
     padding: 10vh;
     min-height: 100Vh;
@@ -13,7 +15,7 @@
         padding-top: 10vh;
         padding-bottom: 8vh;
         font-size: 4rem;
-        color: rgb(17, 80, 59);
+        color: $background-primary-color;
         text-transform: uppercase;
     }
 
@@ -36,7 +38,7 @@
             padding-top: 10vh;
             padding-bottom: 8vh;
             font-size: 4rem;
-            color: rgb(17, 80, 59);
+            color: $background-primary-color;
             text-transform: uppercase;
         }
     
@@ -61,7 +63,7 @@
             padding-top: 10vh;
             padding-bottom: 8vh;
             font-size: 3rem;
-            color: rgb(17, 80, 59);
+            color: $background-primary-color;
             text-transform: uppercase;
         }
     

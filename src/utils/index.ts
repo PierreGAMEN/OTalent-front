@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const getJWT = () => {
   return localStorage.getItem('token');
@@ -157,7 +157,7 @@ export const deleteMemberCategory = async (memberId: number, categoryId: number)
   }
 };
 
-export const deleteReview = async (deleteReviewId) => {
+export const deleteReview = async (deleteReviewId: string) => {
   try {
     // Envoie de la requête GraphQL via Axios
     const response = await axios.post(url, {
@@ -181,7 +181,7 @@ export const deleteReview = async (deleteReviewId) => {
   }
 };
 
-export const modifyReview = async (modifyReviewId, input) => {
+export const modifyReview = async (modifyReviewId: string, input: string) => {
   try {
     const response = await axios.post(url, {
       query: `
@@ -207,7 +207,7 @@ export const modifyReview = async (modifyReviewId, input) => {
 };
 
 
-export const addReview = async (reviewInput) => {
+export const addReview = async (reviewInput : {}) => {
   try {
     const response = await axios.post(url, {
       query: `
@@ -240,7 +240,7 @@ export const addReview = async (reviewInput) => {
 };
 
 
-export const loginRequest = async (variables) => {
+export const loginRequest = async (variables: {}) => {
   try {
     const response = await axios.post(url, {
       query: `
@@ -288,3 +288,34 @@ export const fetchCategories = async () => {
       console.error('Error:', error);
   }
 };
+
+interface Variables {
+  [key: string]: any;
+}
+
+export const requestWithVariable = async (query: string, variables: Variables ) : Promise<void> => {
+  try {
+    const response: AxiosResponse<any> = await authorizedRequest(url, {
+      query,
+      variables
+    });
+
+    console.log('Réponse de l\'API:', response.data);
+    return response.data
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi des données:', error);
+  }
+}
+
+export const requestWithoutVariable = async (query: string) : Promise<void> => {
+  try {
+    const response: AxiosResponse<any> = await authorizedRequest(url, {
+      query
+    });
+
+    console.log('Réponse de l\'API:', response.data);
+    return response.data
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi des données:', error);
+  }
+}

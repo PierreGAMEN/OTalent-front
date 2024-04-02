@@ -1,8 +1,8 @@
 import HeroSearchBar from "./Hero";
 import TrainingList from "./TrainingList";
 import { useEffect, useState } from "react";
-import { fetchCategories, fetchData } from "../../utils";
-import { queryAllTrainingCard, queryFavoritesCategories } from "../../query";
+import { fetchCategories, fetchData, requestWithVariable, requestWithoutVariable } from "../../utils";
+import { queryAllTrainingCard, queryCategories, queryFavoritesCategories } from "../../query";
 import { Loader } from "semantic-ui-react";
 import Caracteristique from "./Caractéristique";
 import SearchLandingPage from "./SearchLandingPage";
@@ -16,41 +16,63 @@ import { useAppSelector } from "../../store/redux-hook/hook";
 export default function HomePage () {
 
 
-    const [data, setData] = useState([])
-    const [isloading, setIsloading] = useState(false)
+    const [data, setData] = useState([]);
+    const [isloading, setIsloading] = useState(false);
 
-    const [favoritesCategories, setFavoritesCateogries] = useState([])
-    const [loader, setLoader] = useState(false)
-    const [isMember, setIsMember] = useState(false)
-    const [idMember, setIdMember] = useState('')
+    const [favoritesCategories, setFavoritesCategories] = useState([]);
+
+    const [loader, setLoader] = useState(false);
+    const [isMember, setIsMember] = useState(false);
+    const [idMember, setIdMember] = useState('');
 
     const user = useAppSelector((state) => state.token.user);
 
     const getUserInformation = () => {
         
         if(user) {
-            setIsMember(user.member)
-            setIdMember(user.id)
+            setIsMember(user.member ?? false);
+            setIdMember(user.id ? String(user.id) : '');
         }
     }
 
     useEffect(() => {
         getUserInformation()
 
-        fetchData(queryAllTrainingCard, null, null, setData, setIsloading)
+        fetchData(queryAllTrainingCard, null, null, setData, setIsloading);
 
         fetchCategories();
 
         if(isMember) {
-            fetchData(queryFavoritesCategories, idMember, "memberId", setFavoritesCateogries, setLoader)
+            fetchData(queryFavoritesCategories, idMember, "memberId", setFavoritesCategories, setLoader);
         }
     }, []);
+
+
+    // useEffect(() => {
+    //     getUserInformation()
+
+    //     setIsloading(true)
+    //     requestWithoutVariable(queryAllTrainingCard)
+
+    //     requestWithoutVariable(queryCategories)
+    //     setIsloading(false)
+
+    //     if(isMember) {
+    //         const variables = {
+    //             idMember: idMember
+    //         }
+    //         setIsloading(true)
+    //         requestWithVariable(queryFavoritesCategories, variables)
+    //         setIsloading(false)
+    //     }
+    // }, []);
+
     
     return (
         <main>
-            <HeroSearchBar />
-            <Caracteristique />
-            <SearchLandingPage />
+            <HeroSearchBar />;
+            <Caracteristique />;
+            <SearchLandingPage />;
 
             {data && isMember && favoritesCategories.member && (
                 <>

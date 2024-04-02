@@ -1,11 +1,11 @@
-
+@import '../../../style/variables.scss';
 
 .container-landing {
     height: 100vh;
-    background-color: rgb(8, 66, 58);
+    background-color: $background-primary-color;
     min-width: 100vw;
     box-sizing: border-box;
-    color: white;
+    color: $text-color-with-primary-background;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -41,14 +41,14 @@
     margin-top: 15vh;
 
     &-a {
-        background-color: white;
-        color: rgb(8, 66, 58);
+        background-color: $text-color-with-primary-background;
+        color: $background-primary-color;
         padding: 2rem;
         border-radius: 2vh;
         font-size: 1.5rem;
 
         &:hover {
-          color: rgb(8, 66, 58);
+          color: $background-primary-color;
           background-color: rgb(211, 211, 211);
           cursor: pointer;
         }
