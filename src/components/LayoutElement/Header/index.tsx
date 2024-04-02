@@ -14,6 +14,7 @@ import { queryCategories } from "../../../query";
 import { Icon } from "semantic-ui-react";
 import Navbar from "./ModalProfile";
 import NewModalConnexion from "./ModalFormConnexion/newModal";
+import SearchBar from "./SearchBar";
 
 
 
@@ -83,6 +84,7 @@ export default function Header () {
             <NavLink to="/">
                 <h1>O'Talent</h1>
             </NavLink>
+            <SearchBar id={0} />
          
             {!isConnected && <NewModalConnexion />}
 

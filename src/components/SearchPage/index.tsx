@@ -39,7 +39,7 @@ export default function SearchPage() {
 
     return (
         <>
-            <SearchBar id={0} />
+        
             <div className="container-search">
                 {categorie && term && (
                     <h2>
