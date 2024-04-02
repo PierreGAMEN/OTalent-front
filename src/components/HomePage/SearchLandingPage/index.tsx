@@ -6,20 +6,20 @@ export default function SearchLandingPage() {
     const [categorieActive, setCategorieActive] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [termSearched, setTermSearched] = useState('');
-    const [selectedIdCategory, setSelectCategoryId] = useState(null);
+    const [selectedIdCategory, setSelectCategoryId] = useState("");
 
     const categories = useAppSelector(state => state.categories.list);
 
-    const handleModeClick = (isCategoryMode) => {
+    const handleModeClick = (isCategoryMode : boolean) => {
         setCategorieActive(isCategoryMode);
     };
 
-    const handleSelectionChange = (event) => {
+    const handleSelectionChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
         setSelectedCategory(event.target.value);
         setSelectCategoryId(event.target.options[event.target.selectedIndex].id);
     };
 
-    const handleTermChange = (event) => {
+    const handleTermChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setTermSearched(event.target.value.toLowerCase());
     };
 

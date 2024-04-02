@@ -4,10 +4,12 @@ import "./style.scss";
 import { NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../../../store/redux-hook/hook';
 import { getCategories } from '../../../../store/actions/categoriesActions';
+import { requestWithoutVariable } from '../../../../utils';
+import { queryCategories } from '../../../../query';
 
 interface Category {
     label: string;
-    id: number
+    id: string | number 
 }
 
 interface SearchBarProps {
@@ -51,6 +53,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
             console.error('Error:', error);
         }
     };
+
+
+    // const fetchCategories = async () => {
+        
+    //     const data = await requestWithoutVariable(queryCategories)
+
+    //         const fetchedCategories = data.categories || [];
+            
+    //         setCategories(fetchedCategories);
+   
+    //         dispatch(getCategories(fetchedCategories));
+    // };
+
     
 
     useEffect(() => {
