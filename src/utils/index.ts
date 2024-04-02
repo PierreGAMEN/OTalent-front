@@ -1,25 +1,29 @@
 import axios from "axios";
 
 const getJWT = () => {
-  return localStorage.getItem('jwtToken');
+  return localStorage.getItem('token');
 };
 
-const url = 'http://otalent.florianperi-server.eddi.cloud/graphql'
+const url = 'http://localhost:4000/graphql'
 
-const authorizedRequest = async (url, requestData) => {
+const authorizedRequest = async (url: string, requestData: any) => {
   try {
     const jwtToken = getJWT();
 
-    // Inclusion du JWT dans les en-têtes de la requête Axios
+    // Création des en-têtes de la requête
+    const headers: { [key: string]: string } = {};
+    if (jwtToken) {
+      headers['Authorization'] = `Bearer ${jwtToken}`;
+    }
+
+    // Envoi de la requête avec les en-têtes appropriés
     const response = await axios.post(url, requestData, {
-      headers: {
-        'Authorization': `Bearer ${jwtToken}`
-      }
+      headers: headers
     });
 
     return response.data;
   } catch (error) {
-    console.error('Une erreur s\'est produite :', error);
+    console.error("Une erreur s'est produite :", error);
     throw error;
   }
 };
@@ -36,13 +40,13 @@ export const fetchData = async (
     const variables = id !== null ? { [idName!]: id } : {};
 
     setLoader(true);
-    const response = await axios.post(url, {
+    const response = await authorizedRequest(url, {
       query,
       variables
     });
 
-    const data = response.data.data;
-    console.log(data)
+    const data = response.data;
+    console.log(data);
     setData(data || []);
   } catch (error) {
     console.error('Error:', error);
@@ -273,7 +277,7 @@ export const fetchCategories = async () => {
       `;
 
       // const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
-      const url = 'http://localhost:4000/graphql;'
+      const url = 'http://localhost:4000/graphql';
 
       const response = await axios.post(url, { query });
       const data = response.data.data;
