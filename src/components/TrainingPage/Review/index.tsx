@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import TrainingDataI from '../../../@Types/training';
 import './style.scss';
-import { addReview } from '../../../utils';
+import { addReview, requestWithVariable } from '../../../utils';
 import { useAppSelector } from '../../../store/redux-hook/hook';
+import { queryAddReview } from '../../../query';
 
 // TODO : Améliorer l'interface gestion de la note
 // TODO : l'affichage d'un nouveau commentaire, ne met pas à jour le nombre de commentaire dans le header
@@ -30,30 +31,36 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
     };
 
     const addComment = async () => {
-        const reviewInput = {
+
+        const variables = {
+            input: {
             comment: comment,
-            memberId: user?.id?.toString() || '',
+            memberId: user.id,
             rating: selectedNote,
-            trainingId: parseInt(data.id),
+            trainingId: data.id
+            }
         };
 
-        const newcomment = await addReview(reviewInput);
-        setCurrentComment([newcomment.data.addReview, ...currentComment]);
+        const newcomment = await requestWithVariable(queryAddReview, variables)
+        console.log(newcomment)
+        setCurrentComment([newcomment.addReview, ...currentComment]);
         setComment('');
         setNoteSelected('');
     };
+
 
     return (
         <section className="reviews-section">
             <h2 className="reviews-section-title">
                 Ce qu'en pense la communauté
             </h2>
-            <button
+            {user.id !== null ? <button
                 onClick={openModalAddComment}
                 className="reviews-section-button"
             >
                 Je donne mon avis
-            </button>
+            </button> : <button>Vous connecter</button>}
+            
 
             {modalAddCommentIsOpen && (
                 <div className="modal-add-comment">

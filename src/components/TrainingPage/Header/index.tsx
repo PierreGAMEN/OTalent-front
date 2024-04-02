@@ -11,9 +11,6 @@ export default function HeaderTrainingPage({ data }) {
     const user = useAppSelector(state => state.token.user);
     const idMember = user.id;
 
-
-    const user = useAppSelector((state) => state.token.user);
-    const idMember = user.id
     
     useEffect(() => {
         setIsMember(user.member)

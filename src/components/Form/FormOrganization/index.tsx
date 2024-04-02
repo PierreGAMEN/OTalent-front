@@ -128,16 +128,15 @@ export default function FormOrganization(): JSX.Element {
     }
   
     
-    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     if(!passwordRegex.test(password)) {
-      toast.error("Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre, sans caractère spéciale");
+      toast.error("Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial");
       return false
     }
     if (password !== confirmPassword) {
       toast.error("Les mots de passe ne correspondent pas");
       return false;
     }
-
 
     return true;
   }

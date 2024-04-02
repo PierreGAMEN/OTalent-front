@@ -274,29 +274,26 @@ export const loginRequest = async (variables: {}) => {
 };
 
 export const fetchCategories = async () => {
-    try {
-        const query = `
-          query Categories {
-              categories {
-                  id
-                  label
-              }
-          }
-      `;
+  try {
+      const query = `
+        query Categories {
+            categories {
+                id
+                label
+            }
+        }
+    `;
 
-        const url = import.meta.env.VITE_GRAPHQL_API;
+      const url = import.meta.env.VITE_GRAPHQL_API;
 
-        const response = await axios.post(url, { query });
-        const data = response.data.data;
-        const fetchedCategories = data.categories || [];
       const response = await axios.post(url, { query });
       const data = response.data.data;
       const fetchedCategories = data.categories || [];
-      
 
-  } catch (error) {
-      console.error('Error:', error);
-  }
+      return fetchedCategories;
+} catch (error) {
+    console.error('Error:', error);
+}
 };
 
 interface Variables {

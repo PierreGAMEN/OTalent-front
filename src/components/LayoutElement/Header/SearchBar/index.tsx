@@ -28,18 +28,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
 
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const query = `
-            query Categories {
-              categories {
-                id
-                label
-              }
-            }
-          `;
-
 
     const fetchCategories = async () => {
         try {
@@ -80,8 +68,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ className }) => {
 
     
 
-        fetchCategories();
-    }, [dispatch]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

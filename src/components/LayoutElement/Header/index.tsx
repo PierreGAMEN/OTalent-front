@@ -11,6 +11,8 @@ import { getTokenInformation } from "../../../store/actions/tokenActions";
 import { getCategories } from "../../../store/actions/categoriesActions";
 import { requestWithoutVariable } from "../../../utils";
 import { queryCategories } from "../../../query";
+import { Icon } from "semantic-ui-react";
+import Navbar from "./ModalProfile";
 
 
 
@@ -40,16 +42,6 @@ export default function Header () {
             console.error('Error:', error);
         }
     };
-
-
-    // const fetchCategories = async () => {
-        
-    //     const data = await requestWithoutVariable(queryCategories)
-
-    //         const fetchedCategories = data.categories || [];
-   
-    //         dispatch(getCategories(fetchedCategories));
-    // };
 
     
 
@@ -85,6 +77,7 @@ export default function Header () {
     };
 
     return (
+        <>
         <header className="headerApp">
             <NavLink to="/">
                 <h1>O'Talent</h1>
@@ -93,6 +86,9 @@ export default function Header () {
             {!isConnected && <ModalFormConnexion />}
 
             {isConnected && <button onClick={handleLogout}>Se déconnecter</button>}
+            
         </header>
+        <Navbar />
+        </>
     );
 }

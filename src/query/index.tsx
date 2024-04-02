@@ -253,3 +253,20 @@ mutation Mutation($input: MemberInput!) {
   }
 }
 `
+
+export const deleteMember = 
+`
+mutation Mutation($deleteMemberId: ID!) {
+  deleteMember(id: $deleteMemberId)
+}
+`
+
+export const queryUpdateMemberInformation = 
+`mutation Mutation($modifyMemberId: ID!, $input: MemberInput!) {
+  modifyMember(id: $modifyMemberId, input: $input) {
+    email
+    lastname
+    firstname
+    id
+  }
+}`

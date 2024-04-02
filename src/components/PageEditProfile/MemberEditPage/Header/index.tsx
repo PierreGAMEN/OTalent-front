@@ -4,7 +4,11 @@ import { useAppSelector } from '../../../../store/redux-hook/hook';
 import {
     associateMemberCategory,
     deleteMemberCategory,
+    requestWithVariable,
 } from '../../../../utils';
+import { deleteMember, queryUpdateMemberInformation } from '../../../../query';
+import { Button } from 'semantic-ui-react';
+import { toast } from 'react-toastify';
 
 // TODO : Retravailler le CSS
 
@@ -24,6 +28,10 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
     const [selectedIdCategory, setSelectCategoryId] = useState(null);
 
     const categories = useAppSelector(state => state.categories.list);
+    const user = useAppSelector(state => state.token.user);
+    console.log(user.id)
+
+
     const categoriesAvailable = categories.filter(
         elementPrincipal =>
             !favoriteCategories.some(
@@ -63,6 +71,39 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
         setFavoriteCategories(newFavoriteCategories);
         deleteMemberCategory(memberId, labelToDelete);
     };
+
+    const deleteAccount = async () => {
+        const variables = {
+                deleteMemberId: user.id
+        }
+        await requestWithVariable(deleteMember,variables)
+        localStorage.removeItem('token')
+        window.location.href = "/";
+    }
+
+
+    const updateMemberInformation = async () => {
+        const variables = {
+            modifyMemberId: user.id,
+            input : {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                city: city,
+                postalCode: postal_code
+            }
+        }
+
+        try {
+
+            await requestWithVariable(queryUpdateMemberInformation, variables)
+            setIsEdit(false);
+            location.reload();
+
+        } catch(error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="container-header-EditProfilPage">
@@ -164,6 +205,8 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                     <p>Code postal : {data.postal_code}</p>
                 )}
 
+                {isEdit && <Button onClick={updateMemberInformation} fluid positive>Valider les changements</Button>}
+
                 {isEdit ? (
                     <>
                         <p>Catégories préférées : </p>
@@ -226,7 +269,9 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                         </div>
                     </>
                 )}
+                <Button onClick={deleteAccount} negative>Supprimer le compte</Button>
             </div>
+            
         </div>
     );
 }
