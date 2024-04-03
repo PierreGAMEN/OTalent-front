@@ -14,6 +14,7 @@ interface FormValues {
   telephone: string;
   password: string;
   confirmPassword: string;
+  urlSite: string;
 }
 
 export default function FormOrganization(): JSX.Element {
@@ -26,7 +27,8 @@ export default function FormOrganization(): JSX.Element {
     email: "",
     telephone: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    urlSite: ""
   });
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (
@@ -36,21 +38,56 @@ export default function FormOrganization(): JSX.Element {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): boolean => {
+  const handleSubmit = async (
+    e: FormEvent<HTMLFormElement>
+  ): Promise<boolean> => {
     e.preventDefault();
-    
-    if (!validateFormData(formValues.raisonSociale, formValues.adresse, formValues.codePostal, formValues.ville, formValues.email,  formValues.telephone, formValues.siret, formValues.password, formValues.confirmPassword)) {
-        return false;
+  
+    if (
+      !validateFormData(
+        formValues.raisonSociale,
+        formValues.adresse,
+        formValues.codePostal,
+        formValues.ville,
+        formValues.email,
+        formValues.telephone,
+        formValues.siret,
+        formValues.password,
+        formValues.confirmPassword,
+        formValues.urlSite
+      )
+    ) {
+      return false;
     }
+  
+  
+    const variables = {
+      input: {
+        name: formValues.raisonSociale,
+        email: formValues.email,
+        phoneNumber: formValues.telephone,
+        password: formValues.password,
+        address: formValues.adresse,
+        city: formValues.ville,
+        postalCode: formValues.codePostal,
+        siret: formValues.siret,
+        image: null,
+        urlSite: formValues.urlSite,
+      },
+    };
+  
+    try {
+      await requestWithVariable(queryAddOrganization, variables);
+      toast.success("Le formulaire a été soumis avec succès !");
+      return true;
+    } catch (error) {
+      console.error("Erreur lors de la soumission du formulaire:", error);
+      return false;
+    }
+  };
 
-    toast.success("Le formulaire a été soumis avec succès !");
-    
-    requestWithVariable(queryAddOrganization, formValues)
-
-    return true;
-};
-
-  function validateFormData(raisonSociale: string, address: string, postalCode: string, city: string, email: string, phoneNumber: string, siret: string, password: string, confirmPassword: string) {
+  
+  function validateFormData(raisonSociale: string, address: string, postalCode: string, city: string, email: string, phoneNumber: string, siret: string, password: string, confirmPassword: string, urlSite: string) {
 
     if (!raisonSociale) {
       toast.error("La raison sociale de l'entreprise est requise");
@@ -91,7 +128,7 @@ export default function FormOrganization(): JSX.Element {
     }
   
     
-    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     if(!passwordRegex.test(password)) {
       toast.error("Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial");
       return false
@@ -100,7 +137,6 @@ export default function FormOrganization(): JSX.Element {
       toast.error("Les mots de passe ne correspondent pas");
       return false;
     }
-  
 
     return true;
   }
@@ -179,6 +215,16 @@ export default function FormOrganization(): JSX.Element {
             value={formValues.siret}
             onChange={handleChange}
             placeholder="N° SIRET"
+          />
+        </div>
+        <div>
+          <label htmlFor="urlSite">URL de votre site</label>
+          <input
+            id="urlSite"
+            name="urlSite"
+            value={formValues.urlSite}
+            onChange={handleChange}
+            placeholder="Url de votre site"
           />
         </div>
         <div>

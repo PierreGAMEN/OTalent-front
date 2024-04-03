@@ -1,7 +1,7 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+import 'semantic-ui-css/semantic.min.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import HomePage from './components/HomePage/index.tsx';
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       { path: "training/:id", element: <TrainingPage /> },
       { path: "organization/:id", element: <OrganizationPage/> },
       { path: "edit/organization/:id", element: <OrganizationEditPage /> },
-      { path: "edit/member/:id", element: <MemberEditPage /> },
+      { path: "edit/member", element: <MemberEditPage /> },
       { path: "signup", element: <FormPage />},
       
     ],
@@ -36,9 +36,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
+
 );

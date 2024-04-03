@@ -1,3 +1,4 @@
+
 import "./style.scss"
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
@@ -9,7 +10,11 @@ import axios from "axios"
 import { getTokenInformation } from "../../../store/actions/tokenActions";
 import { getCategories } from "../../../store/actions/categoriesActions";
 import { requestWithoutVariable } from "../../../utils";
-import { queryCategories } from "../../../query";
+import { queryAllCategories, queryCategories } from "../../../query";
+import { Icon } from "semantic-ui-react";
+import Navbar from "./ModalProfile";
+import NewModalConnexion from "./ModalFormConnexion/newModal";
+import SearchBar from "./SearchBar";
 
 
 
@@ -18,44 +23,46 @@ export default function Header () {
     const dispatch = useAppDispatch()
     const [isConnected, setIsConnected] = useState(false)
 
-    const fetchCategories = async () => {
-        try {
-            const query = `
-                query Categories {
-                    categories {
-                        id
-                        label
-                    }
-                }
-            `;
-    
-            // const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
-            const url = 'http://localhost:4000/graphql'
-    
-            const response = await axios.post(url, { query });
-            const data = response.data.data;
-            const fetchedCategories = data.categories || [];
-   
-            dispatch(getCategories(fetchedCategories));
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-
     // const fetchCategories = async () => {
-        
-    //     const data = await requestWithoutVariable(queryCategories)
+    //     try {
+    //         const query = `
+    //             query Categories {
+    //                 categories {
+    //                     id
+    //                     label
+    //                 }
+    //             }
+    //         `;
 
+    //         const url = import.meta.env.VITE_GRAPHQL_API;
+
+    //         const response = await axios.post(url, { query });
+    //         const data = response.data.data;
     //         const fetchedCategories = data.categories || [];
-   
     //         dispatch(getCategories(fetchedCategories));
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //     }
     // };
+
+    const getAllCategories = async () => {
+    try {
+       const response = await requestWithoutVariable(queryAllCategories)
+       const data = response.data.data;
+       const fetchedCategories = data.categories || [];
+       dispatch(getCategories(fetchedCategories));
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 
     
 
     const dispatchTokenInformation = () => {
         const token = localStorage.getItem('token');
         if (token) {
+
             const tokenValue: {member: string, id: string, iat: number} = jwtDecode(token);
             dispatch(getTokenInformation(tokenValue));
             setIsConnected(true);
@@ -70,8 +77,9 @@ export default function Header () {
 
     // Récupération des catégories
     useEffect(() => {
-        fetchCategories();
+        getAllCategories();
     }, []);
+
 
 
     
@@ -83,14 +91,18 @@ export default function Header () {
     };
 
     return (
+        <>
         <header className="headerApp">
             <NavLink to="/">
                 <h1>O'Talent</h1>
             </NavLink>
+            <SearchBar id={0} />
          
-            {!isConnected && <ModalFormConnexion />}
+            {!isConnected && <NewModalConnexion />}
 
-            {isConnected && <button onClick={handleLogout}>Se déconnecter</button>}
+            {isConnected && <Navbar />}
         </header>
+        
+        </>
     );
 }
