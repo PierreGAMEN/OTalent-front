@@ -1,14 +1,64 @@
+import { useEffect, useState } from 'react'
 import TrainingCreation from './Creation'
 import FavoritesTrainings from './Favoris'
 import HeaderOrganizationEditPage from './Header'
 import './style.scss'
+import { requestWithVariable } from '../../../utils'
+import { useAppSelector } from '../../../store/redux-hook/hook'
+import { queryOrganizationInformation } from '../../../query'
 
 export default function OrganizationEditPage () {
+
+    const [isLoading, setIsLoading] = useState(false)
+    const [isOrganization, setIsOrganization] = useState(false)
+    const [dataOrganization, setDataOrganization] = useState([])
+
+    const user = useAppSelector((state) => state.token.user);
+
+        const getOrganizationData = async () => {
+            setIsLoading(true)
+            try {
+
+                const variables = 
+                {
+                    organizationId : user.id
+                }
+
+                const response = await requestWithVariable(queryOrganizationInformation, variables)
+                setDataOrganization(response.organization)
+      
+
+            } catch(errors) {
+                console.log(errors)
+            }  finally {
+                setIsLoading(false);
+            }
+        }
+
+        const checkIsOrganization = () => {
+            
+             if(user.id && user.member === false) {
+                setIsOrganization(true)
+             } else {
+                window.location.href="/"
+             }
+        }
+
+        useEffect(() => {
+            if(user.id && !isOrganization) {
+                checkIsOrganization();
+            }
+            
+            if (isOrganization) {
+                getOrganizationData();
+            }
+        }, [user.id, isOrganization]);
+
     return (
         <div>
-            <HeaderOrganizationEditPage data={undefined} />
-            <TrainingCreation data={undefined}/>
-            <FavoritesTrainings data={undefined}/>
+            <HeaderOrganizationEditPage data={dataOrganization} />
+            <TrainingCreation data={dataOrganization}/>
+            <FavoritesTrainings data={dataOrganization}/>
         </div>
     )
 

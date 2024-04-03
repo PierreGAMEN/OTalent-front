@@ -13,7 +13,13 @@ const HeaderOrganizationProfilPage: React.FC<HeaderOrganizationProfilPageProps> 
     return (
         <header className='header-organizationPage'>
             <div className='header-organizationPage-containerImage'>
-                <img className='header-organizationPage-containerImage-image' src={data.image} alt="" />
+                <img className='header-organizationPage-containerImage-image' 
+                src={`https://res.cloudinary.com/${
+                    import.meta.env.VITE_CDNY_CLOUDNAME
+                }/image/upload/c_scale,w_780,h_520/v1/otalent/${
+                    data.image
+                }`} 
+                alt="" />
             </div>
             <div className='header-organizationPage-texte'>
                 <h2>{data.name}</h2>

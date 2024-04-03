@@ -1,87 +1,70 @@
-import "./style.scss"
-import { jwtDecode } from "jwt-decode";
 
-import ModalFormConnexion from "./ModalFormConnexion"
-import { NavLink, useLocation } from "react-router-dom"
-import { fetchData } from "../../../utils"
+import "./style.scss"
+import { JwtPayload, jwtDecode } from "jwt-decode";
+
+import { NavLink } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { queryAllTrainingCard } from "../../../query"
 import { useAppDispatch, useAppSelector } from "../../../store/redux-hook/hook"
-import { getCategories } from "../../../store/actions/categoriesActions"
-import axios from "axios"
+
 import { getTokenInformation } from "../../../store/actions/tokenActions";
+import { getCategories } from "../../../store/actions/categoriesActions";
+import { requestWithoutVariable } from "../../../utils";
+import { queryAllCategories, queryCategories } from "../../../query";
+
+import Navbar from "./ModalProfile";
+import NewModalConnexion from "./ModalFormConnexion/newModal";
+import SearchBar from "./SearchBar";
 
 
 
 export default function Header () {
 
     const dispatch = useAppDispatch()
+    const [isConnected, setIsConnected] = useState(false)
 
-    const [data, setData] = useState([])
-    const [isloading, setIsloading] = useState(false)
-    const [categories, setCategories] = useState([])
+    const getAllCategories = async () => {
+    try {
+       const response = await requestWithoutVariable(queryAllCategories)
+       const fetchedCategories = response.categories || [];
+       dispatch(getCategories(fetchedCategories));
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
 
-    const fetchCategories = async () => {
-        try {
-            const query = `
-                query Categories {
-                    categories {
-                        id
-                        label
-                    }
-                }
-            `;
-    
-            const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
-    
-            const response = await axios.post(url, { query });
-            const data = response.data.data;
-            const fetchedCategories = data.categories || [];
-            
-            setCategories(fetchedCategories);
-   
-            dispatch(getCategories(fetchedCategories));
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-    
     const dispatchTokenInformation = () => {
-        const token = localStorage.getItem('token')
-        if(token) {
-            const tokenValue = jwtDecode(token)
-            dispatch(getTokenInformation(tokenValue))
+        const token = localStorage.getItem('token');
+        if (token) {
 
+            const tokenValue: {member: string, id: string, iat: number} = jwtDecode(token);
+            dispatch(getTokenInformation(tokenValue));
+            setIsConnected(true);
         }
     }
-
-
     
     useEffect (() => {
-        
         dispatchTokenInformation()
     }, [dispatch])
 
-    const user = useAppSelector((state) => state.token.user);
-    console.log(user)
-    
-    
+
     useEffect(() => {
-        fetchCategories();
+        getAllCategories();
     }, []);
 
 
-
-    return(
+    return (
+        <>
         <header className="headerApp">
-            <NavLink to={"/"}>
-            <h1>O'Talent</h1>
+            <NavLink to="/">
+                <h1>O'Talent</h1>
             </NavLink>
-            <ModalFormConnexion />
+            <SearchBar id={0} />
+         
+            {!isConnected && <NewModalConnexion />}
 
+            {isConnected && <Navbar />}
         </header>
-    )
+        
+        </>
+    );
 }
-
-
-

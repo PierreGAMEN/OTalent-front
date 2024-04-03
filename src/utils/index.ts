@@ -1,26 +1,53 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
+const getJWT = () => {
+  return localStorage.getItem('token');
+};
 
-const url = 'http://otalent.florianperi-server.eddi.cloud/graphql'
+const url = import.meta.env.VITE_GRAPHQL_API;
+const authorizedRequest = async (url: string, requestData: any) => {
+  try {
+    const jwtToken = getJWT();
+
+    // Création des en-têtes de la requête
+    const headers: { [key: string]: string } = {};
+    if (jwtToken) {
+      headers['Authorization'] = `Bearer ${jwtToken}`;
+    }
+
+    // Envoi de la requête avec les en-têtes appropriés
+    const response = await axios.post(url, requestData, {
+      headers: headers
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Une erreur s\'est produite :', error);
+    throw error;
+  }
+};
+
 
 export const fetchData = async (
-  query: string,
-  id: number | null | string = null,
-  idName: string | null = null,
-  setData: React.Dispatch<React.SetStateAction<any>>,
-  setLoader: React.Dispatch<React.SetStateAction<any>>
+    query: string,
+    id: number | null | string = null,
+    idName: string | null = null,
+    setData: React.Dispatch<React.SetStateAction<any>>,
+    setLoader: React.Dispatch<React.SetStateAction<any>>
 ) => {
+
+
   try {
     const variables = id !== null ? { [idName!]: id } : {};
 
     setLoader(true);
-    const response = await axios.post(url, {
+    const response = await authorizedRequest(url, {
       query,
       variables
     });
 
-    const data = response.data.data;
-    console.log(data)
+    const data = response.data;
+    console.log(data);
     setData(data || []);
   } catch (error) {
     console.error('Error:', error);
@@ -31,10 +58,11 @@ export const fetchData = async (
 
 
 
+
+
 export const dissociateMemberTraining = async (memberId: number, trainingId: number) => {
   try {
-
-    const response = await axios.post(url, {
+    const response = await authorizedRequest(url, {
       query: `
         mutation Mutation($memberId: ID!, $trainingId: ID!) {
           dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
@@ -46,11 +74,10 @@ export const dissociateMemberTraining = async (memberId: number, trainingId: num
       },
     });
 
-    console.log(response.data);
+    console.log(response);
 
-    return response.data;
+    return response;
   } catch (error) {
-
     console.error('Une erreur s\'est produite :', error);
     throw error;
   }
@@ -59,79 +86,80 @@ export const dissociateMemberTraining = async (memberId: number, trainingId: num
 export const associateMemberTraining = async (memberId: number, trainingId: number) => {
   try {
 
-    const response = await axios.post(url, {
+    const response = await authorizedRequest(url, {
       query: `
         mutation Mutation($memberId: ID!, $trainingId: ID!) {
           associateMemberTraining(memberId: $memberId, trainingId: $trainingId)
         }
       `,
-      variables: {
-        memberId: memberId,
-        trainingId: trainingId,
-      },
-    });
+            variables: {
+                memberId: memberId,
+                trainingId: trainingId,
+            },
+        });
 
-    console.log(response.data);
+        console.log(response.data);
 
-    return response.data;
-  } catch (error) {
-
-    console.error('Une erreur s\'est produite :', error);
-    throw error;
-  }
+        return response.data;
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
+    }
 };
 
-export const associateMemberCategory = async (memberId: number, categoryId: number) => {
-  try {
-
-    const response = await axios.post(url, {
-      query: `
+export const associateMemberCategory = async (
+    memberId: number,
+    categoryId: number
+) => {
+    try {
+        const response = await axios.post(url, {
+            query: `
         mutation Mutation($memberId: ID!, $categoryId: ID!) {
           associateMemberCategory(memberId: $memberId, categoryId: $categoryId)
         }
       `,
-      variables: {
-        memberId: memberId,
-        categoryId: categoryId,
-      },
-    });
+            variables: {
+                memberId: memberId,
+                categoryId: categoryId,
+            },
+        });
 
-    console.log(response.data);
+        console.log(response.data);
 
-    return response.data;
-  } catch (error) {
-
-    console.error('Une erreur s\'est produite :', error);
-    throw error;
-  }
+        return response.data;
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
+    }
 };
 
-export const deleteMemberCategory = async (memberId: number, categoryId: number) => {
-  try {
-
-    const response = await axios.post(url, {
-      query: `
+export const deleteMemberCategory = async (
+    memberId: number,
+    categoryId: number
+) => {
+    try {
+        const response = await axios.post(url, {
+            query: `
         mutation Mutation($memberId: ID!, $categoryId: ID!) {
           dissociateMemberCategory(memberId: $memberId, categoryId: $categoryId)
         }
       `,
-      variables: {
-        memberId: memberId,
-        categoryId: categoryId,
-      },
-    });
+            variables: {
+                memberId: memberId,
+                categoryId: categoryId,
+            },
+        });
 
-    console.log(response.data);
+        console.log(response.data);
 
-    return response.data;
-  } catch (error) {
-
-    console.error('Une erreur s\'est produite :', error);
-    throw error;
-  }
+        return response.data;
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
+    }
 };
 
-export const deleteReview = async (deleteReviewId) => {
+export const deleteReview = async (deleteReviewId: string) => {
   try {
     // Envoie de la requête GraphQL via Axios
     const response = await axios.post(url, {
@@ -140,22 +168,24 @@ export const deleteReview = async (deleteReviewId) => {
           deleteReview(id: $deleteReviewId)
         }
       `,
-      variables: {
-        deleteReviewId: deleteReviewId
-      }
-    });
+            variables: {
+                deleteReviewId: deleteReviewId,
+            },
+        });
 
-    console.log('Réponse de la requête GraphQL :', response.data);
+        console.log('Réponse de la requête GraphQL :', response.data);
 
-    return response.data;
-  } catch (error) {
-
-    console.error('Une erreur s\'est produite lors de la requête GraphQL :', error);
-    throw error;
-  }
+        return response.data;
+    } catch (error) {
+        console.error(
+            "Une erreur s'est produite lors de la requête GraphQL :",
+            error
+        );
+        throw error;
+    }
 };
 
-export const modifyReview = async (modifyReviewId, input) => {
+export const modifyReview = async (modifyReviewId: string, input: string) => {
   try {
     const response = await axios.post(url, {
       query: `
@@ -165,23 +195,23 @@ export const modifyReview = async (modifyReviewId, input) => {
           }
         }
       `,
-      variables: {
-        modifyReviewId: modifyReviewId,
-        input: input,
-      },
-    });
+            variables: {
+                modifyReviewId: modifyReviewId,
+                input: input,
+            },
+        });
 
-    console.log(response.data);
+        console.log(response.data);
 
-    return response.data;
-  } catch (error) {
-    console.error('Erreur lors de la modification de la critique :', error);
-    throw error;
-  }
+        return response.data;
+    } catch (error) {
+        console.error('Erreur lors de la modification de la critique :', error);
+        throw error;
+    }
 };
 
 
-export const addReview = async (reviewInput) => {
+export const addReview = async (reviewInput : {}) => {
   try {
     const response = await axios.post(url, {
       query: `
@@ -199,22 +229,21 @@ export const addReview = async (reviewInput) => {
           }
         }
       `,
-      variables: {
-        input: reviewInput,
-      },
-    });
+            variables: {
+                input: reviewInput,
+            },
+        });
 
-    console.log(response.data);
+        console.log(response.data);
 
-    return response.data;
-  } catch (error) {
-    console.error('Erreur lors de l\'ajout de la critique :', error);
-    throw error;
-  }
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de l'ajout de la critique :", error);
+        throw error;
+    }
 };
 
-
-export const loginRequest = async (variables) => {
+export const loginRequest = async (variables: {}) => {
   try {
     const response = await axios.post(url, {
       query: `
@@ -224,42 +253,76 @@ export const loginRequest = async (variables) => {
           }
         }
       `,
-      variables: variables,
-    });
+            variables: variables,
+        });
 
-    if (response.data && response.data.data && response.data.data.login && response.data.data.login.token) {
-      localStorage.setItem('token', response.data.data.login.token);
+        if (
+            response.data &&
+            response.data.data &&
+            response.data.data.login &&
+            response.data.data.login.token
+        ) {
+            localStorage.setItem('token', response.data.data.login.token);
+        }
+
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Erreur lors de la requête de connexion :', error);
+        throw error;
     }
-
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Erreur lors de la requête de connexion :', error);
-    throw error;
-  }
 };
 
 export const fetchCategories = async () => {
   try {
       const query = `
-          query Categories {
-              categories {
-                  id
-                  label
-              }
-          }
-      `;
+        query Categories {
+            categories {
+                id
+                label
+            }
+        }
+    `;
 
-      const url = 'http://otalent.florianperi-server.eddi.cloud/graphql';
+      const url = import.meta.env.VITE_GRAPHQL_API;
 
       const response = await axios.post(url, { query });
       const data = response.data.data;
       const fetchedCategories = data.categories || [];
-      
-      setCategories(fetchedCategories);
 
-      dispatch(getCategories(fetchedCategories));
-  } catch (error) {
-      console.error('Error:', error);
-  }
+      return fetchedCategories;
+} catch (error) {
+    console.error('Error:', error);
+}
 };
+
+interface Variables {
+  [key: string]: any;
+}
+
+export const requestWithVariable = async (query: string, variables: Variables ) : Promise<void> => {
+  try {
+    const response: AxiosResponse<any> = await authorizedRequest(url, {
+      query,
+      variables
+    });
+
+    console.log('Réponse de l\'API:', response.data);
+    return response.data
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi des données:', error);
+  }
+}
+
+export const requestWithoutVariable = async (query: string) : Promise<void> => {
+  try {
+    const response: AxiosResponse<any> = await authorizedRequest(url, {
+      query
+    });
+
+    console.log('Réponse de l\'API:', response.data);
+    return response.data
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi des données:', error);
+  }
+}

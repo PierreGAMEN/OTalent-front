@@ -177,3 +177,137 @@ export const queryFavoritesCategories =
     }
   }
 }`
+
+
+export const queryDissociateMemberTraining = 
+`mutation Mutation($memberId: ID!, $trainingId: ID!) {
+  dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
+}`
+
+export const queryAssociateMemberTraining = 
+`mutation Mutation($memberId: ID!, $trainingId: ID!) {
+  associateMemberTraining(memberId: $memberId, trainingId: $trainingId)
+}`
+
+export const queryDissociateMemberCategory =
+`
+mutation Mutation($memberId: ID!, $categoryId: ID!) {
+  dissociateMemberCategory(memberId: $memberId, categoryId: $categoryId)
+}`
+
+export const queryModifyReview = 
+`mutation ModifyReview($modifyReviewId: ID!, $input: ReviewInput!) {
+  modifyReview(id: $modifyReviewId, input: $input) {
+    comment
+  }
+}`
+
+
+export const queryAddReview = 
+`mutation AddReview($input: ReviewInput!) {
+  addReview(input: $input) {
+    comment
+    id
+    rating
+    member {
+      avatar
+      firstname
+      id
+      lastname
+    }
+  }
+}`
+
+
+export const queryLogin =
+`mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    token
+  }
+}`
+
+export const queryCategories = 
+`query Categories {
+  categories {
+    id
+    label
+  }`
+
+  export const queryAddOrganization = 
+  `
+  mutation Mutation($input: OrganizationInput!) {
+    addOrganization(input: $input) {
+      name
+      id
+    }
+  }
+`
+
+export const  queryAddMember = `
+mutation Mutation($input: MemberInput!) {
+  addMember(input: $input) {
+    firstname
+    id
+    email
+    lastname
+  }
+}
+`
+
+export const deleteMember = 
+`
+mutation Mutation($deleteMemberId: ID!) {
+  deleteMember(id: $deleteMemberId)
+}
+`
+
+export const queryUpdateMemberInformation = 
+`mutation Mutation($modifyMemberId: ID!, $input: MemberInput!) {
+  modifyMember(id: $modifyMemberId, input: $input) {
+    email
+    lastname
+    firstname
+    id
+  }
+}`
+
+export const queryOrganizationInformation = `
+query Organization($organizationId: ID!) {
+  organization(id: $organizationId) {
+    id
+    name
+    email
+    description
+    phone_number
+    address
+    city
+    postal_code
+    image
+    url_site
+    trainings {
+      id
+      description
+      label
+      price
+      duration
+      dates
+      excerpt
+      prerequisites
+      program
+      image
+      category {
+        id
+        label
+      }
+    }
+  }
+}`
+
+export const queryUpdateOrganizationInformation =
+`mutation Mutation($modifyOrganizationId: ID!, $input: OrganizationInput!) {
+  modifyOrganization(id: $modifyOrganizationId, input: $input) {
+    id
+    name
+  }
+}
+`
