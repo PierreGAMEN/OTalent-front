@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import TrainingCreation from './Creation'
-import FavoritesTrainings from './Favoris'
+import FavoritesTrainings from './Trainings'
 import HeaderOrganizationEditPage from './Header'
 import './style.scss'
 import { requestWithVariable } from '../../../utils'
 import { useAppSelector } from '../../../store/redux-hook/hook'
 import { queryOrganizationInformation } from '../../../query'
+import OrganizationTrainings from './Trainings'
 
 export default function OrganizationEditPage () {
 
@@ -21,7 +22,7 @@ export default function OrganizationEditPage () {
 
                 const variables = 
                 {
-                    organizationId : user.id
+                    organizationId : 2
                 }
 
                 const response = await requestWithVariable(queryOrganizationInformation, variables)
@@ -58,7 +59,7 @@ export default function OrganizationEditPage () {
         <div>
             <HeaderOrganizationEditPage data={dataOrganization} />
             <TrainingCreation data={dataOrganization}/>
-            <FavoritesTrainings data={dataOrganization}/>
+            <OrganizationTrainings data={dataOrganization}/>
         </div>
     )
 

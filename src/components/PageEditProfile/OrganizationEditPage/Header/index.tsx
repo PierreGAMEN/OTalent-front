@@ -68,8 +68,13 @@ export default function HeaderOrganizationEditPage({ data }) {
             toast.error("Le numéro de téléphone doit contenir 10 chiffres")
             return false
         }
-        // const regexUrl = /^(https?|ftp)://[^\s/$.?#].[^\s]*$/
-        
+        const regexUrl = /^(https?|ftp):\/\/[^\s/$.?#]+(?:[^\s]*)$/
+        if(website){ if(!regexUrl.test(website)) {
+            toast.error("L'url n'a pas le bon format, merci de respecter")
+            return false
+        }}
+       
+        return true
     }
 
     const updateOrganizationInformation = async () => {
@@ -112,8 +117,8 @@ export default function HeaderOrganizationEditPage({ data }) {
                     <button onClick={() => setIsEdit(false)}>Quitter le mode edit</button>
                     {isEdit ? (
                         <>
-                            <p className="container-header-EditProfilPage-p">Nom :</p>
-                            <input className="container-header-EditProfilPage-input" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
+                            <p className="">Nom :</p>
+                            <input className="" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
                         </>
                     ) : (
                         <p>Nom: {data ? data.name : ''}</p>
@@ -121,8 +126,8 @@ export default function HeaderOrganizationEditPage({ data }) {
 
                     {isEdit ? (
                         <>
-                            <p className="container-header-EditProfilPage-p">Email :</p>
-                            <input className="container-header-EditProfilPage-input" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
+                            <p className="">Email :</p>
+                            <input className="" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
                         </>
                     ) : (
                         <p>Email: {data ? data.email : ''}</p>
@@ -130,8 +135,8 @@ export default function HeaderOrganizationEditPage({ data }) {
 
                     {isEdit ? (
                         <>
-                            <p className="container-header-EditProfilPage-p">Adresse :</p>
-                            <input className="container-header-EditProfilPage-input" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
+                            <p className="">Adresse :</p>
+                            <input className="" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
                         </>
                     ) : (
                         <p>Adresse: {data ? data.address : ''}</p>
@@ -139,8 +144,8 @@ export default function HeaderOrganizationEditPage({ data }) {
 
                     {isEdit ? (
                         <>
-                            <p className="container-header-EditProfilPage-p">Ville :</p>
-                            <input className="container-header-EditProfilPage-input" onChange={e => handleChange(e, setCity)} type="text" value={city} />
+                            <p className="">Ville :</p>
+                            <input className="" onChange={e => handleChange(e, setCity)} type="text" value={city} />
                         </>
                     ) : (
                         <p>Ville: {data ? data.city : ''}</p>
@@ -148,8 +153,8 @@ export default function HeaderOrganizationEditPage({ data }) {
 
                     {isEdit ? (
                         <>
-                            <p className="container-header-EditProfilPage-p">Code postal :</p>
-                            <input className="container-header-EditProfilPage-input" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
+                            <p className="">Code postal :</p>
+                            <input className="" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
                         </>
                     ) : (
                         <p>Code postal: {data ? data.postal_code : ''}</p>
@@ -157,8 +162,8 @@ export default function HeaderOrganizationEditPage({ data }) {
 
                     {isEdit ? (
                         <>
-                            <p className="container-header-EditProfilPage-p">Site Web :</p>
-                            <input className="container-header-EditProfilPage-input" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
+                            <p className="">Site Web :</p>
+                            <input className="" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
                         </>
                     ) : (
                         <p>Site Web: {data ? data.website : ''}</p>
@@ -166,8 +171,8 @@ export default function HeaderOrganizationEditPage({ data }) {
 
                     {isEdit ? (
                         <>
-                            <p className="container-header-EditProfilPage-p">N° de téléphone :</p>
-                            <input className="container-header-EditProfilPage-input" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
+                            <p className="">N° de téléphone :</p>
+                            <input className="" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
                         </>
                     ) : (
                         <p>N° de téléphone: {data ? data.phone_number : ''}</p>
@@ -175,8 +180,8 @@ export default function HeaderOrganizationEditPage({ data }) {
 
                     {isEdit ? (
                         <>
-                            <p className="container-header-EditProfilPage-p">Description :</p>
-                            <textarea className="container-header-EditProfilPage-textarea" onChange={e => handleChange(e, setDescription)} value={description} />
+                            <p className="">Description :</p>
+                            <textarea className="" onChange={e => handleChange(e, setDescription)} value={description} />
                         </>
                     ) : (
                         <p>Description: {data ? data.description : ''}</p>

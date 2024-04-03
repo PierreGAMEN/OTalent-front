@@ -295,6 +295,9 @@ query Organization($organizationId: ID!) {
       prerequisites
       program
       image
+      reviews {
+        id
+      }
       category {
         id
         label
