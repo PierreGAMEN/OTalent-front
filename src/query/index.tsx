@@ -270,3 +270,44 @@ export const queryUpdateMemberInformation =
     id
   }
 }`
+
+export const queryOrganizationInformation = `
+query Organization($organizationId: ID!) {
+  organization(id: $organizationId) {
+    id
+    name
+    email
+    description
+    phone_number
+    address
+    city
+    postal_code
+    image
+    url_site
+    trainings {
+      id
+      description
+      label
+      price
+      duration
+      dates
+      excerpt
+      prerequisites
+      program
+      image
+      category {
+        id
+        label
+      }
+    }
+  }
+}`
+
+export const queryUpdateOrganizationInformation =
+`mutation Mutation($modifyOrganizationId: ID!, $input: OrganizationInput!) {
+  modifyOrganization(id: $modifyOrganizationId, input: $input) {
+    id
+    name
+  }
+}
+`
