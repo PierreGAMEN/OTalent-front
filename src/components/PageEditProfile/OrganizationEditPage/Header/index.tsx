@@ -33,12 +33,13 @@ export default function HeaderOrganizationEditPage({ data }) {
         setEmail(data.email || '');
         setCity(data.city || '');
         setPostal_code(data.postal_code || '');
-        setWebsite(data.website || '');
+        setWebsite(data.url_site || '');
         setAddress(data.address || '');
         setDescription(data.description || '');
         setPhoneNumber(data.phone_number || '');
         setSeeding(true);
     }
+
 
     const verifyInformation = () => {
         if(raisonSocial.trim() === "") {
@@ -91,11 +92,12 @@ export default function HeaderOrganizationEditPage({ data }) {
                 address: address,
                 city: city,
                 postalCode: postal_code,
-                
+                description: description
             }
         }
 
-        await requestWithVariable(queryUpdateOrganizationInformation, variables)
+        const data = await requestWithVariable(queryUpdateOrganizationInformation, variables)
+        console.log(data)
         location.reload()
 
     }}
@@ -110,11 +112,11 @@ export default function HeaderOrganizationEditPage({ data }) {
         seeding && (
             <div className="p-10 md:flex-row justify-between items-start md:items-center">
             <div className="flex flex-col justify-start items-center md:mr-8 mb-4 md:mb-0 ">
-                <img className="mb-4 bg-black mb-10" src={`https://res.cloudinary.com/${
-                        import.meta.env.VITE_CDNY_CLOUDNAME
-                    }/image/upload/c_scale,w_780,h_520/v1/otalent/${
-                        data.image
-                    }`} alt="" />
+            <img
+                className="mb-4 bg-black mb-10"
+                src={data && data.image ? `https://res.cloudinary.com/${import.meta.env.VITE_CDNY_CLOUDNAME}/image/upload/c_scale,w_780,h_520/v1/otalent/${data.image}` : ""}
+                alt=""
+            />
             </div>
             <div className="flex flex-col w-full md:w-auto">
                 <div className="flex gap-2">
@@ -163,7 +165,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                             <p>Adresse: {data ? data.address : ''}</p>
                             <p>Ville: {data ? data.city : ''}</p>
                             <p>Code postal: {data ? data.postal_code : ''}</p>
-                            <p>Site Web: {data ? data.website : ''}</p>
+                            <p>Site Web: {data ? <a href={data.url_site}>{data.url_site}</a> : ''}</p>
                             <p>N° de téléphone: {data ? data.phone_number : ''}</p>
                             <p>Description: {data ? data.description : ''}</p>
                         </>

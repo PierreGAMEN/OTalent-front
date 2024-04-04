@@ -21,13 +21,16 @@ export default function OrganizationTrainings({ data }) {
         dispatch(getStateModalEditTraining({isOpen: true, trainingId: null}))
     }
 
+    console.log(data)
+
     return (
         <section>
+            <button onClick={openModalToCreateTraining} className="btn m-2">Créer une formation</button>  
             {!isOpen && ( 
                 <> 
-                    {data.trainings.length > 0 && (
-                        <>
-                            <button onClick={openModalToCreateTraining} className="btn m-2">Créer une formation</button>  
+                    {data.trainings.length > 0 && (<>
+                            
+                        <div className="flex gap-5 overflow-auto p-10">
                             {data.trainings.map((training, index) => (
                                 <div key={training.id}>
                                     <TrainingCard 
@@ -43,11 +46,11 @@ export default function OrganizationTrainings({ data }) {
                                         organizationId={data.id}
                                         reviews={training.reviews}
                                     />
-                                    <button key={index} onClick={() => {openModal(training.id)}} id={training.id} className="btn bg-primary text-white">Modifier cette formation</button>
+                                   <button key={index} onClick={() => {openModal(training.id)}} id={training.id} className="btn bg-primary text-white">Modifier cette formation</button>
                                 </div>
                             ))}
-                        </>
-                    )}
+                        </div>
+                        </>)}
                 </>
             )}
             <ModalTraining organizationId={data.id}/>
