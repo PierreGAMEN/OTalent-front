@@ -23,11 +23,11 @@ export default function OrganizationTrainings({ data }) {
 
     return (
         <section>
+            <button onClick={openModalToCreateTraining} className="btn m-2">Créer une formation</button>  
             {!isOpen && ( 
                 <> 
                     {data.trainings.length > 0 && (
                         <>
-                            <button onClick={openModalToCreateTraining} className="btn m-2">Créer une formation</button>  
                             {data.trainings.map((training, index) => (
                                 <div key={training.id}>
                                     <TrainingCard 

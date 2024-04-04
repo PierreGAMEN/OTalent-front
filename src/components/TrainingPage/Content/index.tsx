@@ -27,6 +27,7 @@ export default function ContentTrainingPage ({ data }: { data: TrainingDataI }) 
         const dateObj = new Date(date);
         const options : {} = { day: '2-digit', month: 'long', year: 'numeric' };
         const formattedDate = dateObj.toLocaleDateString('fr-FR', options);
+        console.log(date)
         return formattedDate;
     }
 

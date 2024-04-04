@@ -7,6 +7,7 @@ import { queryCreateTraining, queryTrainingInformation, queryUpdateTrainingInfor
 const ModalTraining = ({ organizationId }: { organizationId: string }) => {
 
     const dispatch = useAppDispatch()
+    const userId = useAppSelector((state) => state.token.user).id;
     const isOpen = useAppSelector((state) => state.editTraining.isOpen);
     const trainingId = useAppSelector((state) => state.editTraining.trainingId);
     const categories = useAppSelector(state => state.categories.list);
@@ -71,8 +72,8 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
         const response = await requestWithVariable(queryTrainingInformation, variables);
         const training = response.training;
     
-        let prerequisites = JSON.parse(training.prerequisites);
-        let program = JSON.parse(training.program)
+        const prerequisites = JSON.parse(training.prerequisites);
+        const program = JSON.parse(training.program)
 
     
         setFormData({
@@ -105,9 +106,9 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
                 price: parseInt(formData.price),
                 excerpt: formData.excerpt,
                 program: JSON.stringify(formData.program),
-                // startingDate: formData.startingDate,
-                // endingDate: formData.endingDate,
-                // organizationId: organizationId
+                startingDate: formData.startingDate,
+                endingDate: formData.endingDate,
+                organizationId: organizationId
             }
         }
 
@@ -121,7 +122,7 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
     const createTraining = async () => {
         const variables = {
           
-                label: formData.title,
+               input :  {label: formData.title,
                 description: formData.description,
                 categoryId: formData.category,
                 duration: parseInt(formData.duration),
@@ -129,6 +130,8 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
                 price: parseInt(formData.price),
                 excerpt: formData.excerpt,
                 program: formData.program,
+                organizationId: userId
+            }
                 
   
         }
@@ -233,7 +236,7 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
                         </label>
                         <label className="input input-bordered flex items-center gap-2">
                             Date de fin:
-                            <input className="w-full h-full" type="date" name="endindDate" value={formData.endingDate} onChange={handleChange} />
+                            <input className="w-full h-full" type="date" name="endingDate" value={formData.endingDate} onChange={handleChange} />
                         </label>
                     </div>
                

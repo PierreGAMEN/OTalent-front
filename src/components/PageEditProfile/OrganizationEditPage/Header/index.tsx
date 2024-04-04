@@ -91,6 +91,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                 address: address,
                 city: city,
                 postalCode: postal_code,
+                description: description,
                 
             }
         }

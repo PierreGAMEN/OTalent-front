@@ -23,7 +23,7 @@ export default function OrganizationEditPage () {
                     
                 const variables = 
                 {
-                    organizationId : 2
+                    organizationId : user.id
                     // Remplacer par user.id quand la page sera terminée
                 }
 
