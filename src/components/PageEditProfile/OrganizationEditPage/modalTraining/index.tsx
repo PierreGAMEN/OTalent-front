@@ -4,12 +4,13 @@ import { getStateModalEditTraining } from '../../../../store/actions/modalEditTr
 import { requestWithVariable } from '../../../../utils';
 import { queryCreateTraining, queryTrainingInformation, queryUpdateTrainingInformations } from '../../../../query';
 
-const ModalTraining = ({ organizationId }: { organizationId: string }) => {
+const ModalTraining = () => {
 
     const dispatch = useAppDispatch()
     const userId = useAppSelector((state) => state.token.user).id;
     const isOpen = useAppSelector((state) => state.editTraining.isOpen);
     const trainingId = useAppSelector((state) => state.editTraining.trainingId);
+    const userId = useAppSelector((state) => state.token.user).id;
     const categories = useAppSelector(state => state.categories.list);
     const [prerequesiteCurrentValue, setPrerequesiteCurrentValue] = useState('')
     const [programCurrentValue, setProgramCurrentValue] = useState('')
@@ -40,7 +41,7 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
         setFormData({...formData, category: {categoryLabel: event.target.value, categoryId: event.target.options[event.target.selectedIndex].id} });
     };
 
-    const handleChangePrerequesite = (e) => {
+    const handleChangePrerequesite = (e :React.ChangeEvent<HTMLSelectElement>): void => {
         const value = e.target.value
         setPrerequesiteCurrentValue(value)
     }
@@ -50,6 +51,7 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
             ...formData,
             prerequisites: [...formData.prerequisites, prerequesiteCurrentValue]
         });
+        setPrerequesiteCurrentValue('')
     };
 
     const handleChangeProgram = (e) => {
@@ -62,7 +64,13 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
             ...formData,
             program: [...formData.program, programCurrentValue]
         });
+        setProgramCurrentValue('')
+       
     };
+
+    useEffect(() => {
+        console.log(formData)
+    }, [formData])
 
     const getTrainingInformation = async () => {
         const variables = {
@@ -112,33 +120,55 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
             }
         }
 
-        console.log(formData.category.categoryId)
         await requestWithVariable(queryUpdateTrainingInformations, variables)
         
-        location.reload()
+        // location.reload()
     }
 
 
     const createTraining = async () => {
         const variables = {
-          
-               input :  {label: formData.title,
+
+          input : {
+                label: formData.title,
                 description: formData.description,
-                categoryId: formData.category,
+                categoryId: formData.category.categoryId,
                 duration: parseInt(formData.duration),
-                prerequisites: formData.prerequisites,
+                prerequisites: JSON.stringify(formData.prerequisites),
                 price: parseInt(formData.price),
                 excerpt: formData.excerpt,
-                program: formData.program,
+                program: JSON.stringify(formData.program),
+                startingDate: formData.startingDate,
+                endingDate: formData.endingDate,
                 organizationId: userId
-            }
+          }
                 
   
         }
         
         await requestWithVariable(queryCreateTraining, variables)
-        location.reload()
+        
     }
+
+    const deletePrerequisite = (e) => {
+        const indexToDelete = e.target.id
+        const newPrerequisites = formData.prerequisites.filter((item) => item !== indexToDelete)
+        setFormData({
+            ...formData,
+            prerequisites: [...newPrerequisites]
+        });
+    }
+
+    const deleteProgram = (e) => {
+        const indexToDelete = e.target.id
+        const newPorgram = formData.program.filter((item) => item !== indexToDelete)
+        setFormData({
+            ...formData,
+            program: [...newPorgram]
+        });
+    }
+
+
 
     useEffect(() => {
         if(trainingId) {
@@ -212,7 +242,8 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
                         </label>
                         <button onClick={updateSetFormDataWithPrerequesite} className='btn block'>Ajouter le prérequis à la liste</button>
                         <h4>Listes des prérequis</h4>
-                        {loader && formData.prerequisites.map((prerequisite) => (<div key={prerequisite}>{prerequisite}</div>))} 
+                        {formData.prerequisites.map((prerequisite) => 
+                        (<div key={prerequisite}>{prerequisite}<button id={prerequisite} onClick={deletePrerequisite} className='btn ml-4 bg-red-500 text-white'>X</button></div>))} 
 
                         {/* Vérifier fonctionnement lors de l'allumage de l'API */}
                         <label className="input input-bordered flex items-center gap-2">
@@ -220,8 +251,9 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
                             <textarea className="w-full h-full"  name="program" value={programCurrentValue} onChange={handleChangeProgram} />
                         </label>
                         <button onClick={updateSetFormDataWithProgram} className='btn block'>Ajouter le prérequis à la liste</button>
-                        <h4>Listes des prérequis</h4>
-                        {loader && formData.program.map((program) => (<div key={program}>{program}</div>))} 
+                        <h4>Listes du programme</h4>
+                        {formData.program.map((prog) => 
+                        (<div key={prog}>{prog}<button id={prog} onClick={deleteProgram} className='btn ml-4 bg-red-500 text-white'>X</button></div>))} 
                         <label className="input input-bordered flex items-center gap-2">
                             Prix:
                             <input className="w-full h-full" type="text" name="price" value={formData.price} onChange={handleChange} />

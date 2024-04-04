@@ -309,8 +309,11 @@ query Organization($organizationId: ID!) {
 export const queryUpdateOrganizationInformation =
 `mutation Mutation($modifyOrganizationId: ID!, $input: OrganizationInput!) {
   modifyOrganization(id: $modifyOrganizationId, input: $input) {
-    id
+    postal_code
+    phone_number
     name
+    id
+    email
   }
 }
 `
