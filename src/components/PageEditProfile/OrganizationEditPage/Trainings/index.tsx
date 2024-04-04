@@ -53,7 +53,7 @@ export default function OrganizationTrainings({ data }) {
                         </>)}
                 </>
             )}
-            <ModalTraining organizationId={data.id}/>
+            <ModalTraining />
         </section>
     );
     

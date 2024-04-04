@@ -4,7 +4,7 @@ import { getStateModalEditTraining } from '../../../../store/actions/modalEditTr
 import { requestWithVariable } from '../../../../utils';
 import { queryCreateTraining, queryTrainingInformation, queryUpdateTrainingInformations } from '../../../../query';
 
-const ModalTraining = ({ organizationId }: { organizationId: string }) => {
+const ModalTraining = () => {
 
     const dispatch = useAppDispatch()
     const isOpen = useAppSelector((state) => state.editTraining.isOpen);
@@ -40,7 +40,7 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
         setFormData({...formData, category: {categoryLabel: event.target.value, categoryId: event.target.options[event.target.selectedIndex].id} });
     };
 
-    const handleChangePrerequesite = (e) => {
+    const handleChangePrerequesite = (e :React.ChangeEvent<HTMLSelectElement>): void => {
         const value = e.target.value
         setPrerequesiteCurrentValue(value)
     }
@@ -63,8 +63,13 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
             ...formData,
             program: [...formData.program, programCurrentValue]
         });
-        setPrerequesiteCurrentValue('')
+        setProgramCurrentValue('')
+       
     };
+
+    useEffect(() => {
+        console.log(formData)
+    }, [formData])
 
     const getTrainingInformation = async () => {
         const variables = {
@@ -236,7 +241,7 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
                         </label>
                         <button onClick={updateSetFormDataWithPrerequesite} className='btn block'>Ajouter le prérequis à la liste</button>
                         <h4>Listes des prérequis</h4>
-                        {loader && formData.prerequisites.map((prerequisite) => 
+                        {formData.prerequisites.map((prerequisite) => 
                         (<div key={prerequisite}>{prerequisite}<button id={prerequisite} onClick={deletePrerequisite} className='btn ml-4 bg-red-500 text-white'>X</button></div>))} 
 
                         {/* Vérifier fonctionnement lors de l'allumage de l'API */}
@@ -246,7 +251,7 @@ const ModalTraining = ({ organizationId }: { organizationId: string }) => {
                         </label>
                         <button onClick={updateSetFormDataWithProgram} className='btn block'>Ajouter le prérequis à la liste</button>
                         <h4>Listes du programme</h4>
-                        {loader && formData.program.map((prog) => 
+                        {formData.program.map((prog) => 
                         (<div key={prog}>{prog}<button id={prog} onClick={deleteProgram} className='btn ml-4 bg-red-500 text-white'>X</button></div>))} 
                         <label className="input input-bordered flex items-center gap-2">
                             Prix:
