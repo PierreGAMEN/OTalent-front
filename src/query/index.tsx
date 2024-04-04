@@ -314,3 +314,43 @@ export const queryUpdateOrganizationInformation =
   }
 }
 `
+
+export const queryTrainingInformation =
+`
+query Training($trainingId: ID!) {
+  training(id: $trainingId) {
+    id
+    label
+    description
+    price
+    duration
+    dates
+    excerpt
+    prerequisites
+    program
+    image
+    dates
+    category {
+      id
+      label
+    }
+  }
+}`
+
+export const queryUpdateTrainingInformations =
+`
+mutation Mutation($modifyTrainingId: ID!, $input: TrainingInput!) {
+  modifyTraining(id: $modifyTrainingId, input: $input) {
+    id
+    label
+  }
+}
+`
+
+export const queryCreateTraining = 
+`mutation AddTraining($input: TrainingInput!) {
+  addTraining(input: $input) {
+    label
+    id
+  }
+}`

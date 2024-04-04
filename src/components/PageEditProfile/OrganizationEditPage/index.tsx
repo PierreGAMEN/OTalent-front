@@ -13,16 +13,18 @@ export default function OrganizationEditPage () {
     const [isLoading, setIsLoading] = useState(false)
     const [isOrganization, setIsOrganization] = useState(false)
     const [dataOrganization, setDataOrganization] = useState([])
+    
 
     const user = useAppSelector((state) => state.token.user);
 
         const getOrganizationData = async () => {
             setIsLoading(true)
             try {
-
+                    
                 const variables = 
                 {
                     organizationId : 2
+                    // Remplacer par user.id quand la page sera terminée
                 }
 
                 const response = await requestWithVariable(queryOrganizationInformation, variables)

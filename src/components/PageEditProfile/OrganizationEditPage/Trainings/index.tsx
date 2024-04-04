@@ -1,42 +1,57 @@
 import { useState } from "react";
 import TrainingCard from "../../../HomePage/TrainingCard";
+import { useAppDispatch, useAppSelector } from "../../../../store/redux-hook/hook";
+import { getStateModalEditTraining } from "../../../../store/actions/modalEditTrainingAction";
+import ModalTraining from "../modalTraining";
 
 export default function OrganizationTrainings({ data }) {
 
-    const [isOpen, setIsOpen] = useState(false)
+    const dispatch = useAppDispatch()
+    const isOpen = useAppSelector((state) => state.editTraining.isOpen);
 
-    const openModal = () => {
-
+    const openModal = (trainingId : string) => {
+        dispatch(getStateModalEditTraining({isOpen: true, trainingId: trainingId}))
     }
 
     if (!data || !data.trainings) {
         return <section>Aucune formation disponible</section>;
     }
 
+    const openModalToCreateTraining = () => {
+        dispatch(getStateModalEditTraining({isOpen: true, trainingId: null}))
+    }
+
     return (
         <section>
-            {data.trainings.length > 0 && (
-                <>
-                    {data.trainings.map((training, index) => (
+            {!isOpen && ( 
+                <> 
+                    {data.trainings.length > 0 && (
                         <>
-                        <TrainingCard 
-                        key={training.id}
-                        label={training.label} 
-                        dateCreated={""} 
-                        duration={training.duration} 
-                        category={training.category.label} 
-                        image={training.image}
-                        categoryId={training.category.id} 
-                        organization={data.id}
-                        trainingId={training.id}
-                        organizationId={data.id}
-                        reviews={training.reviews}
-                    />
-                    <button onClick = {openModal} id={training.id} className="btn bg-primary text-white ">Modifier cette formation</button>
-                    </>
-                    ))}
+                            <button onClick={openModalToCreateTraining} className="btn m-2">Créer une formation</button>  
+                            {data.trainings.map((training, index) => (
+                                <div key={training.id}>
+                                    <TrainingCard 
+                                        key={training.id}
+                                        label={training.label} 
+                                        dateCreated={""} 
+                                        duration={training.duration} 
+                                        category={training.category.label} 
+                                        image={training.image}
+                                        categoryId={training.category.id} 
+                                        organization={data.id}
+                                        trainingId={training.id}
+                                        organizationId={data.id}
+                                        reviews={training.reviews}
+                                    />
+                                    <button key={index} onClick={() => {openModal(training.id)}} id={training.id} className="btn bg-primary text-white">Modifier cette formation</button>
+                                </div>
+                            ))}
+                        </>
+                    )}
                 </>
             )}
+            <ModalTraining organizationId={data.id}/>
         </section>
     );
-}
+    
+                            }  

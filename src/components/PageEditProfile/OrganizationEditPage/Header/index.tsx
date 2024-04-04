@@ -1,6 +1,6 @@
-import './style.scss'
+
 import { useEffect, useState } from 'react'
-import { Button } from 'semantic-ui-react'
+import './style.scss'
 import { requestWithVariable } from '../../../../utils'
 import { queryUpdateOrganizationInformation } from '../../../../query'
 import { useAppSelector } from '../../../../store/redux-hook/hook'
@@ -108,89 +108,69 @@ export default function HeaderOrganizationEditPage({ data }) {
 
     return (
         seeding && (
-            <div className="container-header-EditProfilPage">
-                <div>
-                    <img src={data ? data.avatar : ''} alt="" />
+            <div className="p-10 md:flex-row justify-between items-start md:items-center">
+            <div className="flex flex-col justify-start items-center md:mr-8 mb-4 md:mb-0 ">
+                <img className="mb-4 bg-black mb-10" src={`https://res.cloudinary.com/${
+                        import.meta.env.VITE_CDNY_CLOUDNAME
+                    }/image/upload/c_scale,w_780,h_520/v1/otalent/${
+                        data.image
+                    }`} alt="" />
+            </div>
+            <div className="flex flex-col w-full md:w-auto">
+                <div className="flex gap-2">
+                    <button className="btn btn-primary" onClick={() => setIsEdit(true)}>Edit</button>
+                    <button className="btn btn-primary" onClick={() => setIsEdit(false)}>Quitter le mode edit</button>
                 </div>
-                <div className="">
-                    <button onClick={() => setIsEdit(true)}>Edit</button>
-                    <button onClick={() => setIsEdit(false)}>Quitter le mode edit</button>
                     {isEdit ? (
                         <>
-                            <p className="">Nom :</p>
-                            <input className="" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
+                            <div className="mt-4">
+                                <label className="block text-gray-700">Nom :</label>
+                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-gray-700">Email :</label>
+                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-gray-700">Adresse :</label>
+                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-gray-700">Ville :</label>
+                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setCity)} type="text" value={city} />
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-gray-700">Code postal :</label>
+                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-gray-700">Site Web :</label>
+                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-gray-700">N° de téléphone :</label>
+                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-gray-700">Description :</label>
+                                <textarea className="form-textarea mt-1 block w-full h-24" onChange={e => handleChange(e, setDescription)} value={description} />
+                            </div>
                         </>
                     ) : (
-                        <p>Nom: {data ? data.name : ''}</p>
-                    )}
-
-                    {isEdit ? (
                         <>
-                            <p className="">Email :</p>
-                            <input className="" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
+                            <p className="mt-4">Nom: {data ? data.name : ''}</p>
+                            <p>Email: {data ? data.email : ''}</p>
+                            <p>Adresse: {data ? data.address : ''}</p>
+                            <p>Ville: {data ? data.city : ''}</p>
+                            <p>Code postal: {data ? data.postal_code : ''}</p>
+                            <p>Site Web: {data ? data.website : ''}</p>
+                            <p>N° de téléphone: {data ? data.phone_number : ''}</p>
+                            <p>Description: {data ? data.description : ''}</p>
                         </>
-                    ) : (
-                        <p>Email: {data ? data.email : ''}</p>
                     )}
-
-                    {isEdit ? (
-                        <>
-                            <p className="">Adresse :</p>
-                            <input className="" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
-                        </>
-                    ) : (
-                        <p>Adresse: {data ? data.address : ''}</p>
-                    )}
-
-                    {isEdit ? (
-                        <>
-                            <p className="">Ville :</p>
-                            <input className="" onChange={e => handleChange(e, setCity)} type="text" value={city} />
-                        </>
-                    ) : (
-                        <p>Ville: {data ? data.city : ''}</p>
-                    )}
-
-                    {isEdit ? (
-                        <>
-                            <p className="">Code postal :</p>
-                            <input className="" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
-                        </>
-                    ) : (
-                        <p>Code postal: {data ? data.postal_code : ''}</p>
-                    )}
-
-                    {isEdit ? (
-                        <>
-                            <p className="">Site Web :</p>
-                            <input className="" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
-                        </>
-                    ) : (
-                        <p>Site Web: {data ? data.website : ''}</p>
-                    )}
-
-                    {isEdit ? (
-                        <>
-                            <p className="">N° de téléphone :</p>
-                            <input className="" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
-                        </>
-                    ) : (
-                        <p>N° de téléphone: {data ? data.phone_number : ''}</p>
-                    )}
-
-                    {isEdit ? (
-                        <>
-                            <p className="">Description :</p>
-                            <textarea className="" onChange={e => handleChange(e, setDescription)} value={description} />
-                        </>
-                    ) : (
-                        <p>Description: {data ? data.description : ''}</p>
-                    )}
-
-
-                    {isEdit && <Button onClick={updateOrganizationInformation} fluid positive>Valider les changements</Button>}
+                    {isEdit && <button className='btn btn-primary mt-4' onClick={updateOrganizationInformation}>Valider les changements</button>}
                 </div>
             </div>
         )
-    )
-}
+    );
+                    }
