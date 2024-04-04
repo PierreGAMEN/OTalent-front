@@ -270,3 +270,87 @@ export const queryUpdateMemberInformation =
     id
   }
 }`
+
+export const queryOrganizationInformation = `
+query Organization($organizationId: ID!) {
+  organization(id: $organizationId) {
+    id
+    name
+    email
+    description
+    phone_number
+    address
+    city
+    postal_code
+    image
+    url_site
+    trainings {
+      id
+      description
+      label
+      price
+      duration
+      dates
+      excerpt
+      prerequisites
+      program
+      image
+      reviews {
+        id
+      }
+      category {
+        id
+        label
+      }
+    }
+  }
+}`
+
+export const queryUpdateOrganizationInformation =
+`mutation Mutation($modifyOrganizationId: ID!, $input: OrganizationInput!) {
+  modifyOrganization(id: $modifyOrganizationId, input: $input) {
+    id
+    name
+  }
+}
+`
+
+export const queryTrainingInformation =
+`
+query Training($trainingId: ID!) {
+  training(id: $trainingId) {
+    id
+    label
+    description
+    price
+    duration
+    dates
+    excerpt
+    prerequisites
+    program
+    image
+    dates
+    category {
+      id
+      label
+    }
+  }
+}`
+
+export const queryUpdateTrainingInformations =
+`
+mutation Mutation($modifyTrainingId: ID!, $input: TrainingInput!) {
+  modifyTraining(id: $modifyTrainingId, input: $input) {
+    id
+    label
+  }
+}
+`
+
+export const queryCreateTraining = 
+`mutation AddTraining($input: TrainingInput!) {
+  addTraining(input: $input) {
+    label
+    id
+  }
+}`

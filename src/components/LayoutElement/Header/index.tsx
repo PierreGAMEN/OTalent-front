@@ -2,16 +2,15 @@
 import "./style.scss"
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
-import ModalFormConnexion from "./ModalFormConnexion"
 import { NavLink } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../store/redux-hook/hook"
-import axios from "axios"
+
 import { getTokenInformation } from "../../../store/actions/tokenActions";
 import { getCategories } from "../../../store/actions/categoriesActions";
 import { requestWithoutVariable } from "../../../utils";
 import { queryAllCategories, queryCategories } from "../../../query";
-import { Icon } from "semantic-ui-react";
+
 import Navbar from "./ModalProfile";
 import NewModalConnexion from "./ModalFormConnexion/newModal";
 import SearchBar from "./SearchBar";
@@ -23,41 +22,15 @@ export default function Header () {
     const dispatch = useAppDispatch()
     const [isConnected, setIsConnected] = useState(false)
 
-    // const fetchCategories = async () => {
-    //     try {
-    //         const query = `
-    //             query Categories {
-    //                 categories {
-    //                     id
-    //                     label
-    //                 }
-    //             }
-    //         `;
-
-    //         const url = import.meta.env.VITE_GRAPHQL_API;
-
-    //         const response = await axios.post(url, { query });
-    //         const data = response.data.data;
-    //         const fetchedCategories = data.categories || [];
-    //         dispatch(getCategories(fetchedCategories));
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //     }
-    // };
-
     const getAllCategories = async () => {
     try {
        const response = await requestWithoutVariable(queryAllCategories)
-       const data = response.data.data;
-       const fetchedCategories = data.categories || [];
+       const fetchedCategories = response.categories || [];
        dispatch(getCategories(fetchedCategories));
     } catch (error) {
         console.error('Error:', error);
     }
 }
-
-
-    
 
     const dispatchTokenInformation = () => {
         const token = localStorage.getItem('token');
@@ -69,26 +42,15 @@ export default function Header () {
         }
     }
     
-    //Récupération des informations contenu dans le token a chaque dispatch
     useEffect (() => {
         dispatchTokenInformation()
     }, [dispatch])
 
 
-    // Récupération des catégories
     useEffect(() => {
         getAllCategories();
     }, []);
 
-
-
-    
-    // Gestionnaire de déconnexion
-    const handleLogout = () => {
-        localStorage.clear();
-        setIsConnected(false)
-        location.reload();
-    };
 
     return (
         <>
