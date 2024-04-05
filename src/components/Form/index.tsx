@@ -20,8 +20,7 @@ export default function FormPage() {
         <>
             {!activeButton && (
                 <>
-                <div className="divider"></div> 
-                <h4>Vous êtes ?</h4>
+                <h4 className='mb-5'>Vous êtes ?</h4>
                 <div className=''>
                     <section onClick={handleClickMember} className="border p-5 cursor-pointer hover:bg-blue-600 hover:text-white mb-3" id="member">
                         <p>Un(e) futur(e) étudiant(e)</p>

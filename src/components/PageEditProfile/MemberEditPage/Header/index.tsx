@@ -106,7 +106,8 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
     }
 
     return (
-        <div className="container-header-EditProfilPage">
+        
+         <div className="container-header-EditProfilPage">
             <div>
                 <img src={data.avatar} alt="" />
             </div>

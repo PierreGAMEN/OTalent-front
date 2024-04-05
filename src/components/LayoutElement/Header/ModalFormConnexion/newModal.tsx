@@ -4,6 +4,7 @@ import { getStateModalForm } from '../../../../store/actions/modalActions'
 import { loginRequest } from '../../../../utils';
 import { Link, NavLink } from 'react-router-dom';
 import FormPage from '../../../Form';
+import { ForgottenPassword } from '../../../Form/ForgottenPassword';
  
 
 export default function NewModalConnexion() {
@@ -13,6 +14,8 @@ export default function NewModalConnexion() {
     const [password, setPassword] = useState('');
     const [wrongAuthentification, setWrongAuthentification] = useState(false);
     const [openSignupForm, setOpenSignupForm] = useState(false)
+    const [openConnexionForm, setOpenConnexionForm] = useState(true)
+    const [openForgottenPassword, setOpenForgottenPassword] = useState(false)
 
     const dispatch = useAppDispatch()
 
@@ -24,6 +27,8 @@ export default function NewModalConnexion() {
         setIsOpen(false);
         setWrongAuthentification(false)
         setOpenSignupForm(false)
+        setOpenConnexionForm(true)
+        setOpenForgottenPassword(false)
     };
 
 
@@ -61,9 +66,10 @@ export default function NewModalConnexion() {
                 <dialog className="modal" open>
                     <div className="modal-box">
                         <h4>Bienvenue chez O'Talent !</h4>
+                        <div className='divider'></div>
                       
                         <div className="flex flex-col w-full border-opacity-50">
-                        {!openSignupForm && <>
+                        {openConnexionForm && <>
                             <div className='flex flex-col gap-4'>
                                 <label className="input input-bordered flex items-center gap-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" /><path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" /></svg>
@@ -85,11 +91,14 @@ export default function NewModalConnexion() {
                                 </label>
                                 <button className="btn bg-green-600 text-white" onClick={login}>Se connecter</button>
                                 {wrongAuthentification && <div>L'identifiant est incorrect</div>}
+                                <button onClick = {()=> {setOpenForgottenPassword(true); setOpenConnexionForm(false)}}>Mot de passe oublié ?</button>
                             </div>
                             <div className="divider">OU</div>
-                            <button onClick={() => {setOpenSignupForm(true)}} className="btn bg-blue-600 text-white">S'inscrire</button>
+                            <button onClick={() => {setOpenSignupForm(true); setOpenConnexionForm(false)}} className="btn bg-blue-600 text-white">S'inscrire</button>
                             </>}
                             {openSignupForm && <FormPage />}
+                            {openForgottenPassword && <><ForgottenPassword/>
+                            <button onClick={() => {setOpenForgottenPassword(false); setOpenConnexionForm(true)}} className='btn'>Revenir à la page de connexion</button></>}
                         </div>
                         <div className="modal-action">
                             <form method="dialog">
