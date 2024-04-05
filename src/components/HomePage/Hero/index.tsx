@@ -23,8 +23,8 @@ export default function Hero() {
                     className="xl:hidden w-64 mt-5"
                 ></img>
                 <a
-                    href="#searchBar"
-                    className="lg:hover:-translate-y-1  w-3/5 text-center bg-white p-5 mt-10 min-w-min rounded-2xl hover:cursor-pointer text-primary-color text-2xl font-bold"
+                    href="#training_list"
+                    className="w-3/5 text-center bg-white p-5 mt-10 min-w-min rounded-2xl hover:cursor-pointer text-primary-color text-2xl font-bold hover:bg-transparent hover:text-white border-white border-2"
                 >
                     Découvrez nos formations
                 </a>

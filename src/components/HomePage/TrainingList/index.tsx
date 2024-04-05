@@ -4,7 +4,7 @@ import TrainingCard from '../TrainingCard';
 export default function TrainingList({ data, categoryChosen }) {
     return (
         <div className="ml-5">
-            <h4>{categoryChosen}</h4>
+            <h4 id="training_list">{categoryChosen}</h4>
             <div className="flex flex-row justify-left pb-5 gap-5 overflow-x-auto overflow-y-hidden">
                 {data &&
                     data.trainings &&
