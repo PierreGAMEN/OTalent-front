@@ -2,19 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  color-scheme: light dark;
-  color: rgba(0, 0, 0, 0.87);
-  background-color: #ffffff;
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
+@layer base {
+    :root {
+        @apply bg-primary-background text-primary-color leading-5 m-0 p-0 scroll-smooth;
+    }
+    html {
+        font-family: 'Poppins', 'Roboto', system-ui, sans-serif;
+    }
 
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        @apply font-extrabold;
+    }
+    h1 {
+        @apply text-4xl text-white;
+    }
+    h2 {
+        @apply text-9xl text-white;
+    }
+    h3 {
+        @apply text-6xl text-primary-color text-center p-24 uppercase;
+    }
+    h4 {
+        @apply text-3xl uppercase;
+    }
+    h5 {
+        @apply text-lg;
+    }
 }
 
-body {
-  margin:0;
-  padding: 0;
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #14715b;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #14715b;
 }

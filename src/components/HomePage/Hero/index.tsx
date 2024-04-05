@@ -1,46 +1,45 @@
+import { useEffect, useState } from 'react';
+import SearchBar from '../../LayoutElement/Header/SearchBar';
+import Carousel from './Carousel';
 
-import { useEffect, useState } from "react";
-import SearchBar from "../../LayoutElement/Header/SearchBar";
-import "./style2.scss";
-
-export default function HeroSearchBar() {
-    const [training, setTraining] = useState('Carrossier');
-    const data = ['développeur web', 'mathématiciens', 'apiculteur', 'graphiste', 'ingénieur son', 'conducteur de travaux'];
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            // Rotate through the data array
-            const index = (data.indexOf(training) + 1) % data.length;
-            setTraining(data[index]);
-        }, 2000);
-
-        // Clean up the interval to avoid memory leaks
-        return () => clearInterval(intervalId);
-    }, [data, training]);
+export default function Hero() {
+    const [training, setTraining] = useState('');
+    const updateTraining = newTraining => {
+        setTraining(newTraining);
+    };
 
     return (
-            <div className="container-landing">
-
-                <div className="title">
-                <h1 className="h1-title-landing">OTalent simplifie vos recherches de formation</h1>
-                </div>
-                <div className="subtitle-landing">
-                    <p className="subtitle-landing-p">Dès aujourd'hui, prenez votre carrière en main et devenez 
-                    <span className="subtitle-landing-span"> {training}</span></p>
-                </div>
-                <div className="link-landing">
-                    <a href="#searchBar" className="link-landing-a">Recherchez votre formation</a>
-                </div>
-                <img className="image-landing" src="/livre.png" alt="" />
-                
+        <div className="pr-20 pl-20 h-screen bg-primary-color box-border text-white flex flex-col xl:flex-row">
+            <div className="mt-10 xl:m-0 flex items-center justify-start xl:justify-center flex-col w-full xl:w-2/3 xl:items-stretch">
+                <h2 className="text-4xl xl:text-7xl font-extrabold uppercase font-title tracking-wider text-center xl:text-left">
+                    OTalent <br /> simplifie vos recherches <br /> de formations
+                </h2>
+                <p className="text-3xl mt-10 hidden xl:inline">
+                    Dès aujourd'hui, devenez <br />
+                    <span className="font-bold text-5xl"> {training}</span>
+                </p>
+                <img
+                    src="./src/assets/Certification-bro.svg"
+                    className="xl:hidden w-64 mt-5"
+                ></img>
+                <a
+                    href="#searchBar"
+                    className="lg:hover:-translate-y-1  w-3/5 text-center bg-white p-5 mt-10 min-w-min rounded-2xl hover:cursor-pointer text-primary-color text-2xl font-bold"
+                >
+                    Découvrez nos formations
+                </a>
             </div>
-        
+            <div className="w-1/2 h-full hidden xl:flex items-center">
+                <Carousel updateTraining={updateTraining} />
+            </div>
+        </div>
     );
 }
 
-// VERSION 1 - 
+// VERSION 1 -
 
-{/* <section className={`container-Hero`}>
+{
+    /* <section className={`container-Hero`}>
                 <h2>Trouvez votre formation</h2>
                     <div className="info-category">
                         <p className="p-info">Ou tapez le nom de votre formation</p>
@@ -54,8 +53,9 @@ export default function HeroSearchBar() {
                     <SearchBar className={`searchBarHero`} />
                 </div>
                 <img src="/image-header.svg" alt="" />
-            </section> */}
+            </section> */
+}
 
 function handleData() {
-    throw new Error("Function not implemented.");
+    throw new Error('Function not implemented.');
 }
