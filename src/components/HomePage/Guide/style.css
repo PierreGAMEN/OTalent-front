@@ -1,0 +1,8 @@
+#svg-black,
+#svg-white {
+    position: absolute;
+}
+
+#svg-white {
+    clip-path: inset(0 0 100% 0);
+}
