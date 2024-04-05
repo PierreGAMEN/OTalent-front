@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { queryOneMember } from '../../../query'
-import { fetchData } from '../../../utils'
+import { fetchData, requestWithVariable } from '../../../utils'
 import FavoritesEditProfilPageMember from './Favorites'
 import HeaderEditProfilPageMember from './Header'
 import ReviewsEditProfilPageMember from './Reviews'
@@ -13,20 +13,47 @@ export default function MemberEditPage () {
     const [dataFetch, setDataFetch] = useState([])
     const [isloading, setIsLoading] = useState(false)
     const [scriptFinished, setScriptFinished] = useState(false)
+    const [isMember, setIsMember] = useState(false)
 
     const user = useAppSelector((state) => state.token.user);
     const idMember = user.id
 
-        useEffect(() => {
-            fetchData(queryOneMember, idMember, "memberId", setDataFetch, setIsLoading).then(() => setScriptFinished(true))
-           
-        }, [idMember])
 
-        if (!dataFetch || !dataFetch.member) {
-            return null; 
+    const getMemberInformation = async () => {
+        const variables = {
+            memberId:user.id
         }
+        setScriptFinished(false)
+        await requestWithVariable(queryOneMember, variables)
+        setScriptFinished(true)
+    }
 
-        
+    const checkIsMember = () => {
+            
+        if(user.id !== null && user.member === false) {
+           setIsMember(true)
+        } else {
+           window.location.href="/"
+        }
+   }
+
+   useEffect(() => {
+    if(user.id){
+        checkIsMember();}
+       if (isMember) {
+            getMemberInformation();
+       }
+   }, [user.id, isMember]);
+
+        // useEffect(() => {
+        //     fetchData(queryOneMember, idMember, "memberId", setDataFetch, setIsLoading).then(() => setScriptFinished(true))
+           
+        // }, [idMember])
+
+        // if (!dataFetch || !dataFetch.member) {
+        //     return null; 
+        // }
+    
 
         return (
             scriptFinished &&

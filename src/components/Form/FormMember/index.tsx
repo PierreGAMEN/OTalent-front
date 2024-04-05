@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, FormEvent, useState } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { requestWithVariable } from "../../../utils";
+import { loginRequest, requestWithVariable } from "../../../utils";
 import { queryAddMember } from "../../../query";
 import MemberDataInputI from "../../../@Types/memberDataInputI";
 
@@ -28,20 +28,39 @@ export default function FormMember() {
             email: email,
             password: password,
             city: city,
-            postalCode: postalCode,
             avatar: null // Vous pouvez laisser null si vous n'envoyez pas d'avatar
         }
     };
 
+    if (postalCode.trim() !== '') {
+      variables.input.postalCode = postalCode;
+    }
+    if (postalCode.trim() !== '') {
+      variables.input.city = city;
+    }
+  
+
     try {
         await requestWithVariable(queryAddMember, variables);
         toast.success("Le formulaire a été soumis avec succès !");
+        await login()
         return true;
     } catch (error) {
         console.error('Erreur lors de la soumission du formulaire:', error);
         return false;
     }
 };
+
+
+const login = async () => {
+
+  const variables = {
+    email: email,
+    password: password,
+  };
+  const logger = await loginRequest(variables)
+  
+}
 
 
 
@@ -77,21 +96,20 @@ export default function FormMember() {
   
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="firstName">Prénom</label>
-          <input
+
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+  
+          <label className="input input-bordered flex items-center gap-2" htmlFor="firstName">Prénom
+          <input className="grow"
             type="text"
             id="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             placeholder="First Name"
             required
-          />
-        </div>
-        <div>
-          <label htmlFor="lastName">Nom</label>
+          /></label>
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="lastName">Nom
           <input
             type="text"
             id="lastName"
@@ -99,30 +117,29 @@ export default function FormMember() {
             onChange={(e) => setLastName(e.target.value)}
             placeholder="Last Name"
             required
-          />
-        </div>
-        <div>
-          <label htmlFor="city">Ville</label>
+          /></label>
+       
+    
+          <label className="input input-bordered flex items-center gap-2" htmlFor="city">Ville
           <input
             type="text"
             id="city"
             value={city}
             onChange={(e) => setCity(e.target.value)}
             placeholder="City"
-          />
-        </div>
-        <div>
-          <label htmlFor="postalCode">Code postal</label>
+          /></label>
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="postalCode">Code postal
           <input
             type="text"
             id="postalCode"
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
             placeholder="Postal Code"
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Adresse e-mail</label>
+          /></label>
+      
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="email">Adresse e-mail
           <input
             type="email"
             id="email"
@@ -130,10 +147,10 @@ export default function FormMember() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="florian@exemple.com"
             required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Mot de passe</label>
+          /></label>
+   
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="password">Mot de passe
           <input
             type="password"
             id="password"
@@ -141,10 +158,10 @@ export default function FormMember() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
-          />
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirmez votre mot de passe</label>
+          /></label>
+
+ 
+          <label className="input input-bordered flex items-center gap-2" htmlFor="confirmPassword">Confirmez votre mot de passe
           <input
             type="password"
             id="confirmPassword"
@@ -152,10 +169,9 @@ export default function FormMember() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm Password"
             required
-          />
-        </div>
-        <button type="submit">Submit</button>
+          /></label>
+
+        <button className="btn bg-green-600 text-white" type="submit">Submit</button>
       </form>
-    </div>
   );
 }

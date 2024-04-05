@@ -41,6 +41,8 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
             }
         };
 
+        // Attention mettre la fonction dans un useState
+        
         const newcomment = await requestWithVariable(queryAddReview, variables)
         console.log(newcomment)
         setCurrentComment([newcomment.addReview, ...currentComment]);
@@ -54,12 +56,17 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
             <h2 className="reviews-section-title">
                 Ce qu'en pense la communauté
             </h2>
-            {user.id !== null ? <button
+            {user.id !== null && user.member === true && <button
                 onClick={openModalAddComment}
                 className="reviews-section-button"
             >
                 Je donne mon avis
-            </button> : <button>Vous connecter</button>}
+            </button>}
+
+            {
+                user.id === null && user.member === null && 
+                <div className='p-10 text-center text-l border border-gray-300 bg-yellow-100 w-[90%] m-auto mb-5'>Vous devez vous connecter pour pouvoir commenter</div>
+            }
             
 
             {modalAddCommentIsOpen && (

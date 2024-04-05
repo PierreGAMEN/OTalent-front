@@ -284,6 +284,9 @@ query Organization($organizationId: ID!) {
       prerequisites
       program
       image
+      reviews {
+        id
+      }
       category {
         id
         label
@@ -294,8 +297,69 @@ query Organization($organizationId: ID!) {
 
 export const queryUpdateOrganizationInformation = `mutation Mutation($modifyOrganizationId: ID!, $input: OrganizationInput!) {
   modifyOrganization(id: $modifyOrganizationId, input: $input) {
-    id
+    postal_code
+    phone_number
     name
+    id
+    email
   }
 }
-`;
+`
+
+export const queryTrainingInformation =
+`
+query Training($trainingId: ID!) {
+  training(id: $trainingId) {
+    id
+    label
+    description
+    price
+    duration
+    dates
+    excerpt
+    prerequisites
+    program
+    image
+    dates
+    category {
+      id
+      label
+    }
+  }
+}`
+
+export const queryUpdateTrainingInformations =
+`
+mutation Mutation($modifyTrainingId: ID!, $input: TrainingInput!) {
+  modifyTraining(id: $modifyTrainingId, input: $input) {
+    id
+    label
+  }
+}
+`
+
+export const queryCreateTraining = 
+`mutation AddTraining($input: TrainingInput!) {
+  addTraining(input: $input) {
+    label
+    id
+  }
+}`
+
+
+export const queryDeleteTraining =
+`mutation Mutation($deleteTrainingId: ID!) {
+  deleteTraining(id: $deleteTrainingId)
+}`
+
+export const queryGetInformationSiret = 
+`query Siret($siret: String!) {
+  siret(siret: $siret) {
+    siretFound
+    name
+    address
+    postalCode
+    city
+  }
+}`
+
