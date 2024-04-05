@@ -313,7 +313,7 @@ export default function FormOrganization(): JSX.Element {
       </form>
       {stepBienvenue && 
       <div>
-        <h3>Merci pour votre inscription !</h3>
+        <p>Merci pour votre inscription !</p>
         <button onClick={() => {location.reload()}} className="btn">Continuer sur le site</button>
       </div>
       }

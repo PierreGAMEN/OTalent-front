@@ -363,3 +363,13 @@ export const queryGetInformationSiret =
   }
 }`
 
+export const querySendEmailToRecoverPassword = `
+mutation Mutation($input: ForgotPasswordInput!) {
+  requestPasswordReset(input: $input)
+}`
+
+export const querySendNewPassword = `
+mutation Mutation($updatedPassword: String!) {
+  resetPassword(updatedPassword: $updatedPassword)
+}
+`

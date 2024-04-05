@@ -11,6 +11,7 @@ import SearchPage from './components/SearchPage/index.tsx';
 import OrganizationPage from './components/OrganizationPage/index.tsx';
 import MemberEditPage from './components/PageEditProfile/MemberEditPage/index.tsx';
 import OrganizationEditPage from './components/PageEditProfile/OrganizationEditPage/index.tsx';
+import ResetPassword from './components/ResetPasswordPage/index.tsx';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
             { path: 'edit/organization', element: <OrganizationEditPage /> },
             { path: 'edit/member', element: <MemberEditPage /> },
             { path: 'signup', element: <FormPage /> },
+            { path: 'reset-password', element: <ResetPassword /> },
         ],
     },
 ]);
