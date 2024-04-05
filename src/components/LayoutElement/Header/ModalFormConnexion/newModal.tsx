@@ -60,7 +60,7 @@ export default function NewModalConnexion() {
             {isOpen && (
                 <dialog className="modal" open>
                     <div className="modal-box">
-                        <h3>Bienvenue chez O'Talent !</h3>
+                        <h4>Bienvenue chez O'Talent !</h4>
                       
                         <div className="flex flex-col w-full border-opacity-50">
                         {!openSignupForm && <>
