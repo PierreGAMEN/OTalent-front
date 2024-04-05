@@ -326,3 +326,29 @@ export const requestWithoutVariable = async (query: string) : Promise<void> => {
     console.error('Erreur lors de l\'envoi des données:', error);
   }
 }
+
+
+export const changePassword = async (query: string, variables: any, token: string | null) => {
+  try {
+    const tokenUrl = token;
+
+    // Création des en-têtes de la requête
+    const headers: { [key: string]: string } = {};
+    if (tokenUrl) {
+      headers['Authorization'] = `Bearer ${tokenUrl}`;
+    }
+
+    // Envoi de la requête avec les en-têtes appropriés
+    const response = await axios.post(url, {
+      query: query,
+      variables: variables
+    }, {
+      headers: headers
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Une erreur s'est produite :", error);
+    throw error;
+  }
+}

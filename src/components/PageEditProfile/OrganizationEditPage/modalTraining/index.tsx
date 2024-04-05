@@ -203,7 +203,7 @@ const ModalTraining = () => {
         isOpen && <>
         <dialog className=" max-w-none max-h-none overflow-auto w-full"  open={isOpen}>
             <div className="modal-box max-w-none max-h-none">
-                <h3>Bienvenue chez O'Talent !</h3>
+                <h4>Bienvenue chez O'Talent !</h4>
                 <div className="flex flex-col w-full border-opacity-50 ">
                     <div className='flex flex-col gap-4'>
                         <label className="input input-bordered flex gap-2 max-h-none flex-col max-h-none h-20 p-2">
