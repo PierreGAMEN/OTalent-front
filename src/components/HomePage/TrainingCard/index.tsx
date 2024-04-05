@@ -1,10 +1,9 @@
-import './style.scss';
-
 interface TrainingCardProps {
     label: string;
     dateCreated: string;
     duration: string;
     organization?: string;
+    price: number;
     category: string;
     image: string;
     categoryId: number;
@@ -18,6 +17,7 @@ export default function TrainingCard({
     trainingId,
     label,
     duration,
+    price,
     organization,
     category,
     image,
@@ -41,90 +41,85 @@ export default function TrainingCard({
     );
 
     return (
-        <div className="card">
-            <div className="image">
-                <img
-                    src={`https://res.cloudinary.com/${
-                        import.meta.env.VITE_CDNY_CLOUDNAME
-                    }/image/upload/t_trainingcard/v1/otalent/${image}`}
-                    alt="Training"
-                />
-            </div>
-            <div className="content">
-                <a href={`/training/${trainingId}`} className="header">
-                    {label}
+        <div className="flex flex-col border-4 rounded-2xl border-primary-color">
+            <div className="flex flex-col h-[550px] w-[300px]">
+                <a href={`/training/${trainingId}`}>
+                    <img
+                        src={`https://res.cloudinary.com/${
+                            import.meta.env.VITE_CDNY_CLOUDNAME
+                        }/image/upload/t_trainingcard/v1/otalent/${image}`}
+                        alt="Training"
+                        className="rounded-t-xl w-[350px] h-[200px]"
+                    />
                 </a>
-
-                <div className="school school-link extra content">
-                    <i className="school university icon"></i> École :
-                    <a
-                        href={`/organization/${organizationId}`}
-                        className="right floated"
-                    >
-                        {' '}
-                        {organization}
+                <div className="flex flex-col p-2 h-full justify-between items-stretch ">
+                    <a href={`/training/${trainingId}`}>
+                        <h5>{label}</h5>
                     </a>
-                </div>
+                    <div className="flex flex-col h-full justify-end gap-3">
+                        <a
+                            href={`/organization/${organizationId}`}
+                            className="flex items-center gap-2"
+                        >
+                            <span className="material-symbols-rounded">
+                                school
+                            </span>
+                            {organization}
+                        </a>
 
-                <div className="school school-link extra content">
-                    <i className="folder icon"></i> Catégorie :
-                    <a
-                        href={`/search/${category}&&${categoryId}`}
-                        className="right floated"
-                    >
-                        {' '}
-                        {category}
-                    </a>
-                </div>
+                        <a
+                            href={`/search/${category}&&${categoryId}`}
+                            className="flex items-center gap-2"
+                        >
+                            <span className="material-symbols-rounded">
+                                sell
+                            </span>
+                            {category}
+                        </a>
 
-                <div className="school extra content">
-                    <i className="calendar alternate icon"></i> Durée :
-                    <span className="right floated"> {duration} heures</span>
-                </div>
-
-                {!isNaN(averageRating) ? (
-                    <div className="container-star">
-                        <span className="note">{averageRating}</span>
-                        <i
-                            className={
-                                averageRating >= 1
-                                    ? 'star yellow icon'
-                                    : 'star icon'
-                            }
-                        ></i>
-                        <i
-                            className={
-                                averageRating >= 2
-                                    ? 'star yellow icon'
-                                    : 'star icon'
-                            }
-                        ></i>
-                        <i
-                            className={
-                                averageRating >= 3
-                                    ? 'star yellow icon'
-                                    : 'star icon'
-                            }
-                        ></i>
-                        <i
-                            className={
-                                averageRating >= 4
-                                    ? 'star yellow icon'
-                                    : 'star icon'
-                            }
-                        ></i>
-                        <i
-                            className={
-                                averageRating >= 5
-                                    ? 'star yellow icon'
-                                    : 'star icon'
-                            }
-                        ></i>
-                        <span className="number-avis">({reviews.length})</span>
+                        <p className="flex items-center gap-2">
+                            <span className="material-symbols-rounded">
+                                schedule
+                            </span>
+                            {duration} heures
+                        </p>
+                        <div>
+                            {!isNaN(averageRating) ? (
+                                <div className="rating rating-md flex items-center">
+                                    <h5 className="ml-1">{averageRating}</h5>
+                                    {[...Array(5)].map((_, i) => (
+                                        <input
+                                            key={i}
+                                            className={
+                                                averageRating >= i + 1
+                                                    ? 'mask mask-star-2 bg-orange-400 cursor-default'
+                                                    : "mask mask-star-2 bg-orange-400' checked cursor-default"
+                                            }
+                                            disabled
+                                        ></input>
+                                    ))}
+                                    <span className="m-2">
+                                        ({reviews.length})
+                                    </span>
+                                </div>
+                            ) : (
+                                <p>Il n'y pas encore d'avis.</p>
+                            )}
+                        </div>
+                        <h4 className="flex items-center justify-center gap-2">
+                            <span className="material-symbols-rounded text-4xl">
+                                payments
+                            </span>
+                            {price} €
+                        </h4>
                     </div>
-                ) : (
-                    <p>Il n'y pas encore d'avis.</p>
-                )}
+                    <a
+                        href={`/training/${trainingId}`}
+                        className="bg-primary-color text-white p-2 m-2 rounded-xl text-center hover:bg-transparent hover:text-primary-color border-primary-color border-2"
+                    >
+                        Voir la formation
+                    </a>
+                </div>
             </div>
         </div>
     );

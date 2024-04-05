@@ -19,17 +19,21 @@ export default function FormPage() {
     return (
         <>
             {!activeButton && (
-                <div className='section-card-formPage'>
-                    <section onClick={handleClickMember} className="section-card-formPage-card" id="member">
-                        <h2>Étudiant</h2>
+                <>
+                <div className="divider"></div> 
+                <h3>Vous êtes ?</h3>
+                <div className=''>
+                    <section onClick={handleClickMember} className="border p-5 cursor-pointer hover:bg-blue-600 hover:text-white mb-3" id="member">
+                        <p>Un(e) futur(e) étudiant(e)</p>
                     </section>
-                    <section onClick={handleClickOrganization} className="section-card-formPage-card" id="organization">
-                        <h2>Organisme de formation</h2>
+                    <section onClick={handleClickOrganization} className="border p-5 cursor-pointer hover:bg-green-600 hover:text-white" id="organization">
+                        <p>Un organisme de formation</p>
                     </section>
                     </div>
+                    </>
             )}
-            {activeButton === 'member' && (<div className="container-form"><FormMember /> <button onClick={()=> {setActiveButton('')}}>Retour vers le choix des profils</button></div>)}
-            {activeButton === 'organization' && (<div className="container-form"><FormOrganization /> <button onClick={()=> {setActiveButton('')}}>Retour vers le choix des profils</button></div>)}
+            {activeButton === 'member' && (<div><FormMember /> <button className='btn mt-5' onClick={()=> {setActiveButton('')}}>Retour vers le choix des profils</button></div>)}
+            {activeButton === 'organization' && (<div><FormOrganization /> <button className='btn mt-5' onClick={()=> {setActiveButton('')}}>Retour vers le choix des profils</button></div>)}
         
         </>
     )

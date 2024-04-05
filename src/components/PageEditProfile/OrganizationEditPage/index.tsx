@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import TrainingCreation from './Creation'
 import FavoritesTrainings from './Trainings'
 import HeaderOrganizationEditPage from './Header'
 import './style.scss'
@@ -24,7 +23,6 @@ export default function OrganizationEditPage () {
                 const variables = 
                 {
                     organizationId : user.id
-                    // Remplacer par user.id quand la page sera terminée
                 }
 
                 const response = await requestWithVariable(queryOrganizationInformation, variables)
@@ -40,7 +38,7 @@ export default function OrganizationEditPage () {
 
         const checkIsOrganization = () => {
             
-             if(user.id && user.member === false) {
+             if(user.id !== null && user.member === false) {
                 setIsOrganization(true)
              } else {
                 window.location.href="/"
@@ -48,10 +46,8 @@ export default function OrganizationEditPage () {
         }
 
         useEffect(() => {
-            if(user.id && !isOrganization) {
-                checkIsOrganization();
-            }
-            
+            if(user.id !== null){
+            checkIsOrganization();}
             if (isOrganization) {
                 getOrganizationData();
             }
@@ -60,7 +56,6 @@ export default function OrganizationEditPage () {
     return (
         <div>
             <HeaderOrganizationEditPage data={dataOrganization} />
-            <TrainingCreation data={dataOrganization}/>
             <OrganizationTrainings data={dataOrganization}/>
         </div>
     )
