@@ -41,7 +41,7 @@ export default function OrganizationTrainings({ data }) {
                                         category={training.category.label} 
                                         image={training.image}
                                         categoryId={training.category.id} 
-                                        organization={data.id}
+                                        organization={data.name}
                                         trainingId={training.id}
                                         organizationId={data.id}
                                         reviews={training.reviews}

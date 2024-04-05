@@ -10,7 +10,7 @@ const ModalTraining = () => {
     const userId = useAppSelector((state) => state.token.user).id;
     const isOpen = useAppSelector((state) => state.editTraining.isOpen);
     const trainingId = useAppSelector((state) => state.editTraining.trainingId);
-    const userId = useAppSelector((state) => state.token.user).id;
+
     const categories = useAppSelector(state => state.categories.list);
     const [prerequesiteCurrentValue, setPrerequesiteCurrentValue] = useState('')
     const [programCurrentValue, setProgramCurrentValue] = useState('')
@@ -116,7 +116,7 @@ const ModalTraining = () => {
                 program: JSON.stringify(formData.program),
                 startingDate: formData.startingDate,
                 endingDate: formData.endingDate,
-                organizationId: organizationId
+                organizationId: userId
             }
         }
 
