@@ -1,8 +1,11 @@
 import React, { useState, FormEvent, ChangeEventHandler } from "react";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { requestWithVariable } from "../../../utils";
-import { queryAddOrganization } from "../../../query";
+import { loginRequest, requestWithVariable } from "../../../utils";
+import { queryAddOrganization, queryGetInformationSiret } from "../../../query";
+import { Link } from "react-router-dom";
+
+
 
 interface FormValues {
   raisonSociale: string;
@@ -30,6 +33,12 @@ export default function FormOrganization(): JSX.Element {
     confirmPassword: "",
     urlSite: ""
   });
+
+  const [siretInformation, setSiretInformation] = useState(null)
+  const [step1, setStep1]= useState(true)
+  const [step2, setStep2] = useState(false)
+  const [step3, setStep3]= useState(false)
+  const [stepBienvenue, setStepBienvenue] = useState(false)
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (
     e
@@ -72,13 +81,19 @@ export default function FormOrganization(): JSX.Element {
         postalCode: formValues.codePostal,
         siret: formValues.siret,
         image: null,
-        urlSite: formValues.urlSite,
       },
     };
+
+    if (formValues.urlSite.trim() !== '') {
+      variables.input.urlSite = formValues.urlSite;
+    }
   
     try {
-      await requestWithVariable(queryAddOrganization, variables);
+       const response = await requestWithVariable(queryAddOrganization, variables);
       toast.success("Le formulaire a été soumis avec succès !");
+      await login()
+      setStepBienvenue(true)
+      setStep3(false)
       return true;
     } catch (error) {
       console.error("Erreur lors de la soumission du formulaire:", error);
@@ -137,15 +152,68 @@ export default function FormOrganization(): JSX.Element {
       toast.error("Les mots de passe ne correspondent pas");
       return false;
     }
-
+    
     return true;
   }
+  
+
+  const getInformationFromSiret = async () => {
+    const siretRegex = /^\d{14}$/;
+    if(!siretRegex.test(formValues.siret)) {
+      toast.error("Le numéro de SIRET doit contenir 14 chiffres");
+      return false;
+    }
+    const variables = {
+      siret: formValues.siret
+    }
+    const response = await requestWithVariable(queryGetInformationSiret,variables)
+    setSiretInformation(response)
+    if(response && response.siret !== null) {
+      setStep2(true)
+      setStep1(false)
+      setFormValues({ ...formValues, 
+        raisonSociale: response.siret.name,
+        adresse: response.siret.address,
+        ville: response.siret.city,
+        codePostal: response.siret.postalCode
+       });
+    }
+  }
+
+  const login = async () => {
+
+    const variables = {
+      email: formValues.email,
+      password: formValues.password,
+    };
+    const logger = await loginRequest(variables)
+    
+  }
+
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="raisonSociale">Raison sociale</label>
+    <form className="flex flex-col gap-2" >
+  
+        {step1 && <>
+          <label className="input input-bordered flex items-center gap-2" htmlFor="siret">N° SIRET
+          <input
+            id="siret"
+            name="siret"
+            value={formValues.siret}
+            onChange={handleChange}
+            placeholder="N° SIRET"
+          /></label>
+
+          <button type="button" onClick={getInformationFromSiret} className="btn">Vérifier votre numéro SIRET</button>
+          </> }
+
+          {siretInformation && siretInformation.siret === null &&
+           <p>Votre numéro de SIRET ne semble pas enregistré. Vous pouvez consulter ce site en cas de problème :  <a href="https://www.economie.gouv.fr/cedef/numero-siret"><i>economie.gouv</i></a></p>}
+
+          {step2 &&
+          <>
+          <label className="input input-bordered flex items-center gap-2" htmlFor="raisonSociale">Raison sociale
           <input
             required
             id="raisonSociale"
@@ -153,40 +221,42 @@ export default function FormOrganization(): JSX.Element {
             value={formValues.raisonSociale}
             onChange={handleChange}
             placeholder="Raison sociale"
-          />
-        </div>
-        <div>
-          <label htmlFor="adresse">Adresse</label>
+          /></label>
+
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="adresse">Adresse
           <input
             id="adresse"
             name="adresse"
             value={formValues.adresse}
             onChange={handleChange}
             placeholder="Adresse"
-          />
-        </div>
-        <div>
-          <label htmlFor="codePostal">Code postal</label>
+          /></label>
+     
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="codePostal">Code postal
           <input
             id="codePostal"
             name="codePostal"
             value={formValues.codePostal}
             onChange={handleChange}
             placeholder="Code postal"
-          />
-        </div>
-        <div>
-          <label htmlFor="ville">Ville</label>
+          /></label>
+
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="ville">Ville
           <input
             id="ville"
             name="ville"
             value={formValues.ville}
             onChange={handleChange}
             placeholder="Ville"
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Adresse e-mail</label>
+          /></label>
+          <button className="btn bg-green-600 text-white" type="button" onClick={() => {setStep3(true), setStep2(false)}}>Valider / Modifier les informations</button>
+          </>}
+
+          {step3 && <>
+          <label className="input input-bordered flex items-center gap-2" htmlFor="email">Adresse e-mail
           <input
             type="email"
             id="email"
@@ -194,10 +264,10 @@ export default function FormOrganization(): JSX.Element {
             value={formValues.email}
             onChange={handleChange}
             placeholder="florian@exemple.com"
-          />
-        </div>
-        <div>
-          <label htmlFor="telephone">Téléphone</label>
+          /></label>
+
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="telephone">Téléphone
           <input
             type="tel"
             id="telephone"
@@ -205,30 +275,19 @@ export default function FormOrganization(): JSX.Element {
             value={formValues.telephone}
             onChange={handleChange}
             placeholder="Téléphone"
-          />
-        </div>
-        <div>
-          <label htmlFor="siret">N° SIRET</label>
-          <input
-            id="siret"
-            name="siret"
-            value={formValues.siret}
-            onChange={handleChange}
-            placeholder="N° SIRET"
-          />
-        </div>
-        <div>
-          <label htmlFor="urlSite">URL de votre site</label>
+          /></label>
+
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="urlSite">URL de votre site
           <input
             id="urlSite"
             name="urlSite"
             value={formValues.urlSite}
             onChange={handleChange}
             placeholder="Url de votre site"
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Mot de passe</label>
+          /></label>
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="password">Mot de passe
           <input
             type="password"
             id="password"
@@ -236,10 +295,9 @@ export default function FormOrganization(): JSX.Element {
             value={formValues.password}
             onChange={handleChange}
             placeholder="Mot de passe"
-          />
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirmez votre mot de passe</label>
+          /></label>
+
+          <label className="input input-bordered flex items-center gap-2" htmlFor="confirmPassword">Confirmez votre mot de passe
           <input
             type="password"
             id="confirmPassword"
@@ -247,10 +305,19 @@ export default function FormOrganization(): JSX.Element {
             value={formValues.confirmPassword}
             onChange={handleChange}
             placeholder="Confirmer"
-          />
-        </div>
-        <button type="submit">Submit</button>
+          /></label>
+
+
+        <button onClick={handleSubmit} className="btn bg-green-600 text-white" type="submit">Submit</button>
+        </>}
       </form>
-    </div>
+      {stepBienvenue && 
+      <div>
+        <h3>Merci pour votre inscription !</h3>
+        <button onClick={() => {location.reload()}} className="btn">Continuer sur le site</button>
+      </div>
+      }
+      </div>
+
   );
 }

@@ -357,3 +357,20 @@ export const queryCreateTraining =
     id
   }
 }`
+
+
+export const queryDeleteTraining =
+`mutation Mutation($deleteTrainingId: ID!) {
+  deleteTraining(id: $deleteTrainingId)
+}`
+
+export const queryGetInformationSiret = 
+`query Siret($siret: String!) {
+  siret(siret: $siret) {
+    siretFound
+    name
+    address
+    postalCode
+    city
+  }
+}`
