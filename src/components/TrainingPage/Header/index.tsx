@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { associateMemberTraining } from "../../../utils";
-import "./style.scss";
-import { useAppSelector } from "../../../store/redux-hook/hook";
-
+import React, { useEffect, useState } from 'react';
+import { associateMemberTraining } from '../../../utils';
+import './style.scss';
+import { useAppSelector } from '../../../store/redux-hook/hook';
 
 export default function HeaderTrainingPage({ data }) {
     const [isAssociateToFavorite, setIsAssociateToFavoris] = useState(false);
@@ -11,10 +10,9 @@ export default function HeaderTrainingPage({ data }) {
     const user = useAppSelector(state => state.token.user);
     const idMember = user.id;
 
-    
     useEffect(() => {
-        setIsMember(user.member)
-    }, [user.member])
+        setIsMember(user.member);
+    }, [user.member]);
 
     const addTrainingToFavorite = e => {
         const trainingId = e.target.id;
@@ -22,9 +20,8 @@ export default function HeaderTrainingPage({ data }) {
         setIsAssociateToFavoris(true);
     };
 
-
-    let ArrayReview: [] = [];
-    data.reviews.forEach((element) => {
+    const ArrayReview: [] = [];
+    data.reviews.forEach(element => {
         ArrayReview.push(element.rating);
     });
 
@@ -56,25 +53,24 @@ export default function HeaderTrainingPage({ data }) {
                     {data.label}
                 </h1>
                 {data.reviews.length > 0 ? (
-                    <div className="container-star">
-                        <span className="note">{averageRating} </span>
-                        {[1, 2, 3, 4, 5].map(index => (
-                            <i
-                                key={index}
+                    <div className="rating rating-md flex items-center">
+                        <h5 className="ml-1">{averageRating}</h5>
+                        {[...Array(5)].map((_, i) => (
+                            <input
+                                key={i}
                                 className={
-                                    averageRating >= index
-                                        ? 'star yellow icon'
-                                        : 'star icon'
+                                    averageRating >= i + 1
+                                        ? 'mask mask-star-2 bg-orange-400 cursor-default'
+                                        : "mask mask-star-2 bg-orange-400' checked cursor-default"
                                 }
-                            ></i>
+                                disabled
+                            ></input>
                         ))}
-                        <span className="number-avis">
-                            ({data.reviews.length})
-                        </span>
+                        <span className="m-2">({data.reviews.length})</span>
                     </div>
                 ) : (
                     <div>
-                        <p>Pas de commentaire</p>
+                        <p>Il n'y pas encore d'avis.</p>
                     </div>
                 )}
                 <p className="header-trainingpage-containerText-p">
