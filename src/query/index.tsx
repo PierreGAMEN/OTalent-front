@@ -3,6 +3,7 @@ query Category($categoryId: ID!) {
   category(id: $categoryId) {
     trainings {
       duration
+      price
       id
       image
       label
@@ -27,6 +28,7 @@ query Trainings {
       id
       label
       duration
+      price
       image
       organization {
         name
@@ -40,10 +42,9 @@ query Trainings {
         rating
       }
     }
-  }`
+  }`;
 
-export const queryOneOrganization = 
-`query Organization($organizationId: ID!) {
+export const queryOneOrganization = `query Organization($organizationId: ID!) {
   organization(id: $organizationId) {
     address
     city
@@ -59,6 +60,7 @@ export const queryOneOrganization =
       id
       label
       duration
+      price
       image
       organization {
         name
@@ -73,10 +75,9 @@ export const queryOneOrganization =
       }
     }
   }
-}`
+}`;
 
-export const queryOneTraining = 
-`query Training($trainingId: ID!) {
+export const queryOneTraining = `query Training($trainingId: ID!) {
   training(id: $trainingId) {
     averageRating
     category {
@@ -86,6 +87,7 @@ export const queryOneTraining =
     description
     dates
     duration
+    price
     excerpt
     id
     image
@@ -112,16 +114,15 @@ export const queryOneTraining =
       rating
     }
   }
-}`
+}`;
 
-export const queryAllCategories = 
-`query Categories {
+export const queryAllCategories = `query Categories {
   categories {
     label
     id
   }
 }
-`
+`;
 
 export const queryOneMember = `
   query Member($memberId: ID!) {
@@ -151,6 +152,7 @@ export const queryOneMember = `
         id
         label
         duration
+        price
         image
         organization {
           name
@@ -168,43 +170,35 @@ export const queryOneMember = `
   }
 `;
 
-export const queryFavoritesCategories = 
-`query Member($memberId: ID!) {
+export const queryFavoritesCategories = `query Member($memberId: ID!) {
   member(id: $memberId) {
     categories {
       label
       id
     }
   }
-}`
+}`;
 
-
-export const queryDissociateMemberTraining = 
-`mutation Mutation($memberId: ID!, $trainingId: ID!) {
+export const queryDissociateMemberTraining = `mutation Mutation($memberId: ID!, $trainingId: ID!) {
   dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
-}`
+}`;
 
-export const queryAssociateMemberTraining = 
-`mutation Mutation($memberId: ID!, $trainingId: ID!) {
+export const queryAssociateMemberTraining = `mutation Mutation($memberId: ID!, $trainingId: ID!) {
   associateMemberTraining(memberId: $memberId, trainingId: $trainingId)
-}`
+}`;
 
-export const queryDissociateMemberCategory =
-`
+export const queryDissociateMemberCategory = `
 mutation Mutation($memberId: ID!, $categoryId: ID!) {
   dissociateMemberCategory(memberId: $memberId, categoryId: $categoryId)
-}`
+}`;
 
-export const queryModifyReview = 
-`mutation ModifyReview($modifyReviewId: ID!, $input: ReviewInput!) {
+export const queryModifyReview = `mutation ModifyReview($modifyReviewId: ID!, $input: ReviewInput!) {
   modifyReview(id: $modifyReviewId, input: $input) {
     comment
   }
-}`
+}`;
 
-
-export const queryAddReview = 
-`mutation AddReview($input: ReviewInput!) {
+export const queryAddReview = `mutation AddReview($input: ReviewInput!) {
   addReview(input: $input) {
     comment
     id
@@ -216,34 +210,30 @@ export const queryAddReview =
       lastname
     }
   }
-}`
+}`;
 
-
-export const queryLogin =
-`mutation Login($email: String!, $password: String!) {
+export const queryLogin = `mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
     token
   }
-}`
+}`;
 
-export const queryCategories = 
-`query Categories {
+export const queryCategories = `query Categories {
   categories {
     id
     label
-  }`
+  }`;
 
-  export const queryAddOrganization = 
-  `
+export const queryAddOrganization = `
   mutation Mutation($input: OrganizationInput!) {
     addOrganization(input: $input) {
       name
       id
     }
   }
-`
+`;
 
-export const  queryAddMember = `
+export const queryAddMember = `
 mutation Mutation($input: MemberInput!) {
   addMember(input: $input) {
     firstname
@@ -252,24 +242,22 @@ mutation Mutation($input: MemberInput!) {
     lastname
   }
 }
-`
+`;
 
-export const deleteMember = 
-`
+export const deleteMember = `
 mutation Mutation($deleteMemberId: ID!) {
   deleteMember(id: $deleteMemberId)
 }
-`
+`;
 
-export const queryUpdateMemberInformation = 
-`mutation Mutation($modifyMemberId: ID!, $input: MemberInput!) {
+export const queryUpdateMemberInformation = `mutation Mutation($modifyMemberId: ID!, $input: MemberInput!) {
   modifyMember(id: $modifyMemberId, input: $input) {
     email
     lastname
     firstname
     id
   }
-}`
+}`;
 
 export const queryOrganizationInformation = `
 query Organization($organizationId: ID!) {
@@ -290,6 +278,7 @@ query Organization($organizationId: ID!) {
       label
       price
       duration
+      price
       dates
       excerpt
       prerequisites
@@ -304,10 +293,9 @@ query Organization($organizationId: ID!) {
       }
     }
   }
-}`
+}`;
 
-export const queryUpdateOrganizationInformation =
-`mutation Mutation($modifyOrganizationId: ID!, $input: OrganizationInput!) {
+export const queryUpdateOrganizationInformation = `mutation Mutation($modifyOrganizationId: ID!, $input: OrganizationInput!) {
   modifyOrganization(id: $modifyOrganizationId, input: $input) {
     postal_code
     phone_number
@@ -374,3 +362,4 @@ export const queryGetInformationSiret =
     city
   }
 }`
+

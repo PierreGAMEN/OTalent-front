@@ -1,18 +1,21 @@
-import { useState } from "react";
-import TrainingCard from "../../../HomePage/TrainingCard";
-import { dissociateMemberTraining } from "../../../../utils";
+import { useState } from 'react';
+import TrainingCard from '../../../HomePage/TrainingCard';
+import { dissociateMemberTraining } from '../../../../utils';
 
 export default function FavoritesEditProfilPageMember({ data }) {
-    
-    const [favoritesTrainings, setFavoritesTrainings] = useState(data.trainings);
+    const [favoritesTrainings, setFavoritesTrainings] = useState(
+        data.trainings
+    );
 
-    const deleteFavorite = (e) => {
+    const deleteFavorite = e => {
         const idTraining = e.target.id;
-        const idMember = data.id
-        const newFavoriteTrainings = favoritesTrainings.filter(training => training.id !== idTraining);
+        const idMember = data.id;
+        const newFavoriteTrainings = favoritesTrainings.filter(
+            training => training.id !== idTraining
+        );
         setFavoritesTrainings(newFavoriteTrainings);
-        dissociateMemberTraining(idMember, idTraining)
-    }
+        dissociateMemberTraining(idMember, idTraining);
+    };
 
     return (
         <>
@@ -20,23 +23,26 @@ export default function FavoritesEditProfilPageMember({ data }) {
             <section className="content-organizationPage-trainings">
                 {favoritesTrainings.map(training => (
                     <div key={training.id}>
-                        <TrainingCard 
+                        <TrainingCard
                             key={training.id}
-                            label={training.label} 
-                            dateCreated={""} 
-                            duration={training.duration} 
-                            category={training.category.label} 
+                            label={training.label}
+                            dateCreated={''}
+                            duration={training.duration}
+                            price={training.price}
+                            category={training.category.label}
                             image={training.image}
-                            categoryId={training.category.id} 
+                            categoryId={training.category.id}
                             organization={training.organization.name}
                             trainingId={training.id}
                             organizationId={training.organization.id}
                             reviews={training.reviews}
                         />
-                        <button onClick={deleteFavorite} id={training.id}>Retirer des favoris</button>
+                        <button onClick={deleteFavorite} id={training.id}>
+                            Retirer des favoris
+                        </button>
                     </div>
                 ))}
             </section>
         </>
-    )
+    );
 }

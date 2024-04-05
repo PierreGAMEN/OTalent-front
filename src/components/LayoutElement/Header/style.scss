@@ -1,34 +1,31 @@
 @import '../../../style/variables.scss';
 
-.headerApp {
-    display: flex;
-    align-items: center;
-    min-height: 10vh;
-    width: 100vw;
-    padding: 1vh;
-    position: sticky;
-    top: 0;
-    background-color: $background-primary-color;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    z-index: 1;
-    padding-right: 5vw;
+// .headerApp {
+//     display: flex;
+//     align-items: center;
+//     min-height: 10vh;
+//     width: 100vw;
+//     padding: 1vh;
+//     position: sticky;
+//     top: 0;
+//     background-color: $background-primary-color;
+//     justify-content: space-between;
+//     flex-wrap: wrap;
+//     z-index: 1;
+//     padding-right: 5vw;
 
-    h1 {
-        flex-grow: 1;
-        margin: auto;
-        color: $text-color-with-primary-background;
-    }
-   
- 
-    }
-    
+//     h1 {
+//         flex-grow: 1;
+//         margin: auto;
+//         color: $text-color-with-primary-background;
+//     }
 
-    button {
-        margin: 1rem;
-        background-color: $button-color;
-        border: none;
-        color:$text-color-with-primary-background;
-        cursor: pointer;
-    }
+//     }
 
+//     button {
+//         margin: 1rem;
+//         background-color: $button-color;
+//         border: none;
+//         color:$text-color-with-primary-background;
+//         cursor: pointer;
+//     }

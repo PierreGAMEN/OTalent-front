@@ -39,7 +39,6 @@ export default function SearchPage() {
 
     return (
         <>
-        
             <div className="container-search">
                 {categorie && term && (
                     <h2>
@@ -71,6 +70,7 @@ export default function SearchPage() {
                                 label={training.label}
                                 dateCreated={''}
                                 duration={training.duration}
+                                price={training.price}
                                 category={training.category.label}
                                 image={training.image}
                                 categoryId={training.category.id}
@@ -97,6 +97,7 @@ export default function SearchPage() {
                                     label={training.label}
                                     dateCreated={''}
                                     duration={training.duration}
+                                    price={training.price}
                                     category={training.category.label}
                                     image={training.image}
                                     categoryId={training.category.id}
@@ -119,6 +120,7 @@ export default function SearchPage() {
                                     label={training.label}
                                     dateCreated={''}
                                     duration={training.duration}
+                                    price={training.price}
                                     category={training.category.label}
                                     image={training.image}
                                     categoryId={training.category.id}
