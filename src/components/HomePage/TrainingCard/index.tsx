@@ -92,8 +92,8 @@ export default function TrainingCard({
                                             key={i}
                                             className={
                                                 averageRating >= i + 1
-                                                    ? 'mask mask-star-2 bg-orange-400'
-                                                    : "mask mask-star-2 bg-orange-400' checked"
+                                                    ? 'mask mask-star-2 bg-orange-400 cursor-default'
+                                                    : "mask mask-star-2 bg-orange-400' checked cursor-default"
                                             }
                                             disabled
                                         ></input>

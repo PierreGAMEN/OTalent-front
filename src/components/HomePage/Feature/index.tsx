@@ -1,5 +1,4 @@
 import FeatureCard from './FeatureCard';
-import './style.scss';
 
 export default function Feature() {
     const data = [
