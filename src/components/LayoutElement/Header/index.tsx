@@ -7,8 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../../store/redux-hook/hook';
 
 import { getTokenInformation } from '../../../store/actions/tokenActions';
 import { getCategories } from '../../../store/actions/categoriesActions';
-import { requestWithoutVariable } from '../../../utils';
-import { queryAllCategories, queryCategories } from '../../../query';
+import { requestWithVariable, requestWithoutVariable } from '../../../utils';
+import { queryAllCategories, queryCategories, queryNameMember, queryNameOrganization } from '../../../query';
 
 import Navbar from './ModalProfile';
 import NewModalConnexion from './ModalFormConnexion/newModal';
@@ -19,6 +19,8 @@ import OtalentLogo from '/src/assets/otalent.svg';
 export default function Header() {
     const dispatch = useAppDispatch();
     const [isConnected, setIsConnected] = useState(false);
+    const userInfo = useAppSelector((state) => state.token.user)
+    
 
     const getAllCategories = async () => {
         try {
@@ -39,6 +41,9 @@ export default function Header() {
             setIsConnected(true);
         }
     };
+
+    
+    
 
     useEffect(() => {
         dispatchTokenInformation();

@@ -43,15 +43,19 @@ const ResetPassword = () => {
             <h4>Vous avez oublié votre mot de passe ?</h4>
             <div className="divider"></div>
         <label className="input input-bordered flex items-center gap-4 mb-5" htmlFor="">Mot de passe : 
-        <input onChange={(e) => {handleChange(e, setPassword)}} type="email" value={newPassword}/>
+        <input className="" onChange={(e) => {handleChange(e, setPassword)}} type="email" value={newPassword}/>
         </label>
         <label className="input input-bordered flex items-center gap-4 mb-5" htmlFor="">Confirmer votre mot de passe : 
         <input onChange={(e) => {handleChange(e, setConfirmNewPassword)}} type="email" value={confirmNewPassword}/>
         </label>
         <button onClick={handleSubmit} className="btn bg-green-600 text-white">Changer votre mot de passe</button>
         </form>
+        <div className="divider"></div> 
+            <h4>O'Talent vous recommande</h4>
+            <div className="w-[100px] h-[100px] border"></div>
+        </div>
 
-    </div>
+ 
 }
 
 export default ResetPassword
