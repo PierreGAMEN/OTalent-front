@@ -107,9 +107,13 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
 
     return (
         
-         <div className="container-header-EditProfilPage">
-            <div>
-                <img src={data.avatar} alt="" />
+         <div className="p-10">
+            <div className='w-full mt-5 flex items-center mb-10'>
+                <div className='flex w-24 h-24 rounded-full border bg-primary-color text-white text-xl items-center'>
+                    {data.avatar && <img  src={data.avatar} alt="" />}
+                    {!data.avatar && <p className=''>{`${data.firstname[0]}${data.lastname[0]}`}</p>}
+                </div>
+                <p className='ml-5 text-xl'>Bonjour {`${data.firstname} ${data.lastname}`}</p>
             </div>
             <div className="">
                 <button
@@ -118,7 +122,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                     }}
                 >
                     Edit
-                </button>
+                </button>https://daisyui.com/components/badge/
                 <button
                     onClick={() => {
                         setIsEdit(false);
