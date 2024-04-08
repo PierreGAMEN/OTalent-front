@@ -44,7 +44,7 @@ export default function ContentTrainingPage ({ data }: { data: TrainingDataI }) 
         <div className="content-trainingpage-text">
         {isProgram && 
         <>
-        <h2>Description</h2>
+        <h3>Description</h3>
         <p className="content-trainingpage-text-p">{data.description}</p>
         <h2>Programme</h2>
         <ul>
@@ -55,7 +55,7 @@ export default function ContentTrainingPage ({ data }: { data: TrainingDataI }) 
         </>}
         {isDuration && 
         <>
-        <h2>Durée de la formation</h2>
+        <h3>Durée de la formation</h3>
         <p className="content-trainingpage-text-p">Temps de formation : {data.duration} heures</p>
         <h2>Date de la prochaine session</h2>
         <p className="content-trainingpage-text-p">Date de début : {handleDateFormat(data.dates[0])}</p>
@@ -78,7 +78,7 @@ export default function ContentTrainingPage ({ data }: { data: TrainingDataI }) 
         </div>}
         {isPrerequisite &&
         <>
-        <h2>Prérequis</h2>
+        <h3>Prérequis</h3>
         <ol>
         {JSON.parse(data.prerequisites).map((element: any)  => (
         <li key={element} className="content-trainingpage-text-p">{element}</li>
