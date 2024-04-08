@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="dropdown dropdown-end flex justify-center items-center">
             <div>
                {isMember && <p className="text-white p-5">{userInformation.member && userInformation.member.firstname}</p>}
-               {!isMember && <p className="text-white p-5">{userInformation.prganization && userInformation.organization.name}</p>}
+               {!isMember && <p className="text-white p-5">{userInformation.organization && userInformation.organization.name}</p>}
             </div>
             <div
                 tabIndex={0}
