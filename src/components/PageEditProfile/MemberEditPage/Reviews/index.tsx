@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { deleteReview, modifyReview } from "../../../../utils";
+import { deleteReview, modifyReview, requestWithVariable } from "../../../../utils";
+import { queryDeleteReview } from "../../../../query";
 
 export default function ReviewsEditProfilPageMember({ data }) {
   const [memberReviews, setMemberReviews] = useState(data.reviews);
@@ -7,10 +8,14 @@ export default function ReviewsEditProfilPageMember({ data }) {
 
 
 
-  const deleteComment = (idToDelete) => {
+  const deleteComment = async(idToDelete) => {
     const newComments = memberReviews.filter((comment) => comment.id !== idToDelete);
     setMemberReviews(newComments);
-    deleteReview(idToDelete);
+    const variables= {
+      deleteReviewId: idToDelete
+    }
+    await requestWithVariable(queryDeleteReview, variables)
+    // deleteReview(idToDelete);
   };
 
   const handleChange = (e, id) => {

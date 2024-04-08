@@ -390,3 +390,10 @@ query Query($organizationId: ID!) {
   }
 }
 `
+
+export const queryDeleteReview = 
+`
+mutation DeleteReview($deleteReviewId: ID!) {
+  deleteReview(id: $deleteReviewId)
+}
+`
