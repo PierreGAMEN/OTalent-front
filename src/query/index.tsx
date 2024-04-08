@@ -105,6 +105,7 @@ export const queryOneTraining = `query Training($trainingId: ID!) {
     reviews {
       comment
       id
+      created_at
       member {
         id
         firstname
@@ -304,10 +305,9 @@ export const queryUpdateOrganizationInformation = `mutation Mutation($modifyOrga
     email
   }
 }
-`
+`;
 
-export const queryTrainingInformation =
-`
+export const queryTrainingInformation = `
 query Training($trainingId: ID!) {
   training(id: $trainingId) {
     id
@@ -326,34 +326,29 @@ query Training($trainingId: ID!) {
       label
     }
   }
-}`
+}`;
 
-export const queryUpdateTrainingInformations =
-`
+export const queryUpdateTrainingInformations = `
 mutation Mutation($modifyTrainingId: ID!, $input: TrainingInput!) {
   modifyTraining(id: $modifyTrainingId, input: $input) {
     id
     label
   }
 }
-`
+`;
 
-export const queryCreateTraining = 
-`mutation AddTraining($input: TrainingInput!) {
+export const queryCreateTraining = `mutation AddTraining($input: TrainingInput!) {
   addTraining(input: $input) {
     label
     id
   }
-}`
+}`;
 
-
-export const queryDeleteTraining =
-`mutation Mutation($deleteTrainingId: ID!) {
+export const queryDeleteTraining = `mutation Mutation($deleteTrainingId: ID!) {
   deleteTraining(id: $deleteTrainingId)
-}`
+}`;
 
-export const queryGetInformationSiret = 
-`query Siret($siret: String!) {
+export const queryGetInformationSiret = `query Siret($siret: String!) {
   siret(siret: $siret) {
     siretFound
     name
@@ -361,5 +356,4 @@ export const queryGetInformationSiret =
     postalCode
     city
   }
-}`
-
+}`;
