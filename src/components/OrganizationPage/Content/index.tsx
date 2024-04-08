@@ -43,7 +43,7 @@ export default function ContentOrganizationProfilPage({ data }) {
             <section className="content-organizationPage-text">
                 {isDescription && (
                     <>
-                        <h2>Description de l'école</h2>
+                        <h3>Description de l'école</h3>
                         <p>{data.description}</p>
                     </>
                 )}
