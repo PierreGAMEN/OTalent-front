@@ -13,199 +13,169 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
     const [selectedNote, setNoteSelected] = useState('');
     const [comment, setComment] = useState('');
     const [currentComment, setCurrentComment] = useState(data.reviews);
+    const [activeStar, setActiveStar] = useState(0);
 
     const user = useAppSelector(state => state.token.user);
 
-    const openModalAddComment = () => {
-        setModalAddCommentIsOpen(true);
+    const handleDateFormat = (date: string) => {
+        const dateObj = new Date(date);
+        const options: {} = { day: '2-digit', month: 'long', year: 'numeric' };
+        const formattedDate = dateObj.toLocaleDateString('fr-FR', options);
+        return formattedDate;
     };
-
     const onChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = e.target.value;
         setComment(value);
     };
 
-    const handleChangeNote = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = e.target.value;
-        setNoteSelected(value);
+    const handleStarClick = (star: number) => {
+        setActiveStar(star);
+        setNoteSelected(String(star));
     };
 
     const addComment = async () => {
-
         const variables = {
             input: {
-            comment: comment,
-            memberId: user.id,
-            rating: selectedNote,
-            trainingId: data.id
-            }
+                comment: comment,
+                memberId: user.id,
+                rating: selectedNote,
+                trainingId: data.id,
+            },
         };
 
         // Attention mettre la fonction dans un useState
-        
-        const response = await requestWithVariable(queryAddReview, variables)
-        const newcomment = response.data
-        console.log(newcomment)
+        const newcomment = await requestWithVariable(queryAddReview, variables);
+        console.log(newcomment);
+
         setCurrentComment([newcomment.addReview, ...currentComment]);
         setComment('');
         setNoteSelected('');
     };
 
-
     return (
-        <section className="reviews-section">
-            <h2 className="reviews-section-title">
-                Ce qu'en pense la communauté
-            </h2>
-            {user.id !== null && user.member === true && <button
-                onClick={openModalAddComment}
-                className="reviews-section-button"
-            >
-                Je donne mon avis
-            </button>}
+        <section className="flex flex-col items-center justify-center">
+            <h3>Ce qu'en pense la communauté</h3>
+            {user.id !== null && user.member === true && (
+                <div>
+                    <button
+                        onClick={() =>
+                            document.getElementById('my_modal_1').showModal()
+                        }
+                        className="bg-primary-color text-white w-fit p-2 rounded-md hover:bg-transparent border-4 border-primary-color hover:text-primary-color"
+                    >
+                        <h5 className="text-2xl flex flex-row justify-center gap-2 items-center">
+                            Je donne mon avis
+                        </h5>
+                    </button>
+                    <dialog id="my_modal_1" className="modal">
+                        <div className="modal-box flex flex-col gap-5">
+                            <h4 className="font-bold text-lg">
+                                Votre évaluation :
+                            </h4>
+                            <div className="rating">
+                                {[1, 2, 3, 4, 5].map(star => (
+                                    <input
+                                        type="radio"
+                                        name="rating-2"
+                                        className={`mask mask-star-2 ${
+                                            star <= activeStar
+                                                ? 'bg-orange-400'
+                                                : 'bg-gray-300'
+                                        }`}
+                                        checked={star === activeStar}
+                                        onChange={() => handleStarClick(star)}
+                                    />
+                                ))}
+                            </div>
+                            <textarea
+                                className="textarea textarea-bordered"
+                                placeholder="Votre commentaire"
+                                value={comment}
+                                onChange={e => onChangeComment(e)}
+                            ></textarea>
+                            <div className="modal-action">
+                                <form
+                                    method="dialog"
+                                    className="flex flex-row justify-between w-full"
+                                >
+                                    <button className="btn">Fermer</button>
+                                    <button
+                                        onClick={addComment}
+                                        className="rounded-xl p-3 bg-primary-color text-white border-2 border-primary-color hover:bg-transparent hover:text-primary-color"
+                                    >
+                                        Ajouter le commentaire
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
+                </div>
+            )}
 
-            {
-                user.id === null && user.member === null && 
-                <div className='p-10 text-center text-l border border-gray-300 bg-yellow-100 w-[90%] m-auto mb-5'>Vous devez vous connecter pour pouvoir commenter</div>
-            }
-            
-
-            {modalAddCommentIsOpen && (
-                <div className="modal-add-comment">
-                    <div className="modal-add-comment-input">
-                        <label
-                            className="modal-add-comment-input-label"
-                            htmlFor="note"
-                        >
-                            Attribuez une note :{' '}
-                        </label>
-                        <select
-                            value={selectedNote}
-                            onChange={handleChangeNote}
-                            name="note"
-                            id=""
-                        >
-                            <option value="">
-                                --Please choose an option--
-                            </option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-
-                    <div className="modal-add-comment-input">
-                        <label
-                            className="modal-add-comment-input-label"
-                            htmlFor="comment"
-                        >
-                            Commentaire
-                        </label>
-                        <textarea
-                            onChange={e => onChangeComment(e)}
-                            value={comment}
-                            placeholder="Notez votre commentaire ici"
-                            name="comment"
-                            id=""
-                            cols={40}
-                            rows={10}
-                        ></textarea>
-                    </div>
-
-                    <div className="modal-add-comment-button">
-                        <button
-                            onClick={addComment}
-                            className="modal-add-comment-button-button"
-                        >
-                            Ajouter le commentaire
-                        </button>
-                        <button
-                            className="modal-add-comment-button-button"
-                            onClick={() => {
-                                setModalAddCommentIsOpen(false);
-                            }}
-                        >
-                            Fermer l'espace commentaire
-                        </button>
-                    </div>
+            {user.id === null && user.member === null && (
+                <div className="p-10 text-center text-l border border-gray-300 bg-yellow-100 w-[90%] m-auto mb-5">
+                    Vous devez vous connecter pour pouvoir commenter
                 </div>
             )}
 
             {currentComment.length > 0 && (
-                <>
-                    {currentComment.map((review, index) => (
-                        <div
-                            className={`review ${
-                                index === 0 ? 'first-review' : ''
-                            }`}
-                            key={review.id}
-                        >
-                            <div className="review-containerImage">
-                                {review.member.avatar ? (
+                <div className="flex flex-col md:flex-row gap-5 flex-wrap justify-center m-5">
+                    {currentComment.map((review, index) => {
+                        return (
+                            <div
+                                className={`justify-start items-start w-full lg:w-1/4 gap-5 p-5 rounded-2xl border-4 border-primary-color ${
+                                    index % 2 === 0
+                                        ? 'bg-secondary-color'
+                                        : 'bg-transparent'
+                                }`}
+                                key={review.id}
+                            >
+                                <div className="flex flex-col lg:flex-row">
                                     <img
-                                        className="review-containerImage-image"
+                                        className="w-20 h-20 rounded-full border-4 border-primary-color"
                                         src={review.member.avatar}
-                                        alt=""
+                                        alt="Avatar"
                                     />
-                                ) : (
-                                    <div className="review-containerImage-image">
-                                        {review.member.firstname.charAt(0)}
+                                    <div className="flex flex-col justify-center items-start pl-2">
+                                        <h5 className="text-center">
+                                            {review.member.firstname}
+                                        </h5>
+                                        <p>
+                                            Le{' '}
+                                            {handleDateFormat(
+                                                review.created_at || Date.now()
+                                            )}
+                                        </p>
+                                        <div className="flex flex-col justify-center items-center">
+                                            <div className="rating rating-md flex items-center">
+                                                <h5 className="mr-1">
+                                                    {review.rating}/5
+                                                </h5>
+                                                {[...Array(5)].map((_, i) => (
+                                                    <input
+                                                        key={i}
+                                                        className={
+                                                            review.rating >=
+                                                            i + 1
+                                                                ? 'mask mask-star-2 bg-orange-400 cursor-default'
+                                                                : "mask mask-star-2 bg-orange-400' checked bg-gray-300 cursor-default"
+                                                        }
+                                                        disabled
+                                                    ></input>
+                                                ))}
+                                            </div>
+                                        </div>
                                     </div>
-                                )}
-                            </div>
-                            <div className="review-containerText">
-                                <span>{review.rating} </span>
-                                <i
-                                    className={
-                                        review.rating >= 1
-                                            ? 'star yellow icon'
-                                            : 'star icon'
-                                    }
-                                ></i>
-                                <i
-                                    className={
-                                        review.rating >= 2
-                                            ? 'star yellow icon'
-                                            : 'star icon'
-                                    }
-                                ></i>
-                                <i
-                                    className={
-                                        review.rating >= 3
-                                            ? 'star yellow icon'
-                                            : 'star icon'
-                                    }
-                                ></i>
-                                <i
-                                    className={
-                                        review.rating >= 4
-                                            ? 'star yellow icon'
-                                            : 'star icon'
-                                    }
-                                ></i>
-                                <i
-                                    className={
-                                        review.rating >= 5
-                                            ? 'star yellow icon'
-                                            : 'star icon'
-                                    }
-                                ></i>
-
-                                <p>
-                                    {review.member.firstname}{' '}
-                                    {review.member.lastname}
-                                </p>
-                                <p>
+                                </div>
+                                <p className="text-left m-5">
                                     {review.comment
                                         ? review.comment
                                         : 'Pas de commentaire disponible sur cet avis'}
                                 </p>
                             </div>
-                        </div>
-                    ))}
-                </>
+                        );
+                    })}
+                </div>
             )}
             {currentComment.length < 1 && (
                 <p>Il n'y a pas encore de commentaire sur cette formation</p>

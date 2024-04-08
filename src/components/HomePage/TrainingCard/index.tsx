@@ -86,14 +86,16 @@ export default function TrainingCard({
                         <div>
                             {!isNaN(averageRating) ? (
                                 <div className="rating rating-md flex items-center">
-                                    <h5 className="ml-1">{averageRating}</h5>
+                                    <h5 className="ml-1 mr-1">
+                                        {averageRating}/5
+                                    </h5>
                                     {[...Array(5)].map((_, i) => (
                                         <input
                                             key={i}
                                             className={
                                                 averageRating >= i + 1
                                                     ? 'mask mask-star-2 bg-orange-400 cursor-default'
-                                                    : "mask mask-star-2 bg-orange-400' checked cursor-default"
+                                                    : "mask mask-star-2 bg-orange-400' checked bg-gray-300 cursor-default"
                                             }
                                             disabled
                                         ></input>
