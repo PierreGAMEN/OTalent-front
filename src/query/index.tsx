@@ -373,3 +373,20 @@ mutation Mutation($updatedPassword: String!) {
   resetPassword(updatedPassword: $updatedPassword)
 }
 `
+
+export const queryNameMember = `
+query Query($memberId: ID!) {
+  member(id: $memberId) {
+    firstname
+    lastname
+  }
+}
+`
+
+export const queryNameOrganization = `
+query Query($organizationId: ID!) {
+  organization(id: $organizationId) {
+    name
+  }
+}
+`
