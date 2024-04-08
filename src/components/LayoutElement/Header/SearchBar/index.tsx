@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import './style.scss';
 import { NavLink } from 'react-router-dom';
-import {
-    useAppDispatch,
-    useAppSelector,
-} from '../../../../store/redux-hook/hook';
-import { getCategories } from '../../../../store/actions/categoriesActions';
-import { requestWithoutVariable } from '../../../../utils';
-import { queryCategories } from '../../../../query';
+import { useAppSelector } from '../../../../store/redux-hook/hook';
 
 interface Category {
     label: string;

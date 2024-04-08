@@ -166,7 +166,8 @@ export default function FormOrganization(): JSX.Element {
     const variables = {
       siret: formValues.siret
     }
-    const response = await requestWithVariable(queryGetInformationSiret,variables)
+    const responseWithError = await (requestWithVariable(queryGetInformationSiret,variables))
+    const response = responseWithError.data
     setSiretInformation(response)
     if(response && response.siret !== null) {
       setStep2(true)

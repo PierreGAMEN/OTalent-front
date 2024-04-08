@@ -25,28 +25,47 @@ export default function Navbar() {
         }
     };
 
-    const getMemberInformation = async () => {
-        if(user.member === true) {
-            const variables = {
-                memberId: user.id
-        } 
-           const userInfo = await requestWithVariable(queryNameMember, variables)
-            setUserInformation(userInfo)
-
-    }
-        if(user.member === false) {
-            const variables = {
-                organizationId: user.id
-            }
-            const userInfo = await requestWithVariable(queryNameOrganization, variables)
-            setUserInformation(userInfo)
-        }
+    const getUserInformation = async () => {
+        try {
+          let variables;
+          let query;
+      
+          if (user.member === true) {
+            variables = { memberId: user.id };
+            query = queryNameMember;
+          } else {
+            variables = { organizationId: user.id };
+            query = queryNameOrganization;
+          }
+      
+          const responseWithErrors = await requestWithVariable(query, variables);
+      
+          
+          if (responseWithErrors.errors && responseWithErrors.errors.length > 0) {
+            const errorMessage = responseWithErrors.errors[0].message;
+            if (errorMessage === "Invalid token") {
+       
+              localStorage.clear();
         
+              setUser(null);
+       
+              return;
+            }
+          }
+     
+          const userInfo = responseWithErrors.data;
+          setUserInformation(userInfo);
+        } catch (error) {
+          console.error('Erreur lors de la récupération des informations utilisateur :', error);
+      
         }
+      };
+      
+
 
     useEffect(() => {
         checkIsOrganization();
-        getMemberInformation()
+        getUserInformation()
         console.log(userInformation)
     }, [user.id]);
 

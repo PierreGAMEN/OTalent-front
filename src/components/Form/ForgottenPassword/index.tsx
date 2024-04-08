@@ -21,7 +21,7 @@ export const ForgottenPassword = () => {
         }
 
        const response = await requestWithVariable(querySendEmailToRecoverPassword ,variables)
-       if(response.requestPasswordReset === null) {
+       if(response.data.requestPasswordReset === null) {
         toast.error("Nous n'avons pas pu retrouvé votre email en base de données")
        }
     }
