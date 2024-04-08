@@ -41,8 +41,10 @@ export default function FormMember() {
   
 
     try {
-        await requestWithVariable(queryAddMember, variables);
-        toast.success("Le formulaire a été soumis avec succès !");
+        const response = await requestWithVariable(queryAddMember, variables);
+        if(response.errors[0].message === 'duplicate key value violates unique constraint "member_email_key"')
+        {toast.error('Oups, votre adresse est déjà utilisée.');}
+        console.log(response.errors[0].message)
         await login()
         return true;
     } catch (error) {

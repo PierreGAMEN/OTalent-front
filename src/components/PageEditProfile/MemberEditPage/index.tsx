@@ -25,7 +25,7 @@ export default function MemberEditPage () {
         }
         setScriptFinished(false)
         const response = await requestWithVariable(queryOneMember, variables)
-        setDataFetch(response)
+        setDataFetch(response.data)
         setScriptFinished(true)
     }
 
@@ -46,14 +46,6 @@ export default function MemberEditPage () {
        }
    }, [user.id, isMember]);
 
-        // useEffect(() => {
-        //     fetchData(queryOneMember, idMember, "memberId", setDataFetch, setIsLoading).then(() => setScriptFinished(true))
-           
-        // }, [idMember])
-
-        // if (!dataFetch || !dataFetch.member) {
-        //     return null; 
-        // }
     
 
         return (

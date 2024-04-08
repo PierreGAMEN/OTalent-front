@@ -77,7 +77,7 @@ const ModalTraining = () => {
         };
         setLoader(false);
         const response = await requestWithVariable(queryTrainingInformation, variables);
-        const training = response.training;
+        const training = response.data.training;
     
         let prerequisites = JSON.parse(training.prerequisites);
         let program = JSON.parse(training.program)
