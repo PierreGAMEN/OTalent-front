@@ -3,11 +3,15 @@ import { ChangeEvent, useEffect, useState } from "react"
 import { changePassword } from "../../utils"
 import { toast } from "react-toastify"
 import { querySendNewPassword } from "../../query"
+import { useAppDispatch } from "../../store/redux-hook/hook"
 
 const ResetPassword = () => {
 
     const [newPassword, setPassword] = useState('')
     const [confirmNewPassword, setConfirmNewPassword] = useState('')
+    const [buttonToAccesFormConnexion, setButtonToAccesFormConnexion] = useState(false)
+    const dispatch = useAppDispatch();
+    
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>, setter) => {
         const value = e.target.value;
@@ -19,13 +23,15 @@ const ResetPassword = () => {
         passwordAreSimilar()
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
-        console.log('Token:', token);
 
         const variables = {
             updatedPassword: newPassword
         }
         
-        changePassword(querySendNewPassword, variables, token)
+        await changePassword(querySendNewPassword, variables, token)
+        setButtonToAccesFormConnexion(true)
+
+
     }
 
     const passwordAreSimilar = () => {
@@ -39,7 +45,7 @@ const ResetPassword = () => {
 
     return <div>
 
-        <form className="modal-box">
+        {!buttonToAccesFormConnexion && <form className="modal-box">
             <h4>Vous avez oublié votre mot de passe ?</h4>
             <div className="divider"></div>
         <label className="input input-bordered flex items-center gap-4 mb-5" htmlFor="">Mot de passe : 
@@ -49,7 +55,14 @@ const ResetPassword = () => {
         <input onChange={(e) => {handleChange(e, setConfirmNewPassword)}} type="email" value={confirmNewPassword}/>
         </label>
         <button onClick={handleSubmit} className="btn bg-green-600 text-white">Changer votre mot de passe</button>
-        </form>
+        </form>}
+        {
+            buttonToAccesFormConnexion && 
+            <div>
+                <p>Vous pouvez vous connecter avec votre nouveau mot de passe</p>
+                <button  className="btn">Ouvrir le formulaire de connexion</button>
+                </div>
+        }
         <div className="divider"></div> 
             <h4>O'Talent vous recommande</h4>
             <div className="w-[100px] h-[100px] border"></div>
