@@ -43,7 +43,8 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
 
         // Attention mettre la fonction dans un useState
         
-        const newcomment = await requestWithVariable(queryAddReview, variables)
+        const response = await requestWithVariable(queryAddReview, variables)
+        const newcomment = response.data
         console.log(newcomment)
         setCurrentComment([newcomment.addReview, ...currentComment]);
         setComment('');

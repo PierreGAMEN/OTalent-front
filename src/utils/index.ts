@@ -282,8 +282,8 @@ export const requestWithVariable = async (query: string, variables: Variables ) 
       variables
     });
 
-    console.log('Réponse de l\'API:', response.data);
-    return response.data
+    console.log('Réponse de l\'API:', response);
+    return response
   } catch (error) {
     console.error('Erreur lors de l\'envoi des données:', error);
   }
@@ -295,8 +295,8 @@ export const requestWithoutVariable = async (query: string) : Promise<void> => {
       query
     });
 
-    console.log('Réponse de l\'API:', response.data);
-    return response.data
+    console.log('Réponse de l\'API:', response);
+    return response
   } catch (error) {
     console.error('Erreur lors de l\'envoi des données:', error);
   }

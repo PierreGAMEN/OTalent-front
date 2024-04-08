@@ -7,8 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../../store/redux-hook/hook';
 
 import { getTokenInformation } from '../../../store/actions/tokenActions';
 import { getCategories } from '../../../store/actions/categoriesActions';
-import { requestWithVariable, requestWithoutVariable } from '../../../utils';
-import { queryAllCategories, queryCategories, queryNameMember, queryNameOrganization } from '../../../query';
+import { requestWithoutVariable } from '../../../utils';
+import { queryAllCategories } from '../../../query';
 
 import Navbar from './ModalProfile';
 import NewModalConnexion from './ModalFormConnexion/newModal';
@@ -25,7 +25,7 @@ export default function Header() {
     const getAllCategories = async () => {
         try {
             const response = await requestWithoutVariable(queryAllCategories);
-            const fetchedCategories = response.categories || [];
+            const fetchedCategories = response.data.categories || [];
             dispatch(getCategories(fetchedCategories));
         } catch (error) {
             console.error('Error:', error);

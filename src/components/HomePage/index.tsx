@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react';
 import {
     fetchCategories,
     fetchData,
-    requestWithVariable,
-    requestWithoutVariable,
 } from '../../utils';
 import {
     queryAllTrainingCard,
@@ -14,7 +12,6 @@ import {
 } from '../../query';
 import { Loader } from 'semantic-ui-react';
 import Feature from './Feature';
-import SearchLandingPage from './SearchLandingPage';
 import { useAppSelector } from '../../store/redux-hook/hook';
 import Guide from './Guide';
 
@@ -59,25 +56,6 @@ export default function HomePage() {
             );
         }
     }, []);
-
-    // useEffect(() => {
-    //     getUserInformation()
-
-    //     setIsloading(true)
-    //     requestWithoutVariable(queryAllTrainingCard)
-
-    //     requestWithoutVariable(queryCategories)
-    //     setIsloading(false)
-
-    //     if(isMember) {
-    //         const variables = {
-    //             idMember: idMember
-    //         }
-    //         setIsloading(true)
-    //         requestWithVariable(queryFavoritesCategories, variables)
-    //         setIsloading(false)
-    //     }
-    // }, []);
 
     return (
         <main className="flex flex-col gap-20 mb-20">
