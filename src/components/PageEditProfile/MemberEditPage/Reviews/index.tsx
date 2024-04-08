@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { deleteReview, modifyReview, requestWithVariable } from "../../../../utils";
-import { queryDeleteReview } from "../../../../query";
+import { queryDeleteReview, queryModifyReview } from "../../../../query";
 
 export default function ReviewsEditProfilPageMember({ data }) {
   const [memberReviews, setMemberReviews] = useState(data.reviews);
@@ -15,10 +15,9 @@ export default function ReviewsEditProfilPageMember({ data }) {
       deleteReviewId: idToDelete
     }
     await requestWithVariable(queryDeleteReview, variables)
-    // deleteReview(idToDelete);
   };
 
-  const handleChange = (e, id) => {
+  const handleChange = async (e, id) => {
     const value = e.target.value;
 
     const updatedReviews = memberReviews.map((review) => {
@@ -38,22 +37,29 @@ export default function ReviewsEditProfilPageMember({ data }) {
 
   const saveChanges = async (id, newComment) => {
     try {
-      await modifyReview(id, { comment: newComment });
-     
+      const variables = {
+        modifyReviewId: id,
+        input: {
+          comment: newComment
+        }
+      };
+  
+      await requestWithVariable(queryModifyReview, variables);
+  
       const updatedReviews = memberReviews.map((review) => {
         if (review.id === id) {
           return { ...review, comment: newComment };
         }
         return review;
       });
+  
       setMemberReviews(updatedReviews);
- 
       setEditModeId(null);
     } catch (error) {
       console.error('Erreur lors de la modification du commentaire :', error);
-
     }
   };
+  
 
   return (
     <section>
