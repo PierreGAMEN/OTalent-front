@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../store/redux-hook/hook';
+import { requestWithVariable } from '../../../../utils';
+import { queryNameMember, queryNameOrganization } from '../../../../query';
 
 export default function Navbar() {
     const [isConnected, setIsConnected] = useState(false);
     const [isMember, setIsMember] = useState(false);
     const user = useAppSelector(state => state.token.user);
+    const [userInformation, setUserInformation] = useState({})
 
     // Gestionnaire de déconnexion
     const handleLogout = () => {
@@ -22,14 +25,42 @@ export default function Navbar() {
         }
     };
 
+    const getUserInformation = async () => {
+        try {
+          let variables;
+          let query;
+      
+          if (user.member === true) {
+            variables = { memberId: user.id };
+            query = queryNameMember;
+          } else {
+            variables = { organizationId: user.id };
+            query = queryNameOrganization;
+          }
+      
+          const responseWithErrors = await requestWithVariable(query, variables);
+      
+     
+          const userInfo = responseWithErrors.data;
+          setUserInformation(userInfo);
+        } catch (error) {
+          console.error('Erreur lors de la récupération des informations utilisateur :', error);
+      
+        }
+      };
+      
+
+
     useEffect(() => {
         checkIsOrganization();
-    });
+        getUserInformation()
+    }, [user.id, isMember]);
 
     return (
         <div className="dropdown dropdown-end flex justify-center items-center">
             <div>
-                <p className="text-white p-5">{user.id}</p>
+               {isMember && <p className="text-white p-5">{userInformation.member && userInformation.member.firstname}</p>}
+               {!isMember && <p className="text-white p-5">{userInformation.organization && userInformation.organization.name}</p>}
             </div>
             <div
                 tabIndex={0}

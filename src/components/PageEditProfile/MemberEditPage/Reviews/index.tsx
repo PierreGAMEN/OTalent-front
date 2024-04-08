@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { deleteReview, modifyReview } from "../../../../utils";
+import { deleteReview, modifyReview, requestWithVariable } from "../../../../utils";
+import { queryDeleteReview, queryModifyReview } from "../../../../query";
 
 export default function ReviewsEditProfilPageMember({ data }) {
   const [memberReviews, setMemberReviews] = useState(data.reviews);
@@ -7,13 +8,16 @@ export default function ReviewsEditProfilPageMember({ data }) {
 
 
 
-  const deleteComment = (idToDelete) => {
+  const deleteComment = async(idToDelete) => {
     const newComments = memberReviews.filter((comment) => comment.id !== idToDelete);
     setMemberReviews(newComments);
-    deleteReview(idToDelete);
+    const variables= {
+      deleteReviewId: idToDelete
+    }
+    await requestWithVariable(queryDeleteReview, variables)
   };
 
-  const handleChange = (e, id) => {
+  const handleChange = async (e, id) => {
     const value = e.target.value;
 
     const updatedReviews = memberReviews.map((review) => {
@@ -33,28 +37,35 @@ export default function ReviewsEditProfilPageMember({ data }) {
 
   const saveChanges = async (id, newComment) => {
     try {
-      await modifyReview(id, { comment: newComment });
-     
+      const variables = {
+        modifyReviewId: id,
+        input: {
+          comment: newComment
+        }
+      };
+  
+      await requestWithVariable(queryModifyReview, variables);
+  
       const updatedReviews = memberReviews.map((review) => {
         if (review.id === id) {
           return { ...review, comment: newComment };
         }
         return review;
       });
+  
       setMemberReviews(updatedReviews);
- 
       setEditModeId(null);
     } catch (error) {
       console.error('Erreur lors de la modification du commentaire :', error);
-
     }
   };
+  
 
   return (
     <section>
       {memberReviews && memberReviews.map((review) => (
         <div key={review.id}>
-          <h2>{review.training.label}</h2>
+          <h4>{review.training.label}</h4>
           {editModeId === review.id ? (
             <>
               <input type="text" value={review.comment} onChange={(e) => handleChange(e, review.id)} />
@@ -63,10 +74,10 @@ export default function ReviewsEditProfilPageMember({ data }) {
           ) : (
             <>
               <p>{review.comment}</p>
-              <button onClick={() => handleEditMode(review.id)}>Modifier le commentaire</button>
+              <button className="btn  bg-blue-600 text-white" onClick={() => handleEditMode(review.id)}>Modifier le commentaire</button>
             </>
           )}
-          <button onClick={() => deleteComment(review.id)}>Supprimer le commentaire</button>
+          <button className="btn ml-2 bg-red-600 text-white" onClick={() => deleteComment(review.id)}>Supprimer le commentaire</button>
         </div>
       ))}
     </section>

@@ -26,7 +26,7 @@ export default function OrganizationEditPage () {
                 }
 
                 const response = await requestWithVariable(queryOrganizationInformation, variables)
-                setDataOrganization(response.organization)
+                setDataOrganization(response.data.organization)
       
 
             } catch(errors) {

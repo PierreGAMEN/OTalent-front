@@ -356,4 +356,42 @@ export const queryGetInformationSiret = `query Siret($siret: String!) {
     postalCode
     city
   }
-}`;
+
+
+
+}`
+
+export const querySendEmailToRecoverPassword = `
+mutation Mutation($input: ForgotPasswordInput!) {
+  requestPasswordReset(input: $input)
+}`
+
+export const querySendNewPassword = `
+mutation Mutation($updatedPassword: String!) {
+  resetPassword(updatedPassword: $updatedPassword)
+}
+`
+
+export const queryNameMember = `
+query Query($memberId: ID!) {
+  member(id: $memberId) {
+    firstname
+    lastname
+  }
+}
+`
+
+export const queryNameOrganization = `
+query Query($organizationId: ID!) {
+  organization(id: $organizationId) {
+    name
+  }
+}
+`
+
+export const queryDeleteReview = 
+`
+mutation DeleteReview($deleteReviewId: ID!) {
+  deleteReview(id: $deleteReviewId)
+}
+`

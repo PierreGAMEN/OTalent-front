@@ -96,8 +96,8 @@ export default function HeaderOrganizationEditPage({ data }) {
             }
         }
 
-        const data = await requestWithVariable(queryUpdateOrganizationInformation, variables)
-        console.log(data)
+        const response = await requestWithVariable(queryUpdateOrganizationInformation, variables)
+        console.log(response.data)
         location.reload()
 
     }}

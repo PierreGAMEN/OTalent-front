@@ -41,16 +41,16 @@ export default function SearchPage() {
         <>
             <div className="container-search">
                 {categorie && term && (
-                    <h2>
+                    <h4 className='mb-5'>
                         Voici toutes les formation incluant le mot "{term}" dans
                         la catégorie "{categorie}"
-                    </h2>
+                    </h4>
                 )}
                 {categorie && !term && (
-                    <h2>
+                    <h4 className='mb-5'>
                         Voici toutes les formations appartenant à la catégorie "
                         {categorie}"
-                    </h2>
+                    </h4>
                 )}
                 {term && !categorie && (
                     <h2>

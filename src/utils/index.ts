@@ -159,31 +159,6 @@ export const deleteMemberCategory = async (
     }
 };
 
-export const deleteReview = async (deleteReviewId: string) => {
-  try {
-    // Envoie de la requête GraphQL via Axios
-    const response = await axios.post(url, {
-      query: `
-        mutation DeleteReview($deleteReviewId: ID!) {
-          deleteReview(id: $deleteReviewId)
-        }
-      `,
-            variables: {
-                deleteReviewId: deleteReviewId,
-            },
-        });
-
-        console.log('Réponse de la requête GraphQL :', response.data);
-
-        return response.data;
-    } catch (error) {
-        console.error(
-            "Une erreur s'est produite lors de la requête GraphQL :",
-            error
-        );
-        throw error;
-    }
-};
 
 export const modifyReview = async (modifyReviewId: string, input: string) => {
   try {
@@ -307,10 +282,14 @@ export const requestWithVariable = async (query: string, variables: Variables ) 
       variables
     });
 
-    console.log('Réponse de l\'API:', response.data);
-    return response.data
+    console.log('Réponse de l\'API:', response);
+    return response
   } catch (error) {
     console.error('Erreur lors de l\'envoi des données:', error);
+    if (error.response.data.errors[0].message === 'Context creation failed: Invalid token') {
+      localStorage.clear();
+      window.location.href = '/';
+    }
   }
 }
 
@@ -319,10 +298,36 @@ export const requestWithoutVariable = async (query: string) : Promise<void> => {
     const response: AxiosResponse<any> = await authorizedRequest(url, {
       query
     });
-
-    console.log('Réponse de l\'API:', response.data);
-    return response.data
+    
+    console.log('Réponse de l\'API:', response);
+    return response
   } catch (error) {
     console.error('Erreur lors de l\'envoi des données:', error);
+  }
+}
+
+
+export const changePassword = async (query: string, variables: any, token: string | null) => {
+  try {
+    const tokenUrl = token;
+
+    // Création des en-têtes de la requête
+    const headers: { [key: string]: string } = {};
+    if (tokenUrl) {
+      headers['Authorization'] = `Bearer ${tokenUrl}`;
+    }
+
+    // Envoi de la requête avec les en-têtes appropriés
+    const response = await axios.post(url, {
+      query: query,
+      variables: variables
+    }, {
+      headers: headers
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Une erreur s'est produite :", error);
+    throw error;
   }
 }

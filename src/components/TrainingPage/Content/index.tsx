@@ -87,6 +87,7 @@ export default function ContentTrainingPage({ data }: { data: TrainingDataI }) {
                     </ul>
                 </div>
 
+
                 <div className="flex flex-col align-center justify-start h-full w-1/2 gap-5">
                     {isProgram && (
                         <>

@@ -24,13 +24,14 @@ export default function MemberEditPage () {
             memberId:user.id
         }
         setScriptFinished(false)
-        await requestWithVariable(queryOneMember, variables)
+        const response = await requestWithVariable(queryOneMember, variables)
+        setDataFetch(response.data)
         setScriptFinished(true)
     }
 
     const checkIsMember = () => {
             
-        if(user.id !== null && user.member === false) {
+        if(user.id !== null && user.member === true) {
            setIsMember(true)
         } else {
            window.location.href="/"
@@ -45,14 +46,6 @@ export default function MemberEditPage () {
        }
    }, [user.id, isMember]);
 
-        // useEffect(() => {
-        //     fetchData(queryOneMember, idMember, "memberId", setDataFetch, setIsLoading).then(() => setScriptFinished(true))
-           
-        // }, [idMember])
-
-        // if (!dataFetch || !dataFetch.member) {
-        //     return null; 
-        // }
     
 
         return (
