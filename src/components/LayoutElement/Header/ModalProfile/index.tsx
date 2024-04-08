@@ -40,18 +40,6 @@ export default function Navbar() {
       
           const responseWithErrors = await requestWithVariable(query, variables);
       
-          
-          if (responseWithErrors.errors && responseWithErrors.errors.length > 0) {
-            const errorMessage = responseWithErrors.errors[0].message;
-            if (errorMessage === "Invalid token") {
-       
-              localStorage.clear();
-        
-              setUser(null);
-       
-              return;
-            }
-          }
      
           const userInfo = responseWithErrors.data;
           setUserInformation(userInfo);
@@ -66,8 +54,7 @@ export default function Navbar() {
     useEffect(() => {
         checkIsOrganization();
         getUserInformation()
-        console.log(userInformation)
-    }, [user.id]);
+    }, [user.id, isMember]);
 
     return (
         <div className="dropdown dropdown-end flex justify-center items-center">

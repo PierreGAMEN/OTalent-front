@@ -286,6 +286,10 @@ export const requestWithVariable = async (query: string, variables: Variables ) 
     return response
   } catch (error) {
     console.error('Erreur lors de l\'envoi des données:', error);
+    if (error.response.data.errors[0].message === 'Context creation failed: Invalid token') {
+      localStorage.clear();
+      window.location.href = '/';
+    }
   }
 }
 
@@ -294,7 +298,7 @@ export const requestWithoutVariable = async (query: string) : Promise<void> => {
     const response: AxiosResponse<any> = await authorizedRequest(url, {
       query
     });
-
+    
     console.log('Réponse de l\'API:', response);
     return response
   } catch (error) {
