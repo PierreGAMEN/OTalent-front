@@ -37,18 +37,16 @@ export default function Navbar() {
             variables = { organizationId: user.id };
             query = queryNameOrganization;
           }
-      
           const responseWithErrors = await requestWithVariable(query, variables);
-      
+          console.log(responseWithErrors)
           
           if (responseWithErrors.errors && responseWithErrors.errors.length > 0) {
             const errorMessage = responseWithErrors.errors[0].message;
+            console.log(errorMessage);
             if (errorMessage === "Invalid token") {
        
-              localStorage.clear();
-        
-              setUser(null);
-       
+                handleLogout();
+               
               return;
             }
           }
@@ -67,7 +65,7 @@ export default function Navbar() {
         checkIsOrganization();
         getUserInformation()
         console.log(userInformation)
-    }, [user.id]);
+    }, [user.id, isMember]);
 
     return (
         <div className="dropdown dropdown-end flex justify-center items-center">
