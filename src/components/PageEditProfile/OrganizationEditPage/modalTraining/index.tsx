@@ -7,9 +7,10 @@ import { queryCreateTraining, queryTrainingInformation, queryUpdateTrainingInfor
 const ModalTraining = () => {
 
     const dispatch = useAppDispatch()
+    const userId = useAppSelector((state) => state.token.user).id;
     const isOpen = useAppSelector((state) => state.editTraining.isOpen);
     const trainingId = useAppSelector((state) => state.editTraining.trainingId);
-    const userId = useAppSelector((state) => state.token.user).id;
+
     const categories = useAppSelector(state => state.categories.list);
     const [prerequesiteCurrentValue, setPrerequesiteCurrentValue] = useState('')
     const [programCurrentValue, setProgramCurrentValue] = useState('')
@@ -79,8 +80,8 @@ const ModalTraining = () => {
         const response = await requestWithVariable(queryTrainingInformation, variables);
         const training = response.data.training;
     
-        let prerequisites = JSON.parse(training.prerequisites);
-        let program = JSON.parse(training.program)
+        const prerequisites = JSON.parse(training.prerequisites);
+        const program = JSON.parse(training.program)
 
     
         setFormData({
@@ -113,9 +114,9 @@ const ModalTraining = () => {
                 price: parseInt(formData.price),
                 excerpt: formData.excerpt,
                 program: JSON.stringify(formData.program),
-                // startingDate: formData.startingDate,
-                // endingDate: formData.endingDate,
-                // organizationId: organizationId
+                startingDate: formData.startingDate,
+                endingDate: formData.endingDate,
+                organizationId: userId
             }
         }
 

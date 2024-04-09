@@ -22,7 +22,7 @@ const authorizedRequest = async (url: string, requestData: any) => {
 
     return response.data;
   } catch (error) {
-    console.error('Une erreur s\'est produite :', error);
+    console.error("Une erreur s'est produite :", error);
     throw error;
   }
 };
@@ -66,8 +66,8 @@ export const dissociateMemberTraining = async (memberId: number, trainingId: num
       query: `
         mutation Mutation($memberId: ID!, $trainingId: ID!) {
           dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
-        }
-      `,
+        }`
+      ,
       variables: {
         memberId: memberId,
         trainingId: trainingId,
@@ -285,6 +285,10 @@ export const requestWithVariable = async (query: string, variables: Variables ) 
     console.log('Réponse de l\'API:', response);
     return response
   } catch (error) {
+    if (error.response.data.errors[0].message === 'Context creation failed: Invalid token') {
+      localStorage.clear();
+      window.location.href = '/';
+    }
     console.error('Erreur lors de l\'envoi des données:', error);
     if (error.response.data.errors[0].message === 'Context creation failed: Invalid token') {
       localStorage.clear();
@@ -302,6 +306,7 @@ export const requestWithoutVariable = async (query: string) : Promise<void> => {
     console.log('Réponse de l\'API:', response);
     return response
   } catch (error) {
+   
     console.error('Erreur lors de l\'envoi des données:', error);
   }
 }
