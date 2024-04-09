@@ -85,7 +85,8 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
     }
 
 
-    const updateMemberInformation = async () => {
+    const updateMemberInformation = async (e) => {
+        e.preventDefault()
         const variables = {
             modifyMemberId: user.id,
             input : {
