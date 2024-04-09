@@ -35,11 +35,12 @@ export default function HomePage() {
 
     const getTokenInformation = () => {
         if (user) {
+            console.log(user)
             setIsMember(user.member ?? false);
             setIdMember(user.id ? String(user.id) : '');
         }
     };
-
+    
     const getMemberInformation = async () => {
         const variables = {
             memberId: user.id
@@ -81,6 +82,8 @@ export default function HomePage() {
                             categoryChosen={categorie.label}
                         />
                     ))}
+
+                    <h3>Proche de chez vous :</h3>
                 </>
             )}
             {isloading && <Loader active inline="centered" />}
