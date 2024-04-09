@@ -395,3 +395,14 @@ mutation DeleteReview($deleteReviewId: ID!) {
   deleteReview(id: $deleteReviewId)
 }
 `
+
+export const queryMemberInformationForHomePage = `
+query Member($memberId: ID!) {
+  member(id: $memberId) {
+    postal_code
+    categories {
+      label
+      id
+    }
+  }
+}`
