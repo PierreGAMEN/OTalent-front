@@ -20,10 +20,10 @@ export default function Hero() {
                 </p>
                 <img
                     src="./src/assets/Certification-bro.svg"
-                    className="xl:hidden w-64 mt-5"
+                    className="xl:hidden w-64 mt-5 min-w-64"
                 ></img>
                 <button
-                    className="button outlined mt-10"
+                    className="button outlined mt-10 w-2/3 w-64"
                     onClick={() => (window.location.href = '#training_list')}
                 >
                     <h4>Découvrez nos formations</h4>
