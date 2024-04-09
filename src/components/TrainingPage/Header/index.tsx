@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { associateMemberTraining } from '../../../utils';
-import './style.scss';
 import { useAppSelector } from '../../../store/redux-hook/hook';
 
 export default function HeaderTrainingPage({ data }) {
