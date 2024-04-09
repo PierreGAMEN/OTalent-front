@@ -24,57 +24,59 @@ import Guide from './Guide';
 
 export default function HomePage() {
     const [data, setData] = useState([]);
-    const [isloading, setIsloading] = useState(false);
-
-    const [loader, setLoader] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [isMember, setIsMember] = useState(false);
-    const [idMember, setIdMember] = useState('');
-    const [memberInfo, setMemberInfo] = useState({})
-
+    const [memberInfo, setMemberInfo] = useState({});
+    const [isMemberInfoLoaded, setIsMemberInfoLoaded] = useState(false);
     const user = useAppSelector(state => state.token.user);
 
+
     const getTokenInformation = () => {
-        if (user) {
-            console.log(user)
-            setIsMember(user.member ?? false);
-            setIdMember(user.id ? String(user.id) : '');
-        }
+        if (user && user.member === true) {
+            setIsMember(true);
+        } 
     };
     
     const getMemberInformation = async () => {
-        const variables = {
-            memberId: user.id
-        }
-        const response = await requestWithVariable(queryMemberInformationForHomePage, variables)
-        setMemberInfo(response)
-        console.log(response)
-    }
+    
+            const variables = {
+                memberId: user.id
+            };
+            setIsMemberInfoLoaded(false);
+            const response = await requestWithVariable(queryMemberInformationForHomePage, variables);
+            setMemberInfo(response);
+            setIsMemberInfoLoaded(true);
+    };
 
     useEffect(() => {
-        getTokenInformation();
-
-        fetchData(queryAllTrainingCard, null, null, setData, setIsloading);
-
-        fetchCategories();
-
-        
+        fetchData(queryAllTrainingCard, null, null, setData, setIsLoading);
+        fetchCategories();        
     }, []);
 
     useEffect(() => {
-        if (isMember) {
-            getMemberInformation()
-        }
-    }, [isMember])
+        getTokenInformation()
+    }, [user])
+
+    useEffect(() => {
+        if(isMember)
+        {setIsMemberInfoLoaded(false)
+            getMemberInformation().then(() => {
+                setIsMemberInfoLoaded(true)})}
+            
+    },[isMember] )
+;
+
 
     return (
         <main className="flex flex-col gap-20 mb-20">
             <Hero />
             <Feature />
             <Guide />
-            {data && isMember && memberInfo.data && (
+    
+            {isMemberInfoLoaded ? (
                 <>
                     <h3>Vos catégories préférées</h3>
-                    {loader && <Loader active inline="centered" />}
+                    {isLoading && <Loader active inline="centered" />}
                     {memberInfo.data.member.categories.map(categorie => (
                         <TrainingList
                             key={categorie.id}
@@ -85,11 +87,15 @@ export default function HomePage() {
 
                     <h3>Proche de chez vous :</h3>
                 </>
+            ) : (
+                <Loader active inline="centered" />
             )}
-            {isloading && <Loader active inline="centered" />}
+            
+            {isLoading && <Loader active inline="centered" />}
+            
             {data && (
                 <>
-                    <h3>Découvrez notre selection</h3>
+                    <h3>Découvrez notre sélection</h3>
                     <TrainingList data={data} categoryChosen="Informatique" />
                     <TrainingList data={data} categoryChosen="Arts" />
                     <TrainingList data={data} categoryChosen="Finance" />
@@ -99,5 +105,3 @@ export default function HomePage() {
         </main>
     );
 }
-
-//
