@@ -47,9 +47,10 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
         const newcomment = await requestWithVariable(queryAddReview, variables);
         console.log(newcomment);
 
-        setCurrentComment([newcomment.addReview, ...currentComment]);
+        setCurrentComment([newcomment.data.addReview, ...currentComment]);
         setComment('');
         setNoteSelected('');
+        setModalAddCommentIsOpen(false)
     };
 
     return (
@@ -58,16 +59,14 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
             {user.id !== null && user.member === true && (
                 <div>
                     <button
-                        onClick={() =>
-                            document.getElementById('my_modal_1').showModal()
-                        }
+                        onClick={() => {setModalAddCommentIsOpen(true)}}
                         className="bg-primary-color text-white w-fit p-2 rounded-md hover:bg-transparent border-4 border-primary-color hover:text-primary-color"
                     >
                         <h5 className="text-2xl flex flex-row justify-center gap-2 items-center">
                             Je donne mon avis
                         </h5>
                     </button>
-                    <dialog id="my_modal_1" className="modal">
+                    {modalAddCommentIsOpen && <dialog id="my_modal_1" className="modal" open>
                         <div className="modal-box flex flex-col gap-5">
                             <h4 className="font-bold text-lg">
                                 Votre évaluation :
@@ -98,7 +97,7 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
                                     method="dialog"
                                     className="flex flex-row justify-between w-full"
                                 >
-                                    <button className="btn">Fermer</button>
+                                    <button onClick={() => {setModalAddCommentIsOpen(false)}} className="btn">Fermer</button>
                                     <button
                                         onClick={addComment}
                                         className="rounded-xl p-3 bg-primary-color text-white border-2 border-primary-color hover:bg-transparent hover:text-primary-color"
@@ -108,7 +107,7 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
                                 </form>
                             </div>
                         </div>
-                    </dialog>
+                    </dialog>}
                 </div>
             )}
 
