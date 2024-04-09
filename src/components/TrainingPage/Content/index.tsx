@@ -5,8 +5,8 @@ import {
     ReactNode,
     useState,
 } from 'react';
-import './style.scss';
 import TrainingDataI from '../../../@Types/training';
+import { handleDateFormat } from '../../../utils';
 
 export default function ContentTrainingPage({ data }: { data: TrainingDataI }) {
     const [isProgram, setIsProgram] = useState<boolean>(true);
@@ -26,13 +26,7 @@ export default function ContentTrainingPage({ data }: { data: TrainingDataI }) {
         thirdSetterFalse(false);
     };
 
-    const handleDateFormat = (date: string) => {
-        const dateObj = new Date(date);
-        const options: {} = { day: '2-digit', month: 'long', year: 'numeric' };
-        const formattedDate = dateObj.toLocaleDateString('fr-FR', options);
-        console.log(date)
-        return formattedDate;
-    };
+
     const buttons = [
         {
             text: 'Description & Programme',
@@ -87,7 +81,6 @@ export default function ContentTrainingPage({ data }: { data: TrainingDataI }) {
                         ))}
                     </ul>
                 </div>
-
 
                 <div className="flex flex-col align-center justify-start h-full w-1/2 gap-5">
                     {isProgram && (

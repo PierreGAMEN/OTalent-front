@@ -1,26 +1,9 @@
-import { useEffect, useState } from 'react';
-import DesktopVert from './../../../assets/desktop_vert.svg';
-import DesktopBlanc from './../../../assets/desktop_blanc.svg';
+import { useEffect } from 'react';
 import './style.css';
 const Guide = () => {
     useEffect(() => {
-        const getDocHeight = () => {
-            return Math.max(
-                document.body.scrollHeight,
-                document.documentElement.scrollHeight,
-                document.body.offsetHeight,
-                document.documentElement.offsetHeight,
-                document.body.clientHeight,
-                document.documentElement.clientHeight
-            );
-        };
-
         const handleScroll = () => {
             const scrollTop = window.pageYOffset + window.innerHeight / 2;
-            const windowHeight = window.innerHeight;
-            const docHeight = getDocHeight();
-            const totalDocScrollLength = docHeight - windowHeight;
-
             const svgContainer = document.getElementById('svg-container');
             const svgContainerBottom = svgContainer
                 ? svgContainer.offsetTop + svgContainer.offsetHeight

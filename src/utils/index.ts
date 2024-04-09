@@ -1,24 +1,25 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from 'axios';
 
 const getJWT = () => {
-  return localStorage.getItem('token');
+    return localStorage.getItem('token');
 };
 
 const url = import.meta.env.VITE_GRAPHQL_API;
 const authorizedRequest = async (url: string, requestData: any) => {
-  try {
-    const jwtToken = getJWT();
+    try {
+        const jwtToken = getJWT();
 
-    // Création des en-têtes de la requête
-    const headers: { [key: string]: string } = {};
-    if (jwtToken) {
-      headers['Authorization'] = `Bearer ${jwtToken}`;
-    }
+        // Création des en-têtes de la requête
+        const headers: { [key: string]: string } = {};
+        if (jwtToken) {
+            headers['Authorization'] = `Bearer ${jwtToken}`;
+        }
 
-    // Envoi de la requête avec les en-têtes appropriés
-    const response = await axios.post(url, requestData, {
-      headers: headers
-    });
+        // Envoi de la requête avec les en-têtes appropriés
+        const response = await axios.post(url, requestData, {
+            headers: headers,
+        });
+
 
     return response.data;
   } catch (error) {
@@ -27,7 +28,6 @@ const authorizedRequest = async (url: string, requestData: any) => {
   }
 };
 
-
 export const fetchData = async (
     query: string,
     id: number | null | string = null,
@@ -35,35 +35,32 @@ export const fetchData = async (
     setData: React.Dispatch<React.SetStateAction<any>>,
     setLoader: React.Dispatch<React.SetStateAction<any>>
 ) => {
+    try {
+        const variables = id !== null ? { [idName!]: id } : {};
 
+        setLoader(true);
+        const response = await authorizedRequest(url, {
+            query,
+            variables,
+        });
 
-  try {
-    const variables = id !== null ? { [idName!]: id } : {};
-
-    setLoader(true);
-    const response = await authorizedRequest(url, {
-      query,
-      variables
-    });
-
-    const data = response.data;
-    console.log(data);
-    setData(data || []);
-  } catch (error) {
-    console.error('Error:', error);
-  } finally {
-    setLoader(false);
-  }
+        const data = response.data;
+        console.log(data);
+        setData(data || []);
+    } catch (error) {
+        console.error('Error:', error);
+    } finally {
+        setLoader(false);
+    }
 };
 
-
-
-
-
-export const dissociateMemberTraining = async (memberId: number, trainingId: number) => {
-  try {
-    const response = await authorizedRequest(url, {
-      query: `
+export const dissociateMemberTraining = async (
+    memberId: number,
+    trainingId: number
+) => {
+    try {
+        const response = await authorizedRequest(url, {
+            query: `
         mutation Mutation($memberId: ID!, $trainingId: ID!) {
           dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
         }`
@@ -83,11 +80,20 @@ export const dissociateMemberTraining = async (memberId: number, trainingId: num
   }
 };
 
-export const associateMemberTraining = async (memberId: number, trainingId: number) => {
-  try {
+        return response;
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
+    }
+};
 
-    const response = await authorizedRequest(url, {
-      query: `
+export const associateMemberTraining = async (
+    memberId: number,
+    trainingId: number
+) => {
+    try {
+        const response = await authorizedRequest(url, {
+            query: `
         mutation Mutation($memberId: ID!, $trainingId: ID!) {
           associateMemberTraining(memberId: $memberId, trainingId: $trainingId)
         }
@@ -159,11 +165,10 @@ export const deleteMemberCategory = async (
     }
 };
 
-
 export const modifyReview = async (modifyReviewId: string, input: string) => {
-  try {
-    const response = await axios.post(url, {
-      query: `
+    try {
+        const response = await axios.post(url, {
+            query: `
         mutation ModifyReview($modifyReviewId: ID!, $input: ReviewInput!) {
           modifyReview(id: $modifyReviewId, input: $input) {
             comment
@@ -185,11 +190,10 @@ export const modifyReview = async (modifyReviewId: string, input: string) => {
     }
 };
 
-
-export const addReview = async (reviewInput : {}) => {
-  try {
-    const response = await axios.post(url, {
-      query: `
+export const addReview = async (reviewInput: {}) => {
+    try {
+        const response = await axios.post(url, {
+            query: `
         mutation AddReview($input: ReviewInput!) {
           addReview(input: $input) {
             comment
@@ -219,9 +223,9 @@ export const addReview = async (reviewInput : {}) => {
 };
 
 export const loginRequest = async (variables: {}) => {
-  try {
-    const response = await axios.post(url, {
-      query: `
+    try {
+        const response = await axios.post(url, {
+            query: `
         mutation Login($email: String!, $password: String!) {
           login(email: $email, password: $password) {
             token
@@ -249,8 +253,8 @@ export const loginRequest = async (variables: {}) => {
 };
 
 export const fetchCategories = async () => {
-  try {
-      const query = `
+    try {
+        const query = `
         query Categories {
             categories {
                 id
@@ -259,21 +263,22 @@ export const fetchCategories = async () => {
         }
     `;
 
-      const url = import.meta.env.VITE_GRAPHQL_API;
+        const url = import.meta.env.VITE_GRAPHQL_API;
 
-      const response = await axios.post(url, { query });
-      const data = response.data.data;
-      const fetchedCategories = data.categories || [];
+        const response = await axios.post(url, { query });
+        const data = response.data.data;
+        const fetchedCategories = data.categories || [];
 
-      return fetchedCategories;
-} catch (error) {
-    console.error('Error:', error);
-}
+        return fetchedCategories;
+    } catch (error) {
+        console.error('Error:', error);
+    }
 };
 
 interface Variables {
-  [key: string]: any;
+    [key: string]: any;
 }
+
 
 export const requestWithVariable = async (query: string, variables: Variables ) : Promise<void> => {
   try {
@@ -294,8 +299,8 @@ export const requestWithVariable = async (query: string, variables: Variables ) 
       localStorage.clear();
       window.location.href = '/';
     }
-  }
-}
+};
+
 
 export const requestWithoutVariable = async (query: string) : Promise<void> => {
   try {
@@ -311,28 +316,52 @@ export const requestWithoutVariable = async (query: string) : Promise<void> => {
   }
 }
 
+export const changePassword = async (
+    query: string,
+    variables: any,
+    token: string | null
+) => {
+    try {
+        const tokenUrl = token;
 
-export const changePassword = async (query: string, variables: any, token: string | null) => {
-  try {
-    const tokenUrl = token;
+        // Création des en-têtes de la requête
+        const headers: { [key: string]: string } = {};
+        if (tokenUrl) {
+            headers['Authorization'] = `Bearer ${tokenUrl}`;
+        }
 
-    // Création des en-têtes de la requête
-    const headers: { [key: string]: string } = {};
-    if (tokenUrl) {
-      headers['Authorization'] = `Bearer ${tokenUrl}`;
+        // Envoi de la requête avec les en-têtes appropriés
+        const response = await axios.post(
+            url,
+            {
+                query: query,
+                variables: variables,
+            },
+            {
+                headers: headers,
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
     }
+};
 
-    // Envoi de la requête avec les en-têtes appropriés
-    const response = await axios.post(url, {
-      query: query,
-      variables: variables
-    }, {
-      headers: headers
-    });
+export const isValidDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return !isNaN(date.getTime());
+};
 
-    return response.data;
-  } catch (error) {
-    console.error("Une erreur s'est produite :", error);
-    throw error;
-  }
-}
+export const handleDateFormat = (dateString: string) => {
+    if (isValidDate(dateString)) {
+        return new Intl.DateTimeFormat('fr-FR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        }).format(new Date(dateString));
+    } else {
+        return 'Invalid Date';
+    }
+};

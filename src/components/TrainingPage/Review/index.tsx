@@ -1,15 +1,11 @@
 import { useState } from 'react';
 import TrainingDataI from '../../../@Types/training';
-import './style.scss';
-import { addReview, requestWithVariable } from '../../../utils';
+import { requestWithVariable } from '../../../utils';
 import { useAppSelector } from '../../../store/redux-hook/hook';
 import { queryAddReview } from '../../../query';
-
-// TODO : Améliorer l'interface gestion de la note
-// TODO : l'affichage d'un nouveau commentaire, ne met pas à jour le nombre de commentaire dans le header
+import { handleDateFormat } from '../../../utils';
 
 export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
-    const [modalAddCommentIsOpen, setModalAddCommentIsOpen] = useState(false);
     const [selectedNote, setNoteSelected] = useState('');
     const [comment, setComment] = useState('');
     const [currentComment, setCurrentComment] = useState(data.reviews);
@@ -17,12 +13,6 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
 
     const user = useAppSelector(state => state.token.user);
 
-    const handleDateFormat = (date: string) => {
-        const dateObj = new Date(date);
-        const options: {} = { day: '2-digit', month: 'long', year: 'numeric' };
-        const formattedDate = dateObj.toLocaleDateString('fr-FR', options);
-        return formattedDate;
-    };
     const onChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = e.target.value;
         setComment(value);
@@ -43,11 +33,10 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
             },
         };
 
-        // Attention mettre la fonction dans un useState
-        const newcomment = await requestWithVariable(queryAddReview, variables);
-        console.log(newcomment);
 
-        setCurrentComment([newcomment.data.addReview, ...currentComment]);
+        const response = await requestWithVariable(queryAddReview, variables);
+        const newcomment = response.data;
+        setCurrentComment([newcomment.addReview, ...currentComment]);
         setComment('');
         setNoteSelected('');
         setModalAddCommentIsOpen(false)
@@ -59,6 +48,7 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
             {user.id !== null && user.member === true && (
                 <div>
                     <button
+
                         onClick={() => {setModalAddCommentIsOpen(true)}}
                         className="bg-primary-color text-white w-fit p-2 rounded-md hover:bg-transparent border-4 border-primary-color hover:text-primary-color"
                     >
@@ -66,14 +56,16 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
                             Je donne mon avis
                         </h5>
                     </button>
+
                     {modalAddCommentIsOpen && <dialog id="my_modal_1" className="modal" open>
                         <div className="modal-box flex flex-col gap-5">
                             <h4 className="font-bold text-lg">
                                 Votre évaluation :
                             </h4>
                             <div className="rating">
-                                {[1, 2, 3, 4, 5].map(star => (
+                                {[1, 2, 3, 4, 5].map((star, index) => (
                                     <input
+                                        key={index}
                                         type="radio"
                                         name="rating-2"
                                         className={`mask mask-star-2 ${
@@ -142,7 +134,8 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
                                         <p>
                                             Le{' '}
                                             {handleDateFormat(
-                                                review.created_at || Date.now()
+                                                review.created_at ||
+                                                    Date.now().toString()
                                             )}
                                         </p>
                                         <div className="flex flex-col justify-center items-center">
