@@ -37,9 +37,7 @@ export default function Navbar() {
             variables = { organizationId: user.id };
             query = queryNameOrganization;
           }
-      
-          const responseWithErrors = await requestWithVariable(query, variables);
-      
+          const responseWithErrors = await requestWithVariable(query, variables)
      
           const userInfo = responseWithErrors.data;
           setUserInformation(userInfo);
@@ -54,6 +52,7 @@ export default function Navbar() {
     useEffect(() => {
         checkIsOrganization();
         getUserInformation()
+
     }, [user.id, isMember]);
 
     return (

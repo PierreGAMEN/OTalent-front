@@ -26,6 +26,7 @@ export default function ContentTrainingPage({ data }: { data: TrainingDataI }) {
         thirdSetterFalse(false);
     };
 
+
     const buttons = [
         {
             text: 'Description & Programme',
