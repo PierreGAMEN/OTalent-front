@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import TrainingDataI from '../../../@Types/training';
-import { requestWithVariable } from '../../../utils';
+import { handleDateFormat, requestWithVariable } from '../../../utils';
 import { useAppSelector } from '../../../store/redux-hook/hook';
 import { queryAddReview } from '../../../query';
-import { handleDateFormat } from '../../../utils';
+
 
 export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
     const [selectedNote, setNoteSelected] = useState('');
     const [comment, setComment] = useState('');
     const [currentComment, setCurrentComment] = useState(data.reviews);
     const [activeStar, setActiveStar] = useState(0);
+    const [modalAddCommentIsOpen, setModalAddCommentIsOpen] = useState(false)
 
     const user = useAppSelector(state => state.token.user);
 
@@ -175,3 +176,7 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
         </section>
     );
 }
+function setModalAddCommentIsOpen(arg0: boolean) {
+    throw new Error('Function not implemented.');
+}
+

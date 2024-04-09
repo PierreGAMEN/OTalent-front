@@ -80,12 +80,6 @@ export const dissociateMemberTraining = async (
   }
 };
 
-        return response;
-    } catch (error) {
-        console.error("Une erreur s'est produite :", error);
-        throw error;
-    }
-};
 
 export const associateMemberTraining = async (
     memberId: number,
@@ -300,7 +294,7 @@ export const requestWithVariable = async (query: string, variables: Variables ) 
       window.location.href = '/';
     }
 };
-
+}
 
 export const requestWithoutVariable = async (query: string) : Promise<void> => {
   try {
