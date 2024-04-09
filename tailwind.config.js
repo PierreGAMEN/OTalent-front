@@ -13,9 +13,9 @@ export default {
       },
       colors: {
       "primary-color":"#206354",
-      "secondary-color":"#F4E6BC",
-      "accent-color":"#C5E7E0",
-      "primary-background":"#FFFAEB",
+      "secondary-color":"#FDF6E2",
+      "accent-color":"#3FB099",
+      "primary-background":"#FFFFFF",
       "secondary-background":"#FDF6E2"
     },},
   },

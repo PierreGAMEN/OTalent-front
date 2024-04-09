@@ -4,13 +4,12 @@ import { handleDateFormat, requestWithVariable } from '../../../utils';
 import { useAppSelector } from '../../../store/redux-hook/hook';
 import { queryAddReview } from '../../../query';
 
-
 export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
     const [selectedNote, setNoteSelected] = useState('');
     const [comment, setComment] = useState('');
     const [currentComment, setCurrentComment] = useState(data.reviews);
     const [activeStar, setActiveStar] = useState(0);
-    const [modalAddCommentIsOpen, setModalAddCommentIsOpen] = useState(false)
+    const [modalAddCommentIsOpen, setModalAddCommentIsOpen] = useState(false);
 
     const user = useAppSelector(state => state.token.user);
 
@@ -34,13 +33,12 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
             },
         };
 
-
         const response = await requestWithVariable(queryAddReview, variables);
         const newcomment = response.data;
         setCurrentComment([newcomment.addReview, ...currentComment]);
         setComment('');
         setNoteSelected('');
-        setModalAddCommentIsOpen(false)
+        setModalAddCommentIsOpen(false);
     };
 
     return (
@@ -49,58 +47,68 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
             {user.id !== null && user.member === true && (
                 <div>
                     <button
-
-                        onClick={() => {setModalAddCommentIsOpen(true)}}
-                        className="bg-primary-color text-white w-fit p-2 rounded-md hover:bg-transparent border-4 border-primary-color hover:text-primary-color"
+                        onClick={() => {
+                            setModalAddCommentIsOpen(true);
+                        }}
+                        className="button filled"
                     >
-                        <h5 className="text-2xl flex flex-row justify-center gap-2 items-center">
-                            Je donne mon avis
-                        </h5>
+                        <h5>Je donne mon avis</h5>
                     </button>
 
-                    {modalAddCommentIsOpen && <dialog id="my_modal_1" className="modal" open>
-                        <div className="modal-box flex flex-col gap-5">
-                            <h4 className="font-bold text-lg">
-                                Votre évaluation :
-                            </h4>
-                            <div className="rating">
-                                {[1, 2, 3, 4, 5].map((star, index) => (
-                                    <input
-                                        key={index}
-                                        type="radio"
-                                        name="rating-2"
-                                        className={`mask mask-star-2 ${
-                                            star <= activeStar
-                                                ? 'bg-orange-400'
-                                                : 'bg-gray-300'
-                                        }`}
-                                        checked={star === activeStar}
-                                        onChange={() => handleStarClick(star)}
-                                    />
-                                ))}
-                            </div>
-                            <textarea
-                                className="textarea textarea-bordered"
-                                placeholder="Votre commentaire"
-                                value={comment}
-                                onChange={e => onChangeComment(e)}
-                            ></textarea>
-                            <div className="modal-action">
-                                <form
-                                    method="dialog"
-                                    className="flex flex-row justify-between w-full"
-                                >
-                                    <button onClick={() => {setModalAddCommentIsOpen(false)}} className="btn">Fermer</button>
-                                    <button
-                                        onClick={addComment}
-                                        className="rounded-xl p-3 bg-primary-color text-white border-2 border-primary-color hover:bg-transparent hover:text-primary-color"
+                    {modalAddCommentIsOpen && (
+                        <dialog id="my_modal_1" className="modal" open>
+                            <div className="modal-box flex flex-col gap-5">
+                                <h4 className="font-bold text-lg">
+                                    Votre évaluation :
+                                </h4>
+                                <div className="rating">
+                                    {[1, 2, 3, 4, 5].map((star, index) => (
+                                        <input
+                                            key={index}
+                                            type="radio"
+                                            name="rating-2"
+                                            className={`mask mask-star-2 ${
+                                                star <= activeStar
+                                                    ? 'bg-orange-400'
+                                                    : 'bg-gray-300'
+                                            }`}
+                                            checked={star === activeStar}
+                                            onChange={() =>
+                                                handleStarClick(star)
+                                            }
+                                        />
+                                    ))}
+                                </div>
+                                <textarea
+                                    className="textarea textarea-bordered"
+                                    placeholder="Votre commentaire"
+                                    value={comment}
+                                    onChange={e => onChangeComment(e)}
+                                ></textarea>
+                                <div className="modal-action">
+                                    <form
+                                        method="dialog"
+                                        className="flex flex-row justify-between w-full"
                                     >
-                                        Ajouter le commentaire
-                                    </button>
-                                </form>
+                                        <button
+                                            onClick={() => {
+                                                setModalAddCommentIsOpen(false);
+                                            }}
+                                            className="btn"
+                                        >
+                                            Fermer
+                                        </button>
+                                        <button
+                                            onClick={addComment}
+                                            className="rounded-xl p-3 bg-primary-color text-white border-2 border-primary-color hover:bg-transparent hover:text-primary-color"
+                                        >
+                                            Ajouter le commentaire
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </dialog>}
+                        </dialog>
+                    )}
                 </div>
             )}
 
@@ -115,7 +123,7 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
                     {currentComment.map((review, index) => {
                         return (
                             <div
-                                className={`justify-start items-start w-full lg:w-1/4 gap-5 p-5 rounded-2xl border-4 border-primary-color ${
+                                className={`justify-start items-start min-w-96 lg:w-1/4 gap-5 p-5 rounded-2xl border-4 border-primary-color ${
                                     index % 2 === 0
                                         ? 'bg-secondary-color'
                                         : 'bg-transparent'
@@ -176,7 +184,3 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
         </section>
     );
 }
-function setModalAddCommentIsOpen(arg0: boolean) {
-    throw new Error('Function not implemented.');
-}
-
