@@ -109,6 +109,8 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
         }
     }
 
+    
+
     return (
         
          <div className="relative pr-5">
@@ -123,8 +125,8 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                 </div>
                 <p className='text-xl'>{`${data.firstname} ${data.lastname}`}</p>
                 <p><span className='material-symbols-rounded'>email</span> {data.email}</p>
-                <p><span className='material-symbols-rounded'>map</span> {data.city ? data.city : "Vous n'avez pas renseigné votre ville"}</p>
-                <p><span className='material-symbols-rounded'>location_on</span> {data.postal_code ? data.city : "Vous n'avez pas renseigné votre code postal"}</p>
+                <p><span className='material-symbols-rounded'>location_on</span> {data.city ? data.city : "Vous n'avez pas renseigné votre ville"}</p>
+                <p><span className='material-symbols-rounded'>map</span> {data.postal_code ? data.postal_code : "Vous n'avez pas renseigné votre code postal"}</p>
                 <div className='divider before:bg-primary-color after:bg-primary-color'></div>
                 <div className='relative w-full flex flex-col items-center'>
                 <h5>Vos catégories préférées</h5>

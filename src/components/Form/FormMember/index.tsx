@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { loginRequest, requestWithVariable } from "../../../utils";
 import { queryAddMember } from "../../../query";
 import MemberDataInputI from "../../../@Types/memberDataInputI";
+import { confirmPasswordRegex, emailRegex, isNeeded, passwordRegex } from "../../../regex";
 
 export default function FormMember() {
   const [firstName, setFirstName] = useState("");
@@ -66,35 +67,15 @@ const login = async () => {
 
 
 
-  function validateFormData(firstName: string, lastName: string, email: string, password: string, confirmPassword: string) {
-
-    if (!firstName) {
-      toast.error("Le prénom est requis");
-      return false
-    }
-    if (!lastName) {
-      toast.error("Le nom de famille est requis");
-      return false
-    }
+function validateFormData(firstName: string, lastName: string, email: string, password: string, confirmPassword: string) {
+  if (!isNeeded(firstName, "Le prénom")) return false;
+  if (!isNeeded(lastName, "Le nom de famille")) return false;
+  if (!emailRegex(email)) return false;
+  if (!passwordRegex(password)) return false;
+  if (!confirmPasswordRegex(password, confirmPassword)) return false;
   
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      toast.error("L'adresse email doit respecter la forme suivant : exemple@domaine.com");
-      return false;
-    }
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    if(!passwordRegex.test(password)) {
-      toast.error("Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial");
-      return false
-    }
-    if (password !== confirmPassword) {
-      toast.error("Les mots de passe ne correspondent pas");
-      return false;
-    }
-  
-
-    return true;
-  }
+  return true;
+}
   
 
   return (
