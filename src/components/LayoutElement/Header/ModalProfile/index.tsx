@@ -37,19 +37,7 @@ export default function Navbar() {
             variables = { organizationId: user.id };
             query = queryNameOrganization;
           }
-          const responseWithErrors = await requestWithVariable(query, variables);
-          console.log(responseWithErrors)
-          
-          if (responseWithErrors.errors && responseWithErrors.errors.length > 0) {
-            const errorMessage = responseWithErrors.errors[0].message;
-            console.log(errorMessage);
-            if (errorMessage === "Invalid token") {
-       
-                handleLogout();
-               
-              return;
-            }
-          }
+          const responseWithErrors = await requestWithVariable(query, variables)
      
           const userInfo = responseWithErrors.data;
           setUserInformation(userInfo);
@@ -64,7 +52,7 @@ export default function Navbar() {
     useEffect(() => {
         checkIsOrganization();
         getUserInformation()
-        console.log(userInformation)
+
     }, [user.id, isMember]);
 
     return (

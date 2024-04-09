@@ -290,6 +290,10 @@ export const requestWithVariable = async (query: string, variables: Variables ) 
       window.location.href = '/';
     }
     console.error('Erreur lors de l\'envoi des données:', error);
+    if (error.response.data.errors[0].message === 'Context creation failed: Invalid token') {
+      localStorage.clear();
+      window.location.href = '/';
+    }
   }
 }
 
