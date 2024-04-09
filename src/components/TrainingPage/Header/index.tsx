@@ -78,7 +78,7 @@ export default function HeaderTrainingPage({ data }) {
                 {isMember && (
                     <button
                         onClick={e => addTrainingToFavorite(e)}
-                        className="bg-primary-color text-white p-2 rounded-md hover:bg-transparent border-4 border-primary-color hover:text-primary-color"
+                        className="button filled"
                         id={data.id}
                     >
                         <h5 className="text-2xl flex flex-row justify-center gap-2 items-center">

@@ -22,7 +22,7 @@ export default function Feature() {
     ];
 
     return (
-        <div className="pb-24 min-h-60 h-full">
+        <div className="pb-24 min-h-60 h-full " data-aos="fade-up">
             <h3>Cherchez, trouvez, likez !</h3>
             <div className="flex flex-col lg:flex-row gap-10 items-stretch justify-evenly">
                 {data.map((element, index) => {

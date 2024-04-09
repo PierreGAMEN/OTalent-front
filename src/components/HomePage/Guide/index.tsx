@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import './style.css';
+
 const Guide = () => {
     useEffect(() => {
         const handleScroll = () => {
@@ -32,7 +33,7 @@ const Guide = () => {
     }, []);
     return (
         <div
-            className="p-10 min-h-60 h-screen flex flex-col justify-start bg-secondary-background bg-texture bg-center bg-cover bg-no-repeat bg-opacity-5"
+            className="pb-20 min-h-60 h-fit xl:h-screen flex flex-col justify-start bg-secondary-background bg-texture bg-center bg-cover bg-no-repeat bg-opacity-5  overflow-hidden"
             style={{
                 backgroundImage:
                     "linear-gradient(rgba(244, 230, 188, 0.7), rgba(244, 230, 188, 0.7)), url('/src/assets/Texture 7.png')",
@@ -41,9 +42,13 @@ const Guide = () => {
             <h3 className="text-center pt-10 pb-10 uppercase">
                 La route vers le succès
             </h3>
-            <div className="flex flex-col xl:flex-row h-full items-start justify-center">
-                <div className="flex flex-col h-full gap-2 justify-center items-center">
-                    <div className="flex flex-col p-5 gap-2 w-1/2 bg-white rounded-2xl shadow-xl shadow-black">
+            <div className="flex flex-col xl:flex-row h-full w-full items-start justify-center gap-2">
+                <div className="flex flex-col h-full justify-center items-center w-full">
+                    <div className="relative flex flex-col p-5 gap-2 w-1/2 bg-white rounded-2xl shadow-xl shadow-black min-w-72">
+                        <img
+                            src="/src/assets/Treasure-bro.svg"
+                            className="absolute hidden xl:block w-48 -left-32 -top-40"
+                        ></img>
                         <h4>Découvrez nos formations</h4>
                         <p>
                             Parcourez la liste de nos formations pour trouver
@@ -53,12 +58,12 @@ const Guide = () => {
                 </div>
                 <div
                     id="svg-container"
-                    className="relative h-[350px] w-[150px]  hidden xl:flex"
+                    className="relative w-1/6 hidden xl:flex"
                 >
                     <div id="svg-black" className=" text-primary-color">
                         <svg
-                            width="140"
-                            height="658"
+                            width="100%"
+                            height="100%"
                             viewBox="0 0 140 658"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -103,8 +108,8 @@ const Guide = () => {
                     </div>
                     <div id="svg-white">
                         <svg
-                            width="140"
-                            height="658"
+                            width="100%"
+                            height="100%"
                             viewBox="0 0 140 658"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -148,8 +153,12 @@ const Guide = () => {
                         </svg>
                     </div>
                 </div>
-                <div className="flex flex-col h-full gap-2 justify-around xl:justify-between items-center">
-                    <div className="flex flex-col p-5 gap-2 w-1/2 bg-white rounded-2xl shadow-xl shadow-black">
+                <div className="flex flex-col h-full gap-2 justify-around xl:justify-between items-center w-full">
+                    <div className="relative flex flex-col p-5 gap-2 w-1/2 bg-white rounded-2xl shadow-xl shadow-black min-w-72">
+                        <img
+                            src="/src/assets/Account-bro.svg"
+                            className="absolute hidden xl:block w-48 -right-32 -top-32"
+                        ></img>
                         <h4>Inscrivez-vous</h4>
                         <p>
                             Renseignez vos informations et choisissez vos
@@ -157,7 +166,11 @@ const Guide = () => {
                             connaître
                         </p>
                     </div>
-                    <div className="flex flex-col p-5 gap-2 w-1/2 bg-white rounded-2xl shadow-xl shadow-black">
+                    <div className="relative flex flex-col p-5 gap-2 w-1/2 bg-white rounded-2xl shadow-xl shadow-black min-w-72">
+                        <img
+                            src="/src/assets/Typing-bro.svg"
+                            className="absolute hidden xl:block w-48 -right-32 -top-32"
+                        ></img>
                         <h4>Contactez les organismes</h4>
                         <p>
                             Prenez contact avec les organismes de formation qui
