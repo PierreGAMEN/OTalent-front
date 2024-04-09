@@ -4,7 +4,7 @@
 
 @layer base {
     :root {
-        @apply bg-primary-background text-primary-color leading-5 m-0 p-0 scroll-smooth;
+        @apply bg-primary-background text-black leading-5 m-0 p-0 scroll-smooth;
     }
     html {
         font-family: 'Poppins', 'Roboto', system-ui, sans-serif;
