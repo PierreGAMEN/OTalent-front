@@ -19,10 +19,6 @@ const TrainingPage = () => {
         fetchData(queryOneTraining, id, 'trainingId', setDataFetch, setLoader);
     }, [id]);
 
-    useEffect(() => {
-        fetchData(queryOneTraining, id, 'trainingId', setDataFetch, setLoader);
-    }, [id]);
-
     return (
         <>
             {loader && <Loader />}

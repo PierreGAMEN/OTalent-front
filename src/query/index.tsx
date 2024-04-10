@@ -441,3 +441,44 @@ query Member($memberId: ID!) {
     }
   }
 }`
+
+export const queryPrankTrainings = `
+query Training($trainingId: ID!, $trainingId2: ID!) {
+  training1: training(id: $trainingId) {
+    id
+    label
+    price
+    duration
+    image
+    organization {
+      id
+      name
+    }
+    category {
+      id
+      label
+    }
+    reviews {
+      rating
+    }
+  }
+  training2: training(id: $trainingId2) {
+    id
+    label
+    price
+    duration
+    image
+    organization {
+      id
+      name
+    }
+    category {
+      id
+      label
+    }
+    reviews {
+      rating
+    }
+  }
+}
+`
