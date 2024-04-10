@@ -1,5 +1,9 @@
 import FeatureCard from './FeatureCard';
 
+/**
+ * Feature component
+ * @returns {JSX.Element} The Feature component
+ */
 export default function Feature() {
     const data = [
         {
@@ -22,9 +26,9 @@ export default function Feature() {
     ];
 
     return (
-        <div className="pb-24 min-h-60 h-full">
+        <div className="min-h-60 h-full pb-24" data-aos="fade-up">
             <h3>Cherchez, trouvez, likez !</h3>
-            <div className="flex flex-col lg:flex-row gap-10 items-stretch justify-evenly">
+            <div className="flex flex-col gap-10 items-stretch justify-evenly lg:flex-row">
                 {data.map((element, index) => {
                     return (
                         <FeatureCard
@@ -32,6 +36,7 @@ export default function Feature() {
                             title={element.title}
                             description={element.description}
                             image={element.image}
+                            aria-label={`Feature ${element.title}`}
                         />
                     );
                 })}

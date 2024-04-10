@@ -1,13 +1,27 @@
 import './style.css';
 import Swiper from 'swiper/bundle';
-// import Swiper styles
 import 'swiper/css/bundle';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
-const Carousel = ({ updateTraining }) => {
+/**
+ * Carousel component
+ * @param {Object} props - Component properties
+ * @param {function} props.updateTraining - Function to update the training
+ */
+const Carousel = ({
+    updateTraining,
+}: {
+    updateTraining: (training: string) => void;
+}) => {
+    // State for the current image
     const [currentImage, setCurrentImage] = useState({ src: '', alt: '' });
+
+    // Reference to the Swiper instance
+    const swiperRef = useRef<Swiper | null>(null);
+
+    // Effect to initialize the Swiper instance
     useEffect(() => {
-        const swiper = new Swiper('.swiper', {
+        swiperRef.current = new Swiper('.swiper', {
             direction: 'horizontal',
             allowTouchMove: false,
             autoplay: {
@@ -30,12 +44,21 @@ const Carousel = ({ updateTraining }) => {
             simulateTouch: false,
             loop: true,
             on: {
+                // Event handler for the slide change event
                 slideChange: function () {
-                    const currentSlide = this.slides[this.activeIndex];
-                    if (currentSlide) {
-                        const image = currentSlide.querySelector('img');
-                        if (image) {
-                            setCurrentImage({ src: image.src, alt: image.alt });
+                    if (swiperRef.current) {
+                        const currentSlide =
+                            swiperRef.current.slides[
+                                swiperRef.current.activeIndex
+                            ];
+                        if (currentSlide) {
+                            const image = currentSlide.querySelector('img');
+                            if (image) {
+                                setCurrentImage({
+                                    src: image.src,
+                                    alt: image.alt,
+                                });
+                            }
                         }
                     }
                 },

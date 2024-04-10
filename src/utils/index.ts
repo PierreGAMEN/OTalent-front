@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const getJWT = () => {
     return localStorage.getItem('token');
@@ -9,23 +9,21 @@ const authorizedRequest = async (url: string, requestData: any) => {
     try {
         const jwtToken = getJWT();
 
-        // Création des en-têtes de la requête
+     
         const headers: { [key: string]: string } = {};
         if (jwtToken) {
             headers['Authorization'] = `Bearer ${jwtToken}`;
         }
 
-        // Envoi de la requête avec les en-têtes appropriés
         const response = await axios.post(url, requestData, {
             headers: headers,
         });
 
-
-    return response.data;
-  } catch (error) {
-    console.error("Une erreur s'est produite :", error);
-    throw error;
-  }
+        return response.data;
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
+    }
 };
 
 export const fetchData = async (
@@ -63,23 +61,21 @@ export const dissociateMemberTraining = async (
             query: `
         mutation Mutation($memberId: ID!, $trainingId: ID!) {
           dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
-        }`
-      ,
-      variables: {
-        memberId: memberId,
-        trainingId: trainingId,
-      },
-    });
+        }`,
+            variables: {
+                memberId: memberId,
+                trainingId: trainingId,
+            },
+        });
 
-    console.log(response);
+        console.log(response);
 
-    return response;
-  } catch (error) {
-    console.error('Une erreur s\'est produite :', error);
-    throw error;
-  }
+        return response;
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
+    }
 };
-
 
 export const associateMemberTraining = async (
     memberId: number,
@@ -134,8 +130,8 @@ export const associateMemberCategory = async (
 };
 
 export const deleteMemberCategory = async (
-    memberId: number,
-    categoryId: number
+    memberId: number | string,
+    categoryId: number | string
 ) => {
     try {
         const response = await axios.post(url, {
@@ -274,41 +270,53 @@ interface Variables {
 }
 
 
-export const requestWithVariable = async (query: string, variables: Variables ) : Promise<void> => {
-  try {
-    const response: AxiosResponse<any> = await authorizedRequest(url, {
-      query,
-      variables
-    });
+interface ApiResponse {
+    errors: {
+      message: string;
+    }[];
+    // Autres propriétés éventuelles de la réponse
+  }
 
-    console.log('Réponse de l\'API:', response);
-    return response
-  } catch (error) {
-    if (error.response.data.errors[0].message === 'Context creation failed: Invalid token') {
-      localStorage.clear();
-      window.location.href = '/';
+export const requestWithVariable = async (query: string, variables: Variables): Promise<AxiosResponse> => {
+    try {
+      const response: AxiosResponse<ApiResponse> = await authorizedRequest(url, {
+        query,
+        variables
+      });
+  
+      console.log('Réponse de l\'API:', response);
+      return response;
+    } catch (error) {
+      // Type assertion pour indiquer à TypeScript que 'error' est de type AxiosError
+      const axiosError = error as AxiosError;
+  
+      if (axiosError.response && axiosError.response.data) {
+  
+        const responseData = axiosError.response.data as ApiResponse;
+        if (responseData.errors && responseData.errors[0].message === 'Context creation failed: Invalid token') {
+          localStorage.clear();
+          window.location.href = '/';
+        }
+      }
+  
+      console.error('Erreur lors de l\'envoi des données:', axiosError);
+  
+      throw axiosError;
     }
-    console.error('Erreur lors de l\'envoi des données:', error);
-    if (error.response.data.errors[0].message === 'Context creation failed: Invalid token') {
-      localStorage.clear();
-      window.location.href = '/';
+  };
+
+export const requestWithoutVariable = async (query: string): Promise<void> => {
+    try {
+        const response: AxiosResponse<any> = await authorizedRequest(url, {
+            query,
+        });
+
+        console.log("Réponse de l'API:", response);
+        return response;
+    } catch (error) {
+        console.error("Erreur lors de l'envoi des données:", error);
     }
 };
-}
-
-export const requestWithoutVariable = async (query: string) : Promise<void> => {
-  try {
-    const response: AxiosResponse<any> = await authorizedRequest(url, {
-      query
-    });
-    
-    console.log('Réponse de l\'API:', response);
-    return response
-  } catch (error) {
-   
-    console.error('Erreur lors de l\'envoi des données:', error);
-  }
-}
 
 export const changePassword = async (
     query: string,

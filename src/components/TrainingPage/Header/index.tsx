@@ -1,26 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { associateMemberTraining } from '../../../utils';
+import { associateMemberTraining, requestWithVariable } from '../../../utils';
 import { useAppSelector } from '../../../store/redux-hook/hook';
+import { queryAssociateMemberTraining } from '../../../query';
+import { toast } from 'react-toastify';
 
 export default function HeaderTrainingPage({ data }) {
     const [isAssociateToFavorite, setIsAssociateToFavoris] = useState(false);
-    const [isMember, setIsMember] = useState(false);
+    const [isMember, setIsMember] = useState<boolean | null>(false);
 
     const user = useAppSelector(state => state.token.user);
-    const idMember = user.id;
 
     useEffect(() => {
         setIsMember(user.member);
     }, [user.member]);
 
-    const addTrainingToFavorite = e => {
-        const trainingId = e.target.id;
-        associateMemberTraining(idMember, trainingId);
-        setIsAssociateToFavoris(true);
+    const addTrainingToFavorite = async () => {
+        const variables = {
+            memberId: user.id,
+            trainingId: data.id
+        };
+        try {
+            const response = await requestWithVariable(queryAssociateMemberTraining, variables);
+            setIsAssociateToFavoris(true);
+            if (response && response.data.errors && response.data.errors[0].message === 'duplicate key value violates unique constraint "member_likes_training_member_id_training_id_key"') {
+                toast.error("Vous avez déjà enregistré cette formation dans vos favoris");
+                setIsAssociateToFavoris(false);
+            } else if (response && response.data.errors && response.data.errors.length > 0) {
+                toast.error("Une erreur est survenue, nous n'avons pas pu enregistrer votre demande.");
+                setIsAssociateToFavoris(false);
+            }
+        } catch (error) {
+            
+            console.error("Erreur lors de la requête :", error);
+            setIsAssociateToFavoris(false);
+            toast.error("Une erreur est survenue, nous n'avons pas pu enregistrer votre demande.");
+        }
     };
+    
 
-    const ArrayReview: [] = [];
-    data.reviews.forEach(element => {
+    interface Review {
+        rating: number;
+    }
+
+    const ArrayReview: number[] = [];
+    data.reviews.forEach((element: Review) => {
         ArrayReview.push(element.rating);
     });
 
@@ -40,9 +63,7 @@ export default function HeaderTrainingPage({ data }) {
             style={{
                 backgroundImage: `url(https://res.cloudinary.com/${
                     import.meta.env.VITE_CDNY_CLOUDNAME
-                }/image/upload/c_scale,w_1920,h_1080,e_blur:400/v1/otalent/${
-                    data.image
-                })`,
+                }/image/upload/c_scale,w_1920,h_1080/v1/otalent/${data.image})`,
             }}
         >
             <div className="flex flex-col min-w-96 max-w-screen-sm  justify-between gap-5 bg-primary-background rounded-2xl p-5 border-4 border-primary-color">
@@ -78,7 +99,7 @@ export default function HeaderTrainingPage({ data }) {
                 {isMember && (
                     <button
                         onClick={e => addTrainingToFavorite(e)}
-                        className="bg-primary-color text-white p-2 rounded-md hover:bg-transparent border-4 border-primary-color hover:text-primary-color"
+                        className="button filled"
                         id={data.id}
                     >
                         <h5 className="text-2xl flex flex-row justify-center gap-2 items-center">

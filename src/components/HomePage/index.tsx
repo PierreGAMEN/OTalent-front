@@ -31,6 +31,7 @@ export default function HomePage() {
     const [isMemberInfoLoaded, setIsMemberInfoLoaded] = useState(false);
     const user = useAppSelector(state => state.token.user);
 
+
     console.log(memberInfo)
 
     const getTokenInformation = () => {
@@ -74,10 +75,11 @@ export default function HomePage() {
             <Hero />
             <Feature />
             <Guide />
+
     
-            {isMemberInfoLoaded ? (
+            {favoritesCategories.length > 0 && isMemberInfoLoaded ? (
                 <>
-                    <h3>Vos catégories préférées</h3>
+                    <h3 id="training_list">Vos catégories préférées</h3>
                     {isLoading && <Loader active inline="centered" />}
                     {memberInfo.data.member.categories.map(categorie => (
                         <TrainingList
@@ -111,7 +113,7 @@ export default function HomePage() {
                                 />
                             );
                         } else {
-                            return null; // or handle exceeding limit
+                            return null; 
                         }
                     })
                         ))}

@@ -12,6 +12,8 @@ import OrganizationPage from './components/OrganizationPage/index.tsx';
 import MemberEditPage from './components/PageEditProfile/MemberEditPage/index.tsx';
 import OrganizationEditPage from './components/PageEditProfile/OrganizationEditPage/index.tsx';
 import ResetPassword from './components/ResetPasswordPage/index.tsx';
+import NotFoundPage from './components/ErrorPage/index.tsx';
+import TeamPage from './components/TeamPage/index.tsx';
 
 const router = createBrowserRouter([
     {
@@ -26,6 +28,8 @@ const router = createBrowserRouter([
             { path: 'edit/member', element: <MemberEditPage /> },
             { path: 'signup', element: <FormPage /> },
             { path: 'reset-password', element: <ResetPassword /> },
+            { path: 'team', element: <TeamPage /> },
+            { path: '*', element: <NotFoundPage /> },
         ],
     },
 ]);

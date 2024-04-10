@@ -1,80 +1,76 @@
-export default function Footer() {
-    return (
-        <footer className="p-5 bg-primary-color text-white bottom-0">
-            <div className="flex flex-col lg:flex-row justify-evenly items-center">
-                <div className="flex flex-col w-1/2 items-center gap-5">
-                    <a href="/" className="flex flex-row items-center">
-                        <img
-                            src="/src/assets/otalent.svg"
-                            alt="Logo"
-                            className="w-12"
-                        />
-                        <h1 className="ml-5">O'Talent</h1>
-                    </a>
-                    <div className="flex flex-col gap-2 items-center">
-                        <p className="">
-                            © 2024 O'Talent. Tous droits réservés
-                        </p>
-                    </div>
-                </div>
-                <div className="flex flex-row w-full justify-evenly">
-                    <div className="flex flex-col items-start leading-7">
+import LogoTitle from '../../../assets/LogoTitle';
+import { Link } from 'react-router-dom';
+
+const Footer = () => (
+    <>
+        <footer className="p-10 text-white bg-primary-color bottom-0">
+            <div className="flex flex-row items-center justify-center gap-10">
+                <div className="flex flex-col w-2/3 gap-10 md:flex-row justify-evenly">
+                    <Link
+                        to="/"
+                        aria-label="Accueil"
+                        onClick={() => {
+                            window.scrollTo(0, 0);
+                        }}
+                    >
+                        <LogoTitle />
+                        <p>© 2024 O'Talent. Tous droits réservés</p>
+                    </Link>
+
+                    <div className="flex flex-col items-center leading-7">
                         <p className="mb-5 uppercase">Services</p>
-                        <a href="/" className="">
+                        <Link to="/" aria-label="Formations">
                             Formations
-                        </a>
-                        <a href="/" className="">
+                        </Link>
+                        <Link to="/" aria-label="Organismes">
                             Organismes
-                        </a>
-                        <a href="/" className="">
-                            {' '}
+                        </Link>
+                        <Link to="/" aria-label="Catégories">
                             Catégories
-                        </a>
+                        </Link>
                     </div>
-                    <div className="flex flex-col items-start leading-7">
+                    <div className="flex flex-col items-center leading-7">
                         <p className="mb-5 uppercase">Contact</p>
-                        <a href="/" className="">
+                        <Link to="/" aria-label="Nous contacter">
                             Nous contacter
-                        </a>
-                        <a href="/" className="">
+                        </Link>
+                        <Link to="/" aria-label="Nous rejoindre">
                             Nous rejoindre
-                        </a>
-                        <a href="/" className="">
-                            {' '}
+                        </Link>
+                        <Link to="/" aria-label="Aide">
                             Aide
-                        </a>
+                        </Link>
                     </div>
-                    <div className="flex flex-col items-start leading-7">
+                    <div className="flex flex-col items-center leading-7">
                         <p className="mb-5 uppercase">A propos</p>
-                        <a href="/" className="">
-                            Notre histoire
-                        </a>
-                        <a href="/" className="">
+                        <Link to="/team" aria-label="Notre équipe">
+                            Notre équipe
+                        </Link>
+                        <Link to="/" aria-label="Avis clients">
                             Avis clients
-                        </a>
-                        <a href="/" className="">
-                            {' '}
+                        </Link>
+                        <Link to="/" aria-label="FAQ">
                             FAQ
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
-            <div className="flex flex-row w-full mt-5 gap-5 items-center justify-center">
-                <a href="/" className="">
+            <div className="flex flex-col w-full mt-5 gap-5 items-center justify-center lg:flex-row">
+                <Link to="/" aria-label="Conditions générales d’utilisation">
                     Conditions générales d’utilisation
-                </a>
-                <a href="/" className="">
+                </Link>
+                <Link to="/" aria-label="Charte de confidentialité">
                     Charte de confidentialité
-                </a>
-                <a href="/" className="">
-                    {' '}
+                </Link>
+                <Link to="/" aria-label="Mentions légales">
                     Mentions légales
-                </a>
-                <a href="/" className="">
-                    {' '}
+                </Link>
+                <Link to="/" aria-label="Réclamations">
                     Réclamations
-                </a>
+                </Link>
             </div>
         </footer>
-    );
-}
+    </>
+);
+
+export default Footer;
