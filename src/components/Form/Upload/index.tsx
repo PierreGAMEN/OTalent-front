@@ -1,16 +1,21 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAppDispatch } from '../../../store/redux-hook/hook';
+import { getImageUpload } from '../../../store/actions/getImageUpload';
 
-/**
- * Component for uploading an image to Cloudinary.
- */
+
+
 const ImageUpload = () => {
     const [image, setImage] = useState<File | null>(null);
+    const dispatch = useAppDispatch();
 
     /**
      * Uploads the selected image to Cloudinary.
      * @returns {Promise<any>} A promise that resolves to the uploaded image data.
      */
     const uploadImage = async () => {
+        
+
         const data = new FormData();
         if (image) {
             data.append('file', image);
@@ -29,23 +34,33 @@ const ImageUpload = () => {
                 }
             );
             const result = await response.json();
-            return result;
+            if(result.error && result.error.message === "Invalid image file") {
+                toast.error("Le type de fichier est invalide, merci de choisir une image (jpg, jpeg, png, svg, webp etc.)")
+            }
+            if(result.public_id) 
+            {dispatch(getImageUpload(result.public_id.slice(8, result.public_id.length)))
+                console.log(result)
+            return result;}
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
     return (
-        <div>
+        <>
+        <label className='input input-bordered flex items-center gap-2'>
             <input
                 type="file"
                 onChange={
-                    // Get the first file from the selected files
+           
                     e => setImage(e.target.files ? e.target.files[0] : null)
                 }
+                placeholder='Vous pouvez choisir une image'
+                accept="image/*"
             />
-            <button onClick={uploadImage}>Upload</button>
-        </div>
+            </label>
+            <button className="btn "type="button" onClick={uploadImage}>Télécharger l'image</button>
+            </>
     );
 };
 
