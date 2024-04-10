@@ -180,6 +180,17 @@ export const queryFavoritesCategories = `query Member($memberId: ID!) {
   }
 }`;
 
+export const queryNearestOrganizations = `query Member($memberId: ID!) {
+  member(id: $memberId) {
+    region
+    nearestOrganizations {
+      trainings {
+        label
+      }
+    }
+  }
+}`
+
 export const queryDissociateMemberTraining = `mutation Mutation($memberId: ID!, $trainingId: ID!) {
   dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
 }`;
@@ -403,6 +414,30 @@ query Member($memberId: ID!) {
     categories {
       label
       id
+    }
+    region
+    nearestOrganizations {
+      trainings {
+        id
+        label
+        price
+        image
+        duration
+        
+        category {
+          label
+          id
+        }
+        dates
+        organization {
+          name
+          id
+        }
+        created_at
+        reviews {
+          rating
+        }
+      }
     }
   }
 }`
