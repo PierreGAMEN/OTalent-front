@@ -62,10 +62,12 @@ export default function ReviewsEditProfilPageMember({ data }) {
   
 
   return (
-    <section>
+    <section className="">
+      <h4 className="mt-5 mb-5">Vos commentaires</h4>
+      <div className="flex flex-col gap-2 max-h-[400px] overflow-scroll">
       {memberReviews && memberReviews.map((review) => (
-        <div key={review.id}>
-          <h4>{review.training.label}</h4>
+        <div className="border border-primary-color flex flex-col gap-2 relative rounded-md p-2 w-[80%]" key={review.id}>
+          <h5>{review.training.label}</h5>
           {editModeId === review.id ? (
             <>
               <input type="text" value={review.comment} onChange={(e) => handleChange(e, review.id)} />
@@ -74,12 +76,13 @@ export default function ReviewsEditProfilPageMember({ data }) {
           ) : (
             <>
               <p>{review.comment}</p>
-              <button className="btn  bg-blue-600 text-white" onClick={() => handleEditMode(review.id)}>Modifier le commentaire</button>
+              <button className="material-symbols-rounded absolute top-0 right-2" onClick={() => handleEditMode(review.id)}>edit</button>
             </>
           )}
-          <button className="btn ml-2 bg-red-600 text-white" onClick={() => deleteComment(review.id)}>Supprimer le commentaire</button>
+          <button className="material-symbols-rounded absolute top-0 right-10" onClick={() => deleteComment(review.id)}>delete</button>
         </div>
       ))}
+      </div>
     </section>
   );
 }
