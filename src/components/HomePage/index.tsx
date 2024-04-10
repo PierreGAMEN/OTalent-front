@@ -1,15 +1,8 @@
 import Hero from './Hero';
 import TrainingList from './TrainingList';
 import { useEffect, useState } from 'react';
-import {
-    fetchCategories,
-    fetchData,
-} from '../../utils';
-import {
-    queryAllTrainingCard,
-    queryCategories,
-    queryFavoritesCategories,
-} from '../../query';
+import { fetchCategories, fetchData } from '../../utils';
+import { queryAllTrainingCard, queryFavoritesCategories } from '../../query';
 import { Loader } from 'semantic-ui-react';
 import Feature from './Feature';
 import { useAppSelector } from '../../store/redux-hook/hook';
@@ -32,14 +25,13 @@ export default function HomePage() {
 
     const user = useAppSelector(state => state.token.user);
 
-    const getUserInformation = () => {
-        if (user) {
-            setIsMember(user.member ?? false);
-            setIdMember(user.id ? String(user.id) : '');
-        }
-    };
-
     useEffect(() => {
+        const getUserInformation = () => {
+            if (user) {
+                setIsMember(user.member ?? false);
+                setIdMember(user.id ? String(user.id) : '');
+            }
+        };
         getUserInformation();
 
         fetchData(queryAllTrainingCard, null, null, setData, setIsloading);
@@ -55,30 +47,33 @@ export default function HomePage() {
                 setLoader
             );
         }
-    }, []);
+    }, [idMember, isMember, user]);
 
     return (
         <main className="flex flex-col gap-20 mb-20">
             <Hero />
             <Feature />
             <Guide />
-            {data && isMember && favoritesCategories.member && (
-                <>
-                    <h3>Vos catégories préférées</h3>
-                    {loader && <Loader active inline="centered" />}
-                    {favoritesCategories.member.categories.map(categorie => (
-                        <TrainingList
-                            key={categorie.id}
-                            data={data}
-                            categoryChosen={categorie.label}
-                        />
-                    ))}
-                </>
-            )}
+            {data &&
+                isMember &&
+                favoritesCategories.member &&
+                favoritesCategories.length > 0 && (
+                    <>
+                        <h3 id="training_list">Vos catégories préférées</h3>
+                        {loader && <Loader active inline="centered" />}
+                        {favoritesCategories.member.categories.map(category => (
+                            <TrainingList
+                                key={category.id}
+                                data={data}
+                                categoryChosen={category.label}
+                            />
+                        ))}
+                    </>
+                )}
             {isloading && <Loader active inline="centered" />}
             {data && (
                 <>
-                    <h3>Découvrez notre selection</h3>
+                    <h3 id="training_list">Découvrez notre selection</h3>
                     <TrainingList data={data} categoryChosen="Informatique" />
                     <TrainingList data={data} categoryChosen="Arts" />
                     <TrainingList data={data} categoryChosen="Finance" />
