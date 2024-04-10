@@ -31,9 +31,6 @@ export default function HomePage() {
     const [isMemberInfoLoaded, setIsMemberInfoLoaded] = useState(false);
     const user = useAppSelector(state => state.token.user);
 
-
-    console.log(memberInfo)
-
     const getTokenInformation = () => {
         if (user && user.member === true) {
             setIsMember(true);
@@ -77,8 +74,10 @@ export default function HomePage() {
             <Guide />
 
     
-            {favoritesCategories.length > 0 && isMemberInfoLoaded ? (
+            {(isMemberInfoLoaded) ? (
                 <>
+                    {isMemberInfoLoaded && memberInfo.data.member.categories.length > 0 &&
+                    <>
                     <h3 id="training_list">Vos catégories préférées</h3>
                     {isLoading && <Loader active inline="centered" />}
                     {memberInfo.data.member.categories.map(categorie => (
@@ -88,6 +87,7 @@ export default function HomePage() {
                             categoryChosen={categorie.label}
                         />
                     ))}
+                    </>}
 
                     <h3>Proche de chez vous, en {memberInfo.data.member.region} :</h3>
                     {isLoading && <Loader active inline="centered" />}
