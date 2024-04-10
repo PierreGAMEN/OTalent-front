@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { loginRequest, requestWithVariable } from "../../../utils";
 import { queryAddMember } from "../../../query";
 import MemberDataInputI from "../../../@Types/memberDataInputI";
-import { confirmPasswordRegex, emailRegex, isNeeded, passwordRegex } from "../../../regex";
+import { confirmPasswordRegex, emailRegex, isNeeded, passwordRegex, postalCodeRegex } from "../../../regex";
 
 export default function FormMember() {
   const [firstName, setFirstName] = useState("");
@@ -15,37 +15,44 @@ export default function FormMember() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  interface InputData {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    postalCode: string;
+    avatar: null;
+    city?: string; // La propriété city est rendue facultative en ajoutant "?"
+}
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<boolean> => {
     e.preventDefault();
     
-    if (!validateFormData(firstName, lastName, email, password, confirmPassword)) {
+    if (!validateFormData(firstName, lastName, email, password, confirmPassword, postalCode)) {
         return false;
     }
 
-    const variables = {
-        input: {
-            firstname: firstName,
-            lastname: lastName,
-            email: email,
-            password: password,
-            city: city,
-            avatar: null // Vous pouvez laisser null si vous n'envoyez pas d'avatar
-        }
-    };
+    const variables: { input: InputData } = {
+      input: {
+          firstname: firstName,
+          lastname: lastName,
+          email: email,
+          password: password,
+          postalCode: postalCode,
+          avatar: null
+      }
+  };
 
-    if (postalCode.trim() !== '') {
-      variables.input.postalCode = postalCode;
-    }
-    if (postalCode.trim() !== '') {
+
+    if (city.trim() !== '') {
       variables.input.city = city;
     }
   
 
     try {
         const response = await requestWithVariable(queryAddMember, variables);
-        if(response.errors[0].message === 'duplicate key value violates unique constraint "member_email_key"')
+        if(response.errors && response.errors[0].message === 'duplicate key value violates unique constraint "member_email_key"')
         {toast.error('Oups, votre adresse est déjà utilisée.');}
-        console.log(response.errors[0].message)
         await login()
         return true;
     } catch (error) {
@@ -67,13 +74,16 @@ const login = async () => {
 
 
 
-function validateFormData(firstName: string, lastName: string, email: string, password: string, confirmPassword: string) {
-  if (!isNeeded(firstName, "Le prénom")) return false;
-  if (!isNeeded(lastName, "Le nom de famille")) return false;
-  if (!emailRegex(email)) return false;
-  if (!passwordRegex(password)) return false;
-  if (!confirmPasswordRegex(password, confirmPassword)) return false;
+function validateFormData(firstName: string, lastName: string, email: string, password: string, confirmPassword: string, postalCode: string) {
   
+  if(!isNeeded(firstName, "Le prénom")){toast.error("Le prénom est requis"); return false};
+  if(!isNeeded(firstName, "Le nom")){toast.error("Le nom est requis"); return false};
+  if(!postalCodeRegex(postalCode)){return false}
+  if(!emailRegex(email)){toast.error("L'adresse email n'a pas le bon format"); return false};
+  if(!passwordRegex(password)){ return false};
+  if(!confirmPasswordRegex(password, confirmPassword)){return false}
+
+ 
   return true;
 }
   

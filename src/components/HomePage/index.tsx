@@ -16,6 +16,7 @@ import { Loader } from 'semantic-ui-react';
 import Feature from './Feature';
 import { useAppSelector } from '../../store/redux-hook/hook';
 import Guide from './Guide';
+import TrainingCard from './TrainingCard';
 
 // TODO : Récupérer ID via le Token et récupérer les infos idMember
 
@@ -30,13 +31,14 @@ export default function HomePage() {
     const [isMemberInfoLoaded, setIsMemberInfoLoaded] = useState(false);
     const user = useAppSelector(state => state.token.user);
 
+    console.log(memberInfo)
 
     const getTokenInformation = () => {
         if (user && user.member === true) {
             setIsMember(true);
         } 
     };
-
+    
     const getMemberInformation = async () => {
     
             const variables = {
@@ -65,8 +67,8 @@ export default function HomePage() {
             
     },[isMember] )
 ;
-
-
+ 
+        let count = 0
     return (
         <main className="flex flex-col gap-20 mb-20">
             <Hero />
@@ -84,6 +86,37 @@ export default function HomePage() {
                             categoryChosen={categorie.label}
                         />
                     ))}
+
+                    <h3>Proche de chez vous, en {memberInfo.data.member.region} :</h3>
+                    {isLoading && <Loader active inline="centered" />}
+                    <div className='flex overflow-scroll gap-5'>
+                    {memberInfo.data.member.nearestOrganizations.map(organization => (
+                    organization.trainings.map(training => {
+                        if (count < 5) {
+                            count++;
+                            return (
+                                <TrainingCard
+                                    key={training.id}
+                                    dateCreated={training.created_at}
+                                    organizationId={training.organization.id}
+                                    trainingId={training.id}
+                                    label={training.label}
+                                    duration={training.duration}
+                                    price={training.price}
+                                    organization={training.organization.name}
+                                    category={training.category.label}
+                                    image={training.image}
+                                    categoryId={training.category.id}
+                                    reviews={training.reviews}
+                                />
+                            );
+                        } else {
+                            return null; 
+                        }
+                    })
+                        ))}
+                    </div>
+
                 </>
             ) : (
                 <Loader active inline="centered" />

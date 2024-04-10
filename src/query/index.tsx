@@ -404,5 +404,29 @@ query Member($memberId: ID!) {
       label
       id
     }
+    region
+    nearestOrganizations {
+      trainings {
+        id
+        label
+        price
+        image
+        duration
+        
+        category {
+          label
+          id
+        }
+        dates
+        organization {
+          name
+          id
+        }
+        created_at
+        reviews {
+          rating
+        }
+      }
+    }
   }
 }`

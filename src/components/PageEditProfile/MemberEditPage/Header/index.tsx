@@ -7,13 +7,25 @@ import {
     requestWithVariable,
 } from '../../../../utils';
 import { deleteMember, queryUpdateMemberInformation } from '../../../../query';
-import { Button, Divider } from 'semantic-ui-react';
-import { toast } from 'react-toastify';
 import ReviewsEditProfilPageMember from '../Reviews';
 
-// TODO : Retravailler le CSS
+interface DataHeaderEditProfilI {
+    data : {
+        lastname: string,
+        firstname: string,
+        email: string,
+        city: string,
+        postal_code: string,
+        categories: {
+            label: string,
+            id: string | number
+        }
+    },
+    memberId: string | number
+}
 
-export default function HeaderEditProfilPageMember({ data, memberId }) {
+
+export default function HeaderEditProfilPageMember({ data, memberId }: DataHeaderEditProfilI) {
     const [isEdit, setIsEdit] = useState(false);
     const [editCategories, setEditCategories] = useState(false)
 
@@ -22,12 +34,10 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
     const [email, setEmail] = useState(data.email);
     const [city, setCity] = useState(data.city);
     const [postal_code, setPostal_code] = useState(data.postal_code);
-    const [favoriteCategories, setFavoriteCategories] = useState([
-        ...data.categories,
-    ]);
+    const [favoriteCategories, setFavoriteCategories] = useState<DataHeaderEditProfilI['data']['categories'][]>([...data.categories]);
     const [isAddNewCategegory, setIsAddNewCategory] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedIdCategory, setSelectCategoryId] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
     const [deleteConfim, setDeleteConfirm] =useState(false)
 
     const categories = useAppSelector(state => state.categories.list);
@@ -42,32 +52,34 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
             )
     );
 
-    const handleChange = (e, setter) => {
+    const handleChange = (e: any, setter: any) => {
         const value = e.target.value;
         setter(value);
     };
 
-    const handleCategoryChange = event => {
-        setSelectedCategory(event.target.value);
-        setSelectCategoryId(
-            event.target.options[event.target.selectedIndex].id
-        );
+    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectElement = e.currentTarget;
+        const selectedIndex = selectElement.selectedIndex;
+        const selectedOption = selectElement.options[selectedIndex];
+        
+        setSelectedCategory(selectedOption.value);
+        setSelectedCategoryId(selectedOption.id);
     };
 
     const AddCategory = () => {
         setFavoriteCategories([
             ...favoriteCategories,
-            { id: selectedIdCategory, label: selectedCategory },
+            { id: selectedCategoryId, label: selectedCategory },
         ]);
-        if (selectedIdCategory !== null) {
-            associateMemberCategory(memberId, parseInt(selectedIdCategory));
+        if (selectedCategoryId !== null) {
+            associateMemberCategory(memberId, parseInt(selectedCategoryId));
         }
         setSelectedCategory('');
         setIsAddNewCategory(false);
     };
 
-    const deleteCategorie = e => {
-        const labelToDelete = e.target.id;
+    const deleteCategorie = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const labelToDelete = e.currentTarget.id;
         const newFavoriteCategories = favoriteCategories.filter(
             categorie => categorie.id !== labelToDelete
         );
@@ -85,7 +97,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
     }
 
 
-    const updateMemberInformation = async (e) => {
+    const updateMemberInformation = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         const variables = {
             modifyMemberId: user.id,
