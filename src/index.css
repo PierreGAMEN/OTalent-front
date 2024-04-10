@@ -6,6 +6,11 @@
     :root {
         @apply bg-primary-background text-black leading-5 m-0 p-0 scroll-smooth;
     }
+
+    #root {
+        @apply min-h-screen flex flex-col justify-between;
+    }
+
     html {
         font-family: 'Poppins', 'Roboto', system-ui, sans-serif;
     }
@@ -18,7 +23,7 @@
         @apply font-extrabold;
     }
     h1 {
-        @apply text-4xl text-white;
+        @apply text-4xl ml-5;
     }
     h2 {
         @apply text-9xl text-white;
@@ -34,25 +39,16 @@
     }
 }
 
+@layer components {
+    .button {
+        @apply m-2 p-2 border-4 bg-primary-color border-primary-color text-white rounded-2xl uppercase font-bold text-lg cursor-pointer transition-all duration-300 ease-in-out;
+    }
 
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-}
+    .filled {
+        @apply bg-primary-color text-white hover:bg-transparent hover:text-primary-color;
+    }
 
-/* Track */
-::-webkit-scrollbar-track {
-    background: none;
-    border-radius: 5px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #14715b;
-    border-radius: 5px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #14715b;
+    .outlined {
+        @apply bg-white text-primary-color hover:bg-transparent hover:text-white hover:border-white;
+    }
 }

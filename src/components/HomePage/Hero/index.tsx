@@ -20,14 +20,14 @@ export default function Hero() {
                 </p>
                 <img
                     src="./src/assets/Certification-bro.svg"
-                    className="xl:hidden w-64 mt-5"
+                    className="xl:hidden w-64 mt-5 min-w-64"
                 ></img>
-                <a
-                    href="#training_list"
-                    className="w-3/5 text-center bg-white p-5 mt-10 min-w-min rounded-2xl hover:cursor-pointer text-primary-color text-2xl font-bold hover:bg-transparent hover:text-white border-white border-2"
+                <button
+                    className="button outlined mt-10 w-2/3 w-64"
+                    onClick={() => (window.location.href = '#training_list')}
                 >
-                    Découvrez nos formations
-                </a>
+                    <h4>Découvrez nos formations</h4>
+                </button>
             </div>
             <div className="w-1/2 h-full hidden xl:flex items-center">
                 <Carousel updateTraining={updateTraining} />

@@ -26,7 +26,6 @@ export default function ContentTrainingPage({ data }: { data: TrainingDataI }) {
         thirdSetterFalse(false);
     };
 
-
     const buttons = [
         {
             text: 'Description & Programme',
@@ -52,7 +51,7 @@ export default function ContentTrainingPage({ data }: { data: TrainingDataI }) {
     return (
         <>
             <h3>Détails de la formation</h3>
-            <section className="flex flex-row h-screen justify-center align-start gap-5 m-5">
+            <section className="flex flex-row min-h-96 justify-center align-start gap-5 m-5">
                 <div className="flex flex-col">
                     <ul className="">
                         {buttons.map(button => (
@@ -82,7 +81,7 @@ export default function ContentTrainingPage({ data }: { data: TrainingDataI }) {
                     </ul>
                 </div>
 
-                <div className="flex flex-col align-center justify-start h-full w-1/2 gap-5">
+                <div className="flex flex-col align-center justify-start min-h-96 w-1/3 gap-5">
                     {isProgram && (
                         <>
                             <h4>Description</h4>
@@ -146,15 +145,17 @@ export default function ContentTrainingPage({ data }: { data: TrainingDataI }) {
                                     {data.organization.name}
                                 </a>
                             </p>
-                            <img
-                                className="w-2/3 rounded-2xl"
-                                src={`https://res.cloudinary.com/${
-                                    import.meta.env.VITE_CDNY_CLOUDNAME
-                                }/image/upload/c_scale,w_780,h_520/v1/otalent/${
-                                    data.organization.image
-                                }`}
-                                alt="Photo de l'organisation"
-                            />
+                            <a href={`/organization/${data.organization.id}`}>
+                                <img
+                                    className="w-64 rounded-2xl"
+                                    src={`https://res.cloudinary.com/${
+                                        import.meta.env.VITE_CDNY_CLOUDNAME
+                                    }/image/upload/c_scale,w_780,h_520/v1/otalent/${
+                                        data.organization.image
+                                    }`}
+                                    alt="Photo de l'organisation"
+                                />
+                            </a>
                         </>
                     )}
                     {isPrerequisite && (

@@ -115,12 +115,14 @@ export default function TrainingCard({
                             {price} €
                         </h4>
                     </div>
-                    <a
-                        href={`/training/${trainingId}`}
-                        className="bg-primary-color text-white p-2 m-2 rounded-xl text-center hover:bg-transparent hover:text-primary-color border-primary-color border-2"
+                    <button
+                        onClick={() =>
+                            (window.location.href = `/training/${trainingId}`)
+                        }
+                        className="button filled"
                     >
                         Voir la formation
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
