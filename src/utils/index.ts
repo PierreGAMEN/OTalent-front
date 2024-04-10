@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const getJWT = () => {
     return localStorage.getItem('token');
@@ -9,13 +9,12 @@ const authorizedRequest = async (url: string, requestData: any) => {
     try {
         const jwtToken = getJWT();
 
-        // Création des en-têtes de la requête
+     
         const headers: { [key: string]: string } = {};
         if (jwtToken) {
             headers['Authorization'] = `Bearer ${jwtToken}`;
         }
 
-        // Envoi de la requête avec les en-têtes appropriés
         const response = await axios.post(url, requestData, {
             headers: headers,
         });
@@ -131,8 +130,8 @@ export const associateMemberCategory = async (
 };
 
 export const deleteMemberCategory = async (
-    memberId: number,
-    categoryId: number
+    memberId: number | string,
+    categoryId: number | string
 ) => {
     try {
         const response = await axios.post(url, {
@@ -270,36 +269,41 @@ interface Variables {
     [key: string]: any;
 }
 
-export const requestWithVariable = async (
-    query: string,
-    variables: Variables
-): Promise<void> => {
-    try {
-        const response: AxiosResponse<any> = await authorizedRequest(url, {
-            query,
-            variables,
-        });
 
-        console.log("Réponse de l'API:", response);
-        return response;
+interface ApiResponse {
+    errors: {
+      message: string;
+    }[];
+    // Autres propriétés éventuelles de la réponse
+  }
+
+export const requestWithVariable = async (query: string, variables: Variables): Promise<AxiosResponse> => {
+    try {
+      const response: AxiosResponse<ApiResponse> = await authorizedRequest(url, {
+        query,
+        variables
+      });
+  
+      console.log('Réponse de l\'API:', response);
+      return response;
     } catch (error) {
-        if (
-            error.response.data.errors[0].message ===
-            'Context creation failed: Invalid token'
-        ) {
-            localStorage.clear();
-            window.location.href = '/';
+      // Type assertion pour indiquer à TypeScript que 'error' est de type AxiosError
+      const axiosError = error as AxiosError;
+  
+      if (axiosError.response && axiosError.response.data) {
+  
+        const responseData = axiosError.response.data as ApiResponse;
+        if (responseData.errors && responseData.errors[0].message === 'Context creation failed: Invalid token') {
+          localStorage.clear();
+          window.location.href = '/';
         }
-        console.error("Erreur lors de l'envoi des données:", error);
-        if (
-            error.response.data.errors[0].message ===
-            'Context creation failed: Invalid token'
-        ) {
-            localStorage.clear();
-            window.location.href = '/';
-        }
+      }
+  
+      console.error('Erreur lors de l\'envoi des données:', axiosError);
+  
+      throw axiosError;
     }
-};
+  };
 
 export const requestWithoutVariable = async (query: string): Promise<void> => {
     try {

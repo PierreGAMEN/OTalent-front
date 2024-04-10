@@ -1,26 +1,49 @@
-import { useEffect, useState } from 'react';
-import { associateMemberTraining } from '../../../utils';
+import React, { useEffect, useState } from 'react';
+import { associateMemberTraining, requestWithVariable } from '../../../utils';
 import { useAppSelector } from '../../../store/redux-hook/hook';
+import { queryAssociateMemberTraining } from '../../../query';
+import { toast } from 'react-toastify';
 
 export default function HeaderTrainingPage({ data }) {
     const [isAssociateToFavorite, setIsAssociateToFavoris] = useState(false);
-    const [isMember, setIsMember] = useState(false);
+    const [isMember, setIsMember] = useState<boolean | null>(false);
 
     const user = useAppSelector(state => state.token.user);
-    const idMember = user.id;
 
     useEffect(() => {
         setIsMember(user.member);
     }, [user.member]);
 
-    const addTrainingToFavorite = e => {
-        const trainingId = e.target.id;
-        associateMemberTraining(idMember, trainingId);
-        setIsAssociateToFavoris(true);
+    const addTrainingToFavorite = async () => {
+        const variables = {
+            memberId: user.id,
+            trainingId: data.id
+        };
+        try {
+            const response = await requestWithVariable(queryAssociateMemberTraining, variables);
+            setIsAssociateToFavoris(true);
+            if (response && response.data.errors && response.data.errors[0].message === 'duplicate key value violates unique constraint "member_likes_training_member_id_training_id_key"') {
+                toast.error("Vous avez déjà enregistré cette formation dans vos favoris");
+                setIsAssociateToFavoris(false);
+            } else if (response && response.data.errors && response.data.errors.length > 0) {
+                toast.error("Une erreur est survenue, nous n'avons pas pu enregistrer votre demande.");
+                setIsAssociateToFavoris(false);
+            }
+        } catch (error) {
+            
+            console.error("Erreur lors de la requête :", error);
+            setIsAssociateToFavoris(false);
+            toast.error("Une erreur est survenue, nous n'avons pas pu enregistrer votre demande.");
+        }
     };
+    
 
-    const ArrayReview: [] = [];
-    data.reviews.forEach(element => {
+    interface Review {
+        rating: number;
+    }
+
+    const ArrayReview: number[] = [];
+    data.reviews.forEach((element: Review) => {
         ArrayReview.push(element.rating);
     });
 
