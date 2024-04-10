@@ -55,7 +55,7 @@ export default function Navbar() {
     useEffect(() => {
         checkIsOrganization();
         getUserInformation();
-    });
+    }, []);
 
     return (
         <div className="dropdown dropdown-end flex justify-center items-center">

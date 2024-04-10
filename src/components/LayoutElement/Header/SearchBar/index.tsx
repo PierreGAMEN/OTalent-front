@@ -65,17 +65,16 @@ const SearchBar: React.FC<SearchBarProps> = () => {
                 type="submit"
                 onClick={e => {
                     e.preventDefault();
-                    if (selectedCategory && searchTerm && idSelectedCategory) {
-                        navigate(
-                            `/search/${selectedCategory || ''}${
-                                searchTerm ? `&${searchTerm}` : ''
-                            }${
-                                idSelectedCategory
-                                    ? `&${idSelectedCategory}`
-                                    : ''
-                            }`
-                        );
-                    }
+
+                    const params = new URLSearchParams();
+
+                    if (selectedCategory)
+                        params.append('category', selectedCategory);
+                    if (searchTerm) params.append('term', searchTerm);
+                    if (idSelectedCategory)
+                        params.append('id', idSelectedCategory);
+
+                    navigate(`/search?${params.toString()}`);
                 }}
             >
                 <span className="material-symbols-rounded p-1 bg-primary-color rounded-full text-white hover:bg-white hover:text-primary-color">
