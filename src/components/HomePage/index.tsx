@@ -77,7 +77,7 @@ export default function HomePage() {
             <Guide />
 
     
-            {favoritesCategories.length > 0 && isMemberInfoLoaded ? (
+            {isMemberInfoLoaded ? (
                 <>
                     <h3 id="training_list">Vos catégories préférées</h3>
                     {isLoading && <Loader active inline="centered" />}
