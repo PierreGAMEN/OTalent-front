@@ -19,12 +19,11 @@ const authorizedRequest = async (url: string, requestData: any) => {
             headers: headers,
         });
 
-
-    return response.data;
-  } catch (error) {
-    console.error("Une erreur s'est produite :", error);
-    throw error;
-  }
+        return response.data;
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
+    }
 };
 
 export const fetchData = async (
@@ -62,23 +61,21 @@ export const dissociateMemberTraining = async (
             query: `
         mutation Mutation($memberId: ID!, $trainingId: ID!) {
           dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
-        }`
-      ,
-      variables: {
-        memberId: memberId,
-        trainingId: trainingId,
-      },
-    });
+        }`,
+            variables: {
+                memberId: memberId,
+                trainingId: trainingId,
+            },
+        });
 
-    console.log(response);
+        console.log(response);
 
-    return response;
-  } catch (error) {
-    console.error('Une erreur s\'est produite :', error);
-    throw error;
-  }
+        return response;
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+        throw error;
+    }
 };
-
 
 export const associateMemberTraining = async (
     memberId: number,
@@ -272,6 +269,7 @@ interface Variables {
     [key: string]: any;
 }
 
+
 interface ApiResponse {
     errors: {
       message: string;
@@ -307,19 +305,18 @@ export const requestWithVariable = async (query: string, variables: Variables): 
     }
   };
 
-export const requestWithoutVariable = async (query: string) : Promise<void> => {
-  try {
-    const response: AxiosResponse<any> = await authorizedRequest(url, {
-      query
-    });
-    
-    console.log('Réponse de l\'API:', response);
-    return response
-  } catch (error) {
-   
-    console.error('Erreur lors de l\'envoi des données:', error);
-  }
-}
+export const requestWithoutVariable = async (query: string): Promise<void> => {
+    try {
+        const response: AxiosResponse<any> = await authorizedRequest(url, {
+            query,
+        });
+
+        console.log("Réponse de l'API:", response);
+        return response;
+    } catch (error) {
+        console.error("Erreur lors de l'envoi des données:", error);
+    }
+};
 
 export const changePassword = async (
     query: string,

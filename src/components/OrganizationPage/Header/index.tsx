@@ -14,9 +14,7 @@ const HeaderOrganizationProfilPage: React.FC<
             style={{
                 backgroundImage: `url(https://res.cloudinary.com/${
                     import.meta.env.VITE_CDNY_CLOUDNAME
-                }/image/upload/c_scale,w_1920,h_1080,e_blur:400/v1/otalent/${
-                    data.image
-                })`,
+                }/image/upload/c_scale,w_1920,h_1080/v1/otalent/${data.image})`,
             }}
         >
             <div className="flex flex-col min-w-96 max-w-screen-sm  justify-between gap-5 bg-primary-background rounded-2xl p-5 border-4 border-primary-color">

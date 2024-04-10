@@ -1,3 +1,8 @@
+import { Link } from 'react-router-dom';
+
+/**
+ * Interface for TrainingCard properties
+ */
 interface TrainingCardProps {
     label: string;
     dateCreated: string;
@@ -12,6 +17,10 @@ interface TrainingCardProps {
     reviews: [];
 }
 
+/**
+ * TrainingCard component
+ * @param {TrainingCardProps} props - Properties passed to the component
+ */
 export default function TrainingCard({
     organizationId,
     trainingId,
@@ -26,6 +35,7 @@ export default function TrainingCard({
 }: TrainingCardProps) {
     const ArrayReview: number[] = [];
 
+    // If reviews exist, push each rating to ArrayReview
     if (reviews) {
         reviews.forEach((element: { rating?: number }) => {
             if (element.rating !== undefined) {
@@ -34,6 +44,7 @@ export default function TrainingCard({
         });
     }
 
+    // Calculate the average rating
     const averageRating = parseInt(
         (
             ArrayReview.reduce((acc, curr) => acc + curr, 0) / reviews.length
@@ -41,43 +52,49 @@ export default function TrainingCard({
     );
 
     return (
-        <div className="flex flex-col border-4 rounded-2xl border-primary-color">
-            <div className="flex flex-col h-[550px] w-[300px]">
-                <a href={`/training/${trainingId}`}>
+        <div className="flex flex-col border-4 border-primary-color rounded-2xl">
+            <div className="flex flex-col w-[300px] h-[550px]">
+                <Link
+                    to={`/training/${trainingId}`}
+                    aria-label="Lien vers la formation"
+                >
                     <img
                         src={`https://res.cloudinary.com/${
                             import.meta.env.VITE_CDNY_CLOUDNAME
                         }/image/upload/t_trainingcard/v1/otalent/${image}`}
-                        alt="Training"
-                        className="rounded-t-xl w-[350px] h-[200px]"
+                        alt="Image de la formation"
+                        className="w-[350px] h-[200px] rounded-t-xl"
                     />
-                </a>
-                <div className="flex flex-col p-2 h-full justify-between items-stretch ">
-                    <a href={`/training/${trainingId}`}>
+                </Link>
+                <div className="flex flex-col p-2 items-stretch h-full justify-between">
+                    <Link
+                        to={`/training/${trainingId}`}
+                        aria-label="Lien vers la formation"
+                    >
                         <h5>{label}</h5>
-                    </a>
-                    <div className="flex flex-col h-full justify-end gap-3">
-                        <a
-                            href={`/organization/${organizationId}`}
-                            className="flex items-center gap-2"
+                    </Link>
+                    <div className="flex flex-col gap-3 h-full justify-end">
+                        <Link
+                            to={`/organization/${organizationId}`}
+                            className="flex gap-2 items-center"
+                            aria-label="Lien vers l'organisation"
                         >
                             <span className="material-symbols-rounded">
                                 school
                             </span>
                             {organization}
-                        </a>
-
-                        <a
-                            href={`/search/${category}&&${categoryId}`}
-                            className="flex items-center gap-2"
+                        </Link>
+                        <Link
+                            to={`/search/${category}&&${categoryId}`}
+                            className="flex gap-2 items-center"
+                            aria-label="Lien vers la catégorie"
                         >
                             <span className="material-symbols-rounded">
                                 sell
                             </span>
                             {category}
-                        </a>
-
-                        <p className="flex items-center gap-2">
+                        </Link>
+                        <p className="flex gap-2 items-center">
                             <span className="material-symbols-rounded">
                                 schedule
                             </span>
@@ -85,7 +102,7 @@ export default function TrainingCard({
                         </p>
                         <div>
                             {!isNaN(averageRating) ? (
-                                <div className="rating rating-md flex items-center">
+                                <div className="rating rating-md flex gap-2 items-center">
                                     <h5 className="ml-1 mr-1">
                                         {averageRating}/5
                                     </h5>
@@ -108,21 +125,20 @@ export default function TrainingCard({
                                 <p>Il n'y pas encore d'avis.</p>
                             )}
                         </div>
-                        <h4 className="flex items-center justify-center gap-2">
+                        <h4 className="flex gap-2 items-center justify-center">
                             <span className="material-symbols-rounded text-4xl">
                                 payments
                             </span>
                             {price} €
                         </h4>
                     </div>
-                    <button
-                        onClick={() =>
-                            (window.location.href = `/training/${trainingId}`)
-                        }
+                    <Link
+                        to={`/training/${trainingId}`}
                         className="button filled"
+                        aria-label="Voir la formation"
                     >
                         Voir la formation
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

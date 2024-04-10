@@ -41,7 +41,7 @@
 
 @layer components {
     .button {
-        @apply m-2 p-2 border-4 bg-primary-color border-primary-color text-white rounded-2xl uppercase font-bold text-lg cursor-pointer transition-all duration-300 ease-in-out;
+        @apply m-2 p-2 border-4 bg-primary-color border-primary-color text-white rounded-2xl uppercase font-bold text-lg text-center cursor-pointer transition-all duration-300 ease-in-out;
     }
 
     .filled {

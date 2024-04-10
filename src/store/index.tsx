@@ -3,16 +3,18 @@ import modalReducer from '../store/reducer';
 
 import categoriesReducer from './reducer/categories';
 import tokenReducer from './reducer/tokenReducer';
-import connexionReducer from './reducer/connexionReducer';
+import connectionReducer from './reducer/connectionReducer';
 import modalEditInformationReducer from './reducer/modalEditInformationReducer';
 
 const store = configureStore({
-  reducer: {modal: modalReducer, 
-            categories: categoriesReducer, 
-            token: tokenReducer, 
-            connexion: connexionReducer,
-            editTraining: modalEditInformationReducer}, 
-            devTools: true
+    reducer: {
+        modal: modalReducer,
+        categories: categoriesReducer,
+        token: tokenReducer,
+        connection: connectionReducer,
+        editTraining: modalEditInformationReducer,
+    },
+    devTools: true,
 });
 
 export default store;

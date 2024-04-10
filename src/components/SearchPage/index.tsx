@@ -5,7 +5,6 @@ import { Loader } from 'semantic-ui-react';
 import TrainingCard from '../HomePage/TrainingCard';
 import './style.scss';
 import { fetchData } from '../../utils';
-import SearchBar from '../LayoutElement/Header/SearchBar';
 
 export default function SearchPage() {
     const [dataFetch, setDataFetch] = useState([]);
@@ -41,21 +40,21 @@ export default function SearchPage() {
         <>
             <div className="container-search">
                 {categorie && term && (
-                    <h4 className='mb-5'>
+                    <h4 className="mb-5">
                         Voici toutes les formation incluant le mot "{term}" dans
                         la catégorie "{categorie}"
                     </h4>
                 )}
                 {categorie && !term && (
-                    <h4 className='mb-5'>
+                    <h4 className="mb-5">
                         Voici toutes les formations appartenant à la catégorie "
                         {categorie}"
                     </h4>
                 )}
                 {term && !categorie && (
-                    <h2>
+                    <h4>
                         Voici toutes les formations incluant le mot "{term}"
-                    </h2>
+                    </h4>
                 )}
 
                 <div className="container-search-card">

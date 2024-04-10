@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import './style.scss';
-import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../../../store/redux-hook/hook';
+import { useNavigate } from 'react-router-dom';
 
-interface Category {
-    label: string;
-    id: string | number;
-}
+import { useAppSelector } from '../../../../store/redux-hook/hook';
 
 interface SearchBarProps {
     className?: string;
-    id: number;
 }
 const SearchBar: React.FC<SearchBarProps> = () => {
     const categories = useAppSelector(state => state.categories.list);
@@ -24,8 +19,10 @@ const SearchBar: React.FC<SearchBarProps> = () => {
         event.preventDefault();
     };
 
+    const navigate = useNavigate();
+
     return (
-        <form className="join hidden lg:flex" onSubmit={handleSubmit}>
+        <form className="join lg:flex" onSubmit={handleSubmit}>
             <select
                 className="select join-item border-none"
                 name="category"
@@ -63,18 +60,28 @@ const SearchBar: React.FC<SearchBarProps> = () => {
                 />
             </div>
 
-            <NavLink
-                to={`/search/${selectedCategory}&${searchTerm}&${idSelectedCategory}`}
+            <button
+                className="btn join-item border-none bg-white hover:bg-white"
+                type="submit"
+                onClick={e => {
+                    e.preventDefault();
+                    if (selectedCategory && searchTerm && idSelectedCategory) {
+                        navigate(
+                            `/search/${selectedCategory || ''}${
+                                searchTerm ? `&${searchTerm}` : ''
+                            }${
+                                idSelectedCategory
+                                    ? `&${idSelectedCategory}`
+                                    : ''
+                            }`
+                        );
+                    }
+                }}
             >
-                <button
-                    className="btn join-item border-none bg-white hover:bg-white"
-                    type="submit"
-                >
-                    <span className="material-symbols-rounded p-1 bg-primary-color rounded-full text-white hover:bg-white hover:text-primary-color">
-                        search
-                    </span>
-                </button>
-            </NavLink>
+                <span className="material-symbols-rounded p-1 bg-primary-color rounded-full text-white hover:bg-white hover:text-primary-color">
+                    search
+                </span>
+            </button>
         </form>
     );
 };
