@@ -34,7 +34,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }: DataHeade
     const [email, setEmail] = useState(data.email);
     const [city, setCity] = useState(data.city);
     const [postal_code, setPostal_code] = useState(data.postal_code);
-    const [favoriteCategories, setFavoriteCategories] = useState<DataHeaderEditProfilI['data']['categories'][]>([...data.categories]);
+    const [favoriteCategories, setFavoriteCategories] = useState<Array<{ label: string; id: string | number; }>>([...data.categories]);
     const [isAddNewCategegory, setIsAddNewCategory] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
