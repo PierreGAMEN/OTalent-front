@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useLocation } from 'react-router';
 import { queryAllTrainingCard, queryTrainingFromCategory } from '../../query';
 import { Loader } from 'semantic-ui-react';
 import TrainingCard from '../HomePage/TrainingCard';
@@ -10,12 +10,11 @@ export default function SearchPage() {
     const [dataFetch, setDataFetch] = useState([]);
     const [isloading, setIsloading] = useState(false);
 
-    const params: string | undefined = useParams().arg1;
-    const splittedValues = params ? params.split('&') : [];
-    const categorie = splittedValues[0];
-    const term = splittedValues[1];
-    const id = parseInt(splittedValues[2]);
-
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const categorie = params.get('category');
+    const term = params.get('term');
+    const id = params.get('id');
     useEffect(() => {
         if (term) {
             fetchData(
@@ -41,20 +40,17 @@ export default function SearchPage() {
             <div className="container-search">
                 {categorie && term && (
                     <h4 className="mb-5">
-                        Voici toutes les formation incluant le mot "{term}" dans
-                        la catégorie "{categorie}"
+                        Résultats de la recherche "{term}" dans la catégorie "
+                        {categorie}"
                     </h4>
                 )}
                 {categorie && !term && (
                     <h4 className="mb-5">
-                        Voici toutes les formations appartenant à la catégorie "
-                        {categorie}"
+                        Résultats de la recherche "{categorie}"
                     </h4>
                 )}
                 {term && !categorie && (
-                    <h4>
-                        Voici toutes les formations incluant le mot "{term}"
-                    </h4>
+                    <h4>Résultats de la recherche "{term}"</h4>
                 )}
 
                 <div className="container-search-card">
