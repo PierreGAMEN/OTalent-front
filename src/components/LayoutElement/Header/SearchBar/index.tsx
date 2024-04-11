@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './style.scss';
 import { useNavigate } from 'react-router-dom';
-
+import regions from '../../../../data/region'
 import { useAppSelector } from '../../../../store/redux-hook/hook';
 import { Divider } from 'semantic-ui-react';
 
@@ -29,6 +29,20 @@ const SearchBar: React.FC<SearchBarProps> = () => {
 
             <button onClick={() => {setFilterIsOpen(!filterIsOpen)}} className='btn join-item border-none bg-white hover:bg-white material-symbols-rounded'>filter_alt</button>
             {filterIsOpen && <div className='absolute top-20 bg-white p-5 rounded-md shadow-md'>
+            <select
+                className="select join-item border-none"
+                name="region"
+                id="region"
+            >
+                <option value="">Rechercher par région</option>
+                {regions.map(region => (
+                    <option
+                        value={region}
+                    >
+                        {region}
+                    </option>
+                ))}
+            </select>
             <select
                 className="select join-item border-none"
                 name="category"
