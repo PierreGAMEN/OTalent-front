@@ -27,7 +27,7 @@ const ImageUpload = () => {
             const response = await fetch(
                 `https://api.cloudinary.com/v1_1/${
                     import.meta.env.VITE_CDNY_CLOUDNAME
-                }/image/upload`, // The Cloudinary upload URL
+                }/image/upload`, 
                 {
                     method: 'post',
                     body: data,

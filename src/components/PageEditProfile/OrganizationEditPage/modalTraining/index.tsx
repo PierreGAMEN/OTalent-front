@@ -5,6 +5,7 @@ import { requestWithVariable } from '../../../../utils';
 import { queryCreateTraining, queryTrainingInformation, queryUpdateTrainingInformations } from '../../../../query';
 import ImageUpload from '../../../Form/Upload';
 import { toast } from 'react-toastify';
+import { getImageUpload } from '../../../../store/actions/getImageUpload';
 
 const ModalTraining = () => {
 
@@ -122,13 +123,15 @@ const ModalTraining = () => {
                 program: JSON.stringify(formData.program),
                 startingDate: formData.startingDate,
                 endingDate: formData.endingDate,
-                organizationId: userId
+                organizationId: userId,
+                image: uploadImage ? uploadImage : formData.image
             }
         }
 
         await requestWithVariable(queryUpdateTrainingInformations, variables)
+        dispatch(getImageUpload(""))
         
-        // location.reload()
+        location.reload()
     }
 
 
@@ -154,7 +157,7 @@ const ModalTraining = () => {
         }
         
         await requestWithVariable(queryCreateTraining, variables)
-        
+        dispatch(getImageUpload(""))
     }
 
     const deletePrerequisite = (e) => {

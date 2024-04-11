@@ -79,10 +79,20 @@ export default function Navbar() {
                 className="btn btn-ghost btn-circle avatar w-16 h-16 border-4 border-white"
             >
                 <div className="rounded-full">
+                    {isMember &&
                     <img
                         alt="Your profile image"
-                        src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                    />
+                        src= {userInformation.member && userInformation.member.avatar ?
+                             `${userInformation.member.avatar}` :
+                              "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1"} 
+                    />} 
+                    
+                    {!isMember && <img
+                    alt="Your profile image"
+                    src= {userInformation.organization && userInformation.organization.image ? 
+                        `https://res.cloudinary.com/${import.meta.env.VITE_CDNY_CLOUDNAME}/image/upload/c_scale,w_780,h_520/v1/otalent/${userInformation.organization.image}` 
+                        : "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1"} 
+                />}
                 </div>
             </div>
             <ul
