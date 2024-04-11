@@ -133,7 +133,11 @@ export default function ReviewTrainingPage({ data }: { data: TrainingDataI }) {
                                 <div className="flex flex-col lg:flex-row">
                                     <img
                                         className="w-20 h-20 rounded-full border-4 border-primary-color"
-                                        src={review.member.avatar}
+                                        src={`https://res.cloudinary.com/${
+                                            import.meta.env.VITE_CDNY_CLOUDNAME
+                                        }/image/upload/c_scale,w_150,h_150/v1/otalent/${
+                                            review.member.avatar
+                                        }`}
                                         alt="Avatar"
                                     />
                                     <div className="flex flex-col justify-center items-start pl-2">

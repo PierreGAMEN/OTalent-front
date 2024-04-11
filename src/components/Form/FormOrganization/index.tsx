@@ -4,6 +4,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { loginRequest, requestWithVariable } from "../../../utils";
 import { queryAddOrganization, queryGetInformationSiret } from "../../../query";
 import { Link } from "react-router-dom";
+import ImageUpload from "../Upload";
+import { useAppSelector } from "../../../store/redux-hook/hook";
+import { Divider } from "semantic-ui-react";
+import { getImageUpload } from "../../../store/actions/getImageUpload";
+
 
 
 
@@ -21,6 +26,7 @@ interface FormValues {
 }
 
 export default function FormOrganization(): JSX.Element {
+  const uploadImage = useAppSelector(state => state.idImage.id);
   const [formValues, setFormValues] = useState<FormValues>({
     raisonSociale: "",
     adresse: "",
@@ -100,6 +106,7 @@ export default function FormOrganization(): JSX.Element {
       await login()
       setStepBienvenue(true)
       setStep3(false)
+      dispatch(getImageUpload(""))
       return true;
     } catch (error) {
       console.error("Erreur lors de la soumission du formulaire:", error);
@@ -314,8 +321,9 @@ export default function FormOrganization(): JSX.Element {
             placeholder="Confirmer"
           /></label>
 
+        <ImageUpload />
 
-        <button onClick={handleSubmit} className="btn bg-green-600 text-white" type="submit">Submit</button>
+            {uploadImage && <button onClick={handleSubmit} className="btn bg-green-600 text-white" type="submit">Submit</button>}
         </>}
       </form>
       {stepBienvenue && 
@@ -327,4 +335,8 @@ export default function FormOrganization(): JSX.Element {
       </div>
 
   );
+}
+
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
 }

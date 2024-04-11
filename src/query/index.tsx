@@ -388,6 +388,7 @@ query Query($memberId: ID!) {
   member(id: $memberId) {
     firstname
     lastname
+    avatar
   }
 }
 `
@@ -396,6 +397,7 @@ export const queryNameOrganization = `
 query Query($organizationId: ID!) {
   organization(id: $organizationId) {
     name
+    image
   }
 }
 `
@@ -482,3 +484,26 @@ query Training($trainingId: ID!, $trainingId2: ID!) {
   }
 }
 `
+
+export const queryTrainingsByRegions = 
+`query TrainingsByRegion($regionName: String!) {
+  trainingsByRegion(regionName: $regionName) {
+    id
+    label
+    price
+    duration
+    excerpt
+    image
+    reviews {
+      rating
+    }
+    category {
+      id
+      label
+    }
+    organization {
+      id
+      name
+    }
+  }
+}`
