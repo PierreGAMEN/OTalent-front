@@ -64,22 +64,24 @@ export default function ReviewsEditProfilPageMember({ data }) {
   return (
     <section className="">
       <h4 className="mt-5 mb-5">Vos commentaires</h4>
-      <div className="flex flex-col gap-2 max-h-[400px] overflow-scroll">
+      <div className="flex flex-col gap-4 max-h-[500px] overflow-scroll">
       {memberReviews && memberReviews.map((review) => (
-        <div className="border border-primary-color flex flex-col gap-2 relative rounded-md p-2 w-[80%]" key={review.id}>
+        <div className="border border-primary-color flex flex-col gap-2 relative rounded-md p-5 mr-5" key={review.id}>
           <h5>{review.training.label}</h5>
           {editModeId === review.id ? (
             <>
-              <input type="text" value={review.comment} onChange={(e) => handleChange(e, review.id)} />
-              <button onClick={() => saveChanges(review.id, review.comment)}>Enregistrer</button>
+              <input className="border" type="text" value={review.comment} onChange={(e) => handleChange(e, review.id)} />
+              <button className="btn bg-green-600 text-white" onClick={() => saveChanges(review.id, review.comment)}>Enregistrer</button>
             </>
           ) : (
             <>
               <p>{review.comment}</p>
-              <button className="material-symbols-rounded absolute top-0 right-2" onClick={() => handleEditMode(review.id)}>edit</button>
+              <div className="flex">
+                <button type="button" className="btn" onClick={() => handleEditMode(review.id)}>Modifier</button>
+                <button type="button" className="btn" onClick={() => deleteComment(review.id)}>Supprimer</button>
+              </div>
             </>
           )}
-          <button className="material-symbols-rounded absolute top-0 right-10" onClick={() => deleteComment(review.id)}>delete</button>
         </div>
       ))}
       </div>

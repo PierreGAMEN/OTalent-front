@@ -377,6 +377,7 @@ query Query($memberId: ID!) {
   member(id: $memberId) {
     firstname
     lastname
+    avatar
   }
 }
 `
@@ -385,6 +386,7 @@ export const queryNameOrganization = `
 query Query($organizationId: ID!) {
   organization(id: $organizationId) {
     name
+    image
   }
 }
 `
