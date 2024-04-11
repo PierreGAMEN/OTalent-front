@@ -3,6 +3,7 @@ import './style.scss';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../../../../store/redux-hook/hook';
+import { Divider } from 'semantic-ui-react';
 
 interface SearchBarProps {
     className?: string;
@@ -14,6 +15,7 @@ const SearchBar: React.FC<SearchBarProps> = () => {
     const [idSelectedCategory, setIdSelectedCategory] = useState<number | null>(
         null
     );
+    const [filterIsOpen, setFilterIsOpen] = useState(false)
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -23,6 +25,10 @@ const SearchBar: React.FC<SearchBarProps> = () => {
 
     return (
         <form className="join lg:flex" onSubmit={handleSubmit}>
+            
+
+            <button onClick={() => {setFilterIsOpen(!filterIsOpen)}} className='btn join-item border-none bg-white hover:bg-white material-symbols-rounded'>filter_alt</button>
+            {filterIsOpen && <div className='absolute top-20 bg-white p-5 rounded-md shadow-md'>
             <select
                 className="select join-item border-none"
                 name="category"
@@ -47,10 +53,11 @@ const SearchBar: React.FC<SearchBarProps> = () => {
                     </option>
                 ))}
             </select>
-
+            
+                </div>}
             <div className="container-input-text ">
                 <input
-                    className="input join-item w-[310px] border-none border-primary-color"
+                    className="input join-item border-none border-primary-color"
                     type="text"
                     name="searchTerm"
                     id="searchTerm"
@@ -59,7 +66,6 @@ const SearchBar: React.FC<SearchBarProps> = () => {
                     placeholder="Titre de formation, nom d’organisme..."
                 />
             </div>
-
             <button
                 className="btn join-item border-none bg-white hover:bg-white"
                 type="submit"
@@ -81,6 +87,7 @@ const SearchBar: React.FC<SearchBarProps> = () => {
                     search
                 </span>
             </button>
+            
         </form>
     );
 };
