@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../../store/redux-hook/hoo
 import { getStateModalEditTraining } from '../../../../store/actions/modalEditTrainingAction';
 import { requestWithVariable } from '../../../../utils';
 import { queryCreateTraining, queryTrainingInformation, queryUpdateTrainingInformations } from '../../../../query';
+import ImageUpload from '../../../Form/Upload';
 
 const ModalTraining = () => {
 
@@ -270,6 +271,7 @@ const ModalTraining = () => {
                             Date de fin:
                             <input className="w-full h-full" type="date" name="endingDate" value={formData.endingDate} onChange={handleChange} />
                         </label>
+                        <ImageUpload></ImageUpload>
                     </div>
                
                     {trainingId && <button onClick={updateTrainingInformation} className="btn bg-blue-600 text-white mt-5">Enregristrer les modification</button>}
