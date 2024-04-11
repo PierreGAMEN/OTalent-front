@@ -5,6 +5,8 @@ import { loginRequest, requestWithVariable } from "../../../utils";
 import { queryAddMember } from "../../../query";
 import MemberDataInputI from "../../../@Types/memberDataInputI";
 import { confirmPasswordRegex, emailRegex, isNeeded, passwordRegex, postalCodeRegex } from "../../../regex";
+import ImageUpload from "../Upload";
+import { useAppSelector } from "../../../store/redux-hook/hook";
 
 export default function FormMember() {
   const [firstName, setFirstName] = useState("");
@@ -15,13 +17,16 @@ export default function FormMember() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const uploadImage = useAppSelector(state => state.idImage.id);
+    
+
   interface InputData {
     firstname: string;
     lastname: string;
     email: string;
     password: string;
     postalCode: string;
-    avatar: null;
+    avatar: string | null ;
     city?: string; // La propriété city est rendue facultative en ajoutant "?"
 }
 
@@ -39,13 +44,17 @@ export default function FormMember() {
           email: email,
           password: password,
           postalCode: postalCode,
-          avatar: null
       }
   };
 
 
     if (city.trim() !== '') {
       variables.input.city = city;
+    }
+
+    if(uploadImage) {
+      variables.input.avatar = `https://res.cloudinary.com/dz5n3acae/image/upload/t_trainingcard/v1/otalent/${uploadImage}`
+      console.log(variables.input.avatar)
     }
   
 
@@ -163,6 +172,8 @@ function validateFormData(firstName: string, lastName: string, email: string, pa
             placeholder="Confirm Password"
             required
           /></label>
+
+          <ImageUpload />
 
         <button className="btn bg-green-600 text-white" type="submit">Submit</button>
       </form>

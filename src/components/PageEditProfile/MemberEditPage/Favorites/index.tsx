@@ -18,11 +18,11 @@ export default function FavoritesEditProfilPageMember({ data }) {
     };
 
     return (
-        <>
-            <h2>Vos favoris</h2>
-            <section className="content-organizationPage-trainings">
+        <div className='p-10'>
+            <h4 className='mb-10'>Vos favoris</h4>
+            <section className="flex gap-4 overflow-scroll">
                 {favoritesTrainings.map(training => (
-                    <div key={training.id}>
+                    <div className='flex flex-col gap-4' key={training.id}>
                         <TrainingCard
                             key={training.id}
                             label={training.label}
@@ -37,12 +37,12 @@ export default function FavoritesEditProfilPageMember({ data }) {
                             organizationId={training.organization.id}
                             reviews={training.reviews}
                         />
-                        <button onClick={deleteFavorite} id={training.id}>
+                        <button className='btn bg-blue-600 text-white mb-5' onClick={deleteFavorite} id={training.id}>
                             Retirer des favoris
                         </button>
                     </div>
                 ))}
             </section>
-        </>
+        </div>
     );
 }

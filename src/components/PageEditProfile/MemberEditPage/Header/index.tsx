@@ -131,9 +131,9 @@ export default function HeaderEditProfilPageMember({ data, memberId }: DataHeade
             <div className='flex flex-col items-center lg:flex-row'>
             <div className='modal-box flex flex-col items-center gap-3'>
             <button onClick={() => {setIsEdit(true)}} className="material-symbols-rounded absolute top-4 right-10">edit</button>
-                <div className='flex w-24 h-24 rounded-full border bg-primary-color text-white text-xl items-center'>
-                    {data.avatar && <img  src={data.avatar} alt="" />}
-                    {!data.avatar && <p className=''>{`${data.firstname[0]}${data.lastname[0]}`}</p>}
+                <div className='rounded-full'>
+                    {data.avatar && <img className='object-cover h-48 w-60' src={data.avatar} alt="Your profile image" />}
+                    {!data.avatar && <img className='object-cover h-48 w-60'  src="https://i.pinimg.com/736x/2f/15/f2/2f15f2e8c688b3120d3d26467b06330c.jpg" alt="Your profile" />}
                 </div>
                 <p className='text-xl'>{`${data.firstname} ${data.lastname}`}</p>
                 <p><span className='material-symbols-rounded'>email</span> {data.email}</p>
