@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import { queryAllTrainingCard, queryTrainingFromCategory } from '../../query';
+import { queryAllTrainingCard, queryTrainingFromCategory, queryTrainingsByRegions } from '../../query';
 import { Loader } from 'semantic-ui-react';
 import TrainingCard from '../HomePage/TrainingCard';
 import './style.scss';
-import { fetchData } from '../../utils';
+import { fetchData, requestWithVariable } from '../../utils';
 
 export default function SearchPage() {
     const [dataFetch, setDataFetch] = useState([]);
@@ -15,8 +15,23 @@ export default function SearchPage() {
     const categorie = params.get('category');
     const term = params.get('term');
     const id = params.get('id');
+    const area = params.get('area')
+    console.log(area)
+    console.log(term)
+
+    const getTrainingFromAreaFirst = async () => {
+        if(area) {
+            const variables = {
+                regionName: area
+            }
+            const response = await requestWithVariable(queryTrainingsByRegions, variables)
+            setDataFetch(response)
+        }
+    }
+
     useEffect(() => {
-        if (term) {
+        getTrainingFromAreaFirst()
+        if (term && !area) {
             fetchData(
                 queryAllTrainingCard,
                 null,
@@ -24,7 +39,7 @@ export default function SearchPage() {
                 setDataFetch,
                 setIsloading
             );
-        } else if (categorie && !term) {
+        } else if (categorie && !term && !area) {
             fetchData(
                 queryTrainingFromCategory,
                 id,
@@ -33,7 +48,7 @@ export default function SearchPage() {
                 setIsloading
             );
         }
-    }, [categorie, term, id]);
+    }, [categorie, term, id, area]);
 
     return (
         <>
@@ -76,39 +91,38 @@ export default function SearchPage() {
                             />
                         ))}
 
-                    {categorie &&
-                        term &&
-                        dataFetch &&
-                        dataFetch.trainings &&
-                        dataFetch.trainings
-                            .filter(
-                                training =>
-                                    training.category.label === categorie
-                            )
-                            .filter(training => training.label.includes(term))
-                            .map(training => (
-                                <TrainingCard
-                                    key={training.id}
-                                    label={training.label}
-                                    dateCreated={''}
-                                    duration={training.duration}
-                                    price={training.price}
-                                    category={training.category.label}
-                                    image={training.image}
-                                    categoryId={training.category.id}
-                                    organization={training.organization.name}
-                                    trainingId={training.id}
-                                    reviews={training.reviews}
-                                    organizationId={training.organization.id}
-                                />
-                            ))}
+                        {categorie &&
+                            term &&
+                            dataFetch &&
+                            dataFetch.trainings &&
+                            dataFetch.trainings
+                                .filter(training =>
+                                    training.category.label === categorie &&
+                                    training.label.toLowerCase().includes(term.toLowerCase())
+                                )
+                                .map(training => (
+                                    <TrainingCard
+                                        key={training.id}
+                                        label={training.label}
+                                        dateCreated={''}
+                                        duration={training.duration}
+                                        price={training.price}
+                                        category={training.category.label}
+                                        image={training.image}
+                                        categoryId={training.category.id}
+                                        organization={training.organization.name}
+                                        trainingId={training.id}
+                                        reviews={training.reviews}
+                                        organizationId={training.organization.id}
+                                    />
+                                ))}
 
                     {term &&
                         !categorie &&
                         dataFetch &&
                         dataFetch.trainings &&
                         dataFetch.trainings
-                            .filter(training => training.label.includes(term))
+                            .filter(training => training.label.toLowerCase().includes(term.toLowerCase()))
                             .map(training => (
                                 <TrainingCard
                                     key={training.id}
@@ -126,11 +140,90 @@ export default function SearchPage() {
                                 />
                             ))}
 
+                        {area && term && !categorie && dataFetch.data && dataFetch.data.trainingsByRegion
+                        .filter(training => training.label.toLowerCase().includes(term.toLowerCase()))
+                        .map((training) => (
+                            <TrainingCard
+                            key={training.id}
+                            label={training.label}
+                            dateCreated={''}
+                            duration={training.duration}
+                            price={training.price}
+                            category={training.category.label}
+                            image={training.image}
+                            categoryId={training.category.id}
+                            organization={training.organization.name}
+                            trainingId={training.id}
+                            reviews={training.reviews}
+                            organizationId={training.organization.id}
+                        />
+                        ))}
+
+                        {area && term && categorie && dataFetch.data && dataFetch.data.trainingsByRegion
+                        .filter(training =>
+                            training.category.label === categorie &&
+                            training.label.toLowerCase().includes(term.toLowerCase())
+                        )
+                        .map((training) => (
+                            <TrainingCard
+                            key={training.id}
+                            label={training.label}
+                            dateCreated={''}
+                            duration={training.duration}
+                            price={training.price}
+                            category={training.category.label}
+                            image={training.image}
+                            categoryId={training.category.id}
+                            organization={training.organization.name}
+                            trainingId={training.id}
+                            reviews={training.reviews}
+                            organizationId={training.organization.id}
+                        />
+                        ))}
+
+                        {area && !term && categorie && dataFetch.data && dataFetch.data.trainingsByRegion
+                        .filter(training =>
+                            training.category.label === categorie)
+                        .map((training) => (
+                            <TrainingCard
+                            key={training.id}
+                            label={training.label}
+                            dateCreated={''}
+                            duration={training.duration}
+                            price={training.price}
+                            category={training.category.label}
+                            image={training.image}
+                            categoryId={training.category.id}
+                            organization={training.organization.name}
+                            trainingId={training.id}
+                            reviews={training.reviews}
+                            organizationId={training.organization.id}
+                        />
+                        ))}
+
+                        {area && !term && !categorie && dataFetch.data && dataFetch.data.trainingsByRegion.map((training) => (
+                            <TrainingCard
+                            key={training.id}
+                            label={training.label}
+                            dateCreated={''}
+                            duration={training.duration}
+                            price={training.price}
+                            category={training.category.label}
+                            image={training.image}
+                            categoryId={training.category.id}
+                            organization={training.organization.name}
+                            trainingId={training.id}
+                            reviews={training.reviews}
+                            organizationId={training.organization.id}
+                        />
+                        ))}
+
+
                     {term &&
                         dataFetch &&
                         dataFetch.trainings &&
                         dataFetch.trainings.filter(training =>
-                            training.label.includes(term)
+                            training.label.toLowerCase().includes(term.toLowerCase())
                         ).length === 0 && (
                             <p>Aucun résultat trouvé pour "{term}".</p>
                         )}

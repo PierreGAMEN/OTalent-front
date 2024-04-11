@@ -11,6 +11,7 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = () => {
     const categories = useAppSelector(state => state.categories.list);
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedArea, setSelectedArea] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('');
     const [idSelectedCategory, setIdSelectedCategory] = useState<number | null>(
         null
@@ -29,10 +30,16 @@ const SearchBar: React.FC<SearchBarProps> = () => {
 
             <button onClick={() => {setFilterIsOpen(!filterIsOpen)}} className='btn join-item border-none bg-white hover:bg-white material-symbols-rounded'>filter_alt</button>
             {filterIsOpen && <div className='absolute top-20 bg-white p-5 rounded-md shadow-md'>
+            
             <select
                 className="select join-item border-none"
                 name="region"
                 id="region"
+                value={selectedArea}
+                onChange = {(e)=> {
+                    setSelectedArea(e.target.value)
+                }
+            }
             >
                 <option value="">Rechercher par région</option>
                 {regions.map(region => (
@@ -67,7 +74,7 @@ const SearchBar: React.FC<SearchBarProps> = () => {
                     </option>
                 ))}
             </select>
-            
+
                 </div>}
             <div className="container-input-text ">
                 <input
@@ -93,6 +100,7 @@ const SearchBar: React.FC<SearchBarProps> = () => {
                     if (searchTerm) params.append('term', searchTerm);
                     if (idSelectedCategory)
                         params.append('id', idSelectedCategory);
+                    if(selectedArea) params.append("area", selectedArea)
 
                     navigate(`/search?${params.toString()}`);
                 }}
