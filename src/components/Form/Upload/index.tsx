@@ -39,6 +39,7 @@ const ImageUpload = () => {
             }
             if(result.public_id) 
             {dispatch(getImageUpload(result.public_id.slice(8, result.public_id.length)))
+                toast.success("L'image a correctement été importée, enregistrez les modifications pour valider votre choix")
                 console.log(result)
             return result;}
         } catch (error) {
@@ -48,7 +49,7 @@ const ImageUpload = () => {
 
     return (
         <>
-        <label className='input input-bordered flex items-center gap-2'>
+        <label className='input input-bordered flex items-center gap-2'>Choisissez une image
             <input
                 type="file"
                 onChange={

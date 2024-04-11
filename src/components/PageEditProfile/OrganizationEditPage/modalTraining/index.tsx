@@ -3,6 +3,8 @@ import { useAppDispatch, useAppSelector } from '../../../../store/redux-hook/hoo
 import { getStateModalEditTraining } from '../../../../store/actions/modalEditTrainingAction';
 import { requestWithVariable } from '../../../../utils';
 import { queryCreateTraining, queryTrainingInformation, queryUpdateTrainingInformations } from '../../../../query';
+import ImageUpload from '../../../Form/Upload';
+import { toast } from 'react-toastify';
 
 const ModalTraining = () => {
 
@@ -10,6 +12,7 @@ const ModalTraining = () => {
     const userId = useAppSelector((state) => state.token.user).id;
     const isOpen = useAppSelector((state) => state.editTraining.isOpen);
     const trainingId = useAppSelector((state) => state.editTraining.trainingId);
+    const uploadImage = useAppSelector(state => state.idImage.id);
 
     const categories = useAppSelector(state => state.categories.list);
     const [prerequesiteCurrentValue, setPrerequesiteCurrentValue] = useState('')
@@ -26,7 +29,8 @@ const ModalTraining = () => {
         price: '',
         excerpt: '',
         startingDate: '',
-        endingDate: ''
+        endingDate: '',
+        image: ''
     });
 
     const handleChange = (e) => {
@@ -94,7 +98,9 @@ const ModalTraining = () => {
             price: training.price,
             excerpt: training.excerpt,
             startingDate: training.dates[0],
-            endingDate: training.dates[1]
+            endingDate: training.dates[1],
+            image: training.image
+
         });
     
         setLoader(true);
@@ -140,7 +146,8 @@ const ModalTraining = () => {
                 program: JSON.stringify(formData.program),
                 startingDate: formData.startingDate,
                 endingDate: formData.endingDate,
-                organizationId: userId
+                organizationId: userId,
+                image: uploadImage
           }
                 
   
@@ -193,7 +200,8 @@ const ModalTraining = () => {
                 price: "",
                 excerpt: "",
                 startingDate: "",
-                endingDate: ""
+                endingDate: "",
+                image: ""
             })
 
     };
@@ -206,16 +214,16 @@ const ModalTraining = () => {
                 <h4>Bienvenue chez O'Talent !</h4>
                 <div className="flex flex-col w-full border-opacity-50 ">
                     <div className='flex flex-col gap-4'>
-                        <label className="input input-bordered flex gap-2 max-h-none flex-col max-h-none h-20 p-2">
+                        <label className="input input-bordered flex items-center gap-2">
                             Titre:
-                            <input className="w-full h-full" type="text" name="title" value={formData.title} onChange={handleChange} />
+                            <input required className="grow" type="text" name="title" value={formData.title} onChange={handleChange} />
                         </label>
                         <label className="input input-bordered flex gap-2 w-full max-h-none h-[100px] flex-col">
                             Description:
-                            <textarea className="w-[100%] max-h-none h-[80%]" name="description" value={formData.description} onChange={handleChange} />
+                            <textarea required className="w-[100%] max-h-none h-[80%]" name="description" value={formData.description} onChange={handleChange} />
                         </label>
 
-                        {/* Vérifier fonctionnement lors de l'allumage de l'API */}
+                     
                         <label className="input input-bordered flex gap-2 w-full max-h-none h-20 flex-col">
                         Catégorie:
                         <select
@@ -232,10 +240,10 @@ const ModalTraining = () => {
                     </select>
                     </label>
                         <label className="input input-bordered flex items-center gap-2">
-                            Durée:
-                            <input className="w-full h-full" type="text" name="duration" value={formData.duration} onChange={handleChange} />
+                            Durée (h):
+                            <input className="grow" type="number" name="duration" value={formData.duration} onChange={handleChange} />
                         </label>
-                        {/* Vérifier fonctionnement lors de l'allumage de l'API */}
+                  
                         <label className="input input-bordered flex items-center gap-2">
                             Prérequis:
                             <textarea className="w-full h-full" name="prerequisites" value={prerequesiteCurrentValue} onChange={handleChangePrerequesite} />
@@ -245,31 +253,31 @@ const ModalTraining = () => {
                         {formData.prerequisites.map((prerequisite) => 
                         (<div key={prerequisite}>{prerequisite}<button id={prerequisite} onClick={deletePrerequisite} className='btn ml-4 bg-red-500 text-white'>X</button></div>))} 
 
-                        {/* Vérifier fonctionnement lors de l'allumage de l'API */}
                         <label className="input input-bordered flex items-center gap-2">
                             Programme:
                             <textarea className="w-full h-full"  name="program" value={programCurrentValue} onChange={handleChangeProgram} />
                         </label>
-                        <button onClick={updateSetFormDataWithProgram} className='btn block'>Ajouter le prérequis à la liste</button>
+                        <button onClick={updateSetFormDataWithProgram} className='btn block'>Ajouter un programme à la liste</button>
                         <h4>Listes du programme</h4>
                         {formData.program.map((prog) => 
                         (<div key={prog}>{prog}<button id={prog} onClick={deleteProgram} className='btn ml-4 bg-red-500 text-white'>X</button></div>))} 
                         <label className="input input-bordered flex items-center gap-2">
                             Prix:
-                            <input className="w-full h-full" type="text" name="price" value={formData.price} onChange={handleChange} />
+                            <input required className="grow" type="number" name="price" value={formData.price} onChange={handleChange} />
                         </label>
                         <label className="input input-bordered flex items-center gap-2">
                             Résumé:
-                            <input className="w-full h-full" type="text" name="excerpt" value={formData.excerpt} onChange={handleChange} />
+                            <input required className="grow" type="text" name="excerpt" value={formData.excerpt} onChange={handleChange} />
                         </label>
                         <label className="input input-bordered flex items-center gap-2">
                             Date de début:
-                            <input className="w-full h-full" type="date" name="startingDate" value={formData.startingDate} onChange={handleChange} />
+                            <input required className="grow" type="date" name="startingDate" value={formData.startingDate} onChange={handleChange} />
                         </label>
                         <label className="input input-bordered flex items-center gap-2">
                             Date de fin:
-                            <input className="w-full h-full" type="date" name="endingDate" value={formData.endingDate} onChange={handleChange} />
+                            <input required className="grow" type="date" name="endingDate" value={formData.endingDate} onChange={handleChange} />
                         </label>
+                        <ImageUpload />
                     </div>
                
                     {trainingId && <button onClick={updateTrainingInformation} className="btn bg-blue-600 text-white mt-5">Enregristrer les modification</button>}
