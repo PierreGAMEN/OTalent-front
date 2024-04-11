@@ -73,7 +73,7 @@ const ResetPassword = () => {
     }, [])
     return (
         <div className='flex justify-center'>
-        <div className=''>
+        <div className='flex flex-col items-center'>
             {!buttonToAccesFormConnection && (
                 <form className="modal-box">
                     <h4>Vous avez oublié votre mot de passe ?</h4>
@@ -118,18 +118,21 @@ const ResetPassword = () => {
             {buttonToAccesFormConnection && (
                 <div className='modal-box'>
                     <p>
-                        Vous pouvez vous connecter avec votre nouveau mot de
-                        passe
+                        Votre mot de passe a bien été modifié,
+                        vous pouvez désormais vous connecter avec votre nouveau mot de
+                        passe !
                     </p>
+                    <div className='flex justify-center divider mt-10'>
                     <button className="btn bg-green-600 text-white mt-5">
                         Ouvrir le formulaire de connexion
                     </button>
+                    </div>
                 </div>
             )}
             <div className="divider"></div>
             {isLoading && <>
-            <h4>O'Talent vous recommande</h4>
-            <div className='flex'>
+            <h4 className='mb-5'>Pour éviter que celà recommence, O'Talent vous recommande...</h4>
+            <div className='flex gap-5 mb-5'>
                 <TrainingCard
                     key={trainingPrank.data.training1.id}
                     dateCreated={trainingPrank.data.training1.created_at}
@@ -143,7 +146,7 @@ const ResetPassword = () => {
                     image={trainingPrank.data.training1.image}
                     categoryId={trainingPrank.data.training1.category.id}
                     reviews={trainingPrank.data.training1.reviews}
-                />
+                    />
                 <TrainingCard
                     key={trainingPrank.data.training2.id}
                     dateCreated={trainingPrank.data.training2.created_at}
@@ -157,8 +160,8 @@ const ResetPassword = () => {
                     image={trainingPrank.data.training2.image}
                     categoryId={trainingPrank.data.training2.category.id}
                     reviews={trainingPrank.data.training2.reviews}
-                />
-            </div>
+                    />
+                </div>
             </>}
         </div>
         </div>

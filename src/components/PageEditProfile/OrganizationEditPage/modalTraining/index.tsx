@@ -122,7 +122,8 @@ const ModalTraining = () => {
                 program: JSON.stringify(formData.program),
                 startingDate: formData.startingDate,
                 endingDate: formData.endingDate,
-                organizationId: userId
+                organizationId: userId,
+                image: uploadImage ? uploadImage : formData.image
             }
         }
 
