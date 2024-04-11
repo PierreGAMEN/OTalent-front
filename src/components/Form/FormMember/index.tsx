@@ -85,11 +85,11 @@ const login = async () => {
 
 function validateFormData(firstName: string, lastName: string, email: string, password: string, confirmPassword: string, postalCode: string) {
   
-  if(!isNeeded(firstName, "Le prénom")){toast.error("Le prénom est requis"); return false};
-  if(!isNeeded(firstName, "Le nom")){toast.error("Le nom est requis"); return false};
+  if(!isNeeded(firstName, "Le prénom")){toast.error("Le prénom est requis"); return false}
+  if(!isNeeded(firstName, "Le nom")){toast.error("Le nom est requis"); return false}
   if(!postalCodeRegex(postalCode)){return false}
-  if(!emailRegex(email)){toast.error("L'adresse email n'a pas le bon format"); return false};
-  if(!passwordRegex(password)){ return false};
+  if(!emailRegex(email)){toast.error("L'adresse email n'a pas le bon format"); return false}
+  if(!passwordRegex(password)){ return false}
   if(!confirmPasswordRegex(password, confirmPassword)){return false}
 
  
