@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './style.scss';
 import { useNavigate } from 'react-router-dom';
-
+import regions from '../../../../data/region'
 import { useAppSelector } from '../../../../store/redux-hook/hook';
 
 interface SearchBarProps {
@@ -23,6 +23,20 @@ const SearchBar: React.FC<SearchBarProps> = () => {
 
     return (
         <form className="join lg:flex" onSubmit={handleSubmit}>
+            <select
+                className="select join-item border-none"
+                name="region"
+                id="region"
+            >
+                <option value="">Rechercher par région</option>
+                {regions.map(region => (
+                    <option
+                        value={region}
+                    >
+                        {region}
+                    </option>
+                ))}
+            </select>
             <select
                 className="select join-item border-none"
                 name="category"
