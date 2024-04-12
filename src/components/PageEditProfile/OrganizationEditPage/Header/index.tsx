@@ -5,6 +5,7 @@ import { requestWithVariable } from '../../../../utils'
 import { queryUpdateOrganizationInformation } from '../../../../query'
 import { useAppSelector } from '../../../../store/redux-hook/hook'
 import { toast } from 'react-toastify'
+import ImageUpload from '../../../Form/Upload'
 
 export default function HeaderOrganizationEditPage({ data }) {
 
@@ -20,6 +21,7 @@ export default function HeaderOrganizationEditPage({ data }) {
     const [description, setDescription] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [seeding, setSeeding] = useState(false)
+    const imageId = useAppSelector(state => state.idImage.id)
 
     const user = useAppSelector((state) => state.token.user);
 
@@ -96,6 +98,10 @@ export default function HeaderOrganizationEditPage({ data }) {
             }
         }
 
+        if(imageId) {
+            variables.input.image = imageId
+        }
+
         const response = await requestWithVariable(queryUpdateOrganizationInformation, variables)
         console.log(response.data)
         location.reload()
@@ -158,6 +164,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                                 <label className="block text-gray-700">Description :</label>
                                 <textarea className="form-textarea mt-1 block w-full h-24" onChange={e => handleChange(e, setDescription)} value={description} />
                             </div>
+                            <ImageUpload />
                         </>
                     ) : (
                         <>
