@@ -8,6 +8,7 @@ import {
 } from '../../../../utils';
 import { deleteMember, queryUpdateMemberInformation } from '../../../../query';
 import ReviewsEditProfilPageMember from '../Reviews';
+import ImageUpload from '../../../Form/Upload';
 
 interface DataHeaderEditProfilI {
     data : {
@@ -42,6 +43,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }: DataHeade
 
     const categories = useAppSelector(state => state.categories.list);
     const user = useAppSelector(state => state.token.user);
+    const imageId = useAppSelector(state => state.idImage.id)
 
 
 
@@ -106,8 +108,13 @@ export default function HeaderEditProfilPageMember({ data, memberId }: DataHeade
                 lastname: lastname,
                 email: email,
                 city: city,
-                postalCode: postal_code
+                postalCode: postal_code,
+               
             }
+        }
+
+        if(imageId) {
+            variables.input.avatar = imageId
         }
 
         try {
@@ -132,7 +139,9 @@ export default function HeaderEditProfilPageMember({ data, memberId }: DataHeade
             <div className='modal-box flex flex-col items-center gap-3'>
             <button onClick={() => {setIsEdit(true)}} className="material-symbols-rounded absolute top-4 right-10">edit</button>
                 <div className='rounded-full'>
-                    {data.avatar && <img className='object-cover h-48 w-60' src={data.avatar} alt="Your profile image" />}
+                    {data.avatar && <img className='object-cover h-48 w-60' src={`https://res.cloudinary.com/${
+                    import.meta.env.VITE_CDNY_CLOUDNAME
+                }/image/upload/c_scale,w_1920,h_1080/v1/otalent/${data.avatar}`} alt="Your profile image" />}
                     {!data.avatar && <img className='object-cover h-48 w-60'  src="https://i.pinimg.com/736x/2f/15/f2/2f15f2e8c688b3120d3d26467b06330c.jpg" alt="Your profile" />}
                 </div>
                 <p className='text-xl'>{`${data.firstname} ${data.lastname}`}</p>
@@ -215,6 +224,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }: DataHeade
                 value={postal_code}
                 placeholder='Entrez votre code postal'
             /></label>
+            <ImageUpload />
 
             <button type="submit" className='btn bg-green-600 text-white mt-5' onClick={updateMemberInformation}>Valider les changements</button>
             <button type="button"className='btn bg-blue-600 text-white' onClick={() => {setIsEdit(false); setDeleteConfirm(false) }}>Quitter l'édition de vos données</button>

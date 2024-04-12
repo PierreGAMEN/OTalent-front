@@ -81,9 +81,12 @@ export default function Navbar() {
                 <div className="rounded-full">
                     {isMember &&
                     <img
+                    
                         alt="Your profile image"
                         src= {userInformation.member && userInformation.member.avatar ?
-                             `${userInformation.member.avatar}` :
+                             `${`https://res.cloudinary.com/${
+                                import.meta.env.VITE_CDNY_CLOUDNAME
+                            }/image/upload/c_scale,w_1920,h_1080/v1/otalent/${userInformation.member.avatar}`}` :
                               "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1"} 
                     />} 
                     

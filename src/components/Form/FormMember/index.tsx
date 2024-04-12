@@ -56,7 +56,7 @@ export default function FormMember() {
     }
 
     if(uploadImage) {
-      variables.input.avatar = `https://res.cloudinary.com/dz5n3acae/image/upload/t_trainingcard/v1/otalent/${uploadImage}`
+      variables.input.avatar = uploadImage
 
     }
   
