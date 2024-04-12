@@ -105,7 +105,6 @@ export default function HeaderOrganizationEditPage({ data }) {
     useEffect(() => {
         if(data) {
             seedingState();
-            console.log(data)
         }
     }, [data])
 

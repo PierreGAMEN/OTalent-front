@@ -54,18 +54,18 @@ export default function SearchPage() {
         <>
             <div className="container-search">
                 {categorie && term && (
-                    <h4 className="mb-5">
+                    <h5 className="mb-5">
                         Résultats de la recherche "{term}" dans la catégorie "
                         {categorie}"
-                    </h4>
+                    </h5>
                 )}
                 {categorie && !term && (
-                    <h4 className="mb-5">
+                    <h5 className="mb-5">
                         Résultats de la recherche "{categorie}"
-                    </h4>
+                    </h5>
                 )}
                 {term && !categorie && (
-                    <h4>Résultats de la recherche "{term}"</h4>
+                    <h5>Résultats de la recherche "{term}"</h5>
                 )}
 
                 <div className="container-search-card">

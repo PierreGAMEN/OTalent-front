@@ -40,7 +40,6 @@ const ImageUpload = () => {
             if(result.public_id) 
             {dispatch(getImageUpload(result.public_id.slice(8, result.public_id.length)))
                 toast.success("L'image a correctement été importée, enregistrez les modifications pour valider votre choix")
-                console.log(result)
             return result;}
         } catch (error) {
             console.error('Error:', error);

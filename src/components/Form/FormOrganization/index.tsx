@@ -101,7 +101,6 @@ export default function FormOrganization(): JSX.Element {
         toast.error('Oups, votre adresse est déjà utilisée.');
         return false;
       }
-      console.log('Je suis là', response)
       toast.success("Le formulaire a été soumis avec succès !");
       await login()
       setStepBienvenue(true)

@@ -42,7 +42,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }: DataHeade
 
     const categories = useAppSelector(state => state.categories.list);
     const user = useAppSelector(state => state.token.user);
-    console.log(user.id)
+
 
 
     const categoriesAvailable = categories.filter(
@@ -143,7 +143,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }: DataHeade
                 <div className='relative w-full flex flex-col items-center'>
                 <h5>Vos catégories préférées</h5>
                 <button onClick={() => {setEditCategories(true)}} className="material-symbols-rounded absolute top-0 right-0">edit</button>
-                {favoriteCategories.map(categorie => (<p className='mt-2'> {categorie.label}</p>))}
+                {favoriteCategories.map(categorie => (<p key={categorie.id} className='mt-2'> {categorie.label}</p>))}
                 </div>
                 <div className='divider before:bg-primary-color after:bg-primary-color'></div>
                 {!deleteConfim && <button type="button" className='btn bg-white text-red-600 border-red-600 hover:bg-red-600 hover:text-white' onClick={()=> {setDeleteConfirm(true)}}>Supprimer votre compte</button>}
