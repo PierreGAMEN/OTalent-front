@@ -5,6 +5,8 @@ import { requestWithVariable } from '../../../../utils'
 import { queryUpdateOrganizationInformation } from '../../../../query'
 import { useAppSelector } from '../../../../store/redux-hook/hook'
 import { toast } from 'react-toastify'
+import ImageUpload from '../../../Form/Upload'
+import { useRef } from 'react'
 
 export default function HeaderOrganizationEditPage({ data }) {
 
@@ -20,6 +22,8 @@ export default function HeaderOrganizationEditPage({ data }) {
     const [description, setDescription] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [seeding, setSeeding] = useState(false)
+    const imageId = useAppSelector(state => state.idImage.id)
+    const modalRef = useRef(null);
 
     const user = useAppSelector((state) => state.token.user);
 
@@ -92,12 +96,18 @@ export default function HeaderOrganizationEditPage({ data }) {
                 address: address,
                 city: city,
                 postalCode: postal_code,
-                description: description
+                description: description,
+                urlSite: website,
+                description: description,
+                urlSite: website
             }
         }
 
+        if(imageId) {
+            variables.input.image = imageId
+        }
+
         const response = await requestWithVariable(queryUpdateOrganizationInformation, variables)
-        console.log(response.data)
         location.reload()
 
     }}
@@ -108,59 +118,84 @@ export default function HeaderOrganizationEditPage({ data }) {
         }
     }, [data])
 
+    useEffect(() => {
+        if (isEdit && modalRef.current) {
+            modalRef.current.showModal();
+        }
+    }, [isEdit])
+
+
     return (
         seeding && (
             <div className="p-10 md:flex-row justify-between items-start md:items-center">
-            <div className="flex flex-col justify-start items-center md:mr-8 mb-4 md:mb-0 ">
+            <div className="flex items-center gap-5">
             <img
-                className="mb-4 bg-black mb-10"
-                src={data && data.image ? `https://res.cloudinary.com/${import.meta.env.VITE_CDNY_CLOUDNAME}/image/upload/c_scale,w_780,h_520/v1/otalent/${data.image}` : ""}
+                className=""
+                src={data && data.image ? `https://res.cloudinary.com/${import.meta.env.VITE_CDNY_CLOUDNAME}/image/upload/c_scale,w_780,h_520/v1/otalent/${data.image}` : "https://i.pinimg.com/736x/2f/15/f2/2f15f2e8c688b3120d3d26467b06330c.jpg"}
                 alt=""
             />
-            </div>
+            
             <div className="flex flex-col w-full md:w-auto">
                 <div className="flex gap-2">
-                    <button className="btn btn-primary" onClick={() => setIsEdit(true)}>Edit</button>
-                    <button className="btn btn-primary" onClick={() => setIsEdit(false)}>Quitter le mode edit</button>
+                    <button className="btn btn-primary" onClick={() => {
+                        setIsEdit(true);
+                        if (modalRef.current) {
+                            modalRef.current.showModal()
+                        }
+                        }}>
+                            Modifier mes informations
+                    </button>
+                    
                 </div>
                     {isEdit ? (
-                        <>
+                        <>  
+                        <dialog className='modal' ref={modalRef}>
+                        <div className='modal-box overflow-auto'>
                             <div className="mt-4">
                                 <label className="block text-gray-700">Nom :</label>
-                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
+                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-700">Email :</label>
-                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
+                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-700">Adresse :</label>
-                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
+                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-700">Ville :</label>
-                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setCity)} type="text" value={city} />
+                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setCity)} type="text" value={city} />
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-700">Code postal :</label>
-                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
+                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-700">Site Web :</label>
-                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
+                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-700">N° de téléphone :</label>
-                                <input className="form-input mt-1 block w-full border border-black p-2" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
+                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-700">Description :</label>
-                                <textarea className="form-textarea mt-1 block w-full h-24" onChange={e => handleChange(e, setDescription)} value={description} />
+                                <textarea className="textarea textarea-bordered mt-1 block w-full h-24 mb-5" onChange={e => handleChange(e, setDescription)} value={description} />
                             </div>
+                                <ImageUpload />
+                            <div className='flex justify-between mt-5'>
+                                <button className="btn bg-grey" onClick={() => setIsEdit(false)}>Quitter le mode edit</button>
+                                {isEdit && 
+                                <button className='btn bg-green-600 text-white hover:bg-green-500' onClick={updateOrganizationInformation}>Valider les changements</button>
+                                }
+                            </div>
+                        </div>
+                        </dialog>
                         </>
                     ) : (
-                        <>
-                            <p className="mt-4">Nom: {data ? data.name : ''}</p>
+                        <div className='p-5 modal-box flex flex-col gap-2 border-primary-color border'>
+                            <p className="">Nom: {data ? data.name : ''}</p>
                             <p>Email: {data ? data.email : ''}</p>
                             <p>Adresse: {data ? data.address : ''}</p>
                             <p>Ville: {data ? data.city : ''}</p>
@@ -168,9 +203,9 @@ export default function HeaderOrganizationEditPage({ data }) {
                             <p>Site Web: {data ? <a href={data.url_site}>{data.url_site}</a> : ''}</p>
                             <p>N° de téléphone: {data ? data.phone_number : ''}</p>
                             <p>Description: {data ? data.description : ''}</p>
-                        </>
+                        </div>
                     )}
-                    {isEdit && <button className='btn btn-primary mt-4' onClick={updateOrganizationInformation}>Valider les changements</button>}
+                </div>
                 </div>
             </div>
         )

@@ -6,6 +6,8 @@ import tokenReducer from './reducer/tokenReducer';
 import connectionReducer from './reducer/connectionReducer';
 import modalEditInformationReducer from './reducer/modalEditInformationReducer';
 import imageUploadId from './reducer/idImageReducer';
+import memberInformationReducer from './reducer/memberInformationReducer';
+import organizationInformationReducer from './reducer/organizationInformationReducer';
 
 const store = configureStore({
     reducer: {
@@ -14,7 +16,9 @@ const store = configureStore({
         token: tokenReducer,
         connection: connectionReducer,
         editTraining: modalEditInformationReducer,
-        idImage: imageUploadId
+        idImage: imageUploadId,
+        memberInformation: memberInformationReducer,
+        organizationInformation: organizationInformationReducer,
     },
     devTools: true,
 });

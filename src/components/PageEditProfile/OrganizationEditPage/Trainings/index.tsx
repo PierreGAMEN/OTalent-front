@@ -59,6 +59,7 @@ export default function OrganizationTrainings({ data }) {
                                         trainingId={training.id}
                                         organizationId={data.id}
                                         reviews={training.reviews}
+                                        price={training.price}
                                     />
                                     <div className="flex gap-2 justify-center">
                                         {/* Vérifier fonctionnement du bouton delete */}

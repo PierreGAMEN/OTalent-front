@@ -16,6 +16,9 @@ export default function FormMember() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [stepBienvenue, setStepBienvenue] = useState(false);
+  const [step1, setStep1] = useState(true);
+  
 
   const uploadImage = useAppSelector(state => state.idImage.id);
     
@@ -53,16 +56,22 @@ export default function FormMember() {
     }
 
     if(uploadImage) {
-      variables.input.avatar = `https://res.cloudinary.com/dz5n3acae/image/upload/t_trainingcard/v1/otalent/${uploadImage}`
-      console.log(variables.input.avatar)
+      variables.input.avatar = uploadImage
+
     }
   
 
     try {
         const response = await requestWithVariable(queryAddMember, variables);
-        if(response.errors && response.errors[0].message === 'duplicate key value violates unique constraint "member_email_key"')
-        {toast.error('Oups, votre adresse est déjà utilisée.');}
+        const errorMessage = ["la valeur d'une clé dupliquée rompt la contrainte unique « member_email_key »", "duplicate key value violates unique constraint « member_email_key »", "This email is already used"];
+        if(response.errors && errorMessage.includes(response.errors[0].message)){
+          toast.error('Oups, votre adresse est déjà utilisée.');
+          return false;
+        }
+        toast.success('Le formulaire a été soumis avec succès !')
         await login()
+        setStepBienvenue(true);
+        setStep1(false);
         return true;
     } catch (error) {
         console.error('Erreur lors de la soumission du formulaire:', error);
@@ -89,8 +98,12 @@ function validateFormData(firstName: string, lastName: string, email: string, pa
   if(!isNeeded(firstName, "Le nom")){toast.error("Le nom est requis"); return false}
   if(!postalCodeRegex(postalCode)){return false}
   if(!emailRegex(email)){toast.error("L'adresse email n'a pas le bon format"); return false}
-  if(!passwordRegex(password)){ return false}
+  if(!passwordRegex(password)){return false}
   if(!confirmPasswordRegex(password, confirmPassword)){return false}
+  if(password !== confirmPassword){
+    toast.error("Les mots de passe ne correspondent pas");
+    return false;
+  }
 
  
   return true;
@@ -98,9 +111,9 @@ function validateFormData(firstName: string, lastName: string, email: string, pa
   
 
   return (
-      
+      <div>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-  
+        {step1 && <>
           <label className="input input-bordered flex items-center gap-2" htmlFor="firstName">Prénom
           <input className="grow"
             type="text"
@@ -176,6 +189,14 @@ function validateFormData(firstName: string, lastName: string, email: string, pa
           <ImageUpload />
 
         <button className="btn bg-green-600 text-white" type="submit">Submit</button>
-      </form>
+        </>}
+        </form>
+      {stepBienvenue &&
+        <div className="flex flex-col gap-5">
+          <p>Merci pour votre inscription !</p>
+          <button onClick={() => {location.reload()}} className="btn bg-green-600 text-white">Continuer sur le site</button>
+        </div>
+      }
+      </div>
   );
 }

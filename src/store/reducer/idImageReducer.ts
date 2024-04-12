@@ -1,5 +1,4 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { getAuthentificationState } from '../actions/authentificationAction';
 import { getImageUpload } from '../actions/getImageUpload';
 
 interface ImageUploadI {

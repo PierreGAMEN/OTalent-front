@@ -64,7 +64,7 @@ export default function ReviewsEditProfilPageMember({ data }) {
   return (
     <section className="">
       <h4 className="mt-5 mb-5">Vos commentaires</h4>
-      <div className="flex flex-col gap-4 max-h-[500px] overflow-scroll">
+      <div className="flex flex-col gap-4 max-h-[500px] overflow-auto">
       {memberReviews && memberReviews.map((review) => (
         <div className="border border-primary-color flex flex-col gap-2 relative rounded-md p-5 mr-5" key={review.id}>
           <h5>{review.training.label}</h5>
