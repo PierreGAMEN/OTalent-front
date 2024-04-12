@@ -97,44 +97,62 @@ export default function HomePage() {
                         :
                     </h3>
                     {isLoading && <Loader active inline="centered" />}
-                    <div className="flex overflow-scroll gap-5">
-                        {memberInfo.data.member.nearestOrganizations.map(
-                            organization =>
-                                organization.trainings.map(training => {
-                                    if (count < 5) {
-                                        count++;
-                                        return (
-                                            <TrainingCard
-                                                key={training.id}
-                                                dateCreated={
-                                                    training.created_at
-                                                }
-                                                organizationId={
-                                                    training.organization.id
-                                                }
-                                                trainingId={training.id}
-                                                label={training.label}
-                                                duration={training.duration}
-                                                price={training.price}
-                                                organization={
-                                                    training.organization.name
-                                                }
-                                                category={
-                                                    training.category.label
-                                                }
-                                                image={training.image}
-                                                categoryId={
-                                                    training.category.id
-                                                }
-                                                reviews={training.reviews}
-                                            />
-                                        );
-                                    } else {
-                                        return null;
-                                    }
-                                })
-                        )}
-                    </div>
+                    {memberInfo.data.member.nearestOrganizations.length > 0 ? (
+                        <div className="flex overflow-scroll gap-5">
+                            {memberInfo.data.member.nearestOrganizations.map(
+                                organization =>
+                                    organization.trainings.map(training => {
+                                        if (count < 5) {
+                                            count++;
+                                            return (
+                                                <TrainingCard
+                                                    key={training.id}
+                                                    dateCreated={
+                                                        training.created_at
+                                                    }
+                                                    organizationId={
+                                                        training.organization.id
+                                                    }
+                                                    trainingId={training.id}
+                                                    label={training.label}
+                                                    duration={training.duration}
+                                                    price={training.price}
+                                                    organization={
+                                                        training.organization
+                                                            .name
+                                                    }
+                                                    category={
+                                                        training.category.label
+                                                    }
+                                                    image={training.image}
+                                                    categoryId={
+                                                        training.category.id
+                                                    }
+                                                    reviews={training.reviews}
+                                                />
+                                            );
+                                        } else {
+                                            return null;
+                                        }
+                                    })
+                            )}
+                        </div>
+                    ) : (
+                        <div className="flex justify-center">
+                            <div className="flex flex-col md:flex-row w-3/4 p-5 items-center justify-evenly gap-5 text-primary-color">
+                                <img
+                                    className="w-5/6"
+                                    src="/src/assets/No data-bro.svg"
+                                    alt="No data"
+                                />
+                                <p className="text-left text-xl md:text-3xl">
+                                    Nous sommes navrés, nous ne disposons pas
+                                    encore de formations disponibles dans votre
+                                    région...
+                                </p>
+                            </div>
+                        </div>
+                    )}
                 </>
             ) : (
                 <Loader active inline="centered" />
@@ -144,7 +162,7 @@ export default function HomePage() {
 
             {data && (
                 <>
-                    <h3 id="training_list">Découvrez notre sélection</h3>
+                    <h3>Découvrez notre sélection</h3>
                     <TrainingList data={data} categoryChosen="Informatique" />
                     <TrainingList data={data} categoryChosen="Arts" />
                     <TrainingList data={data} categoryChosen="Finance" />

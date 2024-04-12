@@ -16,7 +16,7 @@ export default {
       "secondary-color":"#FDF6E2",
       "accent-color":"#3FB099",
       "primary-background":"#FFFFFF",
-      "secondary-background":"#FDF6E2"
+      "secondary-background":"#FDF6E2",
     },},
   },
   plugins: [require("daisyui")],

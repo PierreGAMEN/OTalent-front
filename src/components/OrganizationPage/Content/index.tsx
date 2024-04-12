@@ -24,7 +24,7 @@ export default function ContentOrganizationProfilPage({ data }) {
 
     return (
         <>
-            <h3>Détails de la formation</h3>
+            <h3>Détails de l'organisme</h3>
             <section className="flex flex-row min-h-96 justify-center align-start gap-5 m-5">
                 <div className="flex flex-col">
                     <ul className="">

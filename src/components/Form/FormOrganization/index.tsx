@@ -86,7 +86,7 @@ export default function FormOrganization(): JSX.Element {
         city: formValues.ville,
         postalCode: formValues.codePostal,
         siret: formValues.siret,
-        image: null,
+        image: uploadImage,
       },
     };
 
@@ -95,7 +95,12 @@ export default function FormOrganization(): JSX.Element {
     }
   
     try {
-       const response = await requestWithVariable(queryAddOrganization, variables);
+      const response = await requestWithVariable(queryAddOrganization, variables);
+      const errorMessage = ["la valeur d'une clé dupliquée rompt la contrainte unique « organization_email_key ", "duplicate key value violates unique constraint « organization_email_key »", "This email is already used"];
+      if(response.errors && errorMessage.includes(response.errors[0].message)) {
+        toast.error('Oups, votre adresse est déjà utilisée.');
+        return false;
+      }
       toast.success("Le formulaire a été soumis avec succès !");
       await login()
       setStepBienvenue(true)
@@ -321,9 +326,9 @@ export default function FormOrganization(): JSX.Element {
         </>}
       </form>
       {stepBienvenue && 
-      <div>
+      <div className="flex flex-col gap-5">
         <p>Merci pour votre inscription !</p>
-        <button onClick={() => {location.reload()}} className="btn">Continuer sur le site</button>
+        <button onClick={() => {location.reload()}} className="btn bg-green-600 text-white">Continuer sur le site</button>
       </div>
       }
       </div>

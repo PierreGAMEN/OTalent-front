@@ -31,9 +31,9 @@ const Footer = () => (
                     </div>
                     <div className="flex flex-col items-center leading-7">
                         <p className="mb-5 uppercase">Contact</p>
-                        <Link to="/" aria-label="Nous contacter">
+                        <a href="mailto:otalentoclock@gmail.com">
                             Nous contacter
-                        </Link>
+                        </a>
                         <Link to="/" aria-label="Nous rejoindre">
                             Nous rejoindre
                         </Link>
