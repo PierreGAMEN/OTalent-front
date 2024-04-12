@@ -99,7 +99,8 @@ export default function HomePage() {
                         :
                     </h3>
                     {isLoading && <Loader active inline="centered" />}
-                    <div className="flex overflow-scroll gap-5">
+                    {memberInfo.data.member.nearestOrganizations.length > 0 ? (
+                        <div className="flex overflow-scroll gap-5">
                         {memberInfo.data.member.nearestOrganizations.map(
                             organization =>
                                 organization.trainings.map(training => {
@@ -107,7 +108,7 @@ export default function HomePage() {
                                         count++;
                                         return (
                                             <TrainingCard
-                                                key={training.id}
+                                            key={training.id}
                                                 dateCreated={
                                                     training.created_at
                                                 }
@@ -135,8 +136,16 @@ export default function HomePage() {
                                         return null;
                                     }
                                 })
+                            )}
+                        </div>
+                        ) : (
+                            <div className='flex justify-center'>
+                                <div className='flex flex-col md:flex-row w-3/4 p-5 items-center justify-evenly gap-5 text-primary-color'>
+                                    <img className='w-5/6' src="/src/assets/No data-bro.svg" alt="No data" />
+                                    <p className='text-left text-xl md:text-3xl'>Nous sommes navrés, nous ne disposons pas encore de formations disponibles dans votre région...</p>
+                                </div>
+                            </div>
                         )}
-                    </div>
                 </>
             ) : (
                 <Loader active inline="centered" />
