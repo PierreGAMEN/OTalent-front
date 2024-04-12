@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../store/redux-hook/hook';
+import {
+    useAppDispatch,
+    useAppSelector,
+} from '../../../../store/redux-hook/hook';
 import { requestWithVariable } from '../../../../utils';
 import { queryNameMember, queryNameOrganization } from '../../../../query';
-import { getMemberInformationActions, getOrganizationInformationActions } from '../../../../store/actions/getUserInformation';
-
+import {
+    getMemberInformationActions,
+    getOrganizationInformationActions,
+} from '../../../../store/actions/getUserInformation';
 
 export default function Navbar() {
     const [isConnected, setIsConnected] = useState(false);
@@ -21,11 +26,7 @@ export default function Navbar() {
     };
 
     const checkIsOrganization = () => {
-        if (user.id && user.member === false) {
-            setIsMember(false);
-        } else {
-            setIsMember(true);
-        }
+        setIsMember(!(user.id && user.member === false));
     };
 
     const getUserInformation = async () => {
@@ -46,17 +47,18 @@ export default function Navbar() {
             );
 
             const userInfo = responseWithErrors.data;
-            
-            if(user.member === true){
+
+            if (user.member === true) {
                 const MemberInformationDispatch = {
                     firstname: userInfo.member.firstname,
                     name: userInfo.member.lastname,
+
                     avatar: userInfo.member.avatar ? userInfo.member.avatar : "yocggnbjzfjygu3naanv"
                 }
                 dispatch(getMemberInformationActions(MemberInformationDispatch))
             }
 
-            if(user.member === false) {
+            if (user.member === false) {
                 const organizationInformationDispatch = {
                     name: userInfo.organization.name,
                     image: userInfo.organization.image ? userInfo.organization.image : "yocggnbjzfjygu3naanv",
@@ -99,23 +101,41 @@ export default function Navbar() {
                 className="btn btn-ghost btn-circle avatar w-16 h-16 border-4 border-white"
             >
                 <div className="rounded-full">
-                    {isMember &&
-                    <img
-                    
-                        alt="Your profile image"
-                        src= {userInformation.member && userInformation.member.avatar ?
-                             `${`https://res.cloudinary.com/${
-                                import.meta.env.VITE_CDNY_CLOUDNAME
-                            }/image/upload/c_scale,w_1920,h_1080/v1/otalent/${userInformation.member.avatar}`}` :
-                              "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1"} 
-                    />} 
-                    
-                    {!isMember && <img
-                    alt="Your profile image"
-                    src= {userInformation.organization && userInformation.organization.image ? 
-                        `https://res.cloudinary.com/${import.meta.env.VITE_CDNY_CLOUDNAME}/image/upload/c_scale,w_780,h_520/v1/otalent/${userInformation.organization.image}` 
-                        : "https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1"} 
-                />}
+                    {isMember && (
+                        <img
+                            alt="Your profile image"
+                            src={
+                                userInformation.member &&
+                                userInformation.member.avatar
+                                    ? `${`https://res.cloudinary.com/${
+                                          import.meta.env.VITE_CDNY_CLOUDNAME
+                                      }/image/upload/c_scale,w_780,h_780/v1/otalent/${
+                                          userInformation.member.avatar
+                                      }`}`
+                                    : `${`https://res.cloudinary.com/${
+                                          import.meta.env.VITE_CDNY_CLOUDNAME
+                                      }/image/upload/c_scale,w_780,h_780/v1/otalent/yocggnbjzfjygu3naanv`}`
+                            }
+                        />
+                    )}
+
+                    {!isMember && (
+                        <img
+                            alt="Your profile image"
+                            src={
+                                userInformation.organization &&
+                                userInformation.organization.image
+                                    ? `https://res.cloudinary.com/${
+                                          import.meta.env.VITE_CDNY_CLOUDNAME
+                                      }/image/upload/c_scale,w_780,h_780/v1/otalent/${
+                                          userInformation.organization.image
+                                      }`
+                                    : `${`https://res.cloudinary.com/${
+                                          import.meta.env.VITE_CDNY_CLOUDNAME
+                                      }/image/upload/c_scale,w_780,h_780/v1/otalent/yocggnbjzfjygu3naanv`}`
+                            }
+                        />
+                    )}
                 </div>
             </div>
             <ul
