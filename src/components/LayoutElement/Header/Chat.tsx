@@ -6,7 +6,9 @@ import { useAppSelector } from '../../../store/redux-hook/hook';
 function Chat() {
     const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState('');
-    const user = useAppSelector(state => state.token.user);
+    const user = useAppSelector(
+        state => state.memberInformation.userInformation
+    );
     const [socket, setSocket] = useState(null); // Add the 'socket' state variable
     const [isOpen, setIsOpen] = useState(false);
 
@@ -40,10 +42,11 @@ function Chat() {
             socket &&
             socket.readyState === WebSocket.OPEN
         ) {
+            console.log(user);
             const message = {
                 type: 'message',
                 data: messageInput,
-                userId: user.id,
+                user: user,
             };
             socket.send(JSON.stringify(message));
             setMessages(prevMessages => [...prevMessages, message]);
@@ -65,7 +68,7 @@ function Chat() {
                                     key={index}
                                     onClick={e => e.preventDefault()}
                                 >
-                                    {message.userId}
+                                    {message.user.firstname}
                                     {' : '}
                                     {message.data}
                                 </p>
