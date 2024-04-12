@@ -20,7 +20,7 @@ export default function FavoritesEditProfilPageMember({ data }) {
     return (
         <div className='p-10'>
             <h4 className='mb-10'>Vos favoris</h4>
-            <section className="flex gap-4 overflow-scroll">
+            <section className="flex gap-4 overflow-auto">
                 {favoritesTrainings.map(training => (
                     <div className='flex flex-col gap-4' key={training.id}>
                         <TrainingCard
