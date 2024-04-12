@@ -128,13 +128,13 @@ export default function HeaderOrganizationEditPage({ data }) {
     return (
         seeding && (
             <div className="p-10 md:flex-row justify-between items-start md:items-center">
-            <div className="flex flex-col justify-start items-center md:mr-8 mb-4 md:mb-0">
+            <div className="flex items-center gap-5">
             <img
-                className="mb-10 rounded-full w-1/4"
+                className=""
                 src={data && data.image ? `https://res.cloudinary.com/${import.meta.env.VITE_CDNY_CLOUDNAME}/image/upload/c_scale,w_780,h_520/v1/otalent/${data.image}` : "https://i.pinimg.com/736x/2f/15/f2/2f15f2e8c688b3120d3d26467b06330c.jpg"}
                 alt=""
             />
-            </div>
+            
             <div className="flex flex-col w-full md:w-auto">
                 <div className="flex gap-2">
                     <button className="btn btn-primary" onClick={() => {
@@ -150,7 +150,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                     {isEdit ? (
                         <>  
                         <dialog className='modal' ref={modalRef}>
-                        <div className='modal-box overflow-hidden'>
+                        <div className='modal-box overflow-auto'>
                             <div className="mt-4">
                                 <label className="block text-gray-700">Nom :</label>
                                 <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
@@ -183,19 +183,19 @@ export default function HeaderOrganizationEditPage({ data }) {
                                 <label className="block text-gray-700">Description :</label>
                                 <textarea className="textarea textarea-bordered mt-1 block w-full h-24 mb-5" onChange={e => handleChange(e, setDescription)} value={description} />
                             </div>
-                            <div className='flex justify-between'>
+                                <ImageUpload />
+                            <div className='flex justify-between mt-5'>
                                 <button className="btn bg-grey" onClick={() => setIsEdit(false)}>Quitter le mode edit</button>
                                 {isEdit && 
                                 <button className='btn bg-green-600 text-white hover:bg-green-500' onClick={updateOrganizationInformation}>Valider les changements</button>
                                 }
                             </div>
-                            <ImageUpload />
                         </div>
                         </dialog>
                         </>
                     ) : (
-                        <>
-                            <p className="mt-4">Nom: {data ? data.name : ''}</p>
+                        <div className='p-5 modal-box flex flex-col gap-2 border-primary-color border'>
+                            <p className="">Nom: {data ? data.name : ''}</p>
                             <p>Email: {data ? data.email : ''}</p>
                             <p>Adresse: {data ? data.address : ''}</p>
                             <p>Ville: {data ? data.city : ''}</p>
@@ -203,9 +203,9 @@ export default function HeaderOrganizationEditPage({ data }) {
                             <p>Site Web: {data ? <a href={data.url_site}>{data.url_site}</a> : ''}</p>
                             <p>N° de téléphone: {data ? data.phone_number : ''}</p>
                             <p>Description: {data ? data.description : ''}</p>
-                        </>
+                        </div>
                     )}
-                    {/* {isEdit && <button className='btn btn-primary mt-4' onClick={updateOrganizationInformation}>Valider les changements</button>} */}
+                </div>
                 </div>
             </div>
         )
