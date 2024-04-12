@@ -112,39 +112,14 @@ export default function Navbar() {
                             src={
                                 userInformation.member &&
                                 userInformation.member.avatar
-                                    ? `${userInformation.member.avatar}`
-                                    : 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1'
-                            }
-                        />
-                    )}
-
-                    {!isMember && (
-                        <img
-                            alt="Your profile image"
-                            src={
-                                userInformation.organization &&
-                                userInformation.organization.image
-                                    ? `https://res.cloudinary.com/${
-                                          import.meta.env.VITE_CDNY_CLOUDNAME
-                                      }/image/upload/c_scale,w_780,h_520/v1/otalent/${
-                                          userInformation.organization.image
-                                      }`
-                                    : 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1'
-                            }
-                        />
-                    )}
-                    {isMember && (
-                        <img
-                            alt="Your profile image"
-                            src={
-                                userInformation.member &&
-                                userInformation.member.avatar
                                     ? `${`https://res.cloudinary.com/${
                                           import.meta.env.VITE_CDNY_CLOUDNAME
-                                      }/image/upload/c_scale,w_1920,h_1080/v1/otalent/${
+                                      }/image/upload/c_scale,w_780,h_780/v1/otalent/${
                                           userInformation.member.avatar
                                       }`}`
-                                    : 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1'
+                                    : `${`https://res.cloudinary.com/${
+                                          import.meta.env.VITE_CDNY_CLOUDNAME
+                                      }/image/upload/c_scale,w_780,h_780/v1/otalent/yocggnbjzfjygu3naanv`}`
                             }
                         />
                     )}
@@ -157,10 +132,12 @@ export default function Navbar() {
                                 userInformation.organization.image
                                     ? `https://res.cloudinary.com/${
                                           import.meta.env.VITE_CDNY_CLOUDNAME
-                                      }/image/upload/c_scale,w_780,h_520/v1/otalent/${
+                                      }/image/upload/c_scale,w_780,h_780/v1/otalent/${
                                           userInformation.organization.image
                                       }`
-                                    : 'https://i0.wp.com/sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png?ssl=1'
+                                    : `${`https://res.cloudinary.com/${
+                                          import.meta.env.VITE_CDNY_CLOUDNAME
+                                      }/image/upload/c_scale,w_780,h_780/v1/otalent/yocggnbjzfjygu3naanv`}`
                             }
                         />
                     )}

@@ -68,6 +68,23 @@ function Chat() {
                                     key={index}
                                     onClick={e => e.preventDefault()}
                                 >
+                                    <img
+                                        className="rounded-full"
+                                        src={
+                                            message.data && message.user.avatar
+                                                ? `https://res.cloudinary.com/${
+                                                      import.meta.env
+                                                          .VITE_CDNY_CLOUDNAME
+                                                  }/image/upload/c_scale,w_30,h_30/v1/otalent/${
+                                                      message.user.avatar
+                                                  }`
+                                                : `https://res.cloudinary.com/${
+                                                      import.meta.env
+                                                          .VITE_CDNY_CLOUDNAME
+                                                  }/image/upload/c_scale,w_30,h_30/v1/otalent/yocggnbjzfjygu3naanv`
+                                        }
+                                        alt=""
+                                    />
                                     {message.user.firstname}
                                     {' : '}
                                     {message.data}
