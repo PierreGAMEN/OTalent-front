@@ -98,8 +98,6 @@ export default function HeaderOrganizationEditPage({ data }) {
                 postalCode: postal_code,
                 description: description,
                 urlSite: website,
-                description: description,
-                urlSite: website
             }
         }
 
@@ -152,32 +150,39 @@ export default function HeaderOrganizationEditPage({ data }) {
                         <dialog className='modal' ref={modalRef}>
                         <div className='modal-box overflow-auto'>
                             <div className="mt-4">
-                                <label className="block text-gray-700">Nom :</label>
-                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
+                                <label className="input input-bordered flex border border-black items-center gap-2">Nom :
+                                    <input className="grow" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
+                                </label>
                             </div>
                             <div className="mt-4">
-                                <label className="block text-gray-700">Email :</label>
-                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
+                                <label className="input input-bordered flex border border-black items-center gap-2">Email :
+                                    <input className="grow" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
+                                </label>
                             </div>
                             <div className="mt-4">
-                                <label className="block text-gray-700">Adresse :</label>
-                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
+                                <label className="input input-bordered flex border border-black items-center gap-2">Adresse :
+                                    <input className="grow" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
+                                </label>
                             </div>
                             <div className="mt-4">
-                                <label className="block text-gray-700">Ville :</label>
-                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setCity)} type="text" value={city} />
+                                <label className="input input-bordered flex border border-black items-center gap-2">Ville :
+                                    <input className="grow" onChange={e => handleChange(e, setCity)} type="text" value={city} />
+                                </label>
                             </div>
                             <div className="mt-4">
-                                <label className="block text-gray-700">Code postal :</label>
-                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
+                                <label className="input input-bordered flex border border-black items-center gap-2">Code postal :
+                                    <input className="grow" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
+                                </label>
                             </div>
                             <div className="mt-4">
-                                <label className="block text-gray-700">Site Web :</label>
-                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
+                                <label className="input input-bordered flex border border-black items-center gap-2">Site Web :
+                                    <input className="grow" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
+                                </label>
                             </div>
                             <div className="mt-4">
-                                <label className="block text-gray-700">N° de téléphone :</label>
-                                <input className="input input-border mt-1 block w-full border border-black p-3" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
+                                <label className="input input-bordered flex border border-black items-center gap-2">N° de téléphone :
+                                    <input className="grow" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
+                                </label>
                             </div>
                             <div className="mt-4">
                                 <label className="block text-gray-700">Description :</label>
