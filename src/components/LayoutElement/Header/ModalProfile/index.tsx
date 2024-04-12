@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../../../store/redux-hook/hook';
+import { useAppDispatch, useAppSelector } from '../../../../store/redux-hook/hook';
 import { requestWithVariable } from '../../../../utils';
 import { queryNameMember, queryNameOrganization } from '../../../../query';
+import { getMemberInformationActions, getOrganizationInformationActions } from '../../../../store/actions/getUserInformation';
+
 
 export default function Navbar() {
     const [isConnected, setIsConnected] = useState(false);
     const [isMember, setIsMember] = useState(false);
     const user = useAppSelector(state => state.token.user);
     const [userInformation, setUserInformation] = useState({});
+    const dispatch = useAppDispatch();
 
     // Gestionnaire de déconnexion
     const handleLogout = () => {
@@ -43,6 +46,23 @@ export default function Navbar() {
             );
 
             const userInfo = responseWithErrors.data;
+            
+            if(user.member === true){
+                const MemberInformationDispatch = {
+                    firstname: userInfo.member.firstname,
+                    name: userInfo.member.lastname,
+                    avatar: userInfo.member.avatar ? userInfo.member.avatar : "yocggnbjzfjygu3naanv"
+                }
+                dispatch(getMemberInformationActions(MemberInformationDispatch))
+            }
+
+            if(user.member === false) {
+                const organizationInformationDispatch = {
+                    name: userInfo.organization.name,
+                    image: userInfo.organization.image ? userInfo.organization.image : "yocggnbjzfjygu3naanv",
+                }
+                dispatch(getOrganizationInformationActions(organizationInformationDispatch))
+            }
             setUserInformation(userInfo);
         } catch (error) {
             console.error(

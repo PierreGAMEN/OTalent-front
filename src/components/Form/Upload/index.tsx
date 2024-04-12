@@ -62,7 +62,7 @@ const ImageUpload = () => {
                 accept="image/*"
             />
             </label>
-            <button className="btn w-full mt-2"type="button" onClick={uploadImage}>Télécharger l'image</button>
+            <button className="btn w-full mt-2" type="button" onClick={uploadImage}>Télécharger l'image</button>
             </>
     );
 };

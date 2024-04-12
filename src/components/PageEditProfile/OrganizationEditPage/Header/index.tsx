@@ -126,13 +126,13 @@ export default function HeaderOrganizationEditPage({ data }) {
     return (
         seeding && (
             <div className="p-10 md:flex-row justify-between items-start md:items-center">
-            <div className="flex flex-col justify-start items-center md:mr-8 mb-4 md:mb-0">
+            <div className="flex items-center gap-5">
             <img
-                className="mb-10 rounded-full w-1/4"
+                className=""
                 src={data && data.image ? `https://res.cloudinary.com/${import.meta.env.VITE_CDNY_CLOUDNAME}/image/upload/c_scale,w_780,h_520/v1/otalent/${data.image}` : "https://i.pinimg.com/736x/2f/15/f2/2f15f2e8c688b3120d3d26467b06330c.jpg"}
                 alt=""
             />
-            </div>
+            
             <div className="flex flex-col w-full md:w-auto">
                 <div className="flex gap-2">
                     <button className="btn btn-primary" onClick={() => {
@@ -148,7 +148,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                     {isEdit ? (
                         <>  
                         <dialog className='modal' ref={modalRef}>
-                        <div className='modal-box overflow-hidden'>
+                        <div className='modal-box overflow-auto'>
                             <div className="mt-4">
                                 <label className="input input-bordered flex border border-black items-center gap-2">Nom :
                                     <input className="grow" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
@@ -199,8 +199,8 @@ export default function HeaderOrganizationEditPage({ data }) {
                         </dialog>
                         </>
                     ) : (
-                        <>
-                            <p className="mt-4">Nom: {data ? data.name : ''}</p>
+                        <div className='p-5 modal-box flex flex-col gap-2 border-primary-color border'>
+                            <p className="">Nom: {data ? data.name : ''}</p>
                             <p>Email: {data ? data.email : ''}</p>
                             <p>Adresse: {data ? data.address : ''}</p>
                             <p>Ville: {data ? data.city : ''}</p>
@@ -208,9 +208,9 @@ export default function HeaderOrganizationEditPage({ data }) {
                             <p>Site Web: {data ? <a href={data.url_site}>{data.url_site}</a> : ''}</p>
                             <p>N° de téléphone: {data ? data.phone_number : ''}</p>
                             <p>Description: {data ? data.description : ''}</p>
-                        </>
+                        </div>
                     )}
-                    {/* {isEdit && <button className='btn btn-primary mt-4' onClick={updateOrganizationInformation}>Valider les changements</button>} */}
+                </div>
                 </div>
             </div>
         )
