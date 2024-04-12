@@ -5,6 +5,7 @@ import { requestWithVariable } from '../../../../utils'
 import { queryUpdateOrganizationInformation } from '../../../../query'
 import { useAppSelector } from '../../../../store/redux-hook/hook'
 import { toast } from 'react-toastify'
+import ImageUpload from '../../../Form/Upload'
 import { useRef } from 'react'
 
 export default function HeaderOrganizationEditPage({ data }) {
@@ -21,6 +22,7 @@ export default function HeaderOrganizationEditPage({ data }) {
     const [description, setDescription] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [seeding, setSeeding] = useState(false)
+    const imageId = useAppSelector(state => state.idImage.id)
     const modalRef = useRef(null);
 
     const user = useAppSelector((state) => state.token.user);
@@ -96,7 +98,13 @@ export default function HeaderOrganizationEditPage({ data }) {
                 postalCode: postal_code,
                 description: description,
                 urlSite: website
+                description: description,
+                urlSite: website
             }
+        }
+
+        if(imageId) {
+            variables.input.image = imageId
         }
 
         const response = await requestWithVariable(queryUpdateOrganizationInformation, variables)
@@ -181,6 +189,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                                 <button className='btn bg-green-600 text-white hover:bg-green-500' onClick={updateOrganizationInformation}>Valider les changements</button>
                                 }
                             </div>
+                            <ImageUpload />
                         </div>
                         </dialog>
                         </>

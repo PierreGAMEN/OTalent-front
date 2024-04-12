@@ -14,7 +14,10 @@ const ImageUpload = () => {
      * @returns {Promise<any>} A promise that resolves to the uploaded image data.
      */
     const uploadImage = async () => {
-        
+        if(!image) {
+            toast.error("Nous n'avons pas réussi à télécharger l'image, vérifier que vous avez bien choisi une image")
+            return false
+        }
 
         const data = new FormData();
         if (image) {
@@ -40,7 +43,6 @@ const ImageUpload = () => {
             if(result.public_id) 
             {dispatch(getImageUpload(result.public_id.slice(8, result.public_id.length)))
                 toast.success("L'image a correctement été importée, enregistrez les modifications pour valider votre choix")
-                console.log(result)
             return result;}
         } catch (error) {
             console.error('Error:', error);

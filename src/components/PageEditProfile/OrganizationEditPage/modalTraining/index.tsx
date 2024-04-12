@@ -6,6 +6,7 @@ import { queryCreateTraining, queryTrainingInformation, queryUpdateTrainingInfor
 import ImageUpload from '../../../Form/Upload';
 import { toast } from 'react-toastify';
 import { getImageUpload } from '../../../../store/actions/getImageUpload';
+import { isNeeded } from '../../../../regex';
 
 const ModalTraining = () => {
 
@@ -108,6 +109,19 @@ const ModalTraining = () => {
         return response;
     };
 
+    const validateFormData = () => {
+        if(!isNeeded(formData.title, "Le titre")){return false}
+        if(!isNeeded(formData.description, "La description")){return false}
+        if(!isNeeded(formData.category.categoryId, "La catégorie")){return false}
+        if(!isNeeded(formData.duration, "La durée")){return false}
+        if(!isNeeded(formData.prerequisites[0], "Le champs prérequis")){return false}
+        if(!isNeeded(formData.prerequisites[0], "Le champs prérequis")){return false}
+        if(!isNeeded(formData.program[0], "Le champs programme")){return false}
+        if(!isNeeded(formData.price, "Le prix")){return false}
+        if(!isNeeded(formData.excerpt, "Le résumé")){return false}
+        return true
+    }
+
 
     const updateTrainingInformation = async () => {
         const variables = {
@@ -128,14 +142,18 @@ const ModalTraining = () => {
             }
         }
 
-        await requestWithVariable(queryUpdateTrainingInformations, variables)
+        const response = await requestWithVariable(queryUpdateTrainingInformations, variables)
+        if(response && response.data){
         dispatch(getImageUpload(""))
+        location.reload()}
+        }
+
+
+    const createTraining = async (e) => {
+
+        e.preventDefault()
+        if(!validateFormData()){return false}
         
-        location.reload()
-    }
-
-
-    const createTraining = async () => {
         const variables = {
 
           input : {
@@ -156,9 +174,15 @@ const ModalTraining = () => {
   
         }
         
-        await requestWithVariable(queryCreateTraining, variables)
-        dispatch(getImageUpload(""))
-    }
+        const response = await requestWithVariable(queryCreateTraining, variables)
+        if(response.errors.length > 0) {
+            toast.error("Le formulaire n'a pas pu être envoyé, merci de vérifier les informations contenues dans la formation")
+        }
+        if(response && response.data){
+            dispatch(getImageUpload(""))
+            location.reload()}
+        }
+    
 
     const deletePrerequisite = (e) => {
         const indexToDelete = e.target.id
@@ -216,7 +240,7 @@ const ModalTraining = () => {
             <div className="modal-box max-w-none max-h-none">
                 <h4>Bienvenue chez O'Talent !</h4>
                 <div className="flex flex-col w-full border-opacity-50 ">
-                    <div className='flex flex-col gap-4'>
+                    <form className='flex flex-col gap-4'>
                         <label className="input input-bordered flex items-center gap-2">
                             Titre:
                             <input required className="grow" type="text" name="title" value={formData.title} onChange={handleChange} />
@@ -281,10 +305,10 @@ const ModalTraining = () => {
                             <input required className="grow" type="date" name="endingDate" value={formData.endingDate} onChange={handleChange} />
                         </label>
                         <ImageUpload />
-                    </div>
-               
                     {trainingId && <button onClick={updateTrainingInformation} className="btn bg-blue-600 text-white mt-5">Enregristrer les modification</button>}
-                    {!trainingId && <button onClick={createTraining} className="btn bg-blue-600 text-white mt-5">Créer la formation</button>}
+                    {!trainingId && uploadImage && <button onClick={createTraining} className="btn bg-blue-600 text-white mt-5">Créer la formation</button>}
+                    </form>
+               
                 </div>
                 <div className="modal-action">
                     <form method="dialog">

@@ -42,10 +42,8 @@ const SearchBar: React.FC<SearchBarProps> = () => {
             }
             >
                 <option value="">Rechercher par région</option>
-                {regions.map(region => (
-                    <option
-                        value={region}
-                    >
+                {regions.map((region, index) => (
+                    <option value={region} key={index}>   
                         {region}
                     </option>
                 ))}
