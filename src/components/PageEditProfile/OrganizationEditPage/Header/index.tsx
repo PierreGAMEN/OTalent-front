@@ -100,8 +100,18 @@ export default function HeaderOrganizationEditPage({ data }) {
                 },
             };
 
-            if (imageId) {
-                variables.input.image = imageId;
+
+        const variables = {
+            modifyOrganizationId: user.id,
+            input: {
+                name: raisonSocial,
+                email: email,
+                phoneNumber: phoneNumber,
+                address: address,
+                city: city,
+                postalCode: postal_code,
+                description: description,
+                urlSite: website,
             }
 
             const response = await requestWithVariable(
@@ -141,22 +151,74 @@ export default function HeaderOrganizationEditPage({ data }) {
                                       import.meta.env.VITE_CDNY_CLOUDNAME
                                   }/image/upload/c_scale,w_780,h_780/v1/otalent/yocggnbjzfjygu3naanv`
                         }
-                        alt=""
-                    />
-
-                    <div className="flex flex-col w-full md:w-auto">
-                        <div className="flex gap-2">
-                            <button
-                                className="btn btn-primary"
-                                onClick={() => {
-                                    setIsEdit(true);
-                                    if (modalRef.current) {
-                                        modalRef.current.showModal();
-                                    }
-                                }}
-                            >
-                                Modifier mes informations
-                            </button>
+                        }}>
+                            Modifier mes informations
+                    </button>
+                    
+                </div>
+                    {isEdit ? (
+                        <>  
+                        <dialog className='modal' ref={modalRef}>
+                        <div className='modal-box overflow-auto'>
+                            <div className="mt-4">
+                                <label className="input input-bordered flex border border-black items-center gap-2">Nom :
+                                    <input className="grow" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
+                                </label>
+                            </div>
+                            <div className="mt-4">
+                                <label className="input input-bordered flex border border-black items-center gap-2">Email :
+                                    <input className="grow" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
+                                </label>
+                            </div>
+                            <div className="mt-4">
+                                <label className="input input-bordered flex border border-black items-center gap-2">Adresse :
+                                    <input className="grow" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
+                                </label>
+                            </div>
+                            <div className="mt-4">
+                                <label className="input input-bordered flex border border-black items-center gap-2">Ville :
+                                    <input className="grow" onChange={e => handleChange(e, setCity)} type="text" value={city} />
+                                </label>
+                            </div>
+                            <div className="mt-4">
+                                <label className="input input-bordered flex border border-black items-center gap-2">Code postal :
+                                    <input className="grow" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
+                                </label>
+                            </div>
+                            <div className="mt-4">
+                                <label className="input input-bordered flex border border-black items-center gap-2">Site Web :
+                                    <input className="grow" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
+                                </label>
+                            </div>
+                            <div className="mt-4">
+                                <label className="input input-bordered flex border border-black items-center gap-2">N° de téléphone :
+                                    <input className="grow" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
+                                </label>
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-gray-700">Description :</label>
+                                <textarea className="textarea textarea-bordered mt-1 block w-full h-24 mb-5" onChange={e => handleChange(e, setDescription)} value={description} />
+                            </div>
+                                <ImageUpload />
+                            <div className='flex justify-between mt-5'>
+                                <button className="btn bg-grey" onClick={() => setIsEdit(false)}>Quitter le mode edit</button>
+                                {isEdit && 
+                                <button className='btn bg-green-600 text-white hover:bg-green-500' onClick={updateOrganizationInformation}>Valider les changements</button>
+                                }
+                            </div>
+                        </div>
+                        </dialog>
+                        </>
+                    ) : (
+                        <div className='p-5 modal-box flex flex-col gap-2 border-primary-color border'>
+                            <p className="">Nom: {data ? data.name : ''}</p>
+                            <p>Email: {data ? data.email : ''}</p>
+                            <p>Adresse: {data ? data.address : ''}</p>
+                            <p>Ville: {data ? data.city : ''}</p>
+                            <p>Code postal: {data ? data.postal_code : ''}</p>
+                            <p>Site Web: {data ? <a href={data.url_site}>{data.url_site}</a> : ''}</p>
+                            <p>N° de téléphone: {data ? data.phone_number : ''}</p>
+                            <p>Description: {data ? data.description : ''}</p>
                         </div>
                         {isEdit ? (
                             <>

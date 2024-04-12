@@ -46,7 +46,7 @@ export default function OrganizationTrainings({ data }) {
                             
                         <div className="flex gap-5 overflow-auto p-10">
                             {data.trainings.map((training, index) => (
-                                <div key={training.id}>
+                                <div key={training.id} className="w-[308px]">
                                     <TrainingCard 
                                         key={training.id}
                                         label={training.label} 
@@ -61,10 +61,10 @@ export default function OrganizationTrainings({ data }) {
                                         reviews={training.reviews}
                                         price={training.price}
                                     />
-                                    <div className="flex gap-2 justify-center">
+                                    <div className="flex gap-2 justify-around mt-2">
                                         {/* Vérifier fonctionnement du bouton delete */}
-                                   <button key={index} onClick={() => {openModal(training.id)}} id={training.id} className="btn bg-primary text-white w-[45%]">Modifier cette formation</button>
-                                   <button key={index} id={training.id} onClick={deleteTraining} className="btn bg-red-500 text-white w-[45%]">Supprimer cette formation</button>
+                                   <button key={index} onClick={() => {openModal(training.id)}} id={training.id} className="material-symbols-rounded">edit</button>
+                                   <button key={index} id={training.id} onClick={deleteTraining} className="material-symbols-rounded">delete</button>
                                    </div>
                                 </div>
                             ))}

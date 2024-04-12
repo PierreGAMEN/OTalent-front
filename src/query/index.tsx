@@ -298,6 +298,7 @@ query Organization($organizationId: ID!) {
       image
       reviews {
         id
+        rating
       }
       category {
         id

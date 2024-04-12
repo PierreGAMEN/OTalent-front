@@ -52,23 +52,18 @@ export default function Navbar() {
                 const MemberInformationDispatch = {
                     firstname: userInfo.member.firstname,
                     name: userInfo.member.lastname,
-                    avatar: userInfo.member.avatar,
-                };
-                dispatch(
-                    getMemberInformationActions(MemberInformationDispatch)
-                );
+
+                    avatar: userInfo.member.avatar ? userInfo.member.avatar : "yocggnbjzfjygu3naanv"
+                }
+                dispatch(getMemberInformationActions(MemberInformationDispatch))
             }
 
             if (user.member === false) {
                 const organizationInformationDispatch = {
                     name: userInfo.organization.name,
-                    image: userInfo.organization.image,
-                };
-                dispatch(
-                    getOrganizationInformationActions(
-                        organizationInformationDispatch
-                    )
-                );
+                    image: userInfo.organization.image ? userInfo.organization.image : "yocggnbjzfjygu3naanv",
+                }
+                dispatch(getOrganizationInformationActions(organizationInformationDispatch))
             }
             setUserInformation(userInfo);
         } catch (error) {
