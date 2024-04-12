@@ -146,7 +146,7 @@ export default function HomePage() {
 
             {data && (
                 <>
-                    <h3>Découvrez notre sélection</h3>
+                    <h3 id='training_list'>Découvrez notre sélection</h3>
                     <TrainingList data={data} categoryChosen="Informatique" />
                     <TrainingList data={data} categoryChosen="Arts" />
                     <TrainingList data={data} categoryChosen="Finance" />
