@@ -53,6 +53,7 @@ const ResetPassword = () => {
 
                 <div className='modal-box'>
                     <h4>Il semblerait que vous essayez d'accéder à un endroit secret...</h4>
+                    <img src="src/assets/Security On-bro.svg" alt="" />
                     <div className='divider'></div>
                     <div className='flex justify-center'>
                     <a 
