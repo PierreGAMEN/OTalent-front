@@ -86,7 +86,7 @@ export default function FormOrganization(): JSX.Element {
         city: formValues.ville,
         postalCode: formValues.codePostal,
         siret: formValues.siret,
-        image: null,
+        image: uploadImage,
       },
     };
 

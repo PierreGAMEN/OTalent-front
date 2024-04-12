@@ -76,7 +76,7 @@ export default function HomePage() {
                     {isMemberInfoLoaded &&
                         memberInfo.data.member.categories.length > 0 && (
                             <>
-                                <h3 id="training_list">
+                                <h3>
                                     Vos catégories préférées
                                 </h3>
                                 {isLoading && (
@@ -146,7 +146,7 @@ export default function HomePage() {
 
             {data && (
                 <>
-                    <h3>Découvrez notre sélection</h3>
+                    <h3 id="training_list">Découvrez notre sélection</h3>
                     <TrainingList data={data} categoryChosen="Informatique" />
                     <TrainingList data={data} categoryChosen="Arts" />
                     <TrainingList data={data} categoryChosen="Finance" />
