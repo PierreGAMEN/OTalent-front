@@ -97,8 +97,6 @@ export default function HeaderOrganizationEditPage({ data }) {
                     postalCode: postal_code,
                     description: description,
                     urlSite: website,
-                    description: description,
-                    urlSite: website,
                 },
             };
 
