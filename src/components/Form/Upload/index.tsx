@@ -14,7 +14,10 @@ const ImageUpload = () => {
      * @returns {Promise<any>} A promise that resolves to the uploaded image data.
      */
     const uploadImage = async () => {
-        
+        if(!image) {
+            toast.error("Nous n'avons pas réussi à télécharger l'image, vérifier que vous avez bien choisi une image")
+            return false
+        }
 
         const data = new FormData();
         if (image) {
