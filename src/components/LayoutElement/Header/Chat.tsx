@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { queryNameMember, queryNameOrganization } from '../../../query';
-import { requestWithoutVariable } from '../../../utils';
+import { useState, useEffect, useRef } from 'react';
 import { useAppSelector } from '../../../store/redux-hook/hook';
 
 function Chat() {
@@ -9,11 +7,18 @@ function Chat() {
     const user = useAppSelector(
         state => state.memberInformation.userInformation
     );
+    const chatRef = useRef(null);
+
     const [socket, setSocket] = useState(null); // Add the 'socket' state variable
     const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+        if (chatRef.current) {
+            chatRef.current.scrollTop = chatRef.current.scrollHeight;
+        }
+    }, [messages, isOpen]);
 
     useEffect(() => {
-        const newSocket = new WebSocket('ws://localhost:3000');
+        const newSocket = new WebSocket(import.meta.env.VITE_WS);
 
         setSocket(newSocket);
 
@@ -36,6 +41,7 @@ function Chat() {
             newSocket.close();
         };
     }, []);
+
     const sendMessage = () => {
         if (
             messageInput !== '' &&
@@ -60,11 +66,14 @@ function Chat() {
             </button>
             {isOpen && (
                 <dialog className="modal" open>
-                    <div className=" modal-box">
-                        <div className="chat chat-start">
+                    <div className=" modal-box h-[500px]">
+                        <div
+                            ref={chatRef}
+                            className="chat chat-start overflow-y-scroll h-[300px]"
+                        >
                             {messages.map((message, index) => (
                                 <p
-                                    className="chat-bubble"
+                                    className="chat-bubble mt-7"
                                     key={index}
                                     onClick={e => e.preventDefault()}
                                 >
@@ -91,29 +100,31 @@ function Chat() {
                                 </p>
                             ))}
                         </div>
-                        <div className="chat-input">
-                            <input
-                                className="input input-bordered w-full max-w-xs"
-                                type="text"
-                                placeholder="Entrez votre message"
-                                value={messageInput}
-                                onChange={e => {
-                                    setMessageInput(e.target.value);
-                                }}
-                            />
+                        <div className="fixed">
+                            <div className="chat-input">
+                                <input
+                                    className="input input-bordered w-full max-w-xs"
+                                    type="text"
+                                    placeholder="Entrez votre message"
+                                    value={messageInput}
+                                    onChange={e => {
+                                        setMessageInput(e.target.value);
+                                    }}
+                                />
+                                <button
+                                    className="btn btn-info"
+                                    onClick={sendMessage}
+                                >
+                                    Envoyer
+                                </button>
+                            </div>
                             <button
-                                className="btn btn-info"
-                                onClick={sendMessage}
+                                className="btn btn-error"
+                                onClick={() => setIsOpen(false)}
                             >
-                                Envoyer
+                                Fermer
                             </button>
                         </div>
-                        <button
-                            className="btn btn-error"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            Fermer
-                        </button>
                     </div>
                 </dialog>
             )}
