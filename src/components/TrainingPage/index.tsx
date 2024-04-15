@@ -5,7 +5,6 @@ import ReviewTrainingPage from './Review';
 import { fetchData } from '../../utils';
 import { useEffect, useState } from 'react';
 import { queryOneTraining } from '../../query';
-import { Loader } from 'semantic-ui-react';
 import TrainingDataI from '../../@Types/training';
 
 const TrainingPage = () => {
@@ -19,10 +18,8 @@ const TrainingPage = () => {
         fetchData(queryOneTraining, id, 'trainingId', setDataFetch, setLoader);
     }, [id]);
 
-
     return (
         <>
-            {loader && <Loader />}
             {dataFetch.training && (
                 <>
                     <HeaderTrainingPage data={dataFetch.training} />

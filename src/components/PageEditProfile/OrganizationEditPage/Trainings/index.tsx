@@ -8,6 +8,7 @@ import { queryDeleteTraining } from "../../../../query";
 
 export default function OrganizationTrainings({ data }) {
 
+    const [deleteConfim, setDeleteConfirm] = useState(false);
     const dispatch = useAppDispatch()
     const isOpen = useAppSelector((state) => state.editTraining.isOpen);
 
@@ -22,7 +23,6 @@ export default function OrganizationTrainings({ data }) {
     const openModalToCreateTraining = () => {
         dispatch(getStateModalEditTraining({isOpen: true, trainingId: null}))
     }
-
     const deleteTraining = async (e) => {
        const idToDelete = e.target.id
 
@@ -33,9 +33,6 @@ export default function OrganizationTrainings({ data }) {
        location.reload()
     }
 
-
-
-  
 
     return (
         <section>
@@ -63,8 +60,22 @@ export default function OrganizationTrainings({ data }) {
                                     />
                                     <div className="flex gap-2 justify-around mt-2">
                                         {/* Vérifier fonctionnement du bouton delete */}
-                                   <button key={index} onClick={() => {openModal(training.id)}} id={training.id} className="material-symbols-rounded">edit</button>
-                                   <button key={index} id={training.id} onClick={deleteTraining} className="material-symbols-rounded">delete</button>
+
+                                   {!deleteConfim && (
+                                    <>
+                                        <button key={training.id} onClick={() => {openModal(training.id)}} id={training.id} className="material-symbols-rounded">edit</button>
+                                       <button key={training.id} id={training.id} onClick={() => {setDeleteConfirm(true)}} className="material-symbols-rounded">delete</button>
+                                    </>
+                                   )}
+                                   {deleteConfim && (
+                                    <div>
+                                        <p>Êtes vous sûr de vouloir supprimer cette formation ?</p>
+                                        <div className="flex justify-around mt-2">
+                                            <button key={training.id} id={training.id} className="btn" onClick={deleteTraining}>Confirmer</button>
+                                            <button className="btn" onClick={() => {setDeleteConfirm(false)}}>Annuler</button>
+                                        </div>
+                                    </div>
+                                   )}
                                    </div>
                                 </div>
                             ))}

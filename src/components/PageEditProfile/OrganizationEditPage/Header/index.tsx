@@ -157,145 +157,57 @@ export default function HeaderOrganizationEditPage({ data }) {
                             </button>
                         </div>
                         {isEdit ? (
-                            <>
-                                <dialog className="modal" ref={modalRef}>
-                                    <div className="modal-box overflow-auto">
-                                        <div className="mt-4">
-                                            <label className="block text-gray-700">
-                                                Nom :
-                                            </label>
-                                            <input
-                                                className="input input-border mt-1 block w-full border border-black p-3"
-                                                onChange={e =>
-                                                    handleChange(
-                                                        e,
-                                                        setRaisonSocial
-                                                    )
-                                                }
-                                                type="text"
-                                                value={raisonSocial}
-                                            />
-                                        </div>
-                                        <div className="mt-4">
-                                            <label className="block text-gray-700">
-                                                Email :
-                                            </label>
-                                            <input
-                                                className="input input-border mt-1 block w-full border border-black p-3"
-                                                onChange={e =>
-                                                    handleChange(e, setEmail)
-                                                }
-                                                type="email"
-                                                value={email}
-                                            />
-                                        </div>
-                                        <div className="mt-4">
-                                            <label className="block text-gray-700">
-                                                Adresse :
-                                            </label>
-                                            <input
-                                                className="input input-border mt-1 block w-full border border-black p-3"
-                                                onChange={e =>
-                                                    handleChange(e, setAddress)
-                                                }
-                                                type="text"
-                                                value={address}
-                                            />
-                                        </div>
-                                        <div className="mt-4">
-                                            <label className="block text-gray-700">
-                                                Ville :
-                                            </label>
-                                            <input
-                                                className="input input-border mt-1 block w-full border border-black p-3"
-                                                onChange={e =>
-                                                    handleChange(e, setCity)
-                                                }
-                                                type="text"
-                                                value={city}
-                                            />
-                                        </div>
-                                        <div className="mt-4">
-                                            <label className="block text-gray-700">
-                                                Code postal :
-                                            </label>
-                                            <input
-                                                className="input input-border mt-1 block w-full border border-black p-3"
-                                                onChange={e =>
-                                                    handleChange(
-                                                        e,
-                                                        setPostal_code
-                                                    )
-                                                }
-                                                type="text"
-                                                value={postal_code}
-                                            />
-                                        </div>
-                                        <div className="mt-4">
-                                            <label className="block text-gray-700">
-                                                Site Web :
-                                            </label>
-                                            <input
-                                                className="input input-border mt-1 block w-full border border-black p-3"
-                                                onChange={e =>
-                                                    handleChange(e, setWebsite)
-                                                }
-                                                type="text"
-                                                value={website}
-                                            />
-                                        </div>
-                                        <div className="mt-4">
-                                            <label className="block text-gray-700">
-                                                N° de téléphone :
-                                            </label>
-                                            <input
-                                                className="input input-border mt-1 block w-full border border-black p-3"
-                                                onChange={e =>
-                                                    handleChange(
-                                                        e,
-                                                        setPhoneNumber
-                                                    )
-                                                }
-                                                type="text"
-                                                value={phoneNumber}
-                                            />
-                                        </div>
-                                        <div className="mt-4">
-                                            <label className="block text-gray-700">
-                                                Description :
-                                            </label>
-                                            <textarea
-                                                className="textarea textarea-bordered mt-1 block w-full h-24 mb-5"
-                                                onChange={e =>
-                                                    handleChange(
-                                                        e,
-                                                        setDescription
-                                                    )
-                                                }
-                                                value={description}
-                                            />
-                                        </div>
-                                        <ImageUpload />
-                                        <div className="flex justify-between mt-5">
-                                            <button
-                                                className="btn bg-grey"
-                                                onClick={() => setIsEdit(false)}
-                                            >
-                                                Quitter le mode edit
-                                            </button>
-                                            {isEdit && (
-                                                <button
-                                                    className="btn bg-green-600 text-white hover:bg-green-500"
-                                                    onClick={
-                                                        updateOrganizationInformation
-                                                    }
-                                                >
-                                                    Valider les changements
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
-                                </dialog>
+                            <>  
+                            <dialog className='modal' ref={modalRef}>
+                            <div className='modal-box overflow-auto'>
+                                <div className="mt-4">
+                                    <label className="input input-bordered flex border border-black items-center gap-2">Nom :
+                                        <input className="grow" onChange={e => handleChange(e, setRaisonSocial)} type="text" value={raisonSocial} />
+                                    </label>
+                                </div>
+                                <div className="mt-4">
+                                    <label className="input input-bordered flex border border-black items-center gap-2">Email :
+                                        <input className="grow" onChange={e => handleChange(e, setEmail)} type="email" value={email} />
+                                    </label>
+                                </div>
+                                <div className="mt-4">
+                                    <label className="input input-bordered flex border border-black items-center gap-2">Adresse :
+                                        <input className="grow" onChange={e => handleChange(e, setAddress)} type="text" value={address} />
+                                    </label>
+                                </div>
+                                <div className="mt-4">
+                                    <label className="input input-bordered flex border border-black items-center gap-2">Ville :
+                                        <input className="grow" onChange={e => handleChange(e, setCity)} type="text" value={city} />
+                                    </label>
+                                </div>
+                                <div className="mt-4">
+                                    <label className="input input-bordered flex border border-black items-center gap-2">Code postal :
+                                        <input className="grow" onChange={e => handleChange(e, setPostal_code)} type="text" value={postal_code} />
+                                    </label>
+                                </div>
+                                <div className="mt-4">
+                                    <label className="input input-bordered flex border border-black items-center gap-2">Site Web :
+                                        <input className="grow" onChange={e => handleChange(e, setWebsite)} type="text" value={website} />
+                                    </label>
+                                </div>
+                                <div className="mt-4">
+                                    <label className="input input-bordered flex border border-black items-center gap-2">N° de téléphone :
+                                        <input className="grow" onChange={e => handleChange(e, setPhoneNumber)} type="text" value={phoneNumber} />
+                                    </label>
+                                </div>
+                                <div className="mt-4">
+                                    <label className="block text-gray-700">Description :</label>
+                                    <textarea className="textarea textarea-bordered mt-1 block w-full h-24 mb-5" onChange={e => handleChange(e, setDescription)} value={description} />
+                                </div>
+                                    <ImageUpload />
+                                <div className='flex justify-between mt-5'>
+                                    <button className="btn bg-grey" onClick={() => setIsEdit(false)}>Quitter le mode edit</button>
+                                    {isEdit && 
+                                    <button className='btn bg-green-600 text-white hover:bg-green-500' onClick={updateOrganizationInformation}>Valider les changements</button>
+                                    }
+                                </div>
+                            </div>
+                            </dialog>
                             </>
                         ) : (
                             <div className="p-5 modal-box flex flex-col gap-2 border-primary-color border">
