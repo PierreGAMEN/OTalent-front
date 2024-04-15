@@ -29,4 +29,4 @@ npm run dev
 ```
 
 
-Ensure you have Node.js and npm installed on your machine before running the commands.
+Ensure you have Node.ts and npm installed on your machine before running the commands.
