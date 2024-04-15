@@ -101,18 +101,18 @@ export default function HeaderOrganizationEditPage({ data }) {
             };
 
 
-        const variables = {
-            modifyOrganizationId: user.id,
-            input: {
-                name: raisonSocial,
-                email: email,
-                phoneNumber: phoneNumber,
-                address: address,
-                city: city,
-                postalCode: postal_code,
-                description: description,
-                urlSite: website,
-            }
+        // const variables = {
+        //     modifyOrganizationId: user.id,
+        //     input: {
+        //         name: raisonSocial,
+        //         email: email,
+        //         phoneNumber: phoneNumber,
+        //         address: address,
+        //         city: city,
+        //         postalCode: postal_code,
+        //         description: description,
+        //         urlSite: website,
+        //     }
 
             const response = await requestWithVariable(
                 queryUpdateOrganizationInformation,
