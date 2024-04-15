@@ -62,12 +62,14 @@ export default function ReviewsEditProfilPageMember({ data }) {
   
 
   return (
-    <section className="">
+    <section className="flex flex-col items-center mr-12 w-1/2 ml-12">
+      <div>
+
       <h4 className="mt-5 mb-5">Vos commentaires</h4>
       <div className="flex flex-col gap-4 max-h-[500px] overflow-auto">
       {memberReviews && memberReviews.map((review) => (
         <div className="border border-primary-color flex flex-col gap-2 relative rounded-md p-5 mr-5" key={review.id}>
-          <h5>{review.training.label}</h5>
+          <h5><a href={`/training/${review.training.id}`}>{review.training.label}</a></h5>
           {editModeId === review.id ? (
             <>
               <input className="border" type="text" value={review.comment} onChange={(e) => handleChange(e, review.id)} />
@@ -76,14 +78,15 @@ export default function ReviewsEditProfilPageMember({ data }) {
           ) : (
             <>
               <p>{review.comment}</p>
-              <div className="flex">
-                <button type="button" className="btn" onClick={() => handleEditMode(review.id)}>Modifier</button>
-                <button type="button" className="btn" onClick={() => deleteComment(review.id)}>Supprimer</button>
+              <div className="flex justify-between">
+                <button type="button" className="btn hover:bg-green-600 hover:text-white" onClick={() => handleEditMode(review.id)}>Modifier</button>
+                <button type="button" className="btn hover:bg-red-500 hover:text-white" onClick={() => deleteComment(review.id)}>Supprimer</button>
               </div>
             </>
           )}
         </div>
       ))}
+      </div>
       </div>
     </section>
   );

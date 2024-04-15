@@ -98,7 +98,7 @@ export default function HomePage() {
                     </h3>
                     {isLoading && <Loader active inline="centered" />}
                     {memberInfo.data.member.nearestOrganizations.length > 0 ? (
-                        <div className="flex overflow-scroll gap-5">
+                        <div className="flex overflow-scroll ml-5 gap-5">
                             {memberInfo.data.member.nearestOrganizations.map(
                                 organization =>
                                     organization.trainings.map(training => {
