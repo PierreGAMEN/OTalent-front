@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './style.scss';
 import { requestWithVariable } from '../../../../utils';
 import { queryUpdateOrganizationInformation } from '../../../../query';

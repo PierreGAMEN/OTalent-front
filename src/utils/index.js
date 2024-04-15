@@ -25,54 +25,6 @@ const authorizedRequest = async (url, requestData) => {
     }
 };
 
-export const fetchData = async (
-    query,
-    id = null,
-    idName = null,
-    setData,
-    setLoader
-) => {
-    try {
-        const variables = id !== null ? { id } : {};
-
-        setLoader(true);
-        const response = await authorizedRequest(url, {
-            query,
-            variables,
-        });
-
-        const data = response.data;
-        console.log(data);
-        setData(data || []);
-    } catch (error) {
-        console.error('Error:', error);
-    } finally {
-        setLoader(false);
-    }
-};
-
-export const dissociateMemberTraining = async (memberId, trainingId) => {
-    try {
-        const response = await authorizedRequest(url, {
-            query: `
-        mutation Mutation($memberId: ID!, $trainingId: ID!) {
-          dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
-        }`,
-            variables: {
-                memberId: memberId,
-                trainingId: trainingId,
-            },
-        });
-
-        console.log(response);
-
-        return response;
-    } catch (error) {
-        console.error("Une erreur s'est produite :", error);
-        throw error;
-    }
-};
-
 export const associateMemberTraining = async (memberId, trainingId) => {
     try {
         const response = await authorizedRequest(url, {
@@ -84,29 +36,6 @@ export const associateMemberTraining = async (memberId, trainingId) => {
             variables: {
                 memberId: memberId,
                 trainingId: trainingId,
-            },
-        });
-
-        console.log(response.data);
-
-        return response.data;
-    } catch (error) {
-        console.error("Une erreur s'est produite :", error);
-        throw error;
-    }
-};
-
-export const associateMemberCategory = async (memberId, categoryId) => {
-    try {
-        const response = await axios.post(url, {
-            query: `
-        mutation Mutation($memberId: ID!, $categoryId: ID!) {
-          associateMemberCategory(memberId: $memberId, categoryId: $categoryId)
-        }
-      `,
-            variables: {
-                memberId: memberId,
-                categoryId: categoryId,
             },
         });
 

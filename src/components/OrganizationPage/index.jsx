@@ -1,10 +1,9 @@
 import { useParams } from 'react-router';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ContentOrganizationProfilPage from './Content';
 import HeaderOrganizationProfilPage from './Header';
 import { queryOneOrganization } from '../../query';
 import { Loader } from 'semantic-ui-react';
-import React from 'react';
 import { requestWithVariable } from '../../utils';
 
 export default function OrganizationPage() {

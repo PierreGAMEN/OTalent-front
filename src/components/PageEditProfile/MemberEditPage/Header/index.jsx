@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import './style.scss';
 import { useAppSelector } from '../../../../store/redux-hook/hook';
 import {
-    associateMemberCategory,
     deleteMemberCategory,
     requestWithVariable,
 } from '../../../../utils';
-import { deleteMember, queryUpdateMemberInformation } from '../../../../query';
+import { deleteMember, queryAssociateMemberCategory, queryUpdateMemberInformation } from '../../../../query';
 import ReviewsEditProfilPageMember from '../Reviews';
 import ImageUpload from '../../../Form/Upload';
 
@@ -44,6 +43,16 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
         setter(value);
     };
 
+    const associateMemberCategory= async(selectedCategory) => {
+        const variables = {
+            memberId: memberId,
+            categoryId: selectedCategory,
+        }
+
+        const response = await requestWithVariable(queryAssociateMemberCategory, variables)
+        return response
+    }
+
     const handleCategoryChange = (e) => {
         const selectElement = e.currentTarget;
         const selectedIndex = selectElement.selectedIndex;
@@ -59,7 +68,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
             { id: selectedCategoryId, label: selectedCategory },
         ]);
         if (selectedCategoryId !== null) {
-            associateMemberCategory(memberId, parseInt(selectedCategoryId));
+            associateMemberCategory(selectedCategoryId)
         }
         setselectedCategory('');
         setIsAddNewCategory(false);

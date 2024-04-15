@@ -204,6 +204,12 @@ mutation Mutation($memberId: ID!, $categoryId: ID!) {
   dissociateMemberCategory(memberId: $memberId, categoryId: $categoryId)
 }`;
 
+export const queryAssociateMemberCategory = `
+mutation Mutation($memberId: ID!, $categoryId: ID!) {
+  associateMemberCategory(memberId: $memberId, categoryId: $categoryId)
+}
+`
+
 export const queryModifyReview = `mutation ModifyReview($modifyReviewId: ID!, $input: ReviewInput!) {
   modifyReview(id: $modifyReviewId, input: $input) {
     comment

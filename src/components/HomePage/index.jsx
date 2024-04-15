@@ -1,7 +1,7 @@
 import Hero from './Hero';
 import TrainingList from './TrainingList';
 import { useEffect, useState } from 'react';
-import { fetchCategories, fetchData, requestWithVariable } from '../../utils';
+import { fetchCategories, requestWithVariable, requestWithoutVariable } from '../../utils';
 import {
     queryAllTrainingCard,
     queryMemberInformationForHomePage,
@@ -42,8 +42,16 @@ export default function HomePage() {
         setIsMemberInfoLoaded(true);
     };
 
+    const getAllTrainingCard = async () => {
+        setIsLoading(false)
+        const response = await requestWithoutVariable(queryAllTrainingCard)
+        setData(response.data)
+        setIsLoading(true)
+        
+    }
+
     useEffect(() => {
-        fetchData(queryAllTrainingCard, null, null, setData, setIsLoading);
+        getAllTrainingCard()
         fetchCategories();
     }, []);
 
