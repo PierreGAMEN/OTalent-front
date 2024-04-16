@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     useAppDispatch,
     useAppSelector,
@@ -229,7 +229,7 @@ const ModalTraining = () => {
     const deletePrerequisite = (e) => {
         const indexToDelete = e.target.id;
         const newPrerequisites = formData.prerequisites.filter(
-            (item) => item !== indexToDelete
+            (_, index) => index !== parseInt(indexToDelete, 10)
         );
         setFormData({
             ...formData,
@@ -240,7 +240,7 @@ const ModalTraining = () => {
     const deleteProgram = (e) => {
         const indexToDelete = e.target.id;
         const newPorgram = formData.program.filter(
-            (item) => item !== indexToDelete
+            (_, index) => index !== parseInt(indexToDelete, 10)
         );
         setFormData({
             ...formData,
@@ -350,14 +350,14 @@ const ModalTraining = () => {
                                     Ajouter le prérequis à la liste
                                 </button>
                                 <h4>Listes des prérequis</h4>
-                                {formData.prerequisites.map((prerequisite) => (
-                                    <div key={prerequisite}>
+                                {formData.prerequisites.map((prerequisite, index) => (
+                                    <div key={index} className='flex items-center'>
                                         {prerequisite}
                                         <button
-                                            id={prerequisite}
+                                            id={index}
                                             onClick={deletePrerequisite}
-                                            className="btn ml-4 bg-red-500 text-white">
-                                            X
+                                            className="ml-4 material-symbols-rounded">
+                                            delete
                                         </button>
                                     </div>
                                 ))}
@@ -377,14 +377,14 @@ const ModalTraining = () => {
                                     Ajouter un programme à la liste
                                 </button>
                                 <h4>Listes du programme</h4>
-                                {formData.program.map((prog) => (
-                                    <div key={prog}>
+                                {formData.program.map((prog, index) => (
+                                    <div key={index} className='flex items-center'>
                                         {prog}
                                         <button
-                                            id={prog}
+                                            id={index}
                                             onClick={deleteProgram}
-                                            className="btn ml-4 bg-red-500 text-white">
-                                            X
+                                            className="ml-4 material-symbols-rounded">
+                                            delete
                                         </button>
                                     </div>
                                 ))}
@@ -414,7 +414,7 @@ const ModalTraining = () => {
                                     Date de début:
                                     <input
                                         required
-                                        className="grow"
+                                        className=""
                                         type="date"
                                         name="startingDate"
                                         value={formData.startingDate}
@@ -425,7 +425,7 @@ const ModalTraining = () => {
                                     Date de fin:
                                     <input
                                         required
-                                        className="grow"
+                                        className=""
                                         type="date"
                                         name="endingDate"
                                         value={formData.endingDate}
@@ -442,7 +442,10 @@ const ModalTraining = () => {
                                 )}
                                 {!trainingId && uploadImage && (
                                     <button
-                                        onClick={createTraining}
+                                        onClick={(e) => {
+                                            createTraining(e);
+                                            handleCloseModal();                                            
+                                        }}
                                         className="btn bg-blue-600 text-white mt-5">
                                         Créer la formation
                                     </button>

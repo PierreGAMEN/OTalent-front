@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import TrainingCard from '../../../HomePage/TrainingCard';
 import {
     useAppDispatch,
@@ -39,9 +39,11 @@ export default function OrganizationTrainings({ data }) {
 
     return (
         <section>
-            <button onClick={openModalToCreateTraining} className="btn m-2">
+            <div className='flex justify-center'>
+            <button onClick={openModalToCreateTraining} className="btn m-10 w-1/2 md:w-1/4 text-md md:text-xl">
                 Créer une formation
             </button>
+            </div>
             {!isOpen && (
                 <>
                     {data.trainings.length > 0 && (

@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import FavoritesTrainings from './Trainings'
+import React, { useEffect, useState } from 'react'
 import HeaderOrganizationEditPage from './Header'
 import './style.scss'
 import { requestWithVariable } from '../../../utils'

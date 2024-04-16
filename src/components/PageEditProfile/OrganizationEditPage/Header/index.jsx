@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './style.scss';
 import { requestWithVariable } from '../../../../utils';
 import { queryUpdateOrganizationInformation } from '../../../../query';
@@ -120,7 +120,7 @@ export default function HeaderOrganizationEditPage({ data }) {
 
     return (
         seeding && (
-            <div className="p-10 md:flex-row justify-between items-start md:items-center">
+            <div className="p-10 flex flex-col md:flex-row md:justify-around items-start md:items-center">
                 <div className="flex items-center gap-5">
                     <img
                         className=""
@@ -137,9 +137,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                         }
                         alt="Organization Image"
                     />
-                    <button onClick={() => setIsEdit(true)}>
-                        Modifier mes informations
-                    </button>
+                    
                 </div>
                 {isEdit ? (
                     <dialog className="modal" ref={modalRef}>
@@ -266,6 +264,12 @@ export default function HeaderOrganizationEditPage({ data }) {
                     </dialog>
                 ) : (
                     <div className="p-5 modal-box flex flex-col gap-2 border-primary-color border">
+                        <div className='flex justify-between'>
+                        <h4 className='text-xl'>Mes informations</h4>
+                        <button className='material-symbols-rounded' onClick={() => setIsEdit(true)}>
+                            edit
+                        </button>
+                        </div>
                         <p className="">Nom: {data ? data.name : ''}</p>
                         <p>Email: {data ? data.email : ''}</p>
                         <p>Adresse: {data ? data.address : ''}</p>
