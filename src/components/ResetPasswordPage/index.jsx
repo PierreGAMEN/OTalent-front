@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { changePassword, requestWithVariable } from '../../utils';
 import { toast } from 'react-toastify';
 import { querySendNewPassword, queryPrankTrainings } from '../../query';
 import TrainingCard from '../HomePage/TrainingCard';
+import { confirmPasswordRegex, passwordRegex } from '../../regex';
 
 const ResetPassword = () => {
     const [newPassword, setPassword] = useState('');
@@ -19,11 +20,21 @@ const ResetPassword = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        passwordAreSimilar();
+        if (!validateValueOfNewPassword()) {
+            return false;
+        }
         const variables = {
             updatedPassword: newPassword,
         };
-        await changePassword(querySendNewPassword, variables, token);
+
+        const response = await changePassword(
+            querySendNewPassword,
+            variables,
+            token
+        );
+        if (response.data) {
+            toast.success('Votre mot de passe a bien été modifié.');
+        }
         setButtonToAccesFormConnection(true);
     };
 
@@ -41,13 +52,14 @@ const ResetPassword = () => {
         setTrainingPrank(response);
     };
 
-    const passwordAreSimilar = () => {
-        if (newPassword === confirmNewPassword) {
-            return true;
-        } else {
-            toast.error('Les mots de passe ne correspondent pas');
+    const validateValueOfNewPassword = () => {
+        if (!passwordRegex(newPassword)) {
             return false;
         }
+        if (!confirmPasswordRegex(newPassword, confirmNewPassword)) {
+            return false;
+        }
+        return true;
     };
 
     if (!token) {
@@ -83,7 +95,7 @@ const ResetPassword = () => {
                         <label
                             className="input input-bordered flex items-center gap-4 mb-5"
                             htmlFor="">
-                            Mot de passe :
+                            Nouveau mot de passe :
                             <input
                                 className=""
                                 onChange={(e) => {
@@ -96,7 +108,7 @@ const ResetPassword = () => {
                         <label
                             className="input input-bordered flex items-center gap-4 mb-5"
                             htmlFor="">
-                            Confirmer votre mot de passe :
+                            Confirmez :
                             <input
                                 onChange={(e) => {
                                     handleChange(e, setConfirmNewPassword);
@@ -121,11 +133,7 @@ const ResetPassword = () => {
                             désormais vous connecter avec votre nouveau mot de
                             passe !
                         </p>
-                        <div className="flex justify-center divider mt-10">
-                            <button className="btn bg-green-600 text-white mt-5">
-                                Ouvrir le formulaire de connexion
-                            </button>
-                        </div>
+                       
                     </div>
                 )}
                 <div className="divider"></div>

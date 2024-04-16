@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import TrainingCard from '../../HomePage/TrainingCard';
-import React from 'react';
 
 export default function ContentOrganizationProfilPage({ data }) {
     const [isTraining, setIsTraining] = useState(false);

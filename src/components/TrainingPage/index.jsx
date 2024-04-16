@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 import ContentTrainingPage from './Content';
 import HeaderTrainingPage from './Header';
 import ReviewTrainingPage from './Review';
-import { fetchData, requestWithVariable } from '../../utils';
+import { requestWithVariable } from '../../utils';
 import { useEffect, useState } from 'react';
 import { queryOneTraining } from '../../query';
 import React from 'react';

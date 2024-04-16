@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { requestWithVariable } from '../../../utils';
 import { querySendEmailToRecoverPassword } from '../../../query';
 import { toast } from 'react-toastify';
@@ -27,7 +27,10 @@ export const ForgottenPassword = () => {
             toast.error(
                 "Nous n'avons pas pu retrouvé votre email en base de données"
             );
+        } else {
+          toast.success("Un email vous a été envoyé afin de changer votre mot de passe.")  
         }
+
     };
 
     return (

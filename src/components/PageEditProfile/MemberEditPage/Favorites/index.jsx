@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
 import TrainingCard from '../../../HomePage/TrainingCard';
-import { dissociateMemberTraining } from '../../../../utils';
+import { requestWithVariable } from '../../../../utils';
+import { queryDissociateMemberTraining } from '../../../../query';
 
 export default function FavoritesEditProfilPageMember({ data }) {
     const [favoritesTrainings, setFavoritesTrainings] = useState(
         data.trainings
     );
+    const idMember = data.id
+
+    const dissociateMemberTraining = async (idTraining) => {
+
+        const variables=  {
+            memberId: idMember,
+            trainingId: idTraining,
+        }
+        const response = await requestWithVariable(queryDissociateMemberTraining, variables)
+        return response
+    }
 
     const deleteFavorite = (e) => {
         const idTraining = e.target.id;
-        const idMember = data.id;
+        
         const newFavoriteTrainings = favoritesTrainings.filter(
             (training) => training.id !== idTraining
         );
         setFavoritesTrainings(newFavoriteTrainings);
-        dissociateMemberTraining(idMember, idTraining);
+        dissociateMemberTraining(idTraining)
     };
 
     return (
