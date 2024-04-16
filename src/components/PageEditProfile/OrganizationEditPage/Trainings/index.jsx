@@ -50,8 +50,8 @@ export default function OrganizationTrainings({ data }) {
             </div>
             {!isOpen && (
                 <>
-                <div></div>
-                    {data.trainings.length > 0 && (
+                    <h4 className='ml-10'>Vos formations :</h4>
+                    {data.trainings.length > 0 ? (
                         <>
                             <div className="flex gap-5 overflow-auto p-10">
                                 {data.trainings.map((training, index) => (
@@ -73,7 +73,7 @@ export default function OrganizationTrainings({ data }) {
                                             price={training.price}
                                         />
                                         <div className="flex flex-col gap-2 justify-around mt-2">
-                                            <div>
+                                            <div className='flex justify-around'>
                                                 <button
                                                     key={training.id}
                                                     onClick={() => {
@@ -125,6 +125,10 @@ export default function OrganizationTrainings({ data }) {
                                 ))}
                             </div>
                         </>
+                    ) : (
+                        <div>
+                            <p>Vous n'avez pas encore ajouté de formations disponnibles</p>
+                        </div>
                     )}
                 </>
             )}
