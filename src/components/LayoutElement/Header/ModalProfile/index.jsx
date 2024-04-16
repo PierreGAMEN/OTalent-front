@@ -170,6 +170,9 @@ export default function Navbar() {
                 <li>
                     <a onClick={handleLogout}>Se deconnecter</a>
                 </li>
+                <li>
+                    <a>Accéder à la messagerie</a>
+                </li>
             </ul>
         </div>
     );
