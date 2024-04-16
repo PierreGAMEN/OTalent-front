@@ -53,7 +53,7 @@ export default function Header() {
     return (
         <>
             <header className=" bg-primary-color flex items-center z-10 min-h-[10vh] p-2 sticky top-0">
-                <div className='grow'><Link
+                <div className='grow ml-3'><Link
                     to="/"
                     aria-label="Accueil"
                     onClick={() => {
