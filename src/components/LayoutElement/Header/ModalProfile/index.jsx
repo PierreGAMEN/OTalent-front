@@ -95,7 +95,7 @@ export default function Navbar() {
         <div className="dropdown dropdown-end flex justify-center items-center">
             <div>
                 {isMember && (
-                    <p className="text-white p-5">
+                    <p className="text-white p-5 hidden lg:block">
                         {userInformation.member &&
                             userInformation.member.firstname}
                     </p>
@@ -165,10 +165,10 @@ export default function Navbar() {
                     </li>
                 )}
                 <li>
-                    <a onClick={handleLogout}>Se deconnecter</a>
+                    <a onClick={() => {dispatch(openModalChat(true))}}>Messagerie</a>
                 </li>
                 <li>
-                    <a onClick={() => {dispatch(openModalChat(true))}}>Accéder à la messagerie</a>
+                    <a onClick={handleLogout}>Se deconnecter</a>
                 </li>
             </ul>
         </div>

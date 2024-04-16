@@ -59,9 +59,6 @@ function Chat() {
     };
     return (
         <>
-            <button className="btn" onClick={() => setIsOpen(true)}>
-                Ouvrir la messagerie
-            </button>
             {openChat && (
                 <dialog className="modal" open>
                     <div className=" modal-box">

@@ -20,7 +20,7 @@ const LogoTitle = () => (
                 strokeWidth="2.0"
             />
         </svg>
-        <h1>O'Talent</h1>
+        <h1 className='hidden lg:block'>O'Talent</h1>
     </div>
 );
 
