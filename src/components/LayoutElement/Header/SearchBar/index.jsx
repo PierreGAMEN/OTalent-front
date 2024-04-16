@@ -69,7 +69,7 @@ const SearchBar = () => {
                     </select>
                 </div>
             )}
-            <div className="container-input-text lg:inline-block hidden">
+            
                 <input
                     className="input join-item border-none border-primary-color"
                     type="text"
@@ -79,7 +79,7 @@ const SearchBar = () => {
                     onChange={(e) => setsearchTerm(e.target.value)}
                     placeholder="Titre de formation, nom d’organisme..."
                 />
-            </div>
+            
             <button
                 className="btn join-item border-none bg-white hover:bg-white"
                 type="submit"

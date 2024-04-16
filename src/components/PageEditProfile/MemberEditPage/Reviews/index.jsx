@@ -62,17 +62,17 @@ export default function ReviewsEditProfilPageMember({ data }) {
     };
 
     return (
-        <section className="flex flex-col items-center mr-12 w-1/2 ml-12">
-          <div>
+        <section className="flex flex-col items-center mr-12 w-9/10 lg:w-1/2 ml-12">
+          <div className='w-full'>
     
           <h4 className="mt-5 mb-5">Vos commentaires</h4>
           <div className="flex flex-col gap-4 max-h-[500px] overflow-auto">
           {memberReviews && memberReviews.map((review) => (
-            <div className="border border-primary-color flex flex-col gap-2 relative rounded-md p-5 mr-5" key={review.id}>
+            <div className="border border-primary-color h-full flex flex-col gap-2 relative rounded-md p-5 mr-5" key={review.id}>
               <h5><a href={`/training/${review.training.id}`}>{review.training.label}</a></h5>
               {editModeId === review.id ? (
                 <>
-                  <input className="border w-full" type="text" value={review.comment} onChange={(e) => handleChange(e, review.id)} />
+                  <textarea className="border h-20" value={review.comment} onChange={(e) => handleChange(e, review.id)} />
                   <button className="btn hover:bg-green-600 hover:text-white" onClick={() => saveChanges(review.id, review.comment)}>Enregistrer</button>
                 </>
               ) : (

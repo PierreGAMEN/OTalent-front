@@ -67,7 +67,7 @@ export default function FormOrganization() {
             },
         };
 
-        if (formValues.urlSite.trim() !== '') {
+        if (formValues.urlSite !== '') {
             variables.input.urlSite = formValues.urlSite;
         }
 
@@ -169,12 +169,12 @@ export default function FormOrganization() {
 
     const getInformationFromSiret = async () => {
         const siretRegex = /^\d{14}$/;
-        if (!siretRegex.test(formValues.siret)) {
+        if (!siretRegex.test(formValues.siret.replace(/\s/g, ''))) {
             toast.error('Le numéro de SIRET doit contenir 14 chiffres');
             return false;
         }
         const variables = {
-            siret: formValues.siret,
+            siret: formValues.siret.replace(/\s/g, ''),
         };
         const responseWithError = await requestWithVariable(
             queryGetInformationSiret,
