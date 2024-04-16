@@ -11,6 +11,7 @@ import {
     getMemberInformationActions,
     getOrganizationInformationActions,
 } from '../../../../store/actions/getUserInformation';
+import { openModalChat } from '../../../../store/actions/modalChatAction';
 
 export default function Navbar() {
     const [isConnected, setIsConnected] = useState(false);
@@ -167,7 +168,7 @@ export default function Navbar() {
                     <a onClick={handleLogout}>Se deconnecter</a>
                 </li>
                 <li>
-                    <a>Accéder à la messagerie</a>
+                    <a onClick={() => {dispatch(openModalChat(true))}}>Accéder à la messagerie</a>
                 </li>
             </ul>
         </div>

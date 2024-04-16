@@ -8,6 +8,7 @@ import modalEditInformationReducer from './reducer/modalEditInformationReducer';
 import imageUploadId from './reducer/idImageReducer';
 import memberInformationReducer from './reducer/memberInformationReducer';
 import organizationInformationReducer from './reducer/organizationInformationReducer';
+import modalOpenChatReducer from './reducer/modalOpenChatReducer';
 
 const store = configureStore({
     reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
         idImage: imageUploadId,
         memberInformation: memberInformationReducer,
         organizationInformation: organizationInformationReducer,
+        chat: modalOpenChatReducer
     },
     devTools: true,
 });
