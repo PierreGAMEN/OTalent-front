@@ -12,6 +12,8 @@ import { queryDeleteTraining } from '../../../../query';
 export default function OrganizationTrainings({ data }) {
     const dispatch = useAppDispatch();
     const isOpen = useAppSelector((state) => state.editTraining.isOpen);
+    const [openModalAcceptToDelete, setOpenModalAcceptToDelete] =
+        useState(false);
 
     const openModal = (trainingId) => {
         dispatch(
@@ -39,10 +41,12 @@ export default function OrganizationTrainings({ data }) {
 
     return (
         <section>
-            <div className='flex justify-center'>
-            <button onClick={openModalToCreateTraining} className="btn m-10 w-1/2 md:w-1/4 text-md md:text-xl">
-                Créer une formation
-            </button>
+            <div className="flex justify-center">
+                <button
+                    onClick={openModalToCreateTraining}
+                    className="btn m-10 w-1/2 md:w-1/4 text-md md:text-xl">
+                    Créer une formation
+                </button>
             </div>
             {!isOpen && (
                 <>
@@ -67,24 +71,54 @@ export default function OrganizationTrainings({ data }) {
                                             reviews={training.reviews}
                                             price={training.price}
                                         />
-                                        <div className="flex gap-2 justify-around mt-2">
-                                            {/* Vérifier fonctionnement du bouton delete */}
-                                            <button
-                                                key={index}
-                                                onClick={() => {
-                                                    openModal(training.id);
-                                                }}
-                                                id={training.id}
-                                                className="material-symbols-rounded">
-                                                edit
-                                            </button>
-                                            <button
-                                                key={index}
-                                                id={training.id}
-                                                onClick={deleteTraining}
-                                                className="material-symbols-rounded">
-                                                delete
-                                            </button>
+                                        <div className="flex flex-col gap-2 justify-around mt-2">
+                                            <div>
+                                                <button
+                                                    key={training.id}
+                                                    onClick={() => {
+                                                        openModal(training.id);
+                                                    }}
+                                                    id={training.id}
+                                                    className="material-symbols-rounded">
+                                                    edit
+                                                </button>
+                                                <button
+                                                    key={training.id}
+                                                    id={training.id}
+                                                    onClick={() => {
+                                                        setOpenModalAcceptToDelete(
+                                                            true
+                                                        );
+                                                    }}
+                                                    className="material-symbols-rounded">
+                                                    delete
+                                                </button>
+                                            </div>
+                                            {openModalAcceptToDelete && (
+                                                <div>
+                                                    <p>
+                                                        Voulez-vous vraiment
+                                                        supprimer cette
+                                                        formation ?
+                                                    </p>
+                                                    <button
+                                                        key={training.id}
+                                                        id={training.id}
+                                                        onClick={deleteTraining}
+                                                        className="btn btn-outline btn-error">
+                                                        OUI
+                                                    </button>
+                                                    <button
+                                                        onClick={() => {
+                                                            setOpenModalAcceptToDelete(
+                                                                false
+                                                            );
+                                                        }}
+                                                        className="btn">
+                                                        NON
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
