@@ -14,6 +14,8 @@ import ConnectionFormModal from './ConnectionFormModal';
 import SearchBar from './SearchBar';
 import LogoTitle from '../../../assets/LogoTitle';
 
+import Chat from './Chat';
+import ModalSearchBar from './modalSearchBar';
 
 
 export default function Header() {
@@ -50,8 +52,8 @@ export default function Header() {
 
     return (
         <>
-            <header className="headerApp bg-primary-color flex items-center justify-evenly z-10 min-h-[10vh] p-2 sticky top-0">
-                <Link
+            <header className=" bg-primary-color flex items-center z-10 min-h-[10vh] p-2 sticky top-0">
+                <div className='grow'><Link
                     to="/"
                     aria-label="Accueil"
                     onClick={() => {
@@ -59,8 +61,12 @@ export default function Header() {
                     }}
                 >
                     <LogoTitle />
-                </Link>
-                <SearchBar />
+
+                </Link></div>
+                <Chat />
+                <div className='hidden grow mr-5 sm:block'><SearchBar /></div>
+                <div className='mr-5 sm:hidden'><ModalSearchBar /></div>
+
                 {!isConnected && <ConnectionFormModal />}
                 {isConnected && <Navbar />}
                 
