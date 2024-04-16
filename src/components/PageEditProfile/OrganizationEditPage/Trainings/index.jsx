@@ -40,20 +40,22 @@ export default function OrganizationTrainings({ data }) {
     };
 
     return (
-        <section>
-            <div className="flex justify-center">
+        <section className='pl-10 mt-10'>
+            <div className="flex flex-col justify-center">
+            <h4 className='m-5'>Vos formations</h4>
                 <button
                     onClick={openModalToCreateTraining}
-                    className="btn m-10 w-1/2 md:w-1/4 text-md md:text-xl">
+                    className="btn bg-primary-color text-white m-5 w-[50%] max-w-[400px] min-w-[300px]">
                     Créer une formation
+                    <span className='material-symbols-rounded'>add_circle</span>
                 </button>
             </div>
             {!isOpen && (
                 <>
-                    <h4 className='ml-10'>Vos formations :</h4>
+                    
                     {data.trainings.length > 0 ? (
                         <>
-                            <div className="flex gap-5 overflow-auto p-10">
+                            <div className="flex gap-5 overflow-auto p-5">
                                 {data.trainings.map((training, index) => (
                                     <div
                                         key={training.id}

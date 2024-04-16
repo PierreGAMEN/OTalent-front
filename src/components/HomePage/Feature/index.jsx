@@ -28,7 +28,7 @@ export default function Feature() {
 
     return (
         <div className="min-h-60 h-full pb-24" data-aos="fade-up">
-            <h3>Cherchez, trouvez, likez !</h3>
+            <h3 className='mb-5 mt-10'>Cherchez, trouvez, likez !</h3>
             <div className="flex flex-col gap-10 items-stretch justify-evenly lg:flex-row">
                 {data.map((element, index) => {
                     return (

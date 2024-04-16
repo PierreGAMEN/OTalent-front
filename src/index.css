@@ -31,7 +31,7 @@
         @apply text-9xl text-white;
     }
     h3 {
-        @apply text-6xl text-primary-color text-center p-24 uppercase;
+        @apply p-5 text-4xl sm:text-6xl text-primary-color text-center sm:p-24 uppercase;
     }
     h4 {
         @apply text-3xl uppercase;
