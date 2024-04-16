@@ -56,7 +56,8 @@ function Chat() {
     return (
         <>
             <button className="btn" onClick={() => setIsOpen(true)}>
-                Ouvrir la messagerie
+                <span className='hidden lg:inline-block'>Ouvrir la messagerie</span>
+                <span className='lg:hidden material-symbols-rounded'>message</span>
             </button>
             {isOpen && (
                 <dialog className="modal" open>

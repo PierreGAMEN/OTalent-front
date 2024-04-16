@@ -11,6 +11,7 @@ import {
     getMemberInformationActions,
     getOrganizationInformationActions,
 } from '../../../../store/actions/getUserInformation';
+import Chat from '../Chat';
 
 export default function Navbar() {
     const [isConnected, setIsConnected] = useState(false);
@@ -92,7 +93,7 @@ export default function Navbar() {
 
     return (
         <div className="dropdown dropdown-end flex justify-center items-center">
-            <div>
+            <div className='hidden lg:inline-block'>
                 {isMember && (
                     <p className="text-white p-5">
                         {userInformation.member &&
@@ -163,6 +164,9 @@ export default function Navbar() {
                         </NavLink>
                     </li>
                 )}
+                <li>
+                <Chat />
+                </li>
                 <li>
                     <a onClick={handleLogout}>Se deconnecter</a>
                 </li>

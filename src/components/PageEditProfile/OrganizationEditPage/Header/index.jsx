@@ -309,6 +309,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                         </div>
                     </dialog>
                 ) : (
+                    <>
                     <div className="p-5 modal-box flex flex-col gap-2 border-primary-color border">
                         <div className='flex justify-between'>
                         <h4 className='text-xl'>Mes informations</h4>
@@ -330,8 +331,17 @@ export default function HeaderOrganizationEditPage({ data }) {
                             )}
                         </p>
                         <p>N° de téléphone: {data ? data.phone_number : ''}</p>
-                        <p>Description: {data ? data.description : ''}</p>
                     </div>
+                    <div className='p-5 modal-box flex flex-col gap-2 border-primary-color border'>
+                        <div className='flex justify-between'>
+                        <h4>Description:</h4>
+                        <button className='material-symbols-rounded' onClick={() => setIsEdit(true)}>
+                            edit
+                        </button>
+                        </div>
+                        <p>{data ? data.description : ''}</p>
+                    </div>
+                    </>
                 )}
             </div>
         )

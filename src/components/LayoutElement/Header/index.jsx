@@ -13,7 +13,8 @@ import Navbar from './ModalProfile';
 import ConnectionFormModal from './ConnectionFormModal';
 import SearchBar from './SearchBar';
 import LogoTitle from '../../../assets/LogoTitle';
-import Chat from './Chat';
+
+
 
 export default function Header() {
     const dispatch = useAppDispatch();
@@ -59,10 +60,10 @@ export default function Header() {
                 >
                     <LogoTitle />
                 </Link>
-                <Chat />
                 <SearchBar />
                 {!isConnected && <ConnectionFormModal />}
                 {isConnected && <Navbar />}
+                
             </header>
         </>
     );

@@ -46,6 +46,7 @@ export default function OrganizationTrainings({ data }) {
             </div>
             {!isOpen && (
                 <>
+                <div></div>
                     {data.trainings.length > 0 && (
                         <>
                             <div className="flex gap-5 overflow-auto p-10">

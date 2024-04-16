@@ -69,7 +69,7 @@ const SearchBar = () => {
                     </select>
                 </div>
             )}
-            <div className="container-input-text ">
+            <div className="container-input-text lg:inline-block hidden">
                 <input
                     className="input join-item border-none border-primary-color"
                     type="text"
