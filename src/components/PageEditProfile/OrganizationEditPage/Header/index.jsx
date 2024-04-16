@@ -270,7 +270,9 @@ export default function HeaderOrganizationEditPage({ data }) {
                     </dialog>
             </div>
                 ) : (
-                    <>                    
+                    <>
+                    <div>
+                        </div>                    
                     <div className="modal-box flex flex-col items-center gap-3">
                     <button className='material-symbols-rounded absolute top-4 right-10' onClick={() => setIsEdit(true)}>
                             edit
