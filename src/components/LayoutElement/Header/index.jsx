@@ -13,8 +13,10 @@ import Navbar from './ModalProfile';
 import ConnectionFormModal from './ConnectionFormModal';
 import SearchBar from './SearchBar';
 import LogoTitle from '../../../assets/LogoTitle';
+
 import Chat from './Chat';
 import ModalSearchBar from './modalSearchBar';
+
 
 export default function Header() {
     const dispatch = useAppDispatch();
@@ -59,12 +61,15 @@ export default function Header() {
                     }}
                 >
                     <LogoTitle />
+
                 </Link></div>
                 <Chat />
                 <div className='hidden grow mr-5 sm:block'><SearchBar /></div>
                 <div className='mr-5 sm:hidden'><ModalSearchBar /></div>
+
                 {!isConnected && <ConnectionFormModal />}
                 {isConnected && <Navbar />}
+                
             </header>
         </>
     );

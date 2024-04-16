@@ -138,54 +138,14 @@ export default function HeaderOrganizationEditPage({ data }) {
 
     return (
         seeding && (
-            <div className="p-10 flex flex-col md:flex-row md:justify-around items-start md:items-center">
-                <div className="flex items-center gap-5">
-                    <img
-                        className=""
-                        src={
-                            data && data.image
-                                ? `https://res.cloudinary.com/${
-                                      import.meta.env.VITE_CDNY_CLOUDNAME
-                                  }/image/upload/c_scale,w_780,h_780/v1/otalent/${
-                                      data.image
-                                  }`
-                                : `https://res.cloudinary.com/${
-                                      import.meta.env.VITE_CDNY_CLOUDNAME
-                                  }/image/upload/c_scale,w_780,h_780/v1/otalent/yocggnbjzfjygu3naanv`
-                        }
-                        alt="Organization Image"
-                    />
-                    <button onClick={() => setIsEdit(true)}>
-                        Modifier mes informations
-                    </button>
-                    <button
-                        onClick={() => {
-                            setOpenModalAcceptDelete(true);
-                        }}
-                        className="btn">
-                        Supprimer votre compte
-                    </button>
-                    {openModalAcceptDelete && (
-                        <div className=''>
-                            <p>Voulez vous vraiment supprimer votre compte ?</p>
-                            <div className='flex gap-2'>
-                            <button
-                                className="btn btn-outline btn-error"
-                                onClick={deleteOrganization}>
-                                OUI
-                            </button>
-                            <button
-                                className="btn"
-                                onClick={() => {
-                                    setOpenModalAcceptDelete(false);
-                                }}>
-                                NON
-                            </button>
-                            </div>
-                        </div>
-                    )}
-                </div>
+            <div className='relative pr-5'>
+
+            
+            <div className="hidden lg:inline-block h-40 w-full bg-primary-color absolute top-0"></div>
+            <div className='flex flex-col items-center lg:flex-row'>
+                
                 {isEdit ? (
+            <div className="p-10 flex flex-col md:flex-row md:justify-around items-start md:items-center">
                     <dialog className="modal" ref={modalRef}>
                         <div className="modal-box overflow-auto">
                             <div className="mt-4">
@@ -308,31 +268,99 @@ export default function HeaderOrganizationEditPage({ data }) {
                             </div>
                         </div>
                     </dialog>
+            </div>
                 ) : (
-                    <div className="p-5 modal-box flex flex-col gap-2 border-primary-color border">
-                        <div className='flex justify-between'>
-                        <h4 className='text-xl'>Mes informations</h4>
-                        <button className='material-symbols-rounded' onClick={() => setIsEdit(true)}>
+                    <>
+                    <div>
+                        </div>                    
+                    <div className="modal-box flex flex-col items-center gap-3">
+                    <button className='material-symbols-rounded absolute top-4 right-10' onClick={() => setIsEdit(true)}>
                             edit
                         </button>
+                        
+                    <div className='rounded-full'>
+
+                    <img
+                        className="object-cover h-48 w-60"
+                        src={
+                            data && data.image
+                            ? `https://res.cloudinary.com/${
+                                import.meta.env.VITE_CDNY_CLOUDNAME
+                            }/image/upload/c_scale,w_780,h_780/v1/otalent/${
+                                data.image
+                            }`
+                            : `https://res.cloudinary.com/${
+                                import.meta.env.VITE_CDNY_CLOUDNAME
+                            }/image/upload/c_scale,w_780,h_780/v1/otalent/yocggnbjzfjygu3naanv`
+                        }
+                        alt="Organization Image"
+                        />
                         </div>
-                        <p className="">Nom: {data ? data.name : ''}</p>
-                        <p>Email: {data ? data.email : ''}</p>
-                        <p>Adresse: {data ? data.address : ''}</p>
-                        <p>Ville: {data ? data.city : ''}</p>
-                        <p>Code postal: {data ? data.postal_code : ''}</p>
-                        <p>
-                            Site Web:{' '}
-                            {data ? (
+                    <p className='text-xl'>{data ? data.name : ''}</p>
+                    <p className='flex items-center'>
+                        <span className='material-symbols-rounded mr-2'>email</span>{' '}
+                        {data ? data.email : ''}
+                    </p>
+                    <p className='flex items-center'>
+                        <span className='material-symbols-rounded mr-2'>location_on</span>{' '}
+                        {data ? data.address : ''}, {data ? data.city : ''}
+                    </p>
+                    <p className='flex items-center'>
+                        <span className='material-symbols-rounded mr-2'>map</span>{' '}
+                        {data ? data.postal_code : ''}
+                    </p>
+                    <p className='flex items-center'>
+                        <span className='material-symbols-rounded mr-2'>language</span>{' '}
+                        {data ? (
                                 <a href={data.url_site}>{data.url_site}</a>
                             ) : (
                                 ''
                             )}
-                        </p>
-                        <p>N° de téléphone: {data ? data.phone_number : ''}</p>
-                        <p>Description: {data ? data.description : ''}</p>
+                    </p>
+                    <p className='flex items-center'>
+                        <span className='material-symbols-rounded mr-2'>phone</span>
+                        {data ? data.phone_number : ''}
+                    </p>
+                        <div className='divider before:bg-primary-color after:bg-primary-color'></div>
+                        <button
+                        onClick={() => {
+                            setOpenModalAcceptDelete(true);
+                        }}
+                        className="btn bg-white text-red-600 border-red-600 hover:bg-red-600 hover:text-white">
+                        Supprimer votre compte
+                    </button>
+                    {openModalAcceptDelete && (
+                        <div className=''>
+                            <p>Voulez vous vraiment supprimer votre compte ?</p>
+                            <div className='flex gap-2'>
+                            <button
+                                className="btn bg-white text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
+                                onClick={deleteOrganization}>
+                                OUI
+                            </button>
+                            <button
+                                className="btn"
+                                onClick={() => {
+                                    setOpenModalAcceptDelete(false);
+                                }}>
+                                NON
+                            </button>
+                            </div>
+                        </div>
+                    )}
                     </div>
+                    <div className='ml-3  mt-10 text-4xl sm:text-2xl lg:text-base lg:ml-12 lg:mt-60 lg:w-1/2'>
+                        <div className='flex justify-between'>
+                        <h4 className='mb-3'>Votre Description :</h4>
+                        <button className='material-symbols-rounded' onClick={() => setIsEdit(true)}>
+                            edit
+                        </button>
+                        </div>
+                        <p className='text-justify'>{data ? data.description : ''}</p>
+                    </div>
+                    </>
                 )}
+            </div>
             </div>
         )
     );

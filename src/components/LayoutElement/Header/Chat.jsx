@@ -59,6 +59,7 @@ function Chat() {
     };
     return (
         <>
+
             {openChat && (
                 <dialog className="modal" open>
                     <div className=" modal-box">

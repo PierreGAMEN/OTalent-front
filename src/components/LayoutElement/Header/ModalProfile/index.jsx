@@ -11,7 +11,9 @@ import {
     getMemberInformationActions,
     getOrganizationInformationActions,
 } from '../../../../store/actions/getUserInformation';
+
 import { openModalChat } from '../../../../store/actions/modalChatAction';
+
 
 export default function Navbar() {
     const [isConnected, setIsConnected] = useState(false);
@@ -93,7 +95,7 @@ export default function Navbar() {
 
     return (
         <div className="dropdown dropdown-end flex justify-center items-center">
-            <div>
+            <div className='hidden lg:inline-block'>
                 {isMember && (
                     <p className="text-white p-5 hidden lg:block">
                         {userInformation.member &&
@@ -165,7 +167,9 @@ export default function Navbar() {
                     </li>
                 )}
                 <li>
+
                     <a onClick={() => {dispatch(openModalChat(true))}}>Messagerie</a>
+
                 </li>
                 <li>
                     <a onClick={handleLogout}>Se deconnecter</a>
