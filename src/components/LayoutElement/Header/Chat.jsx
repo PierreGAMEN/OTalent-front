@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { queryNameMember, queryNameOrganization } from '../../../query';
 import { requestWithoutVariable } from '../../../utils';
-import { useAppSelector } from '../../../store/redux-hook/hook';
+import { useAppDispatch, useAppSelector } from '../../../store/redux-hook/hook';
+import { useDispatch } from 'react-redux';
+import { openModalChat } from '../../../store/actions/modalChatAction';
 
 function Chat() {
     const [messages, setMessages] = useState([]);
@@ -10,7 +12,9 @@ function Chat() {
         state => state.memberInformation.userInformation
     );
     const [socket, setsocket] = useState(null); // Add the 'socket' state variable
-    const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useAppDispatch();
+    const openChat = useAppSelector(state => state.chat.isOpen)
+
 
     useEffect(() => {
         const newSocket = new WebSocket(import.meta.env.VITE_WS);
@@ -55,10 +59,7 @@ function Chat() {
     };
     return (
         <>
-            <button className="btn" onClick={() => setIsOpen(true)}>
-                Ouvrir la messagerie
-            </button>
-            {isOpen && (
+            {openChat && (
                 <dialog className="modal" open>
                     <div className=" modal-box">
                         <div className="chat chat-start">
@@ -110,7 +111,7 @@ function Chat() {
                         </div>
                         <button
                             className="btn btn-error"
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => {dispatch(openModalChat(false))}}
                         >
                             Fermer
                         </button>
