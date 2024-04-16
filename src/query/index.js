@@ -277,6 +277,11 @@ export const queryUpdateMemberInformation = `mutation Mutation($modifyMemberId: 
   }
 }`;
 
+export const queryDeleteOrganization = `
+mutation Mutation($deleteOrganizationId: ID!) {
+  deleteOrganization(id: $deleteOrganizationId)
+}`
+
 export const queryOrganizationInformation = `
 query Organization($organizationId: ID!) {
   organization(id: $organizationId) {
