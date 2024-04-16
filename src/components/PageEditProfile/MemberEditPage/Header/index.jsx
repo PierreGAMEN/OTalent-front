@@ -167,20 +167,20 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                         )}
                     </div>
                     <p className="text-xl">{`${data.firstname} ${data.lastname}`}</p>
-                    <p>
-                        <span className="material-symbols-rounded">email</span>{' '}
+                    <p className='flex items-center'>
+                        <span className="material-symbols-rounded mr-2">email</span>{' '}
                         {data.email}
                     </p>
-                    <p>
-                        <span className="material-symbols-rounded">
+                    <p className='flex items-center'>
+                        <span className="material-symbols-rounded mr-2">
                             location_on
                         </span>{' '}
                         {data.city
                             ? data.city
                             : "Vous n'avez pas renseigné votre ville"}
                     </p>
-                    <p>
-                        <span className="material-symbols-rounded">map</span>{' '}
+                    <p className='flex items-center'>
+                        <span className="material-symbols-rounded mr-2">map</span>{' '}
                         {data.postal_code
                             ? data.postal_code
                             : "Vous n'avez pas renseigné votre code postal"}
@@ -221,7 +221,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                             </p>
                             <button
                                 type="button"
-                                className="btn bg-red-600 text-white"
+                                className="btn bg-white text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
                                 onClick={deleteAccount}>
                                 OUI
                             </button>
