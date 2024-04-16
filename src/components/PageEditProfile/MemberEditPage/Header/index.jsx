@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './style.scss';
 import { useAppSelector } from '../../../../store/redux-hook/hook';
+import { requestWithVariable } from '../../../../utils';
 import {
-    deleteMemberCategory,
-    requestWithVariable,
-} from '../../../../utils';
-import { deleteMember, queryAssociateMemberCategory, queryUpdateMemberInformation } from '../../../../query';
+    deleteMember,
+    queryAssociateMemberCategory,
+    queryDissociateMemberCategory,
+    queryUpdateMemberInformation,
+} from '../../../../query';
 import ReviewsEditProfilPageMember from '../Reviews';
 import ImageUpload from '../../../Form/Upload';
 
@@ -43,15 +45,18 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
         setter(value);
     };
 
-    const associateMemberCategory= async(selectedCategory) => {
+    const associateMemberCategory = async (selectedCategory) => {
         const variables = {
             memberId: memberId,
             categoryId: selectedCategory,
-        }
+        };
 
-        const response = await requestWithVariable(queryAssociateMemberCategory, variables)
-        return response
-    }
+        const response = await requestWithVariable(
+            queryAssociateMemberCategory,
+            variables
+        );
+        return response;
+    };
 
     const handleCategoryChange = (e) => {
         const selectElement = e.currentTarget;
@@ -68,19 +73,28 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
             { id: selectedCategoryId, label: selectedCategory },
         ]);
         if (selectedCategoryId !== null) {
-            associateMemberCategory(selectedCategoryId)
+            associateMemberCategory(selectedCategoryId);
         }
         setselectedCategory('');
         setIsAddNewCategory(false);
     };
 
-    const deleteCategorie = (e) => {
+    const deleteCategorie = async (e) => {
         const labelToDelete = e.currentTarget.id;
         const newFavoriteCategories = favoriteCategories.filter(
             (categorie) => categorie.id !== labelToDelete
         );
         setFavoriteCategories(newFavoriteCategories);
-        deleteMemberCategory(memberId, labelToDelete);
+
+        const variables = {
+            memberId: memberId,
+            categoryId: labelToDelete,
+        };
+        const response = await requestWithVariable(
+            queryDissociateMemberCategory,
+            variables
+        );
+        return response;
     };
 
     const deleteAccount = async () => {

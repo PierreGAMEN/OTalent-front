@@ -1,7 +1,7 @@
 import Hero from './Hero';
 import TrainingList from './TrainingList';
 import { useEffect, useState } from 'react';
-import { fetchCategories, requestWithVariable, requestWithoutVariable } from '../../utils';
+import { requestWithVariable, requestWithoutVariable } from '../../utils';
 import {
     queryAllTrainingCard,
     queryMemberInformationForHomePage,
@@ -12,6 +12,7 @@ import { useAppSelector } from '../../store/redux-hook/hook';
 import Guide from './Guide';
 import TrainingCard from './TrainingCard';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 
 
@@ -50,9 +51,10 @@ export default function HomePage() {
         
     }
 
+
     useEffect(() => {
         getAllTrainingCard()
-        fetchCategories();
+ 
     }, []);
 
     useEffect(() => {
