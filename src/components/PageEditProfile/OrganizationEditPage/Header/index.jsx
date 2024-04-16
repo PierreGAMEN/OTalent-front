@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './style.scss';
 import { requestWithVariable } from '../../../../utils';
-import { queryUpdateOrganizationInformation } from '../../../../query';
+import { queryDeleteOrganization, queryUpdateOrganizationInformation } from '../../../../query';
 import { useAppSelector } from '../../../../store/redux-hook/hook';
 import { toast } from 'react-toastify';
 import ImageUpload from '../../../Form/Upload';
@@ -22,6 +22,7 @@ export default function HeaderOrganizationEditPage({ data }) {
     const imageId = useAppSelector((state) => state.idImage.id);
     const modalRef = useRef(null);
     const user = useAppSelector((state) => state.token.user);
+    const [openModalAcceptDelete, setOpenModalAcceptDelete] = useState(false);
 
     const handleChange = (e, setter) => {
         const value = e.target.value;
@@ -106,6 +107,23 @@ export default function HeaderOrganizationEditPage({ data }) {
         }
     };
 
+    const deleteOrganization = async () => {
+        if (!openModalAcceptDelete) {
+            return false;
+        }
+        const variables = {
+            deleteOrganizationId: user.id
+        };
+        const response = await requestWithVariable(
+            queryDeleteOrganization,
+            variables
+        );
+        if(response.data.deleteOrganization === true) {
+            localStorage.clear()
+            window.location.href = ("/")
+        }
+    };
+
     useEffect(() => {
         if (data) {
             seedingState();
@@ -137,7 +155,35 @@ export default function HeaderOrganizationEditPage({ data }) {
                         }
                         alt="Organization Image"
                     />
-                    
+                    <button onClick={() => setIsEdit(true)}>
+                        Modifier mes informations
+                    </button>
+                    <button
+                        onClick={() => {
+                            setOpenModalAcceptDelete(true);
+                        }}
+                        className="btn">
+                        Supprimer votre compte
+                    </button>
+                    {openModalAcceptDelete && (
+                        <div className=''>
+                            <p>Voulez vous vraiment supprimer votre compte ?</p>
+                            <div className='flex gap-2'>
+                            <button
+                                className="btn btn-outline btn-error"
+                                onClick={deleteOrganization}>
+                                OUI
+                            </button>
+                            <button
+                                className="btn"
+                                onClick={() => {
+                                    setOpenModalAcceptDelete(false);
+                                }}>
+                                NON
+                            </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 {isEdit ? (
                     <dialog className="modal" ref={modalRef}>

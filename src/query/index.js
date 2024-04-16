@@ -204,6 +204,12 @@ mutation Mutation($memberId: ID!, $categoryId: ID!) {
   dissociateMemberCategory(memberId: $memberId, categoryId: $categoryId)
 }`;
 
+export const queryAssociateMemberCategory = `
+mutation Mutation($memberId: ID!, $categoryId: ID!) {
+  associateMemberCategory(memberId: $memberId, categoryId: $categoryId)
+}
+`
+
 export const queryModifyReview = `mutation ModifyReview($modifyReviewId: ID!, $input: ReviewInput!) {
   modifyReview(id: $modifyReviewId, input: $input) {
     comment
@@ -270,6 +276,11 @@ export const queryUpdateMemberInformation = `mutation Mutation($modifyMemberId: 
     id
   }
 }`;
+
+export const queryDeleteOrganization = `
+mutation Mutation($deleteOrganizationId: ID!) {
+  deleteOrganization(id: $deleteOrganizationId)
+}`
 
 export const queryOrganizationInformation = `
 query Organization($organizationId: ID!) {

@@ -8,7 +8,7 @@ import {
 import { Loader } from 'semantic-ui-react';
 import TrainingCard from '../HomePage/TrainingCard';
 import './style.scss';
-import { fetchData, requestWithVariable } from '../../utils';
+import { requestWithVariable, requestWithoutVariable } from '../../utils';
 import React from 'react';
 
 export default function SearchPage() {
@@ -37,24 +37,29 @@ export default function SearchPage() {
         }
     };
 
+    const getTrainingFromTerm = async () => {
+        setIsloading(false)
+        const response = await requestWithoutVariable(queryAllTrainingCard)
+        setIsloading(true)
+        setDataFetch(response.data);
+    }
+
+    const getTrainingFromCategories = async () => {
+        const variables = {
+            categoryId: id
+        }
+        setIsloading(false)
+        const response = await requestWithVariable(queryTrainingFromCategory, variables)
+        setIsloading(true)
+        setDataFetch(response.data);
+    }
+
     useEffect(() => {
         getTrainingFromAreaFirst();
         if (term && !area) {
-            fetchData(
-                queryAllTrainingCard,
-                null,
-                null,
-                setDataFetch,
-                setIsloading
-            );
+            getTrainingFromTerm()
         } else if (categorie && !term && !area) {
-            fetchData(
-                queryTrainingFromCategory,
-                id,
-                'categoryId',
-                setDataFetch,
-                setIsloading
-            );
+            getTrainingFromCategories()
         }
     }, [categorie, term, id, area]);
 

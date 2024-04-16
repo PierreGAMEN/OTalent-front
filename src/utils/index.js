@@ -1,4 +1,8 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
+
+// FUNCTION FETCH DATA WITH AXIOS
 
 const getJWT = () => {
     return localStorage.getItem('token');
@@ -25,233 +29,7 @@ const authorizedRequest = async (url, requestData) => {
     }
 };
 
-export const fetchData = async (
-    query,
-    id = null,
-    idName = null,
-    setData,
-    setLoader
-) => {
-    try {
-        const variables = id !== null ? { id } : {};
-
-        setLoader(true);
-        const response = await authorizedRequest(url, {
-            query,
-            variables,
-        });
-
-        const data = response.data;
-        console.log(data);
-        setData(data || []);
-    } catch (error) {
-        console.error('Error:', error);
-    } finally {
-        setLoader(false);
-    }
-};
-
-export const dissociateMemberTraining = async (memberId, trainingId) => {
-    try {
-        const response = await authorizedRequest(url, {
-            query: `
-        mutation Mutation($memberId: ID!, $trainingId: ID!) {
-          dissociateMemberTraining(memberId: $memberId, trainingId: $trainingId)
-        }`,
-            variables: {
-                memberId: memberId,
-                trainingId: trainingId,
-            },
-        });
-
-        console.log(response);
-
-        return response;
-    } catch (error) {
-        console.error("Une erreur s'est produite :", error);
-        throw error;
-    }
-};
-
-export const associateMemberTraining = async (memberId, trainingId) => {
-    try {
-        const response = await authorizedRequest(url, {
-            query: `
-        mutation Mutation($memberId: ID!, $trainingId: ID!) {
-          associateMemberTraining(memberId: $memberId, trainingId: $trainingId)
-        }
-      `,
-            variables: {
-                memberId: memberId,
-                trainingId: trainingId,
-            },
-        });
-
-        console.log(response.data);
-
-        return response.data;
-    } catch (error) {
-        console.error("Une erreur s'est produite :", error);
-        throw error;
-    }
-};
-
-export const associateMemberCategory = async (memberId, categoryId) => {
-    try {
-        const response = await axios.post(url, {
-            query: `
-        mutation Mutation($memberId: ID!, $categoryId: ID!) {
-          associateMemberCategory(memberId: $memberId, categoryId: $categoryId)
-        }
-      `,
-            variables: {
-                memberId: memberId,
-                categoryId: categoryId,
-            },
-        });
-
-        console.log(response.data);
-
-        return response.data;
-    } catch (error) {
-        console.error("Une erreur s'est produite :", error);
-        throw error;
-    }
-};
-
-export const deleteMemberCategory = async (memberId, categoryId) => {
-    try {
-        const response = await axios.post(url, {
-            query: `
-        mutation Mutation($memberId: ID!, $categoryId: ID!) {
-          dissociateMemberCategory(memberId: $memberId, categoryId: $categoryId)
-        }
-      `,
-            variables: {
-                memberId: memberId,
-                categoryId: categoryId,
-            },
-        });
-
-        console.log(response.data);
-
-        return response.data;
-    } catch (error) {
-        console.error("Une erreur s'est produite :", error);
-        throw error;
-    }
-};
-
-export const modifyReview = async (modifyReviewId, input) => {
-    try {
-        const response = await axios.post(url, {
-            query: `
-        mutation ModifyReview($modifyReviewId: ID!, $input: ReviewInput!) {
-          modifyReview(id: $modifyReviewId, input: $input) {
-            comment
-          }
-        }
-      `,
-            variables: {
-                modifyReviewId: modifyReviewId,
-                input: input,
-            },
-        });
-
-        console.log(response.data);
-
-        return response.data;
-    } catch (error) {
-        console.error('Erreur lors de la modification de la critique :', error);
-        throw error;
-    }
-};
-
-export const addReview = async (reviewInput) => {
-    try {
-        const response = await axios.post(url, {
-            query: `
-        mutation AddReview($input: ReviewInput!) {
-          addReview(input: $input) {
-            comment
-            id
-            rating
-            member {
-            avatar
-            firstname
-            id
-            lastname
-            }
-          }
-        }
-      `,
-            variables: {
-                input: reviewInput,
-            },
-        });
-
-        console.log(response.data);
-
-        return response.data;
-    } catch (error) {
-        console.error("Erreur lors de l'ajout de la critique :", error);
-        throw error;
-    }
-};
-
-export const loginRequest = async (variables) => {
-    try {
-        const response = await axios.post(url, {
-            query: `
-        mutation Login($email: String!, $password: String!) {
-          login(email: $email, password: $password) {
-            token
-          }
-        }
-      `,
-            variables: variables,
-        });
-
-        if (
-            response.data &&
-            response.data.data &&
-            response.data.data.login &&
-            response.data.data.login.token
-        ) {
-            localStorage.setItem('token', response.data.data.login.token);
-        }
-
-        console.log(response.data);
-        return response.data;
-    } catch (error) {
-        console.error('Erreur lors de la requête de connexion :', error);
-        throw error;
-    }
-};
-
-export const fetchCategories = async () => {
-    try {
-        const query = `
-        query Categories {
-            categories {
-                id
-                label
-            }
-        }
-    `;
-
-        const url = import.meta.env.VITE_GRAPHQL_API;
-
-        const response = await axios.post(url, { query });
-        const data = response.data.data;
-        const fetchedCategories = data.categories || [];
-
-        return fetchedCategories;
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
-
+// GENERAL FETCHING FUNCTION
 export const requestWithVariable = async (query, variables) => {
     try {
         const response = await authorizedRequest(url, {
@@ -295,17 +73,49 @@ export const requestWithoutVariable = async (query) => {
     }
 };
 
+// SPECIFIC FETCHING FUNCTION
+export const loginRequest = async (variables) => {
+    try {
+        const response = await axios.post(url, {
+            query: `
+        mutation Login($email: String!, $password: String!) {
+          login(email: $email, password: $password) {
+            token
+          }
+        }
+      `,
+            variables: variables,
+        });
+
+        if (
+            response.data &&
+            response.data.data &&
+            response.data.data.login &&
+            response.data.data.login.token
+        ) {
+            localStorage.setItem('token', response.data.data.login.token);
+        }
+
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Erreur lors de la requête de connexion :', error);
+        throw error;
+    }
+};
+
+
+
+
 export const changePassword = async (query, variables, token) => {
     try {
         const tokenUrl = token;
 
-        // Création des en-têtes de la requête
         const headers = {};
         if (tokenUrl) {
             headers['Authorization'] = `Bearer ${tokenUrl}`;
         }
 
-        // Envoi de la requête avec les en-têtes appropriés
         const response = await axios.post(
             url,
             {
@@ -316,14 +126,17 @@ export const changePassword = async (query, variables, token) => {
                 headers: headers,
             }
         );
-
-        return response.data;
+        
+        return response;
     } catch (error) {
         console.error("Une erreur s'est produite :", error);
+        toast.error("Oups, le lien que vous avez utilisé ne doit plus être actif, changement de mot de passe impossible. Veuillez réessayer avec un nouveau lien");
         throw error;
     }
 };
 
+
+// UTILS GENERAL FUNCTION 
 export const isValidDate = (dateString) => {
     const date = new Date(dateString);
     return !isNaN(date.getTime());
