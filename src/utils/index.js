@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 // FUNCTION FETCH DATA WITH AXIOS
@@ -125,10 +126,11 @@ export const changePassword = async (query, variables, token) => {
                 headers: headers,
             }
         );
-
-        return response.data;
+        
+        return response;
     } catch (error) {
         console.error("Une erreur s'est produite :", error);
+        toast.error("Oups, le lien que vous avez utilisé ne doit plus être actif, changement de mot de passe impossible. Veuillez réessayer avec un nouveau lien");
         throw error;
     }
 };

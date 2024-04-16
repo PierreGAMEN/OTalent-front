@@ -12,7 +12,6 @@ import { useAppSelector } from '../../store/redux-hook/hook';
 import Guide from './Guide';
 import TrainingCard from './TrainingCard';
 import React from 'react';
-import { toast } from 'react-toastify';
 
 
 
