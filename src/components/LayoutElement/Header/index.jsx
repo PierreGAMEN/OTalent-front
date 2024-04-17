@@ -23,13 +23,16 @@ export default function Header() {
     const [isConnected, setIsConnected] = useState(false);
     const [smallScreen, setSmallScreen] = useState(false)
 
-    // const getWidthAndChangeStateScreen = () => {
-    //     if(window.screen.width < 650){
-    //         setSmallScreen(true)
-    //     } else {
-
-    //     }
-    // }
+    const getWidthAndChangeStateScreen = () => {
+        if(window.screen.width <= 650){
+            setSmallScreen(true)
+        } else {
+            setSmallScreen(false)
+        }
+    }
+    useEffect(()=> {
+        getWidthAndChangeStateScreen()
+    }, [window.screen.width])
 
     const getAllCategories = useCallback(async () => {
         try {
@@ -73,8 +76,8 @@ export default function Header() {
 
                 </Link></div>
                 <Chat />
-                <div className='hidden grow mr-5 md:block'><SearchBar /></div>
-                <div className='mr-5 md:hidden'><ModalSearchBar /></div>
+                {!smallScreen &&<div className='grow mr-5'><SearchBar /></div>}
+                {smallScreen && <div className='mr-5'><ModalSearchBar /></div>}
 
                 {!isConnected && <ConnectionFormModal />}
                 {isConnected && <Navbar />}
