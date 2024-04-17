@@ -12,7 +12,7 @@ const FeatureCard = ({
 }) => {
     return (
         <section className="p-5 flex flex-col items-center justify-evenly text-center gap-5 rounded-2xl shadow-2xl bg-primary-color text-white shadow-teal-800">
-            <img src={image} alt={title} className="w-48" />
+            <div alt={title} className="w-48">{image}</div>
             <h4>{title}</h4>
             <p>
                 {description.split('\n').map((line, i) => (

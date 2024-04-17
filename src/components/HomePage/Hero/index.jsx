@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Carousel from './Carousel';
 import React from 'react';
+import Certification from '../../../../public/assets/Certification-bro';
 
 /**
  * Hero component
@@ -28,10 +29,9 @@ export default function Hero() {
                     Dès aujourd'hui, devenez <br />
                     <span className="font-bold text-5xl"> {training}</span>
                 </p>
-                <img
-                    src="./src/assets/Certification-bro.svg"
+                <div
                     className="w-64 mt-5 min-w-64 xl:hidden"
-                    alt="Certification"></img>
+                    alt="Certification"><Certification/></div>
                 <button
                     className="button outlined mt-10 w-64"
                     onClick={() => (window.location.href = '#training_list')}

@@ -1,3 +1,6 @@
+import Fast from '../../../../public/assets/Fast loading-bro';
+import GroupChat from '../../../../public/assets/Group Chat-bro';
+import LearningBro from '../../../../public/assets/Learning-bro';
 import FeatureCard from './FeatureCard';
 import React from 'react';
 
@@ -10,19 +13,19 @@ export default function Feature() {
         {
             title: 'Rapide',
             description: `Une interface intuitive \n Des avis utilisateurs pour se repérer`,
-            image: '/src/assets/Fast loading-bro.svg',
+            image: <Fast />
         },
         {
             title: 'Complet',
             description:
                 'Une large sélection de formations \n De nombreuses catégories',
-            image: '/src/assets/Learning-bro.svg',
+            image: <LearningBro />,
         },
         {
             title: 'Actif',
             description:
                 'Une communauté active \n Banque mise à jour régulièrement',
-            image: '/src/assets/Group Chat-bro.svg',
+            image: <GroupChat />
         },
     ];
 

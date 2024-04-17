@@ -1,4 +1,4 @@
-import LogoTitle from '../../../assets/LogoTitle';
+import LogoTitle from '../../../../public/assets/LogoTitle';
 import { Link } from 'react-router-dom';
 import React from 'react';
 
