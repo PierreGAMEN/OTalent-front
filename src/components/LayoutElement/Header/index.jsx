@@ -24,15 +24,24 @@ export default function Header() {
     const [smallScreen, setSmallScreen] = useState(false)
 
     const getWidthAndChangeStateScreen = () => {
-        if(window.screen.width <= 650){
-            setSmallScreen(true)
+        if(window.innerWidth <= 650) {
+            setSmallScreen(true);
         } else {
-            setSmallScreen(false)
+            setSmallScreen(false);
         }
     }
-    useEffect(()=> {
-        getWidthAndChangeStateScreen()
-    }, [window.screen.width])
+    
+    useEffect(() => {
+        getWidthAndChangeStateScreen();
+    
+        // Ajoutez un écouteur d'événements pour surveiller les changements de taille de fenêtre
+        window.addEventListener("resize", getWidthAndChangeStateScreen);
+    
+        // Nettoyez l'écouteur d'événements lors du démontage du composant
+        return () => {
+            window.removeEventListener("resize", getWidthAndChangeStateScreen);
+        };
+    }, []);
 
     const getAllCategories = useCallback(async () => {
         try {
