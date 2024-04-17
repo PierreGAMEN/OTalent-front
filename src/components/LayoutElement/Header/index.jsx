@@ -34,10 +34,8 @@ export default function Header() {
     useEffect(() => {
         getWidthAndChangeStateScreen();
     
-        // Ajoutez un écouteur d'événements pour surveiller les changements de taille de fenêtre
-        window.addEventListener("resize", getWidthAndChangeStateScreen);
-    
-        // Nettoyez l'écouteur d'événements lors du démontage du composant
+        window.addEventListener("resize", getWidthAndChangeStateScreen)
+  
         return () => {
             window.removeEventListener("resize", getWidthAndChangeStateScreen);
         };
@@ -85,8 +83,8 @@ export default function Header() {
 
                 </Link></div>
                 <Chat />
-                {!smallScreen &&<div className='grow mr-5'><SearchBar /></div>}
-                {smallScreen && <div className='mr-5'><ModalSearchBar /></div>}
+                {!smallScreen && <SearchBar />}
+                {smallScreen && <ModalSearchBar />}
 
                 {!isConnected && <ConnectionFormModal />}
                 {isConnected && <Navbar />}
