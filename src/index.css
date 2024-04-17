@@ -53,10 +53,7 @@
         @apply text-3xl uppercase;
     }
     h5 {
-        @apply text-lg ;
-    }
-    p{
-        @apply lg:text-lg text-3xl;
+        @apply text-lg;
     }
 }
 
