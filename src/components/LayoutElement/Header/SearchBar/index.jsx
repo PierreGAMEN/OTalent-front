@@ -25,7 +25,8 @@ const SearchBar = () => {
                 onClick={() => {
                     setFilterIsOpen(!filterIsOpen);
                 }}
-                className="btn join-item border-none bg-white hover:bg-white material-symbols-rounded">
+                className="btn join-item border-none bg-white hover:bg-white material-symbols-rounded"
+                aria-label="Ajouter un filtre de recherche">
                 filter_alt
             </button>
             {filterIsOpen && (

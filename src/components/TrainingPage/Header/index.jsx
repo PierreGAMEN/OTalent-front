@@ -9,8 +9,7 @@ export default function HeaderTrainingPage({ data }) {
     const [isMember, setIsMember] = useState(false);
 
     const user = useAppSelector((state) => state.token.user);
-    console.log('test');
-
+    
     useEffect(() => {
         setIsMember(user.member);
     }, [user.member]);
@@ -25,12 +24,15 @@ export default function HeaderTrainingPage({ data }) {
                 queryAssociateMemberTraining,
                 variables
             );
+            const errorMessage = [
+                'duplicate key value violates unique constraint "member_likes_training_member_id_training_id_key"',
+                "la valeur d'une clé dupliquée rompt la contrainte unique « member_likes_training_member_id_training_id_key »"
+            ]
             setIsAssociateToFavoris(true);
             if (
                 response &&
-                response.data.errors &&
-                response.data.errors[0].message ===
-                    'duplicate key value violates unique constraint "member_likes_training_member_id_training_id_key"'
+                response.errors &&
+                errorMessage.includes(response.errors[0].message)
             ) {
                 toast.error(
                     'Vous avez déjà enregistré cette formation dans vos favoris'
@@ -72,13 +74,13 @@ export default function HeaderTrainingPage({ data }) {
 
     return (
         <header
-            className="flex h-screen flex-row items-center justify-center lg:justify-start gap-3 p-10 bg-no-repeat bg-cover bg-center"
+            className="flex lg:h-screen flex-row items-center justify-center lg:justify-start gap-3 p-10 bg-no-repeat lg:bg-cover bg-center"
             style={{
                 backgroundImage: `url(https://res.cloudinary.com/${
                     import.meta.env.VITE_CDNY_CLOUDNAME
                 }/image/upload/c_scale,w_1920,h_1080/v1/otalent/${data.image})`,
             }}>
-            <div className="flex flex-col min-w-96 max-w-screen-sm  justify-between gap-5 bg-primary-background rounded-2xl p-5 border-4 border-primary-color">
+            <div className="flex flex-col min-w-96 max-w-screen-sm justify-between gap-5 bg-primary-background rounded-2xl p-5 border-4 border-primary-color">
                 <h4 className="">{data.label}</h4>
                 {data.reviews.length > 0 ? (
                     <div className="rating rating-md flex items-center">

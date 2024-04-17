@@ -24,7 +24,8 @@ const ModalSearchBar = () => {
         <>
             <button
                 onClick={() => setOpenModalSearch(true)}
-                className="material-symbols-rounded p-1 bg-primary-color rounded-full text-[40px] text-white hover:bg-white hover:text-primary-color">
+                className="material-symbols-rounded p-1 bg-primary-color rounded-full text-[40px] text-white hover:bg-white hover:text-primary-color"
+                aria-label="Effectuer une recherche">
                 search
             </button>
             <dialog className="modal" open={openModalSearch}>
