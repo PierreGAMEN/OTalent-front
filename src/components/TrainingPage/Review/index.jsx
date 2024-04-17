@@ -116,17 +116,17 @@ export default function ReviewTrainingPage({ data }) {
             )}
 
             {currentComment.length > 0 && (
-                <div className="flex flex-col md:flex-row gap-5 flex-wrap justify-center m-5">
+                <div className="flex flex-col md:flex-row gap-5 flex-wrap w-full justify-center m-5">
                     {currentComment.map((review, index) => {
                         return (
                             <div
-                                className={`justify-start items-start min-w-96 lg:w-1/4 gap-5 p-5 rounded-2xl border-4 border-primary-color ${
+                                className={`justify-start items-start min-w-96 lg:w-1/4 gap-5 p-5 rounded-2xl border-4 border-primary-color sm:max-lg:w-full sm:max-lg:m-3 ${
                                     index % 2 === 0
                                         ? 'bg-secondary-color'
                                         : 'bg-transparent'
                                 }`}
                                 key={review.id}>
-                                <div className="flex flex-col lg:flex-row">
+                                <div className="flex w-full">
                                     <img
                                         className="w-20 h-20 rounded-full border-4 border-primary-color"
                                         src={`https://res.cloudinary.com/${
@@ -136,17 +136,19 @@ export default function ReviewTrainingPage({ data }) {
                                         }`}
                                         alt="Avatar"
                                     />
-                                    <div className="flex flex-col justify-center items-start pl-2">
-                                        <h5 className="text-center">
+                                    <div className="flex lg:flex-col justify-between sm:max-lg:w-full lg:justify-center items-start pl-2">
+                                        <div>
+                                        <h5>
                                             {review.member.firstname}
                                         </h5>
-                                        <p>
+                                        <p className='italic'>
                                             Le{' '}
                                             {handleDateFormat(
                                                 review.created_at ||
-                                                    Date.now().toString()
+                                                Date.now().toString()
                                             )}
                                         </p>
+                                        </div>
                                         <div className="flex flex-col justify-center items-center">
                                             <div className="rating rating-md flex items-center">
                                                 <h5 className="mr-1">
@@ -167,7 +169,7 @@ export default function ReviewTrainingPage({ data }) {
                                         </div>
                                     </div>
                                 </div>
-                                <p className="text-left m-5">
+                                <p className="text-2xl lg:text-lg text-left m-5">
                                     {review.comment
                                         ? review.comment
                                         : 'Pas de commentaire disponible sur cet avis'}

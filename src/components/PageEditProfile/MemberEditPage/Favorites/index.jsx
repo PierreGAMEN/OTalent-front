@@ -50,13 +50,13 @@ export default function FavoritesEditProfilPageMember({ data }) {
                                 organizationId={training.organization.id}
                                 reviews={training.reviews}
                                 />
-                            <button className='btn bg-blue-600 text-white mb-5' onClick={deleteFavorite} id={training.id}>
+                            <button className='btn bg-gray-200 text-black mb-5' onClick={deleteFavorite} id={training.id}>
                                 Retirer des favoris
                             </button>
                         </div>
                     ))
                     ) : (
-                        <p>Vous n'avez pas encore ajouté de formations à vos favoris.</p>
+                        <p className='overflow-hidden'>Vous n'avez pas encore ajouté de formations à vos favoris.</p>
                     )}
             </section>
         </div>
