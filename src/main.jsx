@@ -12,7 +12,7 @@ import OrganizationPage from './components/OrganizationPage/index.jsx';
 import MemberEditPage from './components/PageEditProfile/MemberEditPage/index.jsx';
 import OrganizationEditPage from './components/PageEditProfile/OrganizationEditPage/index.jsx';
 import ResetPassword from './components/ResetPasswordPage/index.jsx';
-import NotFoundPage from './components/ErrorPage/index.jsx';
+import { NotFoundPage, ServerErrorPage } from './components/ErrorPage/index.jsx';
 import TeamPage from './components/TeamPage/index.jsx';
 import React from 'react';
 
@@ -31,6 +31,7 @@ const router = createBrowserRouter([
             { path: 'reset-password', element: <ResetPassword /> },
             { path: 'team', element: <TeamPage /> },
             { path: '*', element: <NotFoundPage /> },
+            { path: 'error', element: <ServerErrorPage />},
         ],
     },
 ]);
