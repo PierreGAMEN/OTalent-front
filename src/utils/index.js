@@ -25,6 +25,10 @@ const authorizedRequest = async (url, requestData) => {
         return response.data;
     } catch (error) {
         console.error("Une erreur s'est produite :", error);
+        
+        if(error.message === "Network Error" && window.location.pathname !== "/error") {
+            window.location.href = "/error"
+        }
         throw error;
     }
 };
