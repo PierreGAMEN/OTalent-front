@@ -274,7 +274,10 @@ export default function HeaderOrganizationEditPage({ data }) {
                     <div>
                         </div>                    
                     <div className="modal-box flex flex-col items-center gap-3">
-                    <button className='material-symbols-rounded absolute top-4 right-10' onClick={() => setIsEdit(true)}>
+                    <button 
+                    className='material-symbols-rounded absolute top-4 right-10' 
+                    aria-label='Modifier mes informations'
+                    onClick={() => setIsEdit(true)}>
                             edit
                         </button>
                         
@@ -352,7 +355,10 @@ export default function HeaderOrganizationEditPage({ data }) {
                     <div className='ml-3 p-10 mt-10 text-2xl lg:text-base lg:ml-12 lg:mt-60 lg:w-1/2'>
                         <div className='flex justify-between'>
                         <h4 className='mb-3'>Votre Description :</h4>
-                        <button className='material-symbols-rounded' onClick={() => setIsEdit(true)}>
+                        <button 
+                            className='material-symbols-rounded' 
+                            aria-label='Modifier ma description'
+                            onClick={() => setIsEdit(true)}>
                             edit
                         </button>
                         </div>
