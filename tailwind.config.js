@@ -19,7 +19,9 @@ export default {
       "secondary-background":"#FDF6E2",
     },},
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"),
+  require('tailwindcss'),
+  require('autoprefixer'),],
   daisyui: {
     themes: ["light"],
   }
