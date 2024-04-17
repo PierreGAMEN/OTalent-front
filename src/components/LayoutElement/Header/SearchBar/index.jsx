@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './style.scss';
+
 import { useNavigate } from 'react-router-dom';
 import regions from '../../../../data/region';
 import { useAppSelector } from '../../../../store/redux-hook/hook';
-import { Divider } from 'semantic-ui-react';
+
 
 const SearchBar = () => {
     const categories = useAppSelector((state) => state.categories.list);

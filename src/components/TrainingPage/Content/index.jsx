@@ -79,7 +79,7 @@ export default function ContentTrainingPage({ data }) {
                     {isProgram && (
                         <>
                             <h4>Description</h4>
-                            <p className="content-trainingpage-text-p">
+                            <p className="">
                                 {data.description}
                             </p>
                             <h4 className='sm:max-lg:mt-10'>Programme</h4>
@@ -95,15 +95,15 @@ export default function ContentTrainingPage({ data }) {
                     {isDuration && (
                         <>
                             <h4>Durée de la formation</h4>
-                            <p className="content-trainingpage-text-p">
+                            <p className="">
                                 Temps de formation : {data.duration} heures
                             </p>
                             <h4>Dates de la prochaine session</h4>
-                            <p className="content-trainingpage-text-p">
+                            <p className="">
                                 Date de début :{' '}
                                 {handleDateFormat(data.dates[0])}
                             </p>
-                            <p className="content-trainingpage-text-p">
+                            <p className="">
                                 Date de fin : {handleDateFormat(data.dates[1])}
                             </p>
                             <p></p>
@@ -112,7 +112,7 @@ export default function ContentTrainingPage({ data }) {
                     {isOrganization && (
                         <>
                             <h4>Informations de l'organisme</h4>
-                            <p className="content-trainingpage-text-p">
+                            <p className="">
                                 Nom de l'organisme :{' '}
                                 <a
                                     href={`/organization/${data.organization.id}`}
@@ -120,7 +120,7 @@ export default function ContentTrainingPage({ data }) {
                                     {data.organization.name}
                                 </a>
                             </p>
-                            <p className="content-trainingpage-text-p">
+                            <p className="">
                                 Email :{' '}
                                 <a
                                     href={`mailto:${data.organization.email}`}
@@ -128,7 +128,7 @@ export default function ContentTrainingPage({ data }) {
                                     {data.organization.email}
                                 </a>
                             </p>
-                            <p className="content-trainingpage-text-p">
+                            <p className="">
                                 Lien vers le site :{' '}
                                 <a
                                     href={`${data.organization.url_site}`}

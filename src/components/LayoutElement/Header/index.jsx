@@ -23,23 +23,13 @@ export default function Header() {
     const [isConnected, setIsConnected] = useState(false);
     const [smallScreen, setSmallScreen] = useState(false)
 
-    const getWidthAndChangeStateScreen = () => {
-        if(window.innerWidth <= 650) {
-            setSmallScreen(true);
-        } else {
-            setSmallScreen(false);
-        }
-    }
-    
-    useEffect(() => {
-        getWidthAndChangeStateScreen();
-    
-        window.addEventListener("resize", getWidthAndChangeStateScreen)
-  
-        return () => {
-            window.removeEventListener("resize", getWidthAndChangeStateScreen);
-        };
-    }, []);
+    // const getWidthAndChangeStateScreen = () => {
+    //     if(window.screen.width < 650){
+    //         setSmallScreen(true)
+    //     } else {
+
+    //     }
+    // }
 
     const getAllCategories = useCallback(async () => {
         try {
@@ -83,8 +73,8 @@ export default function Header() {
 
                 </Link></div>
                 <Chat />
-                {!smallScreen && <SearchBar />}
-                {smallScreen && <ModalSearchBar />}
+                <div className='hidden grow mr-5 lg:block'><SearchBar /></div>
+                <div className='mr-5 lg:hidden'><ModalSearchBar /></div>
 
                 {!isConnected && <ConnectionFormModal />}
                 {isConnected && <Navbar />}
