@@ -21,6 +21,15 @@ import ModalSearchBar from './modalSearchBar';
 export default function Header() {
     const dispatch = useAppDispatch();
     const [isConnected, setIsConnected] = useState(false);
+    const [smallScreen, setSmallScreen] = useState(false)
+
+    // const getWidthAndChangeStateScreen = () => {
+    //     if(window.screen.width < 650){
+    //         setSmallScreen(true)
+    //     } else {
+
+    //     }
+    // }
 
     const getAllCategories = useCallback(async () => {
         try {
@@ -64,8 +73,8 @@ export default function Header() {
 
                 </Link></div>
                 <Chat />
-                <div className='hidden grow mr-5 sm:block'><SearchBar /></div>
-                <div className='mr-5 sm:hidden'><ModalSearchBar /></div>
+                <div className='hidden grow mr-5 md:block'><SearchBar /></div>
+                <div className='mr-5 md:hidden'><ModalSearchBar /></div>
 
                 {!isConnected && <ConnectionFormModal />}
                 {isConnected && <Navbar />}
