@@ -1,4 +1,5 @@
 import React from 'react';
+import ServerError from '../../../public/assets/Server-Error-bro';
 
 function NotFoundPage() {
     return (
@@ -18,11 +19,11 @@ function ServerErrorPage() {
                     <h4 className='text-center'>
                         Erreur interne ...
                     </h4>
-                    <img src="src/assets/Server-Error-bro.svg" alt="Server error" />
+                    <div alt="Server error"><ServerError/></div>
                     <div className="divider"></div>
                     <div className="flex flex-col justify-center">
                         Une erreur interne s'est produite sur notre serveur. Notre équipe technique travaille à résoudre ce problème. Nous nous excusons pour la gêne occasionnée, veuillez réessayer ultérieurement, 
-                        <span className='mt-5'>l'équipe O'Talent.</span>
+                        <span className='mt-5'>L'équipe O'Talent.</span>
                     </div>
                 </div>
             </div>
