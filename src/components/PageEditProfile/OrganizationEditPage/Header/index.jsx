@@ -349,7 +349,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                         </div>
                     )}
                     </div>
-                    <div className='ml-3  mt-10 text-4xl sm:text-2xl lg:text-base lg:ml-12 lg:mt-60 lg:w-1/2'>
+                    <div className='ml-3 p-10 mt-10 text-2xl lg:text-base lg:ml-12 lg:mt-60 lg:w-1/2'>
                         <div className='flex justify-between'>
                         <h4 className='mb-3'>Votre Description :</h4>
                         <button className='material-symbols-rounded' onClick={() => setIsEdit(true)}>

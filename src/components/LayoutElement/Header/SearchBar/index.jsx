@@ -71,7 +71,7 @@ const SearchBar = () => {
             )}
             
                 <input
-                    className="input join-item border-none border-primary-color"
+                    className="input join-item border-none border-primary-color w-full"
                     type="text"
                     name="searchTerm"
                     id="searchTerm"

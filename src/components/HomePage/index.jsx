@@ -71,7 +71,7 @@ export default function HomePage() {
 
     let count = 0;
     return (
-        <main className="flex flex-col gap-20 mb-20">
+        <main className="gap-5 md:gap-10 flex flex-col lg:gap-20 lg:mb-20">
             <Hero />
             <Feature />
             <Guide />
