@@ -211,13 +211,15 @@ export default function FormOrganization() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="siret">
-                            N° SIRET
+                            <span className='material-symbols-rounded text-4xl'>123</span>
                             <input
                                 id="siret"
                                 name="siret"
                                 value={formValues.siret}
                                 onChange={handleChange}
                                 placeholder="N° SIRET"
+                                className='grow w-full'
+                                
                             />
                         </label>
 
@@ -243,9 +245,9 @@ export default function FormOrganization() {
                 {step2 && (
                     <>
                         <label
-                            className="input input-bordered flex items-center gap-2"
+                            className="input input-bordered flex items-center gap-2 material"
                             htmlFor="raisonSociale">
-                            Raison sociale
+                            <span className='material-symbols-rounded text-2xl'>store</span>
                             <input
                                 required
                                 id="raisonSociale"
@@ -253,26 +255,30 @@ export default function FormOrganization() {
                                 value={formValues.raisonSociale}
                                 onChange={handleChange}
                                 placeholder="Raison sociale"
+                                className='grow w-full'
                             />
                         </label>
+
+                        {/* 20006340200016 */}
 
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="adresse">
-                            Adresse
+                            <span className='material-symbols-rounded text-2xl'>home_pin</span>
                             <input
                                 id="adresse"
                                 name="adresse"
                                 value={formValues.adresse}
                                 onChange={handleChange}
                                 placeholder="Adresse"
+                                className='grow w-full'
                             />
                         </label>
 
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="codePostal">
-                            Code postal
+                            <span className='material-symbols-rounded text-2xl'>map</span>
                             <input
                                 id="codePostal"
                                 name="codePostal"
@@ -285,13 +291,14 @@ export default function FormOrganization() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="ville">
-                            Ville
+                            <span className='material-symbols-rounded text-2xl'>location_on</span>
                             <input
                                 id="ville"
                                 name="ville"
                                 value={formValues.ville}
                                 onChange={handleChange}
                                 placeholder="Ville"
+                                className='grow w-full'
                             />
                         </label>
                         <button
@@ -310,7 +317,7 @@ export default function FormOrganization() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="email">
-                            Adresse e-mail
+                            <span className='material-symbols-rounded text-2xl'>mail</span>
                             <input
                                 type="email"
                                 id="email"
@@ -318,13 +325,14 @@ export default function FormOrganization() {
                                 value={formValues.email}
                                 onChange={handleChange}
                                 placeholder="florian@exemple.com"
+                                className='grow w-full'
                             />
                         </label>
 
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="telephone">
-                            Téléphone
+                            <span className='material-symbols-rounded text-2xl'>smartphone</span>
                             <input
                                 type="tel"
                                 id="telephone"
@@ -332,26 +340,28 @@ export default function FormOrganization() {
                                 value={formValues.telephone}
                                 onChange={handleChange}
                                 placeholder="Téléphone"
+                                className='grow w-full'
                             />
                         </label>
 
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="urlSite">
-                            URL de votre site
+                            <span className='material-symbols-rounded text-2xl'>link</span>
                             <input
                                 id="urlSite"
                                 name="urlSite"
                                 value={formValues.urlSite}
                                 onChange={handleChange}
                                 placeholder="Url de votre site"
+                                className='grow w-full'
                             />
                         </label>
 
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="password">
-                            Mot de passe
+                            <span className='material-symbols-rounded text-2xl'>key</span>
                             <input
                                 type="password"
                                 id="password"
@@ -359,20 +369,22 @@ export default function FormOrganization() {
                                 value={formValues.password}
                                 onChange={handleChange}
                                 placeholder="Mot de passe"
+                                className='grow w-full'
                             />
                         </label>
 
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="confirmPassword">
-                            Confirmez votre mot de passe
+                            <span className='material-symbols-rounded text-2xl'>key</span>
                             <input
                                 type="password"
                                 id="confirmPassword"
                                 name="confirmPassword"
                                 value={formValues.confirmPassword}
                                 onChange={handleChange}
-                                placeholder="Confirmer"
+                                placeholder="Confirmer votre mot de passe"
+                                className='grow w-full'
                             />
                         </label>
 
