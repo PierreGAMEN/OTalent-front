@@ -226,9 +226,9 @@ export default function FormOrganization() {
             <button
               type="button"
               onClick={getInformationFromSiret}
-              className="btn"
+              className="btn btn-success"
             >
-              Vérifier votre numéro SIRET
+              Vérifiez votre numéro SIRET
             </button>
           </>
         )}
@@ -311,7 +311,7 @@ export default function FormOrganization() {
               />
             </label>
             <button
-              className="btn bg-green-600 text-white"
+              className="btn btn-success"
               type="button"
               onClick={() => {
                 setstep3(true), setstep2(false);
@@ -368,7 +368,7 @@ export default function FormOrganization() {
                 name="urlSite"
                 value={formValues.urlSite}
                 onChange={handleChange}
-                placeholder="Url de votre site"
+                placeholder="http://votre-societe.com"
                 className="grow w-full"
               />
             </label>
@@ -413,7 +413,7 @@ export default function FormOrganization() {
                 className="btn btn-success"
                 type="submit"
               >
-                Envoyer
+                S'inscrire
               </button>
             )}
           </>
