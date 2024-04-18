@@ -56,7 +56,7 @@ export default function FormOrganization() {
         const variables = {
             input: {
                 name: formValues.raisonSociale,
-                email: formValues.email,
+                email: formValues.email.toLowerCase(),
                 phoneNumber: formValues.telephone,
                 password: formValues.password,
                 address: formValues.adresse,
