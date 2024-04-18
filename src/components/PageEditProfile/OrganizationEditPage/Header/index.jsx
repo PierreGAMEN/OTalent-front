@@ -85,7 +85,8 @@ export default function HeaderOrganizationEditPage({ data }) {
         return true;
     };
 
-    const updateOrganizationInformation = async () => {
+    const updateOrganizationInformation = async (e) => {
+        e.preventDefault()
         const check = verifyInformation();
         if (check) {
             const variables = {
@@ -98,9 +99,12 @@ export default function HeaderOrganizationEditPage({ data }) {
                     city: city,
                     postalCode: postal_code,
                     description: description,
-                    urlSite: website,
                 },
             };
+
+            if(website) {
+                variables.input.urlSite = website
+            }
 
             const response = await requestWithVariable(
                 queryUpdateOrganizationInformation,
@@ -133,20 +137,16 @@ export default function HeaderOrganizationEditPage({ data }) {
         }
     }, [data]);
 
-    useEffect(() => {
-        if (isEdit && modalRef.current) {
-            modalRef.current.showModal();
-        }
-    }, [isEdit]);
+    
 
     return (
         seeding && (
-            <div className="relative pr-5">
+            <div className="relative sm:pr-5">
                 <div className="hidden lg:inline-block h-40 w-full bg-primary-color absolute top-0"></div>
                 <div className="flex flex-col items-center lg:flex-row">
                     {isEdit ? (
                         <div className="p-10 flex flex-col md:flex-row md:justify-around items-start md:items-center">
-                            <dialog className="modal" ref={modalRef}>
+                            <dialog className="modal" open>
                                 <form className="modal-box overflow-auto">
                                     <div className="mt-4">
                                         <label className="input input-bordered flex border border-black items-center gap-2">
@@ -290,7 +290,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                     ) : (
                         <>
                             <div></div>
-                            <div className="modal-box flex flex-col items-center gap-3">
+                            <div className="modal-box flex flex-col items-center gap-3 max-h-min">
                                 <button
                                     className="material-symbols-rounded absolute top-4 right-10"
                                     aria-label="Modifier mes informations"
@@ -390,7 +390,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                                     </div>
                                 )}
                             </div>
-                            <div className="ml-3 p-10 mt-10 text-2xl lg:text-base lg:ml-12 lg:mt-60 lg:w-1/2">
+                            <div className="ml-3 p-10 mt-10 lg:text-base lg:ml-12 lg:mt-60 lg:w-1/2">
                                 <div className="flex justify-between">
                                     <h4 className="mb-3">
                                         Votre Description :
