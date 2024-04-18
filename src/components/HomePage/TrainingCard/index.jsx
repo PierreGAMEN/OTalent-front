@@ -69,7 +69,7 @@ export default function TrainingCard({
                             {organization}
                         </Link>
                         <Link
-                            to={`/search/${category}&&${categoryId}`}
+                            to={`/search?category=${category}&id=${categoryId}`}
                             className="flex gap-2 items-center"
                             aria-label="Lien vers la catégorie"
                         >

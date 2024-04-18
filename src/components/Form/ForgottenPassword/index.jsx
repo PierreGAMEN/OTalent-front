@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 export const ForgottenPassword = () => {
     const [email, setEmail] = useState('');
+    const [sendEmailSucces, setSendEmailSucces] = useState(false)
 
     const handleChange = (e) => {
         const value = e.currentTarget.value;
@@ -28,13 +29,15 @@ export const ForgottenPassword = () => {
                 "Nous n'avons pas pu retrouvé votre email en base de données"
             );
         } else {
-          toast.success("Un email vous a été envoyé afin de changer votre mot de passe.")  
+          toast.success("Un email vous a été envoyé afin de changer votre mot de passe.")
+          setSendEmailSucces(true)  
         }
 
     };
 
     return (
-        <form action="">
+        <>
+        {!sendEmailSucces && <form action="">
             <label
                 className="input input-bordered flex items-center gap-4"
                 htmlFor="">
@@ -46,6 +49,8 @@ export const ForgottenPassword = () => {
                 onClick={sendEmailToRecoverPassword}>
                 Envoyez un email de récupération
             </button>
-        </form>
+        </form>}
+        {sendEmailSucces && <div className='mt-3 mb-3'>Votre demande a bien été prise en compte</div>}
+        </>
     );
 };
