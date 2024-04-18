@@ -17,7 +17,8 @@ const ImageUpload = () => {
                 "Nous n'avons pas réussi à télécharger l'image, vérifier que vous avez bien choisi une image"
             );
             return false;
-        }
+        } 
+
 
         const data = new FormData();
         if (image) {
@@ -68,19 +69,20 @@ const ImageUpload = () => {
     <input
         type="file"
         onChange={(e) =>
-            setImage(e.target.files ? e.target.files[0]: null)
+            {setImage(e.target.files ? e.target.files[0]: null);
+            toast.warning("Veuillez télécharger votre image avant de valider")}
         }
         placeholder="Vous pouvez choisir une image"
         accept="image/*"
         className="sr-only"
     />
 </label>
-            <button
+            {image && <button
                 className="btn w-full mt-2"
                 type="button"
                 onClick={uploadImage}>
                 Télécharger l'image
-            </button>
+            </button>}
         </>
     );
 };
