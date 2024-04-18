@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
     useAppDispatch,
     useAppSelector,
@@ -13,7 +13,6 @@ import {
 } from '../../../../store/actions/getUserInformation';
 
 import { openModalChat } from '../../../../store/actions/modalChatAction';
-
 
 export default function Navbar() {
     const [isConnected, setIsConnected] = useState(false);
@@ -56,10 +55,10 @@ export default function Navbar() {
                 const MemberInformationDispatch = {
                     firstname: userInfo.member.firstname,
                     name: userInfo.member.lastname,
-
                     avatar: userInfo.member.avatar
                         ? userInfo.member.avatar
                         : 'yocggnbjzfjygu3naanv',
+                    id: user.id,
                 };
                 dispatch(
                     getMemberInformationActions(MemberInformationDispatch)
@@ -72,6 +71,7 @@ export default function Navbar() {
                     image: userInfo.organization.image
                         ? userInfo.organization.image
                         : 'yocggnbjzfjygu3naanv',
+                    id: user.id,
                 };
                 dispatch(
                     getOrganizationInformationActions(
@@ -95,7 +95,7 @@ export default function Navbar() {
 
     return (
         <div className="dropdown dropdown-end flex justify-center items-center">
-            <div className='hidden lg:inline-block'>
+            <div className="hidden lg:inline-block">
                 {isMember && (
                     <p className="text-white p-5 hidden lg:block">
                         {userInformation.member &&
@@ -156,20 +156,25 @@ export default function Navbar() {
                 className="top-16 mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                 {isMember && (
                     <li>
-                        <NavLink to="/edit/member" onClick={scrollTop}>Voir le profil</NavLink>
+                        <Link to="/edit/member" onClick={scrollTop}>
+                            Voir le profil
+                        </Link>
                     </li>
                 )}
                 {!isMember && (
                     <li>
-                        <NavLink onClick={scrollTop} to="/edit/organization">
+                        <Link onClick={scrollTop} to="/edit/organization">
                             Voir le profil
-                        </NavLink>
+                        </Link>
                     </li>
                 )}
                 <li>
-
-                    <a onClick={() => {dispatch(openModalChat(true))}}>Messagerie</a>
-
+                    <a
+                        onClick={() => {
+                            dispatch(openModalChat(true));
+                        }}>
+                        Messagerie
+                    </a>
                 </li>
                 <li>
                     <a onClick={handleLogout}>Se deconnecter</a>

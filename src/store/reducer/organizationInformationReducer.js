@@ -5,6 +5,7 @@ export const initialState = {
     userInformation: {
         name: '',
         image: '',
+        id:''
     },
 };
 
@@ -12,8 +13,8 @@ const organizationInformationReducer = createReducer(
     initialState,
     (builder) => {
         builder.addCase(getOrganizationInformationActions, (state, action) => {
-            const { name, image } = action.payload;
-            state.userInformation = { name, image };
+            const { name, image, id } = action.payload;
+            state.userInformation = { name, image, id };
         });
     }
 );

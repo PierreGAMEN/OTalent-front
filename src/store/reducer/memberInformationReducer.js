@@ -7,13 +7,14 @@ export const initialState = {
         firstname: '',
         lastname: '',
         avatar: '',
+        id:''
     },
 };
 
 const memberInformationReducer = createReducer(initialState, (builder) => {
     builder.addCase(getMemberInformationActions, (state, action) => {
-        const { firstname, lastname, avatar } = action.payload;
-        state.userInformation = { firstname, lastname, avatar };
+        const { firstname, lastname, avatar, id } = action.payload;
+        state.userInformation = { firstname, lastname, avatar, id };
     });
 });
 

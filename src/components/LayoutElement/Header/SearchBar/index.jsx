@@ -86,7 +86,7 @@ const SearchBar = () => {
                 type="submit"
                 onClick={(e) => {
                     e.preventDefault();
-
+                    setFilterIsOpen(false)
                     const params = new URLSearchParams();
 
                     if (selectedCategory)
