@@ -125,6 +125,7 @@ export default function TrainingCard({
                         to={`/training/${trainingId}`}
                         className="button filled"
                         aria-label="Voir la formation"
+                        onClick={scrollTop}
                     >
                         Voir la formation
                     </Link>
