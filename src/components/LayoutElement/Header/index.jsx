@@ -64,8 +64,8 @@ export default function Header() {
 
                 </Link></div>
                 <Chat />
-                <div className='hidden grow mr-5 sm:block'><SearchBar /></div>
-                <div className='mr-5 sm:hidden'><ModalSearchBar /></div>
+                <div className='hidden grow mr-5 lg:block'><SearchBar /></div>
+                <div className='mr-5 lg:hidden'><ModalSearchBar /></div>
 
                 {!isConnected && <ConnectionFormModal />}
                 {isConnected && <Navbar />}

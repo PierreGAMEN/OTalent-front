@@ -98,7 +98,7 @@ export default function ReviewTrainingPage({ data }) {
                                         </button>
                                         <button
                                             onClick={addComment}
-                                            className="rounded-xl p-3 bg-primary-color text-white border-2 border-primary-color hover:bg-transparent hover:text-primary-color">
+                                            className="btn hover:bg-green-600 hover:text-white">
                                             Ajouter le commentaire
                                         </button>
                                     </form>
@@ -120,7 +120,7 @@ export default function ReviewTrainingPage({ data }) {
                     {currentComment.map((review, index) => {
                         return (
                             <div
-                                className={`justify-start items-start min-w-96 lg:w-1/4 gap-5 p-5 rounded-2xl border-4 border-primary-color sm:max-lg:w-full sm:max-lg:m-3 ${
+                                className={`justify-start items-start w-9/10 lg:w-1/3 gap-5 p-1 sm:p-3 rounded-2xl border-4 border-primary-color md:w-2/3 m-3 ${
                                     index % 2 === 0
                                         ? 'bg-secondary-color'
                                         : 'bg-transparent'
@@ -128,7 +128,7 @@ export default function ReviewTrainingPage({ data }) {
                                 key={review.id}>
                                 <div className="flex w-full">
                                     <img
-                                        className="w-20 h-20 rounded-full border-4 border-primary-color"
+                                        className="w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-primary-color"
                                         src={`https://res.cloudinary.com/${
                                             import.meta.env.VITE_CDNY_CLOUDNAME
                                         }/image/upload/c_scale,w_150,h_150/v1/otalent/${
@@ -136,12 +136,12 @@ export default function ReviewTrainingPage({ data }) {
                                         }`}
                                         alt="Avatar"
                                     />
-                                    <div className="flex lg:flex-col justify-between sm:max-lg:w-full lg:justify-center items-start pl-2">
+                                    <div className="flex lg:flex-col xl:flex-row justify-between w-full lg:justify-center xl:justify-between items-start pl-2">
                                         <div>
-                                        <h5>
+                                        <h5 className='md:text-md'>
                                             {review.member.firstname}
                                         </h5>
-                                        <p className='italic'>
+                                        <p className='md:text-xs italic'>
                                             Le{' '}
                                             {handleDateFormat(
                                                 review.created_at ||
@@ -151,7 +151,7 @@ export default function ReviewTrainingPage({ data }) {
                                         </div>
                                         <div className="flex flex-col justify-center items-center">
                                             <div className="rating rating-md flex items-center">
-                                                <h5 className="mr-1">
+                                                <h5 className="mr-1 hidden sm:inline-block">
                                                     {review.rating}/5
                                                 </h5>
                                                 {[...Array(5)].map((_, i) => (
@@ -169,7 +169,7 @@ export default function ReviewTrainingPage({ data }) {
                                         </div>
                                     </div>
                                 </div>
-                                <p className="text-2xl lg:text-lg text-left m-5">
+                                <p className="text-lg text-left m-2 md:m-5">
                                     {review.comment
                                         ? review.comment
                                         : 'Pas de commentaire disponible sur cet avis'}
