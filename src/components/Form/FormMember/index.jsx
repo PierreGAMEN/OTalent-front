@@ -244,7 +244,7 @@ export default function FormMember() {
             <ImageUpload />
 
             <button className="btn btn-success" type="submit">
-              Submit
+              S'inscrire
             </button>
           </>
         )}

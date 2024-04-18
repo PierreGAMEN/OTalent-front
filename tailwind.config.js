@@ -42,6 +42,12 @@ export default {
           ".btn.btn-error.btn-outline:hover": {
             "color": "white",
           },
+          ".btn.btn-success.btn-outline:hover": {
+            "color": "white",
+          },
+          ".btn.btn-info.btn-outline:hover": {
+            "color": "white",
+          },
           ".btn.material-symbols-rounded":{
             "color": "#174a3f",
           },
