@@ -56,10 +56,10 @@ export default function Navbar() {
                 const MemberInformationDispatch = {
                     firstname: userInfo.member.firstname,
                     name: userInfo.member.lastname,
-
                     avatar: userInfo.member.avatar
                         ? userInfo.member.avatar
                         : 'yocggnbjzfjygu3naanv',
+                    id: user.id
                 };
                 dispatch(
                     getMemberInformationActions(MemberInformationDispatch)
@@ -72,6 +72,7 @@ export default function Navbar() {
                     image: userInfo.organization.image
                         ? userInfo.organization.image
                         : 'yocggnbjzfjygu3naanv',
+                    id: user.id
                 };
                 dispatch(
                     getOrganizationInformationActions(
