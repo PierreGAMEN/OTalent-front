@@ -56,7 +56,7 @@ export default function FormOrganization() {
         const variables = {
             input: {
                 name: formValues.raisonSociale,
-                email: formValues.email,
+                email: formValues.email.toLowerCase(),
                 phoneNumber: formValues.telephone,
                 password: formValues.password,
                 address: formValues.adresse,
@@ -197,7 +197,7 @@ export default function FormOrganization() {
 
     const login = async () => {
         const variables = {
-            email: formValues.email,
+            email: formValues.email.toLowerCase(),
             password: formValues.password,
         };
         const logger = await loginRequest(variables);

@@ -46,7 +46,7 @@ export default function ConnectionFormModal() {
     // Define login function
     const login = async () => {
         const variables = {
-            email: email,
+            email: email.toLowerCase(),
             password: password,
         };
 

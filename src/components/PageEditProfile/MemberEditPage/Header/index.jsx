@@ -113,7 +113,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
             input: {
                 firstname: firstname,
                 lastname: lastname,
-                email: email,
+                email: email.toLowerCase(),
                 city: city,
                 postalCode: postal_code,
             },
