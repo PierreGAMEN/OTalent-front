@@ -133,10 +133,10 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
     };
 
     return (
-        <div className="relative pr-5 w-full">
+        <div className="relative sm:pr-5 w-full">
             <div className="hidden lg:inline-block h-40 w-full bg-primary-color absolute top-0"></div>
             <div className="flex flex-col items-center xl:flex-row w-full">
-                <div className="modal-box flex flex-col items-center gap-3 w-full">
+                <div className="modal-box flex flex-col items-center gap-3 w-full max-h-min">
                     <button
                         onClick={() => {
                             setIsEdit(true);
