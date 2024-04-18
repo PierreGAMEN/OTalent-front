@@ -141,7 +141,7 @@ export default function FormMember() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="firstName">
-                            Prénom
+                            <span className="material-symbols-rounded text-2xl">person</span>
                             <input
                                 className="grow"
                                 type="text"
@@ -156,7 +156,7 @@ export default function FormMember() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="lastName">
-                            Nom
+                            <span className="material-symbols-rounded text-2xl">person</span>
                             <input
                                 type="text"
                                 id="lastName"
@@ -170,7 +170,7 @@ export default function FormMember() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="city">
-                            Ville
+                            <span className="material-symbols-rounded text-2xl">location_on</span>
                             <input
                                 type="text"
                                 id="city"
@@ -183,7 +183,7 @@ export default function FormMember() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="postalCode">
-                            Code postal
+                            <span className="material-symbols-rounded text-2xl">map</span>
                             <input
                                 type="text"
                                 id="postalCode"
@@ -196,7 +196,7 @@ export default function FormMember() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="email">
-                            Adresse e-mail
+                            <span className="material-symbols-rounded text-2xl">mail</span>
                             <input
                                 type="email"
                                 id="email"
@@ -210,7 +210,7 @@ export default function FormMember() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="password">
-                            Mot de passe
+                            <span className="material-symbols-rounded text-2xl">key</span>
                             <input
                                 type="password"
                                 id="password"
@@ -224,7 +224,7 @@ export default function FormMember() {
                         <label
                             className="input input-bordered flex items-center gap-2"
                             htmlFor="confirmPassword">
-                            Confirmez votre mot de passe
+                            <span className="material-symbols-rounded text-2xl">key</span>
                             <input
                                 type="password"
                                 id="confirmPassword"
