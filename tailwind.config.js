@@ -3,6 +3,12 @@ export default {
   content: [
     "./index.html","./src/**/*.{html,js,jsx}"],
   theme: {
+    screens: {
+      'sm': '640px', // Mobile
+      'md': '768px', // Tablet
+      'lg': '1024px', // Ordinateur portable
+      'xl': '1280px', // Ordinateur de bureau
+    },
     extend: {
       backgroundImage: {
         texture:
@@ -19,9 +25,10 @@ export default {
       "secondary-background":"#FDF6E2",
     },},
   },
-  plugins: [
-    require("daisyui"),
-],
+
+  plugins: [require("daisyui"),
+  require('tailwindcss'),
+  require('autoprefixer'),],
   daisyui: {
     themes: ["light"],
   }
