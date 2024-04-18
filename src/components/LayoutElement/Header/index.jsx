@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../../store/redux-hook/hook';
 
 import { getTokenInformation } from '../../../store/actions/tokenActions';
 import { getCategories } from '../../../store/actions/categoriesActions';
-import { requestWithoutVariable } from '../../../utils';
+import { requestWithoutVariable, scrollTop } from '../../../utils';
 import { queryAllCategories } from '../../../query';
 
 import Navbar from './ModalProfile';
@@ -56,9 +56,7 @@ export default function Header() {
                 <div className='grow ml-3'><Link
                     to="/"
                     aria-label="Accueil"
-                    onClick={() => {
-                        window.scrollTo(0, 0);
-                    }}
+                    onClick={scrollTop}
                 >
                     <LogoTitle />
 

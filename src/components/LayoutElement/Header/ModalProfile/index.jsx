@@ -5,7 +5,7 @@ import {
     useAppDispatch,
     useAppSelector,
 } from '../../../../store/redux-hook/hook';
-import { requestWithVariable } from '../../../../utils';
+import { requestWithVariable, scrollTop } from '../../../../utils';
 import { queryNameMember, queryNameOrganization } from '../../../../query';
 import {
     getMemberInformationActions,
@@ -156,12 +156,12 @@ export default function Navbar() {
                 className="top-16 mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                 {isMember && (
                     <li>
-                        <NavLink to="/edit/member">Voir le profil</NavLink>
+                        <NavLink to="/edit/member" onClick={scrollTop}>Voir le profil</NavLink>
                     </li>
                 )}
                 {!isMember && (
                     <li>
-                        <NavLink to="/edit/organization">
+                        <NavLink onClick={scrollTop} to="/edit/organization">
                             Voir le profil
                         </NavLink>
                     </li>

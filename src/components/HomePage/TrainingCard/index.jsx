@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { scrollTop } from '../../../utils';
 
 /**
  * TrainingCard component
@@ -41,6 +42,7 @@ export default function TrainingCard({
                 <Link
                     to={`/training/${trainingId}`}
                     aria-label="Lien vers la formation"
+                    onClick={scrollTop}
                 >
                     <img
                         src={`https://res.cloudinary.com/${
@@ -54,6 +56,7 @@ export default function TrainingCard({
                     <Link
                         to={`/training/${trainingId}`}
                         aria-label="Lien vers la formation"
+                        onClick={scrollTop}
                     >
                         <h5>{label}</h5>
                     </Link>
@@ -62,6 +65,7 @@ export default function TrainingCard({
                             to={`/organization/${organizationId}`}
                             className="flex gap-2 items-center"
                             aria-label="Lien vers l'organisation"
+                            onClick={scrollTop}
                         >
                             <span className="material-symbols-rounded">
                                 school
@@ -72,6 +76,7 @@ export default function TrainingCard({
                             to={`/search?category=${category}&id=${categoryId}`}
                             className="flex gap-2 items-center"
                             aria-label="Lien vers la catégorie"
+                            onClick={scrollTop}
                         >
                             <span className="material-symbols-rounded">
                                 sell
@@ -120,6 +125,7 @@ export default function TrainingCard({
                         to={`/training/${trainingId}`}
                         className="button filled"
                         aria-label="Voir la formation"
+                        onClick={scrollTop}
                     >
                         Voir la formation
                     </Link>
