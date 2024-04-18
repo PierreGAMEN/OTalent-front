@@ -5,68 +5,71 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        @apply bg-primary-background text-black leading-5 m-0 p-0 scroll-smooth;
-    }
+  :root {
+    @apply bg-primary-background text-primary-text leading-5 m-0 p-0 scroll-smooth;
+  }
 
-    #root {
-        @apply min-h-screen flex flex-col justify-between;
-    }
+  #root {
+    @apply min-h-screen flex flex-col justify-between;
+  }
 
-    html {
-        font-family: 'Poppins', 'Roboto', system-ui, sans-serif;       
-    }
+  html {
+    font-family: 'Poppins', 'Roboto', system-ui, sans-serif;
+  }
 
-    ::-webkit-scrollbar {
-        margin-top: 4px;
-        width: 6px;
-        height: 4px;
-    }
+  ::-webkit-scrollbar {
+    margin-top: 4px;
+    width: 12px;
+    height: 4px;
+  }
 
-    ::-webkit-scrollbar-track {
-        background-color: #20635446;
-        border-radius: 12px;
-    }
+  ::-webkit-scrollbar-track {
+    background-color: #20635446;
+    border-radius: 12px;
+  }
 
-    ::-webkit-scrollbar-thumb {
-        background-color: #0f6944;
-        border-radius: 12px;
-    }
+  ::-webkit-scrollbar-thumb {
+    background-color: #206354;
+    border-radius: 12px;
+  }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        @apply font-extrabold;
-    }
-    h1 {
-        @apply text-4xl ml-5;
-    }
-    h2 {
-        @apply text-9xl text-white;
-    }
-    h3 {
-        @apply p-5 text-4xl sm:text-6xl text-primary-color text-center sm:p-24 uppercase;
-    }
-    h4 {
-        @apply text-3xl uppercase;
-    }
-    h5 {
-        @apply text-lg;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-extrabold;
+  }
+  h1 {
+    @apply text-2xl lg:text-4xl ml-5;
+  }
+  h2 {
+    @apply text-9xl text-white;
+  }
+  h3 {
+    @apply p-5 text-4xl sm:text-6xl text-secondary-text text-center sm:p-24 uppercase;
+  }
+  h4 {
+    @apply text-3xl uppercase;
+  }
+  h5 {
+    @apply text-lg;
+  }
 }
 
 @layer components {
-    .button {
-        @apply m-2 p-2 border-4 bg-primary-color border-primary-color text-white rounded-2xl uppercase font-bold text-lg text-center cursor-pointer transition-all duration-300 ease-in-out;
-    }
+  .button {
+    @apply m-2 p-2 border-4 bg-primary-color border-primary-color text-white rounded-2xl uppercase font-bold text-lg text-center cursor-pointer transition-all duration-300 ease-in-out;
+  }
 
-    .filled {
-        @apply bg-primary-color text-white hover:bg-transparent hover:text-primary-color;
-    }
+  .filled {
+    @apply bg-primary-color text-white hover:bg-transparent hover:text-primary-color;
+  }
 
-    .outlined {
-        @apply bg-white text-primary-color hover:bg-transparent hover:text-white hover:border-white;
-    }
+  .outlined {
+    @apply bg-white text-primary-color hover:bg-transparent hover:text-white hover:border-white;
+  }
+  .material-symbols-rounded {
+    @apply text-primary-text;
+  }
 }

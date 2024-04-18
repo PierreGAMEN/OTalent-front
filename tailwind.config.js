@@ -23,6 +23,8 @@ export default {
       "accent-color":"#3FB099",
       "primary-background":"#FFFFFF",
       "secondary-background":"#FDF6E2",
+      "primary-text":"#174a3f",
+      "secondary-text":"#206354",
     },},
   },
 
@@ -30,7 +32,22 @@ export default {
   require('tailwindcss'),
   require('autoprefixer'),],
   daisyui: {
-    themes: ["light"],
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["light"],
+          ".btn":{
+            "color": "white",
+          },
+          ".btn.btn-error.btn-outline:hover": {
+            "color": "white",
+          },
+          ".btn.material-symbols-rounded":{
+            "color": "#174a3f",
+          },
+        },
+      },
+    ],
   }
 }
 

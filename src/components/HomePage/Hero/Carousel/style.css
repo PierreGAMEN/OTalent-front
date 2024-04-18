@@ -1,22 +1,23 @@
 .swiper {
-    width: 70%;
-    height: auto;
+  width: 70%;
+  height: auto;
 }
 
 .swiper-slide {
-    width: 80%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 18px;
-    filter: blur(4px);
+  width: 80%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  filter: blur(4px);
 }
 
 .swiper-slide-active {
-    filter: blur(0);
+  filter: blur(0);
 }
 
 .swiper-slide img {
-    object-fit: cover;
+  object-fit: cover;
+  border-radius: 5%;
 }
