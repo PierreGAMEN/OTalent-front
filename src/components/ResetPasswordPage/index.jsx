@@ -87,45 +87,47 @@ const ResetPassword = () => {
         getPrankTrainings();
     }, []);
     return (
-        <div className="flex justify-center">
-            <div className="flex flex-col items-center">
+        <div className="flex justify-center w-full">
+            <div className="flex flex-col items-center w-full">
                 {!buttonToAccesFormConnection && (
                     <form className="modal-box">
-                        <h4>Vous avez oublié votre mot de passe ?</h4>
-                        <div className="divider"></div>
-                        <label
-                            className="input input-bordered flex items-center gap-4 mb-5"
-                            htmlFor="">
-                            Nouveau mot de passe :
-                            <input
-                                className=""
-                                onChange={(e) => {
-                                    handleChange(e, setPassword);
-                                }}
-                                type="password"
-                                value={newPassword}
-                            />
-                        </label>
-                        <label
-                            className="input input-bordered flex items-center gap-4 mb-5"
-                            htmlFor="">
-                            Confirmez :
-                            <input
-                                onChange={(e) => {
-                                    handleChange(e, setConfirmNewPassword);
-                                }}
-                                type="password"
-                                value={confirmNewPassword}
-                            />
-                        </label>
-                        <div className="flex justify-center">
-                            <button
-                                onClick={handleSubmit}
-                                className="btn bg-green-600 text-white">
-                                Changer votre mot de passe
-                            </button>
-                        </div>
-                    </form>
+                    <h4 className='text-xl md:text-3xl'>Vous avez oublié votre mot de passe ?</h4>
+                    <div className="divider"></div>
+                    <div className="flex justify-center mb-5">
+                        {/* Input pour le nouveau mot de passe */}
+                        <input
+                            className="input input-bordered text-center"
+                            type="password"
+                            placeholder="Nouveau mot de passe"
+                            onFocus={(e) => e.target.placeholder = ''}
+                            onBlur={(e) => e.target.placeholder = 'Nouveau mot de passe'}
+                            onChange={(e) => {
+                                handleChange(e, setPassword);
+                            }}
+                            value={newPassword}
+                        />
+                    </div>
+                    <div className="flex justify-center mb-5">
+                        <input
+                            className="input input-bordered text-center"
+                            type="password"
+                            placeholder="Confirmez le nouveau mot de passe"
+                            onFocus={(e) => e.target.placeholder = ''}
+                            onBlur={(e) => e.target.placeholder = 'Confirmez le nouveau mot de passe'}
+                            onChange={(e) => {
+                                handleChange(e, setConfirmNewPassword);
+                            }}
+                            value={confirmNewPassword}
+                        />
+                    </div>
+                    <div className="flex justify-center">
+                        <button
+                            onClick={handleSubmit}
+                            className="btn bg-green-600 text-white">
+                            Changer votre mot de passe
+                        </button>
+                    </div>
+                </form>
                 )}
                 {buttonToAccesFormConnection && (
                     <div className="modal-box">
@@ -140,11 +142,11 @@ const ResetPassword = () => {
                 <div className="divider"></div>
                 {isLoading && (
                     <>
-                        <h4 className="mb-5">
+                        <h4 className="text-xl md:text-3xl mb-5  text-center">
                             Pour éviter que celà recommence, O'Talent vous
                             recommande...
                         </h4>
-                        <div className="flex gap-5 mb-5">
+                        <div className="flex flex-col md:flex-row gap-5 mb-5">
                             <TrainingCard
                                 key={trainingPrank.data.training1.id}
                                 dateCreated={
