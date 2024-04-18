@@ -145,7 +145,7 @@ export default function ReviewTrainingPage({ data }) {
                                             Le{' '}
                                             {handleDateFormat(
                                                 review.created_at ||
-                                                Date.now()
+                                                Date.now().toString()
                                             )}
                                         </p>
                                         </div>
