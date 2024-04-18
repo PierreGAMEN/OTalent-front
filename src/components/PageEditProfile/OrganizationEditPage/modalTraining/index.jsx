@@ -356,7 +356,8 @@ const ModalTraining = () => {
                                         <button
                                             id={index}
                                             onClick={deletePrerequisite}
-                                            className="ml-4 material-symbols-rounded">
+                                            className="ml-4 material-symbols-rounded"
+                                            aria-label='Supprimer ce pré-requis'>
                                             delete
                                         </button>
                                     </div>
@@ -383,7 +384,8 @@ const ModalTraining = () => {
                                         <button
                                             id={index}
                                             onClick={deleteProgram}
-                                            className="ml-4 material-symbols-rounded">
+                                            className="ml-4 material-symbols-rounded"
+                                            aria-label='Supprimer cet item de votre programme'>
                                             delete
                                         </button>
                                     </div>

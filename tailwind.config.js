@@ -25,6 +25,7 @@ export default {
       "secondary-background":"#FDF6E2",
     },},
   },
+
   plugins: [require("daisyui"),
   require('tailwindcss'),
   require('autoprefixer'),],
