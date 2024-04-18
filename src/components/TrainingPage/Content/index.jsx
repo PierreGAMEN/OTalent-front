@@ -47,9 +47,9 @@ export default function ContentTrainingPage({ data }) {
     return (
         <>
             <h3>Détails de la formation</h3>
-            <section className="flex flex-col items-center md:items-start lg:flex-row min-h-96 md:justify-center align-start gap-5 m-5 text-2xl lg:text-lg">
+            <section className="flex flex-col items-center md:items-start lg:flex-row min-h-96 md:justify-center align-start gap-5 m-5 text-lg">
                 <div className="flex flex-col sm:max-lg:w-full">
-                    <ul className="flex lg:block w-full justify-evenly">
+                    <ul className="flex flex-wrap md:flex-nowrap lg:block w-full justify-evenly">
                         {buttons.map((button) => (
                             <li
                                 key={button.text}
@@ -75,14 +75,14 @@ export default function ContentTrainingPage({ data }) {
                     </ul>
                 </div>
 
-                <div className="flex flex-col sm:max-lg:mt-10 w-full align-center justify-start min-h-96 text-2xl lg:text-lg lg:w-1/3 gap-5">
+                <div className="flex flex-col sm:max-lg:mt-10 w-full align-center justify-start min-h-96 text-lg lg:w-1/3 gap-5">
                     {isProgram && (
                         <>
                             <h4>Description</h4>
-                            <p className="content-trainingpage-text-p">
+                            <p className="content-trainingpage-text-p text-justify">
                                 {data.description}
                             </p>
-                            <h4 className='sm:max-lg:mt-10'>Programme</h4>
+                            <h4 className='sm:max-md:mt-10'>Programme</h4>
                             <ul>
                                 {JSON.parse(data.program).map(
                                     (element, index) => (
