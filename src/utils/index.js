@@ -157,3 +157,11 @@ export const handleDateFormat = (dateString) => {
         return 'Invalid Date';
     }
 };
+
+
+export const scrollTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+}

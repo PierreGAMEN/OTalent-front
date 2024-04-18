@@ -74,14 +74,14 @@ export default function HeaderTrainingPage({ data }) {
 
     return (
         <header
-            className="flex lg:h-screen flex-row items-center justify-center lg:justify-start gap-3 p-10 bg-no-repeat lg:bg-cover bg-center"
+            className="flex lg:h-screen flex-row items-center justify-center lg:justify-start gap-3 p-10 bg-no-repeat lg:bg-cover text-white bg-center"
             style={{
                 backgroundImage: `url(https://res.cloudinary.com/${
                     import.meta.env.VITE_CDNY_CLOUDNAME
                 }/image/upload/c_scale,w_1920,h_1080/v1/otalent/${data.image})`,
             }}>
-            <div className="flex flex-col min-w-96 max-w-screen-sm justify-between gap-5 bg-primary-background rounded-2xl p-5 border-4 border-primary-color">
-                <h4 className="">{data.label}</h4>
+            <div className="flex flex-col max-w-screen-sm justify-between gap-5 bg-transparent/50 backdrop-blur-md rounded-2xl p-2 md:p-5 border-4 border-white">
+                <h4 className="text-2xl">{data.label}</h4>
                 {data.reviews.length > 0 ? (
                     <div className="rating rating-md flex items-center">
                         <h5 className="ml-1 mr-1">{averageRating}/5</h5>
@@ -102,7 +102,7 @@ export default function HeaderTrainingPage({ data }) {
                         <p>Il n'y pas encore d'avis.</p>
                     </div>
                 )}
-                <h5 className="">{data.excerpt}</h5>
+                <p className="md:text-xl">{data.excerpt}</p>
                 <h4 className="flex items-center justify-center gap-2">
                     <span className="material-symbols-rounded text-4xl">
                         payments
@@ -114,7 +114,7 @@ export default function HeaderTrainingPage({ data }) {
                         onClick={(e) => addTrainingToFavorite(e)}
                         className="button filled"
                         id={data.id}>
-                        <h5 className="text-2xl flex flex-row justify-center gap-2 items-center">
+                        <h5 className="text-md md:text-xl flex flex-row justify-center gap-2 items-center">
                             Ajouter aux favoris
                             <span className="material-symbols-rounded text-4xl">
                                 favorite

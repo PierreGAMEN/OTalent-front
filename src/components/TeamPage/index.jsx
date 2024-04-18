@@ -6,8 +6,8 @@ import React from 'react';
 function AboutPage() {
     return (
         <>
-            <h3>Notre équipe</h3>
-            <div className="team-container p-5">
+            <h3 className='pb-10'>Notre équipe</h3>
+            <div className="team-container p-5 mb-20">
                 <div>
                     <div className="content">
                         <h4>Pierre Gamen</h4>

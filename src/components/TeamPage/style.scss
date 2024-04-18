@@ -72,3 +72,9 @@
         }
     }
 }
+
+@media (max-width: 767px) {
+    .team-container > div {
+        flex: 0 0 50px;
+    }
+}
