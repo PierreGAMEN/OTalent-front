@@ -135,13 +135,14 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
     return (
         <div className="relative pr-5 w-full">
             <div className="hidden lg:inline-block h-40 w-full bg-primary-color absolute top-0"></div>
-            <div className="flex flex-col items-center lg:flex-row w-full">
+            <div className="flex flex-col items-center xl:flex-row w-full">
                 <div className="modal-box flex flex-col items-center gap-3 w-full">
                     <button
                         onClick={() => {
                             setIsEdit(true);
                         }}
-                        className="material-symbols-rounded absolute top-4 right-10">
+                        className="material-symbols-rounded absolute top-4 right-10"
+                        aria-label='Modifier mes informations'>
                         edit
                     </button>
                     <div className="rounded-full">
@@ -192,7 +193,8 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                             onClick={() => {
                                 setEditCategories(true);
                             }}
-                            className="material-symbols-rounded absolute top-0 right-0">
+                            className="material-symbols-rounded absolute top-0 right-0"
+                            aria-label="Modifier mes catégories favorites">
                             edit
                         </button>
                         {favoriteCategories.map((categorie) => (
@@ -236,7 +238,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                         </div>
                     )}
                 </div>
-                <div className="mt-40 w-full">
+                <div className="mt-10 xl:mt-40 w-full flex justify-center">
                     <ReviewsEditProfilPageMember data={data} />
                 </div>
             </div>
@@ -338,7 +340,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                 <>
                     <dialog className="modal" open>
                         <form className="modal-box flex flex-col gap-2">
-                            <h5>Modification de vos catégories favoris</h5>
+                            <h5>Modification de vos catégories favorites</h5>
                             <select
                                 className="select select-bordered w-full max-w-xs"
                                 value={selectedCategory}
@@ -362,6 +364,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                                         key={categorie.id}>
                                         <button
                                             className="material-symbols-rounded"
+                                            aria-label="Supprimer cette catégorie de vos favoris"
                                             onClick={(e) => {
                                                 deleteCategorie(e);
                                             }}

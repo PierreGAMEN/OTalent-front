@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { requestWithVariable } from '../../../../utils';
+import { handleDateFormat, requestWithVariable } from '../../../../utils';
 import { queryDeleteReview, queryModifyReview } from '../../../../query';
 
 export default function ReviewsEditProfilPageMember({ data }) {
@@ -62,14 +62,38 @@ export default function ReviewsEditProfilPageMember({ data }) {
     };
 
     return (
-        <section className="flex flex-col items-center mr-12 w-9/10 lg:w-1/2 ml-12">
+        <section className="flex flex-col items-center mr-12 w-9/10 lg:w-2/3 ml-12">
           <div className='w-full'>
     
           <h4 className="mt-5 mb-5">Vos commentaires</h4>
-          <div className="flex flex-col gap-4 max-h-[500px] overflow-auto">
+          <div className="flex flex-col gap-4 lg:max-h-[500px] overflow-auto">
           {memberReviews && memberReviews.map((review) => (
             <div className="border border-primary-color h-full flex flex-col gap-2 relative rounded-md p-5 mr-5" key={review.id}>
+              <div className='mb-3'>
+              <div className='flex lg:block xl:flex justify-between'>
               <h5><a href={`/training/${review.training.id}`}>{review.training.label}</a></h5>
+              <div className='rating rating-md flex items-center'>
+                <span className='font-bold mr-2'>{review.rating}/5</span>
+                <div className='flex'>
+                  {[...Array(5)].map((_, i) => (
+                    <input
+                    key={i}
+                    className={
+                      review.rating >=
+                      i + 1
+                      ? 'mask mask-star-2 bg-orange-400 cursor-default'
+                      : "mask mask-star-2 bg-orange-400' checked bg-gray-300 cursor-default"
+                    }
+                    disabled></input>
+                  ))}
+                </div>
+              </div>
+              </div>
+              <span className='italic text-sm ml-2'>
+                Le{' '}
+                {handleDateFormat(review.created_at || Date.now().toString())}
+              </span>
+              </div>
               {editModeId === review.id ? (
                 <>
                   <textarea className="border h-20" value={review.comment} onChange={(e) => handleChange(e, review.id)} />
@@ -78,7 +102,7 @@ export default function ReviewsEditProfilPageMember({ data }) {
               ) : (
                 <>
                   <p>{review.comment}</p>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between mt-3">
                     <button type="button" className="btn hover:bg-green-600 hover:text-white" onClick={() => handleEditMode(review.id)}>Modifier</button>
                     <button type="button" className="btn hover:bg-red-500 hover:text-white" onClick={() => deleteComment(review.id)}>Supprimer</button>
                   </div>

@@ -82,7 +82,8 @@ export default function OrganizationTrainings({ data }) {
                                                         openModal(training.id);
                                                     }}
                                                     id={training.id}
-                                                    className="material-symbols-rounded">
+                                                    className="material-symbols-rounded"
+                                                    aria-label='Modifier cette formation'>
                                                     edit
                                                 </button>
                                                 <button
@@ -93,7 +94,8 @@ export default function OrganizationTrainings({ data }) {
                                                             true
                                                         );
                                                     }}
-                                                    className="material-symbols-rounded">
+                                                    className="material-symbols-rounded"
+                                                    aria-label='Supprimer cette formation'>
                                                     delete
                                                 </button>
                                             </div>
@@ -129,7 +131,7 @@ export default function OrganizationTrainings({ data }) {
                         </>
                     ) : (
                         <div>
-                            <p>Vous n'avez pas encore ajouté de formations disponnibles</p>
+                            <p>Vous n'avez pas encore ajouté de formations disponibles</p>
                         </div>
                     )}
                 </>

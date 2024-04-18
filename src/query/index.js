@@ -144,6 +144,7 @@ export const queryOneMember = `
         comment
         id
         rating
+        created_at
         training {
           label
           id

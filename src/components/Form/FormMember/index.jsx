@@ -67,7 +67,7 @@ export default function FormMember() {
             );
             const errorMessage = [
                 "la valeur d'une clé dupliquée rompt la contrainte unique « member_email_key »",
-                'duplicate key value violates unique constraint « member_email_key »',
+                'duplicate key value violates unique constraint "member_email_key"',
                 'This email is already used',
             ];
             if (
