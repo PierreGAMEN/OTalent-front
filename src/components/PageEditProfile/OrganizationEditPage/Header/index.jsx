@@ -89,7 +89,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                 modifyOrganizationId: user.id,
                 input: {
                     name: raisonSocial,
-                    email: email,
+                    email: email.toLowerCase(),
                     phoneNumber: phoneNumber,
                     address: address,
                     city: city,

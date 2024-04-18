@@ -46,7 +46,7 @@ export default function FormMember() {
             input: {
                 firstname: firstName,
                 lastname: lastName,
-                email: email,
+                email: email.toLowerCase(),
                 password: password,
                 postalCode: postalCode,
             },

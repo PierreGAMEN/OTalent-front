@@ -15,7 +15,7 @@ export const ForgottenPassword = () => {
         e.preventDefault();
         const variables = {
             input: {
-                email: email,
+                email: email.toLowerCase(),
             },
         };
 
