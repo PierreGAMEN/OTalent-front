@@ -1,6 +1,7 @@
 import LogoTitle from '../../../assets/LogoTitle';
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { scrollTop } from '../../../utils';
 
 const Footer = () => (
     <>
@@ -10,9 +11,7 @@ const Footer = () => (
                     <Link
                         to="/"
                         aria-label="Accueil"
-                        onClick={() => {
-                            window.scrollTo(0, 0);
-                        }}>
+                        onClick={scrollTop}>
                         <LogoTitle />
                         <p>© 2024 O'Talent. Tous droits réservés</p>
                     </Link>
@@ -43,7 +42,7 @@ const Footer = () => (
                     </div>
                     <div className="flex flex-col items-center leading-7">
                         <p className="mb-5 uppercase">A propos</p>
-                        <Link to="/team" aria-label="Notre équipe">
+                        <Link to="/team" aria-label="Notre équipe" onClick={scrollTop}>
                             Notre équipe
                         </Link>
                         <Link to="/" aria-label="Avis clients">
