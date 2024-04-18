@@ -85,8 +85,10 @@ export default function HeaderOrganizationEditPage({ data }) {
         return true;
     };
 
-    const updateOrganizationInformation = async () => {
+    const updateOrganizationInformation = async (e) => {
+        e.preventDefault()
         const check = verifyInformation();
+
         if (check) {
             const variables = {
                 modifyOrganizationId: user.id,
@@ -106,7 +108,7 @@ export default function HeaderOrganizationEditPage({ data }) {
                 queryUpdateOrganizationInformation,
                 variables
             );
-            location.reload();
+            // location.reload();
         }
     };
 
