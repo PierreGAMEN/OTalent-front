@@ -1,10 +1,10 @@
 import { useEffect, useRef, useCallback } from 'react';
 import WhitePath from '../../../assets/WhitePath';
-import ColoredPath from '../../../assets/ColoredPath';
 import React from 'react';
 import Treasure from '/public/assets/Treasure-bro';
 import Account from '/public/assets/Account-bro';
 import Typing from '/public/assets/Typing-bro';
+import ColoredPath from '/public/assets/ColoredPath';
 
 /**
  * Guide component displays a guide with a scrolling effect.
