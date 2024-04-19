@@ -169,6 +169,7 @@ export default function FormOrganization() {
 
   const getInformationFromSiret = async () => {
     const siretRegex = /^\d{14}$/;
+    setFormValues({ ...formValues, [siret]: formValues.siret.replace(/\s/g, '') })
     if (!siretRegex.test(formValues.siret.replace(/\s/g, ''))) {
       toast.error('Le numéro de SIRET doit contenir 14 chiffres');
       return false;

@@ -39,9 +39,9 @@ export default function OrganizationTrainings({ data }) {
   };
 
   return (
-    <section className="pl-10 mt-10">
-      <div className="flex flex-col justify-center">
-        <h4 className="m-5">Vos formations</h4>
+    <section className="sm:pl-10 sm:mt-10">
+      <div className="flex flex-col justify-center items-center sm:items-start">
+        <h4 className="sm:m-5">Vos formations</h4>
         <button
           onClick={openModalToCreateTraining}
           className="btn btn-success m-5 w-1/2 max-w-[400px] min-w-[300px]"
@@ -127,7 +127,7 @@ export default function OrganizationTrainings({ data }) {
               </div>
             </>
           ) : (
-            <div>
+            <div className='p-5 text-center sm:text-left'>
               <p>Vous n'avez pas encore ajouté de formations disponibles</p>
             </div>
           )}

@@ -4,7 +4,7 @@ import {
   useAppSelector,
 } from '../../../../store/redux-hook/hook';
 import { getstateModalEditTraining } from '../../../../store/actions/modalEditTrainingAction';
-import { requestWithVariable } from '../../../../utils';
+import { requestWithVariable, scrollTop } from '../../../../utils';
 import {
   queryCreateTraining,
   queryTrainingInformation,
@@ -65,9 +65,12 @@ const ModalTraining = () => {
   };
 
   const updateSetFormDataWithPrerequesite = () => {
+    if(prerequesiteCurrentValue.trim() === ""){
+      return false
+    }
     setFormData({
       ...formData,
-      prerequisites: [...formData.prerequisites, prerequesiteCurrentValue],
+      prerequisites: [...formData.prerequisites, prerequesiteCurrentValue.trim()],
     });
     setPrerequesiteCurrentValue('');
   };
@@ -78,9 +81,12 @@ const ModalTraining = () => {
   };
 
   const updateSetFormDataWithProgram = () => {
+    if(programCurrentValue.trim() === ""){
+      return false
+    }
     setFormData({
       ...formData,
-      program: [...formData.program, programCurrentValue],
+      program: [...formData.program, programCurrentValue.trim()],
     });
     setProgramCurrentValue('');
   };
@@ -248,6 +254,7 @@ const ModalTraining = () => {
   }, [trainingId]);
 
   const handleCloseModal = () => {
+    scrollTop()
     dispatch(getstateModalEditTraining({ isOpen: false, trainingId: null }));
     setFormData({
       title: '',
@@ -272,11 +279,11 @@ const ModalTraining = () => {
           open={isOpen}
         >
           <div className="modal-box max-w-none max-h-none">
-            <h4>Bienvenue chez O'Talent !</h4>
+            <h4 className='mb-3 text-center'>Bienvenue chez O'Talent !</h4>
             <div className="flex flex-col w-full border-opacity-50">
               <form className="flex flex-col gap-4">
                 <label className="input input-bordered flex items-center gap-2">
-                  Titre:
+                  <span className='material-symbols-rounded text-3xl'>title</span>
                   <input
                     required
                     className="grow"
@@ -284,21 +291,22 @@ const ModalTraining = () => {
                     name="title"
                     value={formData.title}
                     onChange={handleChange}
+                    placeholder='Titre'
                   />
                 </label>
-                <label className="input input-bordered flex gap-2 w-full max-h-none h-[100px] flex-col">
-                  Description:
+                <label className="block text-gray-700">
+                
                   <textarea
                     required
-                    className="w-[100%] max-h-none h-[80%]"
+                    className="textarea textarea-bordered mt-1 block w-full h-24 mb-5 min-h-[150px]"
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
+                    placeholder='Décrivez votre formation'
                   />
                 </label>
 
-                <label className="input input-bordered flex gap-2 w-full max-h-none h-20 flex-col">
-                  Catégorie:
+                <label className="input input-bordered flex items-center">
                   <select
                     className=""
                     value={formData.category.categoryLabel}
@@ -317,65 +325,65 @@ const ModalTraining = () => {
                   </select>
                 </label>
                 <label className="input input-bordered flex items-center gap-2">
-                  Durée (h):
+                <span className="material-symbols-rounded text-3xl">timer</span>
                   <input
                     className="grow"
                     type="number"
                     name="duration"
                     value={formData.duration}
                     onChange={handleChange}
+                    placeholder="Temps de la formation (h)"
                   />
                 </label>
 
+                <h5>Listes des prérequis</h5>
                 <label className="input input-bordered flex items-center gap-2">
-                  Prérequis:
-                  <textarea
+                <span className="material-symbols-rounded text-3xl">list</span>
+                  <input
                     className="w-full h-full"
                     name="prerequisites"
                     value={prerequesiteCurrentValue}
                     onChange={handleChangePrerequesite}
-                  />
+                    placeholder='Prérequis'
+                    />
                 </label>
-                <button
+                    {formData.prerequisites.map((prerequisite, index) => (
+                      <div key={index} className="flex items-center">
+                        
+                        <button
+                          id={index}
+                          onClick={deletePrerequisite}
+                          className="ml-4 material-symbols-rounded text-red-600"
+                          aria-label="Supprimer ce pré-requis"
+                          type="button"
+                        >
+                          delete
+                        </button>
+                        {prerequisite}
+                      </div>
+                    ))}
+                <button 
+                  type="button"
                   onClick={updateSetFormDataWithPrerequesite}
                   className="btn btn-success"
                 >
                   Ajouter le prérequis à la liste
                 </button>
-                <h4>Listes des prérequis</h4>
-                {formData.prerequisites.map((prerequisite, index) => (
-                  <div key={index} className="flex items-center">
-                    {prerequisite}
-                    <button
-                      id={index}
-                      onClick={deletePrerequisite}
-                      className="ml-4 material-symbols-rounded text-red-600"
-                      aria-label="Supprimer ce pré-requis"
-                    >
-                      delete
-                    </button>
-                  </div>
-                ))}
 
+                <h5>Listes du programme</h5>
                 <label className="input input-bordered flex items-center gap-2">
-                  Programme:
-                  <textarea
+                <span className="material-symbols-rounded text-3xl">list</span>
+                  <input
                     className="w-full h-full"
                     name="program"
                     value={programCurrentValue}
                     onChange={handleChangeProgram}
+                    placeholder='Programme'
                   />
                 </label>
-                <button
-                  onClick={updateSetFormDataWithProgram}
-                  className="btn btn-success"
-                >
-                  Ajouter un programme à la liste
-                </button>
-                <h4>Listes du programme</h4>
                 {formData.program.map((prog, index) => (
                   <div key={index} className="flex items-center">
-                    {prog}
+                    
                     <button
                       id={index}
                       onClick={deleteProgram}
@@ -384,10 +392,18 @@ const ModalTraining = () => {
                     >
                       delete
                     </button>
+                    {prog}
                   </div>
                 ))}
+                <button
+                  onClick={updateSetFormDataWithProgram}
+                  className="btn btn-success"
+                  type="button"
+                >
+                  Ajouter un programme à la liste
+                </button>
                 <label className="input input-bordered flex items-center gap-2">
-                  Prix:
+                <span className="material-symbols-rounded text-3xl">euro</span>
                   <input
                     required
                     className="grow"
@@ -395,10 +411,11 @@ const ModalTraining = () => {
                     name="price"
                     value={formData.price}
                     onChange={handleChange}
+                    placeholder='Prix'
                   />
                 </label>
                 <label className="input input-bordered flex items-center gap-2">
-                  Résumé:
+                <span className="material-symbols-rounded text-5xl">abc</span>
                   <input
                     required
                     className="grow"
@@ -406,10 +423,11 @@ const ModalTraining = () => {
                     name="excerpt"
                     value={formData.excerpt}
                     onChange={handleChange}
+                    placeholder='Résumé de la formation'
                   />
                 </label>
                 <label className="input input-bordered flex items-center gap-2">
-                  Date de début:
+                <span className="material-symbols-rounded text-3xl">event</span>
                   <input
                     required
                     className=""
@@ -417,10 +435,12 @@ const ModalTraining = () => {
                     name="startingDate"
                     value={formData.startingDate}
                     onChange={handleChange}
+                    placeholder='Date de début'
                   />
                 </label>
+                <p className='text-center sm:text-left sm:ml-10'>au</p>
                 <label className="input input-bordered flex items-center gap-2">
-                  Date de fin:
+                <span className="material-symbols-rounded text-3xl">event</span>
                   <input
                     required
                     className=""
@@ -428,6 +448,7 @@ const ModalTraining = () => {
                     name="endingDate"
                     value={formData.endingDate}
                     onChange={handleChange}
+                    placeholder='Date de fin'
                   />
                 </label>
                 <ImageUpload />
