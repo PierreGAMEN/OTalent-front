@@ -112,7 +112,7 @@ export default function HeaderOrganizationEditPage({ data }) {
         queryUpdateOrganizationInformation,
         variables
       );
-      // location.reload();
+      location.reload();
     }
   };
 
@@ -246,27 +246,20 @@ export default function HeaderOrganizationEditPage({ data }) {
                       />
                     </label>
                   </div>
-                  <div className="mt-4">
-                    <label className="block text-gray-700">Description :</label>
-                    <textarea
-                      className="textarea textarea-bordered mt-1 block w-full h-24 mb-5"
-                      onChange={e => handleChange(e, setDescription)}
-                      value={description}
-                    />
-                  </div>
+                  
                   <ImageUpload />
                   <div className="mt-5 flex flex-col gap-2">
-                    <button
+                    <button type="button"
                       className="btn btn-success"
                       onClick={updateOrganizationInformation}
                     >
                       Valider les modifications
                     </button>
-                    <button
+                    <button type="button"
                       className="btn btn-outline btn-error"
                       onClick={() => setIsEdit(false)}
                     >
-                      Annuler les modifications
+                      Quitter l'éditeur
                     </button>
                   </div>
                 </form>
@@ -275,7 +268,7 @@ export default function HeaderOrganizationEditPage({ data }) {
           ) : (
             <>
               <div></div>
-              <div className="modal-box flex flex-col items-center gap-3 max-h-min">
+              <div className="modal-box flex flex-col gap-3 max-h-min sm:items-center">
                 <button
                   className="material-symbols-rounded absolute top-4 right-10"
                   aria-label="Modifier mes informations"
@@ -361,41 +354,36 @@ export default function HeaderOrganizationEditPage({ data }) {
                 )}
               </div>
               
-              {/* {descriptionIsEdit && 
+              {descriptionIsEdit && 
               <>
               <div className="p-10 flex flex-col md:flex-row md:justify-around items-start md:items-center">
               <dialog className="modal" open>
                 <form className="modal-box overflow-auto">
-                  <div className="mt-4">
-                    <label className="input input-bordered flex border border-black items-center gap-2">
-                      <span className="material-symbols-rounded text-2xl">
-                        store
-                      </span>
-                      <input
-                        className="grow"
-                        onChange={e => handleChange(e, setRaisonSocial)}
-                        type="text"
-                        value={raisonSocial}
-                        placeholder="Raison sociale"
-                      />
-                    </label>
+                <div className="mt-4">
+                    <label className="block text-gray-700">Description :</label>
+                    <textarea
+                      className="textarea textarea-bordered mt-1 block w-full h-24 mb-5 min-h-[150px]"
+                      onChange={e => handleChange(e, setDescription)}
+                      value={description}
+                    />
                   </div>
-                <button
-                      className="btn btn-success"
+                <button type="button"
+                      className="btn btn-success w-full mb-3"
                       onClick={updateOrganizationInformation}
                     >
                       Valider les modifications
                     </button>
                     <button
-                      className="btn btn-outline btn-error"
-                      onClick={() => setIsEdit(false)}
+                      type="button"
+                      className="btn btn-outline btn-error w-full"
+                      onClick={() => setDescriptionIsEdit(false)}
                     >
-                      Annuler les modifications
+                      Quitter l'éditeur
                     </button>
                     </form>
                     </dialog>
                     </div>
-                </>} */}
+                </>}
               <div className="ml-3 p-10 mt-10 lg:text-base lg:ml-12 lg:mt-60 lg:w-1/2">
                 <div className="flex justify-between">
                   <h4 className="mb-3">Votre Description :</h4>
