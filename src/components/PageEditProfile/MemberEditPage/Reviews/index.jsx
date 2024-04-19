@@ -94,10 +94,7 @@ export default function ReviewsEditProfilPageMember({ data }) {
                     </div>
                   </div>
                   <span className="italic text-sm ml-2">
-                    Le{' '}
-                    {handleDateFormat(
-                      review.created_at || Date.now().toString()
-                    )}
+                    Le {handleDateFormat(review.created_at || Date.now())}
                   </span>
                 </div>
                 {editModeId === review.id ? (
