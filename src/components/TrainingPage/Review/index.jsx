@@ -133,7 +133,10 @@ export default function ReviewTrainingPage({ data }) {
                     <div>
                       <h5 className="md:text-md">{review.member.firstname}</h5>
                       <p className="md:text-xs italic">
-                        Le {handleDateFormat(review.created_at || Date.now())}
+                        Le{' '}
+                        {handleDateFormat(
+                          review.created_at || Date.now()
+                        )}
                       </p>
                     </div>
                     <div className="flex flex-col justify-center items-center">
