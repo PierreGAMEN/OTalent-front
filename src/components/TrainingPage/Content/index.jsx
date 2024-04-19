@@ -8,7 +8,7 @@ export default function ContentTrainingPage({ data }) {
     const [isOrganization, setIsOrganization] = useState(false);
     const [isPrerequisite, setIsPrerequisite] = useState(false);
 
-    console.log('test');
+
 
     const handleClick = (
         setterTrue,

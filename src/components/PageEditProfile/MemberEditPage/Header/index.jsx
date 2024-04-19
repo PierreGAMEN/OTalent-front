@@ -126,7 +126,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
       setIsEdit(false);
       location.reload();
     } catch (error) {
-      console.log(error);
+      throw new Error
     }
   };
 
