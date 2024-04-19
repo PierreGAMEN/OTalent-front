@@ -5,7 +5,7 @@ import React from 'react';
  * @returns {tsX.Element} The LogoTitle component
  */
 const LogoTitle = () => (
-    <div className="inline-flex items-center text-white">
+    <div className="flex inline-flex items-center text-white">
         <svg
             width="40"
             viewBox="0 0 23 29"

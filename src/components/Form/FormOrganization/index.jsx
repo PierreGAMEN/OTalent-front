@@ -62,7 +62,7 @@ export default function FormOrganization() {
         address: formValues.adresse,
         city: formValues.ville,
         postalCode: formValues.codePostal,
-        siret: formValues.siret,
+        siret: formValues.siret.replace(/\s/g, ''),
         image: uploadImage,
       },
     };

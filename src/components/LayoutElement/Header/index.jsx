@@ -12,7 +12,7 @@ import { queryAllCategories } from '../../../query';
 import Navbar from './ModalProfile';
 import ConnectionFormModal from './ConnectionFormModal';
 import SearchBar from './SearchBar';
-import LogoTitle from '../../../assets/LogoTitle';
+import LogoTitle from '/public/assets/LogoTitle';
 
 import Chat from '../Chat';
 import ModalSearchBar from './modalSearchBar';
