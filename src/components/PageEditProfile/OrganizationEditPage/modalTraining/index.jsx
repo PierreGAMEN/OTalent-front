@@ -295,10 +295,9 @@ const ModalTraining = () => {
                   />
                 </label>
                 <label className="block text-gray-700">
-                
                   <textarea
                     required
-                    className="textarea textarea-bordered mt-1 block w-full h-24 mb-5 min-h-[150px]"
+                    className="border mt-1 block w-full mb-5 h-[150px] min-h-min p-1"
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
