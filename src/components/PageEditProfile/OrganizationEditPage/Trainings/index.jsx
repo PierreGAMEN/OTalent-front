@@ -13,6 +13,7 @@ export default function OrganizationTrainings({ data }) {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector(state => state.editTraining.isOpen);
   const [openModalAcceptToDelete, setOpenModalAcceptToDelete] = useState(false);
+  const [trainingToDelete, setTrainingToDelete] = useState(null);
 
   const openModal = trainingId => {
     dispatch(
@@ -87,7 +88,7 @@ export default function OrganizationTrainings({ data }) {
                         <button
                           id={training.id}
                           onClick={() => {
-                            setOpenModalAcceptToDelete(true);
+                            setTrainingToDelete(training.id);
                           }}
                           className="material-symbols-rounded"
                           aria-label="Supprimer cette formation"
@@ -95,7 +96,7 @@ export default function OrganizationTrainings({ data }) {
                           delete
                         </button>
                       </div>
-                      {openModalAcceptToDelete && (
+                      {trainingToDelete === training.id && (
                         <div>
                           <p>
                             Voulez-vous vraiment supprimer cette formation ?
@@ -111,7 +112,7 @@ export default function OrganizationTrainings({ data }) {
                           </button>
                           <button
                             onClick={() => {
-                              setOpenModalAcceptToDelete(false);
+                              setTrainingToDelete(null);
                             }}
                             className="btn btn-active"
                             >

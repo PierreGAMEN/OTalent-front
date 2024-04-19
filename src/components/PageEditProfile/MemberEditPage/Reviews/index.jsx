@@ -5,11 +5,10 @@ import { queryDeleteReview, queryModifyReview } from '../../../../query';
 export default function ReviewsEditProfilPageMember({ data }) {
   const [memberReviews, setMemberReviews] = useState(data.reviews);
   const [editModeId, setEditModeId] = useState(null);
+  const [activeStar, setActiveStar] = useState(0);
 
   const deleteComment = async idToDelete => {
-    const newComments = memberReviews.filter(
-      comment => comment.id !== idToDelete
-    );
+    const newComments = memberReviews.filter(comment => comment.id !== idToDelete);
     setMemberReviews(newComments);
     const variables = {
       deleteReviewId: idToDelete,
@@ -17,12 +16,12 @@ export default function ReviewsEditProfilPageMember({ data }) {
     await requestWithVariable(queryDeleteReview, variables);
   };
 
-  const handleChange = async (e, id) => {
+  const handleChange = async (e, id, field) => {
     const value = e.target.value;
 
     const updatedReviews = memberReviews.map(review => {
       if (review.id === id) {
-        return { ...review, comment: value };
+        return { ...review, [field]: field === 'rating' ? parseInt(value) : value };
       }
       return review;
     });
@@ -33,12 +32,18 @@ export default function ReviewsEditProfilPageMember({ data }) {
     setEditModeId(id);
   };
 
-  const saveChanges = async (id, newComment) => {
+  const handleStarClick = star => {
+    setActiveStar(star);
+    setNoteSelected(star);
+  };
+
+  const saveChanges = async (id, newComment, newRating) => {
     try {
       const variables = {
         modifyReviewId: id,
         input: {
           comment: newComment,
+          rating: newRating,
         },
       };
 
@@ -46,7 +51,7 @@ export default function ReviewsEditProfilPageMember({ data }) {
 
       const updatedReviews = memberReviews.map(review => {
         if (review.id === id) {
-          return { ...review, comment: newComment };
+          return { ...review, comment: newComment, rating: newRating };
         }
         return review;
       });
@@ -82,6 +87,7 @@ export default function ReviewsEditProfilPageMember({ data }) {
                         {[...Array(5)].map((_, i) => (
                           <input
                             key={i}
+                            type="button"
                             className={
                               review.rating >= i + 1
                                 ? 'mask mask-star-2 bg-orange-400 cursor-default'
@@ -102,11 +108,25 @@ export default function ReviewsEditProfilPageMember({ data }) {
                     <textarea
                       className="border h-20"
                       value={review.comment}
-                      onChange={e => handleChange(e, review.id)}
+                      onChange={e => handleChange(e, review.id, 'comment')}
                     />
+                    <div className="rating">
+                  {[1, 2, 3, 4, 5].map((star, index) => (
+                    <input
+                      key={index}
+                      type="radio"
+                      name="rating-2"
+                      className={`mask mask-star-2 ${
+                        star <= activeStar ? 'bg-orange-400' : 'bg-gray-300'
+                      }`}
+                      checked={star === activeStar}
+                      onChange={() => handleStarClick(star)}
+                    />
+                  ))}
+                </div>
                     <button
                       className="btn btn-success"
-                      onClick={() => saveChanges(review.id, review.comment)}
+                      onClick={() => saveChanges(review.id, review.comment, review.rating)}
                     >
                       Enregistrer
                     </button>
