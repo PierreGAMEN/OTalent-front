@@ -78,11 +78,11 @@ export default function ContentTrainingPage({ data }) {
                 <div className="flex flex-col sm:max-lg:mt-10 w-full align-center justify-start min-h-96 text-lg lg:w-1/3 gap-5">
                     {isProgram && (
                         <>
-                            <h4>Description</h4>
+                            <h4 className='text-center sm:text-left text-2xl sm:text-3xl'>Description</h4>
                             <p className="content-trainingpage-text-p text-justify">
                                 {data.description}
                             </p>
-                            <h4 className='sm:max-md:mt-10'>Programme</h4>
+                            <h4 className='sm:max-md:mt-10 text-center sm:text-left text-2xl sm:text-3xl'>Programme</h4>
                             <ul>
                                 {JSON.parse(data.program).map(
                                     (element, index) => (
@@ -94,11 +94,11 @@ export default function ContentTrainingPage({ data }) {
                     )}
                     {isDuration && (
                         <>
-                            <h4>Durée de la formation</h4>
+                            <h4 className='text-center sm:text-left text-2xl sm:text-3xl'>Durée de la formation</h4>
                             <p className="content-trainingpage-text-p">
                                 Temps de formation : {data.duration} heures
                             </p>
-                            <h4>Dates de la prochaine session</h4>
+                            <h4 className='text-center sm:text-left text-2xl sm:text-3xl'>Dates de la prochaine session</h4>
                             <p className="content-trainingpage-text-p">
                                 Date de début :{' '}
                                 {handleDateFormat(data.dates[0])}
@@ -111,7 +111,7 @@ export default function ContentTrainingPage({ data }) {
                     )}
                     {isOrganization && (
                         <>
-                            <h4>Informations de l'organisme</h4>
+                            <h4 className='text-center sm:text-left text-2xl sm:text-3xl'>Informations de l'organisme</h4>
                             <p className="content-trainingpage-text-p">
                                 Nom de l'organisme :{' '}
                                 <a
@@ -151,7 +151,7 @@ export default function ContentTrainingPage({ data }) {
                     )}
                     {isPrerequisite && (
                         <>
-                            <h4>Prérequis</h4>
+                            <h4 className='text-center sm:text-left text-2xl sm:text-3xl'>Prérequis</h4>
                             <ol>
                                 {JSON.parse(data.prerequisites).map(
                                     (element) => (

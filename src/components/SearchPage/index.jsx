@@ -21,9 +21,6 @@ export default function SearchPage() {
     const term = params.get('term');
     const id = params.get('id');
     const area = params.get('area');
-    console.log(area);
-    console.log(term);
-
     const getTrainingFromAreaFirst = async () => {
         if (area) {
             const variables = {
@@ -66,22 +63,16 @@ export default function SearchPage() {
     return (
         <>
             <div className="container-search">
-                {categorie && term && (
-                    <h5 className="mb-5">
-                        Résultats de la recherche "{term}" dans la catégorie "
-                        {categorie}"
-                    </h5>
-                )}
-                {categorie && !term && (
-                    <h5 className="mb-5">
-                        Résultats de la recherche "{categorie}"
-                    </h5>
-                )}
-                {term && !categorie && (
-                    <h5>Résultats de la recherche "{term}"</h5>
-                )}
-
-                <div className="container-search-card">
+                <h4 className='mb-5 ml-5 text-xl sm:text-3xl'>
+                    Résultats de la recherche "{term}"
+                    {categorie ? (
+                        <span> pour la catégorie {categorie}</span>
+                    ) : null}
+                    {area ? (
+                        <span> dans la région {area}</span>
+                    ) : null}
+                </h4>
+                <div className="container-search-card mb-5">
                     {categorie &&
                         !term &&
                         dataFetch &&

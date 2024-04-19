@@ -51,6 +51,9 @@ export default {
           ".btn.material-symbols-rounded":{
             "color": "#174a3f",
           },
+          ".btn.btn-active": {
+            "color": "black"
+          }
         },
       },
     ],

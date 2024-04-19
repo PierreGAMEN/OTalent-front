@@ -57,7 +57,7 @@ export default function ContentOrganizationProfilPage({ data }) {
                         <>
                         <div className='w-full flex flex-col lg:items-center'>
                             <div className='lg:w-3/5'>
-                            <h4 className='lg:mt-10 mt-5 mb-5 text-xl md:text-3xl'>Description de l'école</h4>
+                            <h4 className='lg:mt-10 mt-5 mb-5 text-xl text-center sm:text-left md:text-3xl'>Description de l'école</h4>
                             <p className='content-trainingpage-text-p text-justify'>{data.description}</p>
                             </div>
                         </div>
