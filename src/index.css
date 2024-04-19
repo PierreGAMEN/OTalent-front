@@ -6,7 +6,7 @@
 
 @layer base {
     :root {
-        @apply bg-primary-background text-black leading-5 m-0 p-0 scroll-smooth;
+        @apply bg-primary-background text-primary-text leading-5 m-0 p-0 scroll-smooth;
     }
 
     #root {
@@ -14,12 +14,12 @@
     }
 
     html {
-        font-family: 'Poppins', 'Roboto', system-ui, sans-serif;       
+        font-family: 'Poppins', 'Roboto', system-ui, sans-serif;
     }
 
     ::-webkit-scrollbar {
         margin-top: 4px;
-        width: 6px;
+        width: 12px;
         height: 4px;
     }
 
@@ -29,7 +29,7 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        background-color: #0f6944;
+        background-color: #206354;
         border-radius: 12px;
     }
 
@@ -41,13 +41,13 @@
         @apply font-extrabold;
     }
     h1 {
-        @apply text-4xl ml-5;
+        @apply text-2xl lg:text-4xl ml-5;
     }
     h2 {
         @apply text-9xl text-white;
     }
     h3 {
-        @apply p-5 text-4xl sm:text-6xl text-primary-color text-center lg:p-24 uppercase;
+        @apply p-5 text-4xl sm:text-6xl text-secondary-text text-center sm:p-24 uppercase;
     }
     h4 {
         @apply text-3xl uppercase;
@@ -68,5 +68,8 @@
 
     .outlined {
         @apply bg-white text-primary-color hover:bg-transparent hover:text-white hover:border-white;
+    }
+    .material-symbols-rounded {
+        @apply text-primary-text;
     }
 }

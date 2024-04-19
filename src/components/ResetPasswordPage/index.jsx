@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { querySendNewPassword, queryPrankTrainings } from '../../query';
 import TrainingCard from '../HomePage/TrainingCard';
 import { confirmPasswordRegex, passwordRegex } from '../../regex';
-import Security from '../../../public/assets/Security On-bro';
+import Security from '/public/assets/Security On-bro';
 
 const ResetPassword = () => {
     const [newPassword, setPassword] = useState('');
@@ -71,7 +71,7 @@ const ResetPassword = () => {
                         Il semblerait que vous essayez d'accéder à un endroit
                         secret...
                     </h4>
-                    <div alt=""><Security /></div>
+                    <div><Security/></div>
                     <div className="divider"></div>
                     <div className="flex justify-center">
                         <a href="/" className="btn bg-green-600 text-white">
@@ -143,7 +143,7 @@ const ResetPassword = () => {
                 {isLoading && (
                     <>
                         <h4 className="text-xl md:text-3xl mb-5  text-center">
-                            Pour éviter que celà recommence, O'Talent vous
+                            Pour éviter que cela recommence, O'Talent vous
                             recommande...
                         </h4>
                         <div className="flex flex-col md:flex-row gap-5 mb-5">

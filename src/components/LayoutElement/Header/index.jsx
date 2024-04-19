@@ -12,72 +12,61 @@ import { queryAllCategories } from '../../../query';
 import Navbar from './ModalProfile';
 import ConnectionFormModal from './ConnectionFormModal';
 import SearchBar from './SearchBar';
-import LogoTitle from '../../../../public/assets/LogoTitle';
+import LogoTitle from '/public/assets/LogoTitle';
 
-import Chat from './Chat';
+import Chat from '../Chat';
 import ModalSearchBar from './modalSearchBar';
 
-
 export default function Header() {
-    const dispatch = useAppDispatch();
-    const [isConnected, setIsConnected] = useState(false);
-    const [smallScreen, setSmallScreen] = useState(false)
+  const dispatch = useAppDispatch();
+  const [isConnected, setIsConnected] = useState(false);
 
-    // const getWidthAndChangeStateScreen = () => {
-    //     if(window.screen.width < 650){
-    //         setSmallScreen(true)
-    //     } else {
+  const getAllCategories = useCallback(async () => {
+    try {
+      const response = await requestWithoutVariable(queryAllCategories);
+      const fetchedCategories = response.data.categories || [];
+      dispatch(getCategories(fetchedCategories));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }, [dispatch]);
 
-    //     }
-    // }
+  const dispatchTokenInformation = useCallback(() => {
+    const token = localStorage.getItem('token');
+    if (token && !isConnected) {
+      const tokenValue = jwtDecode(token);
+      dispatch(getTokenInformation(tokenValue));
+      setIsConnected(true);
+    }
+  }, [dispatch, isConnected]);
 
-    const getAllCategories = useCallback(async () => {
-        try {
-            const response = await requestWithoutVariable(queryAllCategories);
-            const fetchedCategories = response.data.categories || [];
-            dispatch(getCategories(fetchedCategories));
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }, [dispatch]);
+  useEffect(() => {
+    dispatchTokenInformation();
+  }, [dispatchTokenInformation]);
 
-    const dispatchTokenInformation = useCallback(() => {
-        const token = localStorage.getItem('token');
-        if (token && !isConnected) {
-            const tokenValue =
-                jwtDecode(token);
-            dispatch(getTokenInformation(tokenValue));
-            setIsConnected(true);
-        }
-    }, [dispatch, isConnected]);
+  useEffect(() => {
+    getAllCategories();
+  }, [getAllCategories]);
 
-    useEffect(() => {
-        dispatchTokenInformation();
-    }, [dispatchTokenInformation]);
+  return (
+    <>
+      <header className=" bg-primary-color flex justify-between items-center z-10 min-h-[10vh] p-2 sticky top-0 lg:gap-32">
+        <div className="ml-3">
+          <Link to="/" aria-label="Accueil" onClick={scrollTop}>
+            <LogoTitle />
+          </Link>
+        </div>
+        <Chat />
+        <div className="hidden grow mr-5 lg:block">
+          <SearchBar />
+        </div>
+        <div className="mr-5 grow flex justify-end lg:hidden">
+          <ModalSearchBar />
+        </div>
 
-    useEffect(() => {
-        getAllCategories();
-    }, [getAllCategories]);
-
-    return (
-        <>
-            <header className=" bg-primary-color flex items-center z-10 min-h-[10vh] p-2 sticky top-0">
-                <div className='grow ml-3'><Link
-                    to="/"
-                    aria-label="Accueil"
-                    onClick={scrollTop}
-                >
-                    <LogoTitle />
-
-                </Link></div>
-                <Chat />
-                <div className='hidden grow mr-5 lg:block'><SearchBar /></div>
-                <div className='mr-5 lg:hidden'><ModalSearchBar /></div>
-
-                {!isConnected && <ConnectionFormModal />}
-                {isConnected && <Navbar />}
-                
-            </header>
-        </>
-    );
+        {!isConnected && <ConnectionFormModal />}
+        {isConnected && <Navbar />}
+      </header>
+    </>
+  );
 }

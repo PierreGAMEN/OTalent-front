@@ -30,7 +30,7 @@ export default function OrganizationEditPage () {
       
 
             } catch(errors) {
-                console.log(errors)
+             
             }  finally {
                 setIsLoading(false);
             }

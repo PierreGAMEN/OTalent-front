@@ -4,261 +4,264 @@ import 'react-toastify/dist/ReactToastify.css';
 import { loginRequest, requestWithVariable } from '../../../utils';
 import { queryAddMember } from '../../../query';
 import {
-    confirmPasswordRegex,
-    emailRegex,
-    isNeeded,
-    passwordRegex,
-    postalCodeRegex,
+  confirmPasswordRegex,
+  emailRegex,
+  isNeeded,
+  passwordRegex,
+  postalCodeRegex,
 } from '../../../regex';
 import ImageUpload from '../Upload';
 import { useAppSelector } from '../../../store/redux-hook/hook';
 
 export default function FormMember() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [city, setCity] = useState('');
-    const [postalCode, setPostalCode] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [stepBienvenue, setstepBienvenue] = useState(false);
-    const [step1, setstep1] = useState(true);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [stepBienvenue, setstepBienvenue] = useState(false);
+  const [step1, setstep1] = useState(true);
 
-    const uploadImage = useAppSelector((state) => state.idImage.id);
+  const uploadImage = useAppSelector(state => state.idImage.id);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault();
 
-        if (
-            !validateFormData(
-                firstName,
-                lastName,
-                email,
-                password,
-                confirmPassword,
-                postalCode
-            )
-        ) {
-            return false;
-        }
-
-        const variables = {
-            input: {
-                firstname: firstName,
-                lastname: lastName,
-                email: email.toLowerCase(),
-                password: password,
-                postalCode: postalCode,
-            },
-        };
-
-        if (city.trim() !== '') {
-            variables.input.city = city;
-        }
-
-        if (uploadImage) {
-            variables.input.avatar = uploadImage;
-        }
-
-        try {
-            const response = await requestWithVariable(
-                queryAddMember,
-                variables
-            );
-            const errorMessage = [
-                "la valeur d'une clé dupliquée rompt la contrainte unique « member_email_key »",
-                'duplicate key value violates unique constraint "member_email_key"',
-                'This email is already used',
-            ];
-            if (
-                response.errors &&
-                errorMessage.includes(response.errors[0].message)
-            ) {
-                toast.error('Oups, votre adresse est déjà utilisée.');
-                return false;
-            }
-            toast.success('Le formulaire a été soumis avec succès !');
-            await login();
-            setstepBienvenue(true);
-            setstep1(false);
-            return true;
-        } catch (error) {
-            console.error('Erreur lors de la soumission du formulaire:', error);
-            return false;
-        }
-    };
-
-    const login = async () => {
-        const variables = {
-            email: email,
-            password: password,
-        };
-        const logger = await loginRequest(variables);
-    };
-
-    function validateFormData(
+    if (
+      !validateFormData(
         firstName,
         lastName,
         email,
         password,
         confirmPassword,
         postalCode
+      )
     ) {
-        if (!isNeeded(firstName, 'Le prénom')) {
-            toast.error('Le prénom est requis');
-            return false;
-        }
-        if (!isNeeded(lastName, 'Le nom')) {
-            toast.error('Le nom est requis');
-            return false;
-        }
-        if (!postalCodeRegex(postalCode)) {
-            return false;
-        }
-        if (!emailRegex(email)) {
-            toast.error("L'adresse email n'a pas le bon format");
-            return false;
-        }
-        if (!passwordRegex(password)) {
-            return false;
-        }
-        if (!confirmPasswordRegex(password, confirmPassword)) {
-            return false;
-        }
-        if (password !== confirmPassword) {
-            toast.error('Les mots de passe ne correspondent pas');
-            return false;
-        }
-
-        return true;
+      return false;
     }
 
-    return (
-        <div>
-            <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-                {step1 && (
-                    <>
-                        <label
-                            className="input input-bordered flex items-center gap-2"
-                            htmlFor="firstName">
-                            <span className="material-symbols-rounded text-2xl">person</span>
-                            <input
-                                className="grow"
-                                type="text"
-                                id="firstName"
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                                placeholder="First Name"
-                                required
-                            />
-                        </label>
+    const variables = {
+      input: {
+        firstname: firstName,
+        lastname: lastName,
+        email: email.toLowerCase(),
+        password: password,
+        postalCode: postalCode,
+      },
+    };
 
-                        <label
-                            className="input input-bordered flex items-center gap-2"
-                            htmlFor="lastName">
-                            <span className="material-symbols-rounded text-2xl">person</span>
-                            <input
-                                type="text"
-                                id="lastName"
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
-                                placeholder="Last Name"
-                                required
-                            />
-                        </label>
+    if (city.trim() !== '') {
+      variables.input.city = city;
+    }
 
-                        <label
-                            className="input input-bordered flex items-center gap-2"
-                            htmlFor="city">
-                            <span className="material-symbols-rounded text-2xl">location_on</span>
-                            <input
-                                type="text"
-                                id="city"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                                placeholder="City"
-                            />
-                        </label>
+    if (uploadImage) {
+      variables.input.avatar = uploadImage;
+    }
 
-                        <label
-                            className="input input-bordered flex items-center gap-2"
-                            htmlFor="postalCode">
-                            <span className="material-symbols-rounded text-2xl">map</span>
-                            <input
-                                type="text"
-                                id="postalCode"
-                                value={postalCode}
-                                onChange={(e) => setPostalCode(e.target.value)}
-                                placeholder="Postal Code"
-                            />
-                        </label>
+    try {
+      const response = await requestWithVariable(queryAddMember, variables);
+      const errorMessage = [
+        "la valeur d'une clé dupliquée rompt la contrainte unique « member_email_key »",
+        'duplicate key value violates unique constraint "member_email_key"',
+        'This email is already used',
+      ];
+      if (
+        response.errors &&
+        errorMessage.includes(response.errors[0].message)
+      ) {
+        toast.error('Oups, votre adresse est déjà utilisée.');
+        return false;
+      }
+      toast.success('Le formulaire a été soumis avec succès !');
+      await login();
+      setstepBienvenue(true);
+      setstep1(false);
+      return true;
+    } catch (error) {
+      console.error('Erreur lors de la soumission du formulaire:', error);
+      return false;
+    }
+  };
 
-                        <label
-                            className="input input-bordered flex items-center gap-2"
-                            htmlFor="email">
-                            <span className="material-symbols-rounded text-2xl">mail</span>
-                            <input
-                                type="email"
-                                id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="florian@exemple.com"
-                                required
-                            />
-                        </label>
+  const login = async () => {
+    const variables = {
+      email: email,
+      password: password,
+    };
+    const logger = await loginRequest(variables);
+  };
 
-                        <label
-                            className="input input-bordered flex items-center gap-2"
-                            htmlFor="password">
-                            <span className="material-symbols-rounded text-2xl">key</span>
-                            <input
-                                type="password"
-                                id="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Password"
-                                required
-                            />
-                        </label>
+  function validateFormData(
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+    postalCode
+  ) {
+    if (!isNeeded(firstName, 'Le prénom')) {
+      toast.error('Le prénom est requis');
+      return false;
+    }
+    if (!isNeeded(lastName, 'Le nom')) {
+      toast.error('Le nom est requis');
+      return false;
+    }
+    if (!postalCodeRegex(postalCode)) {
+      return false;
+    }
+    if (!emailRegex(email)) {
+      toast.error("L'adresse email n'a pas le bon format");
+      return false;
+    }
+    if (!passwordRegex(password)) {
+      return false;
+    }
+    if (!confirmPasswordRegex(password, confirmPassword)) {
+      return false;
+    }
+    if (password !== confirmPassword) {
+      toast.error('Les mots de passe ne correspondent pas');
+      return false;
+    }
 
-                        <label
-                            className="input input-bordered flex items-center gap-2"
-                            htmlFor="confirmPassword">
-                            <span className="material-symbols-rounded text-2xl">key</span>
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                value={confirmPassword}
-                                onChange={(e) =>
-                                    setConfirmPassword(e.target.value)
-                                }
-                                placeholder="Confirm Password"
-                                required
-                            />
-                        </label>
+    return true;
+  }
 
-                        <ImageUpload />
+  return (
+    <div>
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+        {step1 && (
+          <>
+            <label
+              className="input input-bordered flex items-center gap-2"
+              htmlFor="firstName"
+            >
+              <span className="material-symbols-rounded text-2xl">person</span>
+              <input
+                className="grow"
+                type="text"
+                id="firstName"
+                value={firstName}
+                onChange={e => setFirstName(e.target.value)}
+                placeholder="First Name"
+                required
+              />
+            </label>
 
-                        <button
-                            className="btn bg-green-600 text-white"
-                            type="submit">
-                            Submit
-                        </button>
-                    </>
-                )}
-            </form>
-            {stepBienvenue && (
-                <div className="flex flex-col gap-5">
-                    <p>Merci pour votre inscription !</p>
-                    <button
-                        onClick={() => {
-                            location.reload();
-                        }}
-                        className="btn bg-green-600 text-white">
-                        Continuer sur le site
-                    </button>
-                </div>
-            )}
+            <label
+              className="input input-bordered flex items-center gap-2"
+              htmlFor="lastName"
+            >
+              <span className="material-symbols-rounded text-2xl">person</span>
+              <input
+                type="text"
+                id="lastName"
+                value={lastName}
+                onChange={e => setLastName(e.target.value)}
+                placeholder="Last Name"
+                required
+              />
+            </label>
+
+            <label
+              className="input input-bordered flex items-center gap-2"
+              htmlFor="city"
+            >
+              <span className="material-symbols-rounded text-2xl">
+                location_on
+              </span>
+              <input
+                type="text"
+                id="city"
+                value={city}
+                onChange={e => setCity(e.target.value)}
+                placeholder="City"
+              />
+            </label>
+
+            <label
+              className="input input-bordered flex items-center gap-2"
+              htmlFor="postalCode"
+            >
+              <span className="material-symbols-rounded text-2xl">map</span>
+              <input
+                type="text"
+                id="postalCode"
+                value={postalCode}
+                onChange={e => setPostalCode(e.target.value)}
+                placeholder="Postal Code"
+              />
+            </label>
+
+            <label
+              className="input input-bordered flex items-center gap-2"
+              htmlFor="email"
+            >
+              <span className="material-symbols-rounded text-2xl">mail</span>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="florian@exemple.com"
+                required
+              />
+            </label>
+
+            <label
+              className="input input-bordered flex items-center gap-2"
+              htmlFor="password"
+            >
+              <span className="material-symbols-rounded text-2xl">key</span>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Password"
+                required
+              />
+            </label>
+
+            <label
+              className="input input-bordered flex items-center gap-2"
+              htmlFor="confirmPassword"
+            >
+              <span className="material-symbols-rounded text-2xl">key</span>
+              <input
+                type="password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                placeholder="Confirm Password"
+                required
+              />
+            </label>
+
+            <ImageUpload />
+
+            <button className="btn btn-success" type="submit">
+              S'inscrire
+            </button>
+          </>
+        )}
+      </form>
+      {stepBienvenue && (
+        <div className="flex flex-col gap-5">
+          <p>Merci pour votre inscription !</p>
+          <button
+            onClick={() => {
+              location.reload();
+            }}
+            className="btn btn-success"
+          >
+            Continuer sur le site
+          </button>
         </div>
-    );
+      )}
+    </div>
+  );
 }

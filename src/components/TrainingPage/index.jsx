@@ -22,7 +22,6 @@ const TrainingPage = () => {
         const response = await requestWithVariable(queryOneTraining, variables);
         setLoader(true);
         setDataFetch(response);
-        console.log('test', response);
         return response;
     };
 

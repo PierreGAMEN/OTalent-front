@@ -1,5 +1,5 @@
 import React from 'react';
-import ServerError from '../../../public/assets/Server-Error-bro';
+import ServerError from '/public/assets/Server-Error-bro';
 
 function NotFoundPage() {
     return (

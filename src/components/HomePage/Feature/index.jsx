@@ -3,7 +3,9 @@ import GroupChat from '../../../../public/assets/Group Chat-bro';
 import LearningBro from '../../../../public/assets/Learning-bro';
 import FeatureCard from './FeatureCard';
 import React from 'react';
-
+import Fast from '../../../../public/assets/Fast loading-bro';
+import LearningBro from '../../../../public/assets/Learning-bro';
+import GroupChat from '../../../../public/assets/Group Chat-bro';
 /**
  * Feature component
  * @returns {tsX.Element} The Feature component
@@ -13,7 +15,7 @@ export default function Feature() {
         {
             title: 'Rapide',
             description: `Une interface intuitive \n Des avis utilisateurs pour se repérer`,
-            image: <Fast />
+            image: <Fast/>,
         },
         {
             title: 'Complet',
@@ -25,7 +27,7 @@ export default function Feature() {
             title: 'Actif',
             description:
                 'Une communauté active \n Banque mise à jour régulièrement',
-            image: <GroupChat />
+            image: <GroupChat />,
         },
     ];
 
