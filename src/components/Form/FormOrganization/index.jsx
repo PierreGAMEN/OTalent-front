@@ -67,6 +67,8 @@ export default function FormOrganization() {
       },
     };
 
+    console.log(formValues.siret)
+
     if (formValues.urlSite !== '') {
       variables.input.urlSite = formValues.urlSite;
     }
@@ -216,7 +218,7 @@ export default function FormOrganization() {
               <input
                 id="siret"
                 name="siret"
-                value={formValues.siret}
+                value={formValues.siret.replace(/\s/g, '')}
                 onChange={handleChange}
                 placeholder="N° SIRET"
                 className="grow w-full"

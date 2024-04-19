@@ -26,6 +26,7 @@ export default function HeaderOrganizationEditPage({ data }) {
   const modalRef = useRef(null);
   const user = useAppSelector(state => state.token.user);
   const [openModalAcceptDelete, setOpenModalAcceptDelete] = useState(false);
+  const [descriptionIsEdit, setDescriptionIsEdit] = useState(false)
 
   const handleChange = (e, setter) => {
     const value = e.target.value;
@@ -359,13 +360,49 @@ export default function HeaderOrganizationEditPage({ data }) {
                   </div>
                 )}
               </div>
+              
+              {/* {descriptionIsEdit && 
+              <>
+              <div className="p-10 flex flex-col md:flex-row md:justify-around items-start md:items-center">
+              <dialog className="modal" open>
+                <form className="modal-box overflow-auto">
+                  <div className="mt-4">
+                    <label className="input input-bordered flex border border-black items-center gap-2">
+                      <span className="material-symbols-rounded text-2xl">
+                        store
+                      </span>
+                      <input
+                        className="grow"
+                        onChange={e => handleChange(e, setRaisonSocial)}
+                        type="text"
+                        value={raisonSocial}
+                        placeholder="Raison sociale"
+                      />
+                    </label>
+                  </div>
+                <button
+                      className="btn btn-success"
+                      onClick={updateOrganizationInformation}
+                    >
+                      Valider les modifications
+                    </button>
+                    <button
+                      className="btn btn-outline btn-error"
+                      onClick={() => setIsEdit(false)}
+                    >
+                      Annuler les modifications
+                    </button>
+                    </form>
+                    </dialog>
+                    </div>
+                </>} */}
               <div className="ml-3 p-10 mt-10 lg:text-base lg:ml-12 lg:mt-60 lg:w-1/2">
                 <div className="flex justify-between">
                   <h4 className="mb-3">Votre Description :</h4>
                   <button
                     className="material-symbols-rounded"
                     aria-label="Modifier ma description"
-                    onClick={() => setIsEdit(true)}
+                    onClick={() => setDescriptionIsEdit(true)}
                   >
                     edit
                   </button>
