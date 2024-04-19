@@ -176,6 +176,7 @@ export default function FormOrganization() {
     const variables = {
       siret: formValues.siret.replace(/\s/g, ''),
     };
+    console.log(variables);
     const responseWithError = await requestWithVariable(
       queryGetInformationSiret,
       variables
@@ -216,7 +217,7 @@ export default function FormOrganization() {
               <input
                 id="siret"
                 name="siret"
-                value={formValues.siret}
+                value={formValues.siret.replace(/\s/g, '')}
                 onChange={handleChange}
                 placeholder="N° SIRET"
                 className="grow w-full"
