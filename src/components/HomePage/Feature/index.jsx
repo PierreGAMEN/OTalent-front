@@ -1,11 +1,9 @@
-import Fast from '../../../../public/assets/Fast loading-bro';
-import GroupChat from '../../../../public/assets/Group Chat-bro';
-import LearningBro from '../../../../public/assets/Learning-bro';
+import Fast from '/public/assets/Fast loading-bro';
+import GroupChat from '/public/assets/Group Chat-bro';
+import LearningBro from '/public/assets/Learning-bro';
 import FeatureCard from './FeatureCard';
 import React from 'react';
-import Fast from '../../../../public/assets/Fast loading-bro';
-import LearningBro from '../../../../public/assets/Learning-bro';
-import GroupChat from '../../../../public/assets/Group Chat-bro';
+
 /**
  * Feature component
  * @returns {tsX.Element} The Feature component

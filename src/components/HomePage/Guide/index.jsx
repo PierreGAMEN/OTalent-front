@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
-import WhitePath from '../../../assets/WhitePath';
+import WhitePath from '/public/assets/WhitePath';
 import React from 'react';
 import Treasure from '/public/assets/Treasure-bro';
 import Account from '/public/assets/Account-bro';
