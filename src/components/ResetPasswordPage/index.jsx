@@ -143,7 +143,7 @@ const ResetPassword = () => {
                 {isLoading && (
                     <>
                         <h4 className="text-xl md:text-3xl mb-5  text-center">
-                            Pour éviter que celà recommence, O'Talent vous
+                            Pour éviter que cela recommence, O'Talent vous
                             recommande...
                         </h4>
                         <div className="flex flex-col md:flex-row gap-5 mb-5">
