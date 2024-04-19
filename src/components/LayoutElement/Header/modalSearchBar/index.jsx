@@ -109,7 +109,7 @@ const ModalSearchBar = () => {
           </button>
           <button
             onClick={() => setOpenModalSearch(false)}
-            className="btn block"
+            className="btn btn-active block text-black"
           >
             Fermer
           </button>

@@ -37,7 +37,7 @@ export default function Hero() {
                     <h4>Découvrez nos formations</h4>
                 </button>
             </div>
-            <div className="w-1/2 h-full hidden xl:flex items-center">
+            <div className="w-1/2 mb-12 hidden xl:flex items-center">
                 <Carousel updateTraining={updateTraining} />
             </div>
         </div>

@@ -103,22 +103,24 @@ export default function OrganizationTrainings({ data }) {
                           <p>
                             Voulez-vous vraiment supprimer cette formation ?
                           </p>
+                          <div className='flex justify-around mt-2'>
                           <button
                             key={training.id}
                             id={training.id}
                             onClick={deleteTraining}
                             className="btn btn-outline btn-error"
-                          >
+                            >
                             OUI
                           </button>
                           <button
                             onClick={() => {
                               setOpenModalAcceptToDelete(false);
                             }}
-                            className="btn"
-                          >
+                            className="btn btn-active"
+                            >
                             NON
                           </button>
+                          </div>
                         </div>
                       )}
                     </div>

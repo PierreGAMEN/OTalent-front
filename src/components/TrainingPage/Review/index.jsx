@@ -170,7 +170,7 @@ export default function ReviewTrainingPage({ data }) {
         </div>
       )}
       {currentComment.length < 1 && (
-        <p>Il n'y a pas encore de commentaire sur cette formation</p>
+        <p className='m-5'>Il n'y a pas encore de commentaire sur cette formation</p>
       )}
     </section>
   );
