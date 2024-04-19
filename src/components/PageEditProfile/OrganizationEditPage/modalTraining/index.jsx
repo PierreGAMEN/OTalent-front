@@ -92,7 +92,7 @@ const ModalTraining = () => {
   };
 
   useEffect(() => {
-    console.log(formData);
+
   }, [formData]);
 
   const getTrainingInformation = async () => {

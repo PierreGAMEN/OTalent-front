@@ -41,7 +41,6 @@ export const requestWithVariable = async (query, variables) => {
             variables,
         });
 
-        console.log("Réponse de l'API:", response);
         return response;
     } catch (error) {
         const axiosError = error;
@@ -70,7 +69,6 @@ export const requestWithoutVariable = async (query) => {
             query,
         });
 
-        console.log("Réponse de l'API:", response);
         return response;
     } catch (error) {
         console.error("Erreur lors de l'envoi des données:", error);
@@ -100,7 +98,6 @@ export const loginRequest = async (variables) => {
             localStorage.setItem('token', response.data.data.login.token);
         }
 
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Erreur lors de la requête de connexion :', error);

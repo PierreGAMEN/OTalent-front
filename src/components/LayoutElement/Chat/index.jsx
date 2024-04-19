@@ -16,7 +16,7 @@ function Chat() {
     setsocket(newSocket);
 
     newSocket.onopen = () => {
-      console.log('WebSocket connection established.');
+   
 
       newSocket.send(JSON.stringify({ type: 'getAllMessages' }));
     };
@@ -36,7 +36,7 @@ function Chat() {
   }, []);
   const sendMessage = () => {
     if (messageInput !== '' && socket && socket.readyState === WebSocket.OPEN) {
-      console.log(user);
+
       const message = {
         type: 'message',
         data: messageInput,
