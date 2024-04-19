@@ -60,7 +60,6 @@ export default function OrganizationTrainings({ data }) {
                 {data.trainings.map((training, index) => (
                   <div key={training.id} className="w-[308px]">
                     <TrainingCard
-                      key={training.id}
                       label={training.label}
                       dateCreated={''}
                       duration={training.duration}
@@ -76,7 +75,6 @@ export default function OrganizationTrainings({ data }) {
                     <div className="flex flex-col gap-2 justify-around mt-2">
                       <div className="flex justify-around">
                         <button
-                          key={training.id}
                           onClick={() => {
                             openModal(training.id);
                           }}
@@ -87,7 +85,6 @@ export default function OrganizationTrainings({ data }) {
                           edit
                         </button>
                         <button
-                          key={training.id}
                           id={training.id}
                           onClick={() => {
                             setOpenModalAcceptToDelete(true);
