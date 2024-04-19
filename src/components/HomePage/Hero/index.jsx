@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Carousel from './Carousel';
 import React from 'react';
+import Certification from '/public/assets/Certification-bro';
 
 /**
  * Hero component

@@ -376,7 +376,7 @@ export default function HeaderEditProfilPageMember({ data, memberId }) {
                   setEditCategories(false);
                 }}
               >
-                Annuler les changements
+                Fermer la fenêtre
               </button>
             </form>
           </dialog>

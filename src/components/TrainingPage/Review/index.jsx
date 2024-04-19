@@ -135,7 +135,7 @@ export default function ReviewTrainingPage({ data }) {
                       <p className="md:text-xs italic">
                         Le{' '}
                         {handleDateFormat(
-                          review.created_at || Date.now().toString()
+                          review.created_at || Date.now()
                         )}
                       </p>
                     </div>

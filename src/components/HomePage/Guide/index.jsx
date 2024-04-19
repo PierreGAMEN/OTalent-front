@@ -2,6 +2,9 @@ import { useEffect, useRef, useCallback } from 'react';
 import WhitePath from '../../../assets/WhitePath';
 import ColoredPath from '../../../assets/ColoredPath';
 import React from 'react';
+import Treasure from '/public/assets/Treasure-bro';
+import Account from '/public/assets/Account-bro';
+import Typing from '/public/assets/Typing-bro';
 
 /**
  * Guide component displays a guide with a scrolling effect.
@@ -62,9 +65,7 @@ const Guide = () => {
             <div className="flex flex-col xl:flex-row h-full w-full items-start justify-center gap-2">
                 <div className="flex flex-col h-full justify-center items-center w-full">
                     <div className="relative flex flex-col p-5 gap-2 w-1/2 bg-white rounded-2xl shadow-xl shadow-black min-w-72">
-                        <img
-                            src="/src/assets/Treasure-bro.svg"
-                            className="absolute hidden xl:block w-48 -left-32 -top-40"></img>
+                        <div className='absolute hidden xl:block w-48 -left-32 -top-40'><Treasure/></div>
                         <h4>Découvrez nos formations</h4>
                         <p>
                             Parcourez la liste de nos formations pour trouver
@@ -91,9 +92,7 @@ const Guide = () => {
                 </div>
                 <div className="flex flex-col h-full gap-2 justify-around xl:justify-between items-center w-full">
                     <div className="relative flex flex-col p-5 gap-2 w-1/2 bg-white rounded-2xl shadow-xl shadow-black min-w-72">
-                        <img
-                            src="/src/assets/Account-bro.svg"
-                            className="absolute hidden xl:block w-48 -right-32 -top-32"></img>
+                        <div className='absolute hidden xl:block w-48 -right-32 -top-32'><Account/></div>
                         <h4>Inscrivez-vous</h4>
                         <p>
                             Renseignez vos informations et choisissez vos
@@ -102,9 +101,7 @@ const Guide = () => {
                         </p>
                     </div>
                     <div className="relative flex flex-col p-5 gap-2 w-1/2 bg-white rounded-2xl shadow-xl shadow-black min-w-72">
-                        <img
-                            src="/src/assets/Typing-bro.svg"
-                            className="absolute hidden xl:block w-48 -right-32 -top-32"></img>
+                        <div className="absolute hidden xl:block w-48 -right-32 -top-32"><Typing/></div>
                         <h4>Contactez les organismes</h4>
                         <p>
                             Prenez contact avec les organismes de formation qui
