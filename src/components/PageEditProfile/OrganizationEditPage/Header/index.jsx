@@ -144,7 +144,7 @@ export default function HeaderOrganizationEditPage({ data }) {
       <div className="relative sm:pr-5">
         <div className="hidden lg:inline-block h-40 w-full bg-primary-color absolute top-0"></div>
         <div className="flex flex-col items-center lg:flex-row">
-          {isEdit ? (
+          {isEdit && (
             <div className="p-10 flex flex-col md:flex-row md:justify-around items-start md:items-center">
               <dialog className="modal" open>
                 <form className="modal-box overflow-auto">
@@ -265,10 +265,10 @@ export default function HeaderOrganizationEditPage({ data }) {
                 </form>
               </dialog>
             </div>
-          ) : (
+          )}
             <>
               <div></div>
-              <div className="modal-box flex flex-col gap-3 max-h-min sm:items-center">
+              <div className="modal-box flex flex-col gap-3 max-h-min sm:items">
                 <button
                   className="material-symbols-rounded absolute top-4 right-10"
                   aria-label="Modifier mes informations"
@@ -398,7 +398,6 @@ export default function HeaderOrganizationEditPage({ data }) {
                 <p className="text-justify">{data ? data.description : ''}</p>
               </div>
             </>
-          )}
         </div>
       </div>
     )
