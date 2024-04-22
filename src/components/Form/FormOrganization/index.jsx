@@ -145,11 +145,11 @@ export default function FormOrganization() {
       return false;
     }
 
-    const siretRegex = /^\d{14}$/;
-    if (!siretRegex.test(siret)) {
-      toast.error('Le numéro de SIRET doit contenir 14 chiffres');
-      return false;
-    }
+    // const siretRegex = /^\d{14}$/;
+    // if (!siretRegex.test(siret)) {
+    //   toast.error('Le numéro de SIRET doit contenir 14 chiffres');
+    //   return false;
+    // }
 
     const passwordRegex =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
