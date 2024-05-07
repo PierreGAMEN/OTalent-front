@@ -39,3 +39,9 @@ Ensure you have Node.ts and npm installed on your machine before running the com
 
 ### Preview 
 
+Here's a quick overview of the site. There are many features to discover directly on our platform.
+
+![Home](/public/assets/preview1.png)
+![Home](/public/assets/preview2.png)
+![Home](/public/assets/preview3.png)
+![Home](/public/assets/preview4.png)
