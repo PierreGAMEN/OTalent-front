@@ -13,6 +13,12 @@ One of O'Talent's main features is its extensive library of courses, covering a 
 Our site is currently under development.
 ## How to use
 
+### Web
+
+Follow the link : https://otalentoclock.netlify.app/
+
+Warning : The server side is not always on. Please send me a message if you wish to access all the site's features.
+
 ### Locally:
 
 1. **Clone the Repository:**
@@ -30,3 +36,6 @@ npm run dev
 
 
 Ensure you have Node.ts and npm installed on your machine before running the commands.
+
+### Preview 
+
